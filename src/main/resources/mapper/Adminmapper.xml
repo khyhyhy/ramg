@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdt.finalproject.mapper.AdminMapper">
+
+<!-- select -->
+<!--전체 회원 리스트-->
+<select id="member" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+    SELECT * FROM charging.member_t
+    ORDER BY m_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<!-- (Paging) 회원 리스트 총 갯수 -->
+<select id="admin_member_count" resultType="int">
+SELECT COUNT(*) FROM charging.member_t
+</select>
+
+<!--회원 정보 상세보기-->
+<select id="member_view" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = #{m_idx}
+</select>
+
+<!--공지사항 전체보기-->
+<resultMap type="com.kdt.finalproject.vo.BbsVO" id="map1">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="notice_log" column="b_idx"/>
+</resultMap>
+
+<select id="notice_all" resultMap="map1" parameterType="map">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+    SELECT * FROM charging.bbs_t 
+    ORDER BY b_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<!--등록일 가져오기-->
+<select id="notice_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+
+<!-- (Paging) 공지사항 총 갯수 -->
+<select id="admin_notice_count" resultType="int">
+SELECT COUNT(*) FROM charging.bbs_t
+</select>
+
+
+
+<!-- 공지 보기 -->
+<select id="notice_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+SELECT * FROM charging.bbs_t
+WHERE b_idx = #{b_idx}
+</select>
+
+<!-- insert -->
+
+<!-- 공지 작성 -->
+<insert id="notice_write_ok" parameterType="Map" useGeneratedKeys="true" keyProperty="b_idx" keyColumn="b_idx">
+INSERT INTO charging.bbs_t(b_title, b_content, b_type, b_status, b_to, b_hit, b_ip, b_oriname, b_filename)
+VALUES(#{b_title}, #{b_content}, 0, 0, #{b_to}, 0, #{b_ip}, #{b_oriname}, #{b_filename})
+</insert>
+
+<!-- 공지 작성 (로그)-->
+<insert id="notice_write_ok2" parameterType="Map">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
+</insert>
+
+
+<!-- update -->
+
+<!--공지 비공개 변경-->
+<update id="notice_changeStatus1" parameterType="String">
+UPDATE charging.bbs_t
+SET b_status = 1
+WHERE b_idx = #{b_idx}
+</update>
+
+<!--공지 공개 변경-->
+<update id="notice_changeStatus0" parameterType="String">
+UPDATE charging.bbs_t
+SET b_status = 0
+WHERE b_idx = #{b_idx}
+</update>
+
+<!--회원 탈퇴-->
+<update id="member_out" parameterType="String">
+UPDATE charging.member_t
+SET m_status = 1
+WHERE m_idx = #{m_idx}
+</update>
+
+</mapper>

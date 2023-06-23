@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdt.finalproject.mapper.EdongsikMapper">
+
+<!-- select -->
+<select id="init" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = '1'
+</select>
+
+<!-- <select id="getSw" parameterType="String" resultType="com.kdt.finalproject.vo.CwriteVO">
+  SELECT * FROM charging.car_write
+  WHERE m_idx = #{m_idx}
+</select> -->
+
+<resultMap type="com.kdt.finalproject.vo.CwriteVO" id="map11">
+  	<id column="c_idx" property="c_idx"/>
+  	
+  	<collection property="car_list" ofType="com.kdt.finalproject.vo.CarVO" select="carList2" column="c_idx"/>
+  </resultMap>
+
+<select id="carList" resultMap="map11" parameterType="String">
+  SELECT * FROM charging.car_write
+  WHERE m_idx = #{m_idx}
+</select>
+
+<select id="carList2" resultType="com.kdt.finalproject.vo.CarVO" >
+	SELECT * FROM charging.car_t
+  	WHERE c_idx = #{c_idx}
+</select>
+
+<!-- insert -->
+
+
+<!-- update -->
+</mapper>
