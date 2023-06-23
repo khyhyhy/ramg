@@ -7,11 +7,15 @@ import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.MemVO;
 
 public interface AdminMapper {
-    List<MemVO> member(int begin, int end);
+    List<MemVO> member(int begin, int end, String searchType, String searchValue);
+
+    int member_count(String searchType, String searchValue);
 
     MemVO member_view(String m_idx);
 
-    List<BbsVO> notice_all(int begin, int end);
+    List<BbsVO> notice_all(int begin, int end, String searchType, String searchValue);
+
+    int notice_count(String searchType, String searchValue);
 
     BbsVO notice_view(String b_idx); // 공지 상세보기
 
@@ -25,7 +29,4 @@ public interface AdminMapper {
 
     int member_out(String m_idx);
 
-    int admin_notice_count();
-
-    int admin_member_count();
 }

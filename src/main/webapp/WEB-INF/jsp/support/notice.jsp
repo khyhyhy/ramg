@@ -16,12 +16,25 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <table style="width: 1100px;" class="table table-hover">
+        <h1>공지사항</h1>
+        <form action="">
+            <div style="height: 60px; float: right;">
+                <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
+                    <option value="0">제목</option>
+                    <option value="1">내용</option>
+                    <option value="2">제목+내용</option>
+                </select>
+                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <button type="submit" class="btn btn-outline-info">검색</button>
+            </div>
+        </form>
+
+        <table class="table table-hover">
             <colgroup>
-                <col width="100px">
+                <col width="150px">
                 <col width="*">
-                <col width="200px">
-                <col width="100px">
+                <col width="400px">
+                <col width="150px">
             </colgroup>
             <thead>
                 <tr class="table-info">
@@ -50,7 +63,7 @@ pageEncoding="UTF-8"%>
                 </c:forEach>
             </tbody>
         </table>
-        <div style="width: 1100px; height: 50px;" >
+        <div style="height: 80px;" >
             ${pageCode}
         </div>
     </div>

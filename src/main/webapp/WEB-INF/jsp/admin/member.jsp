@@ -17,7 +17,20 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <table style="width: 1100px;" class="table table-hover">
+        <h1>회원관리</h1>
+        <form action="/admin/member" method="post">
+            <div style="height: 60px; float: right;">
+                <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
+                    <option value="0">이름</option>
+                    <option value="1">이메일</option>
+                    <option value="2">전화번호</option>
+                </select>
+                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <button type="submit" class="btn btn-outline-info">검색</button>
+            </div>
+        </form>
+
+        <table class="table table-hover">
             <colgroup>
                 <col width="100px">
                 <col width="150px">
@@ -37,10 +50,15 @@ pageEncoding="UTF-8"%>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${ar}" var="vo" varStatus="st">
+                <c:if test="${ar == null}">
                     <tr>
-                        <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
-                        <td><a href="/admin/member_view?m_idx=${vo.m_idx}&cPage=${nowPage}">${vo.m_name}</a></td>
+                        <td colspan="5">검색 결과가 없습니다.</td>
+                    </tr>
+                </c:if>
+                <c:forEach items="${ar}" var="vo">
+                    <tr>
+                        <td>${vo.m_idx}</td>
+                        <td><a href="javascript:sub('${vo.m_idx}')">${vo.m_name}</a></td>
                         <td>${vo.m_email}</td>
                         <td>
                             <c:if test="${vo.m_class == 0}">
@@ -66,11 +84,25 @@ pageEncoding="UTF-8"%>
                 </c:forEach>
             </tbody>
         </table>
-        <div style="width: 1100px; height: 50px;" >
+        <div style="height: 80px;" >
             ${pageCode}
         </div>
     </div>
+
+    <form action="/admin/member_view" method="post" name="frm">
+        <input type="hidden" name="m_idx">
+        <input type="hidden" name="cPage" value="${nowPage}">
+        <input type="hidden" name="searchType" value="${param.searchType}">
+        <input type="hidden" name="searchValue" value="${param.searchValue}">
+    </form>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
+
+<script>
+    function sub(m_idx){
+        document.frm.m_idx.value = m_idx;
+        document.frm.submit();
+    }
+</script>
 </body>
 </html>

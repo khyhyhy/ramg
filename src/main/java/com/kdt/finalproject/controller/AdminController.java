@@ -41,22 +41,22 @@ public class AdminController {
 
     // 회원 목록
     @RequestMapping("/admin/member")
-    public ModelAndView member(String cPage) {
+    public ModelAndView member(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         // ---------paging------------
         int nowPage = 1;
-        int totalRecord = service.admin_member_count();
+        int totalRecord = service.member_count(searchType, searchValue);
 
         if (cPage != null)
             nowPage = Integer.parseInt(cPage);
 
-        Admin_member_paging page = new Admin_member_paging(nowPage, totalRecord, 10, 5);
+        Admin_member_paging page = new Admin_member_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
         String pageCode = page.getSb().toString();
 
         // ---------paging------------
 
-        MemVO[] ar = service.member(page.getBegin(), page.getEnd());
+        MemVO[] ar = service.member(page.getBegin(), page.getEnd(), searchType, searchValue);
 
         mv.addObject("ar", ar);
         mv.addObject("page", page);
@@ -84,22 +84,22 @@ public class AdminController {
 
     // 공지사항
     @RequestMapping("/admin/notice")
-    public ModelAndView notice(String cPage) { // 공지사항 표시
+    public ModelAndView notice(String cPage, String searchType, String searchValue) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
 
         // ---------------------paging------------------------------
         int nowPage = 1;
-        int totalRecord = service.admin_notice_count();
+        int totalRecord = service.notice_count(searchType, searchValue);
 
         if (cPage != null)
             nowPage = Integer.parseInt(cPage);
 
-        Admin_notice_paging page = new Admin_notice_paging(nowPage, totalRecord, 10, 5);
+        Admin_notice_paging page = new Admin_notice_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
         String pageCode = page.getSb().toString();
 
         // ---------------------paging------------------------------
 
-        BbsVO[] ar = service.notice_all(page.getBegin(), page.getEnd());
+        BbsVO[] ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue);
 
         mv.addObject("ar", ar);
         mv.addObject("page", page);
@@ -114,7 +114,7 @@ public class AdminController {
 
     // 공지사항 상세보기
     @RequestMapping("/admin/notice_view")
-    public ModelAndView notice_view(String b_idx, String cPage) {
+    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);
@@ -128,6 +128,8 @@ public class AdminController {
     @RequestMapping("/admin/notice_write")
     public ModelAndView notice_write(String cPage) {
         ModelAndView mv = new ModelAndView();
+
+        System.out.println(cPage);
 
         mv.addObject("cPage", cPage);
         mv.setViewName("/admin/notice_write");
@@ -211,20 +213,22 @@ public class AdminController {
 
     // 공지사항 공개/비공개 전환
     @RequestMapping("/admin/notice_changeStatus1")
-    public String notice_chageStatus1(String b_idx, String cPage) {
+    public String notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue) {
         service.notice_chageStatus1(b_idx);
-        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage;
+        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
+                + "&searchValue=" + searchValue;
     }
 
     @RequestMapping("/admin/notice_changeStatus0")
-    public String notice_chageStatus0(String b_idx, String cPage) {
+    public String notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue) {
         service.notice_chageStatus0(b_idx);
-        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage;
+        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
+                + "&searchValue=" + searchValue;
     }
 
     // 회원 탈퇴
     @RequestMapping("/admin/member_out")
-    public String member_out(String m_idx) {
+    public String member_out(String m_idx, String cPage, String searchType, String searchValue) {
         service.member_out(m_idx);
         return "redirect:/admin/member_view?m_idx=" + m_idx;
     }

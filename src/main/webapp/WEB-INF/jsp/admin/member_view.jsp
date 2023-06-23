@@ -17,9 +17,9 @@
 <main>
 <div class="container">
     <article>
-        <table style="width: 1200px;" class="table">
+        <table class="table table-bordered">
             <thead>
-                <tr class="table-info">
+                <tr>
                     <th>회원 번호</th>
                     <th>이메일</th>
                     <th>이름</th>
@@ -68,14 +68,34 @@
                 </tr>
             </tbody>
         </table>
-        <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/admin/member?cPage=${param.cPage}'">목록</button>
+        <button type="button" class="btn btn-outline-info" onclick="sub()"">목록</button>
         <c:if test="${vo.m_status == 0}">
-            <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/admin/member_out?m_idx=${vo.m_idx}'">강제탈퇴</button>
+            <button type="button" class="btn btn-outline-info" onclick="sub2()">강제탈퇴</button>
         </c:if>
     </article>
+
+    <form name="frm" method="post">
+        <input type="hidden" name="m_idx" value="${vo.m_idx}">
+        <input type="hidden" name="cPage" value="${param.cPage}">
+        <input type="hidden" name="searchType" value="${param.searchType}">
+        <input type="hidden" name="searchValue" value="${param.searchValue}">
+    </form>
+
 </div>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
+
+<script>
+    function sub(){
+        document.frm.action = "/admin/member";
+        document.frm.submit();
+    }
+
+    function sub2(){
+        document.frm.action = "/admin/member_out";
+        document.frm.submit();
+    }
+</script>
 </body>
 </html>
 

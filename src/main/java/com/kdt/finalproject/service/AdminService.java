@@ -17,10 +17,10 @@ public class AdminService {
     AdminMapper mapper;
 
     // 회원 정보 불러오기
-    public MemVO[] member(int begin, int end) {
+    public MemVO[] member(int begin, int end, String searchType, String searchValue) {
         MemVO[] ar = null;
 
-        List<MemVO> list = mapper.member(begin, end);
+        List<MemVO> list = mapper.member(begin, end, searchType, searchValue);
         if (list != null && list.size() > 0) {
             ar = new MemVO[list.size()];
             list.toArray(ar);
@@ -29,8 +29,8 @@ public class AdminService {
     }
 
     // 회원 리스트 카운트
-    public int admin_member_count() {
-        return mapper.admin_member_count();
+    public int member_count(String searchType, String searchValue) {
+        return mapper.member_count(searchType, searchValue);
     }
 
     public MemVO member_view(String m_idx) {
@@ -38,10 +38,10 @@ public class AdminService {
     }
 
     // 공지사항 불러오기
-    public BbsVO[] notice_all(int begin, int end) {
+    public BbsVO[] notice_all(int begin, int end, String searchType, String searchValue) {
         BbsVO[] ar = null;
 
-        List<BbsVO> list = mapper.notice_all(begin, end);
+        List<BbsVO> list = mapper.notice_all(begin, end, searchType, searchValue);
         if (list != null && list.size() > 0) {
             ar = new BbsVO[list.size()];
             list.toArray(ar);
@@ -50,8 +50,8 @@ public class AdminService {
     }
 
     // 공지사항 페이징
-    public int admin_notice_count() {
-        return mapper.admin_notice_count();
+    public int notice_count(String searchType, String searchValue) {
+        return mapper.notice_count(searchType, searchValue);
     }
 
     // 공지사항 상세정보

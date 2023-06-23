@@ -16,9 +16,11 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <table style="width: 1100px;" class="table">
+        <br>
+        <br>
+        <table class="table table-bordered">
             <colgroup>
-                <col width="100px">
+                <col width="150px">
                 <col width="*">
             </colgroup>
             <tbody>
@@ -32,6 +34,7 @@ pageEncoding="UTF-8"%>
                         <c:if test="${vo.b_filename != null }">
                             <a href="javascript:down('${vo.b_filename}')">${vo.b_filename}</a>
                         </c:if>
+                        <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>
                 </tr>
                 <tr> 
@@ -39,16 +42,20 @@ pageEncoding="UTF-8"%>
                     <td>${vo.b_content}</td>
                 </tr>
             </table>
-            <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/admin/notice?cPage=${param.cPage}'">목록</button>
-            <button type="button" class="btn btn-outline-info" onclick="javascript:changeStatus()">
-                <c:if test="${vo.b_status == 0}">비공개</c:if>
-                <c:if test="${vo.b_status == 1}">공개</c:if>
-            </button>
+            <div style="height: 80px;" >
+                <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button>
+                <button type="button" class="btn btn-outline-info" onclick="javascript:changeStatus()">
+                    <c:if test="${vo.b_status == 0}">비공개</c:if>
+                    <c:if test="${vo.b_status == 1}">공개</c:if>
+                </button>
+            </div>
 
-        <form name="frm" method="post">
+        <form name="frm" method="get">
             <input type="hidden" name="fname"/>
             <input type="hidden" name="b_idx" value="${vo.b_idx}"/>
             <input type="hidden" name="cPage" value="${param.cPage}"/>
+            <input type="hidden" name="searchType" value="${param.searchType}">
+            <input type="hidden" name="searchValue" value="${param.searchValue}">
         </form>
     
 
@@ -70,6 +77,11 @@ pageEncoding="UTF-8"%>
         else if('${vo.b_status}'== 1)
             document.frm.action = "/admin/notice_changeStatus0";
 
+        document.frm.submit();
+    }
+
+    function sub(){
+        document.frm.action = "/admin/notice";
         document.frm.submit();
     }
     

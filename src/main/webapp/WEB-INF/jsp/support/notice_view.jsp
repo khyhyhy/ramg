@@ -15,9 +15,11 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <table style="width: 1100px;" class="table">
+        <br>
+        <br>
+        <table class="table table-bordered">
             <colgroup>
-                <col width="100px">
+                <col width="150px">
                 <col width="*">
             </colgroup>
             <tbody>
@@ -31,6 +33,7 @@ pageEncoding="UTF-8"%>
                         <c:if test="${vo.b_filename != null }">
                             <a href="javascript:down('${vo.b_filename}')">${vo.b_filename}</a>
                         </c:if>
+                        <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>
                 </tr>
                 <tr>
@@ -38,7 +41,9 @@ pageEncoding="UTF-8"%>
                     <td>${vo.b_content}</td>
                 </tr>
             </table>
-            <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/support/notice?cPage=${param.cPage}'">목록</button></th>
+            <div style="height: 80px;" >
+                <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/support/notice?cPage=${param.cPage}'">목록</button></th>
+            </div>
 
         <form name="frm" method="post">
             <input type="hidden" name="fname"/>

@@ -6,18 +6,48 @@
 
 <!-- select -->
 <!--전체 회원 리스트-->
-<select id="member" resultType="com.kdt.finalproject.vo.MemVO">
+<select id="member" resultType="com.kdt.finalproject.vo.MemVO" parameterType="Map">
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.member_t
+      <where>
+          <if test="searchType != null and searchValue != null">
+              <choose>
+                  <when test="searchType == 0">
+                      m_name LIKE concat('%',#{searchValue},'%')
+                  </when>
+                  <when test="searchType == 1">
+                      m_email LIKE concat('%',#{searchValue},'%')
+                  </when>
+                  <when test="searchType == 2">
+                      m_phone LIKE concat('%',#{searchValue},'%')
+                  </when>
+              </choose>
+          </if>
+      </where>
     ORDER BY m_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
 
-<!-- (Paging) 회원 리스트 총 갯수 -->
-<select id="admin_member_count" resultType="int">
+<!-- 회원 리스트 총 갯수 -->
+<select id="member_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.member_t
+<where>
+  <if test="searchType != null and searchValue != null">
+    <choose>
+      <when test="searchType == 0">
+          m_name LIKE concat('%',#{searchValue},'%')
+      </when>
+      <when test="searchType == 1">
+          m_email LIKE concat('%',#{searchValue},'%')
+      </when>
+      <when test="searchType == 2">
+          m_phone LIKE concat('%',#{searchValue},'%')
+      </when>
+    </choose>
+  </if>
+</where>
 </select>
 
 <!--회원 정보 상세보기-->
@@ -36,6 +66,21 @@ WHERE m_idx = #{m_idx}
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
+    <where>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
     ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -48,8 +93,23 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 </select>
 
 <!-- (Paging) 공지사항 총 갯수 -->
-<select id="admin_notice_count" resultType="int">
+<select id="notice_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
+    <where>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
 </select>
 
 

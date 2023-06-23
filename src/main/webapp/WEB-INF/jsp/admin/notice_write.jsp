@@ -19,12 +19,13 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
+        <br>
+        <br>
         <form action="/admin/notice_write_ok" method="post" enctype="multipart/form-data">
-        <table style="width: 1100px;" class="table" >
+        <table class="table table-bordered">
             <colgroup>
-                <col width="100px">
+                <col width="150px">
                 <col width="*">
-                <col width="200px">
             </colgroup>
                 <tr>
                     <th>공개범위</th>
@@ -48,12 +49,21 @@ pageEncoding="UTF-8"%>
                     <td><input type="file" name="file"/></td>
                 </tr>
             </table>
-            <button type="submit" class="btn btn-outline-info" >글쓰기</button>
-            <button type="button" class="btn btn-outline-info"  onclick="javascript:location.href='/admin/notice?cPage=${cPage}'">목록</button>
-            
+            <div style="height: 80px;" >
+                <button type="submit" class="btn btn-outline-info" >글쓰기</button>
+                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+            </div>
+                
             <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
         </form>
     </div>
+
+    <form name="frm" method="post" action="/admin/notice">
+        <input type="hidden" name="cPage" value="${cPage}">
+        <input type="hidden" name="searchType" value="${param.searchType}">
+        <input type="hidden" name="searchValue" value="${param.searchValue}">
+    </form>
+
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
@@ -128,6 +138,10 @@ pageEncoding="UTF-8"%>
         }
 
         document.forms[0].submit();
+    }
+
+    function back(){
+        document.frm.submit();
     }
 </script>
 

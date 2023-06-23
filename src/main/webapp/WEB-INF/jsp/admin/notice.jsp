@@ -17,9 +17,22 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
 <div class="container">
-    <table style="width: 1100px;" class="table table-hover">
+    <h1>공지관리</h1>
+    <form action="/admin/notice" method="post">
+        <div style="height: 60px; float: right;">
+            <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
+                <option value="0">제목</option>
+                <option value="1">내용</option>
+                <option value="2">제목+내용</option>
+            </select>
+            <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+            <button type="submit" class="btn btn-outline-info">검색</button>
+        </div>
+    </form>
+
+    <table class="table table-hover">
         <colgroup>
-            <col width="100px">
+            <col width="150px">
             <col width="*">
             <col width="200px">
             <col width="200px">
@@ -34,12 +47,19 @@ pageEncoding="UTF-8"%>
                 <th>공개여부</th>
             </tr>
         </thead>
+
         <tbody>
+            <c:if test="${ar == null}">
+                <tr>
+                    <td colspan="5">검색 결과가 없습니다.</td>
+                </tr>
+            </c:if>
             <c:forEach var="vo" items="${ar}" varStatus="st">
+               
                 <tr>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
                     <td>
-                        <a href="/admin/notice_view?b_idx=${vo.b_idx}&cPage=${nowPage}">${vo.b_title}</a>
+                        <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
                         <c:if test="${vo.b_filename != null}">
                             <img src="../images/link.png" style="width: 14px;">
                         </c:if>
@@ -65,14 +85,37 @@ pageEncoding="UTF-8"%>
             </c:forEach>
         </tbody>
     </table>
-    <div style="width: 1100px; height: 50px;" >
+    <div style="height: 80px;" >
         ${pageCode}
-        <input type="button" style="float: right;" class="btn btn-outline-info" value="글쓰기" onclick="javascript:location.href='/admin/notice_write?cPage=${nowPage}'">
+        <input type="button" style="float: right;" class="btn btn-outline-info" value="글쓰기" onclick="sub2()">
     </div>
+    
+
+    <form name="frm" method="post">
+        <input type="hidden" name="b_idx">
+        <input type="hidden" name="cPage" value="${nowPage}">
+        <input type="hidden" name="searchType" value="${param.searchType}">
+        <input type="hidden" name="searchValue" value="${param.searchValue}">
+    </form>
+    
     
 </div>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
+
+<script>
+    function sub(b_idx){
+        document.frm.action = "/admin/notice_view";
+        document.frm.b_idx.value = b_idx;
+        document.frm.submit();
+    }
+
+    function sub2(){
+        console.log('${nowPage}')
+        document.frm.action = "/admin/notice_write";
+        document.frm.submit();
+    }
+</script>
 
 </body>
 </html>
