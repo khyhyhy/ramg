@@ -1,5 +1,6 @@
 package com.kdt.finalproject.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +21,9 @@ public class MypageController {
     MypageService service;
 
     @GetMapping("car_mt")
-    public ModelAndView getCar() {
+    public ModelAndView search_cw_list(String m_idx) {
         ModelAndView mv = new ModelAndView("car_mt");
-        mv.addObject("car", service.getCar());
+        mv.addObject("car", service.search_cw_list(m_idx));
         return mv;
     }
 
@@ -50,10 +51,10 @@ public class MypageController {
     public ModelAndView updateCar(String c_idx) {
         // System.out.println(m_idx);
 
-        Map<String, Object> m = service.getCar();
+        CarVO cvo = service.get_Car(c_idx);
         ModelAndView mv = new ModelAndView();
 
-        mv.addObject("m", m);
+        mv.addObject("cvo", cvo);
         mv.setViewName("redirect:/car_mt");
         return mv;
 
@@ -63,10 +64,10 @@ public class MypageController {
     public ModelAndView updateCarWrite(String c_idx, String m_idx) {
         // System.out.println(m_idx);
 
-        Map<String, Object> m = service.getCar();
+        List<CwriteVO> cw_list = service.search_cw_list(m_idx);
         ModelAndView mv = new ModelAndView();
 
-        mv.addObject("m", m);
+        mv.addObject("cw_list", cw_list);
         mv.setViewName("redirect:/car_mt");
         return mv;
 

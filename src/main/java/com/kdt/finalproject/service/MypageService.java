@@ -16,8 +16,12 @@ public class MypageService {
     @Autowired
     MypageMapper mapper;
 
-    public Map<String, Object> getCar() {
-        return mapper.getCar();
+    public List<CwriteVO> search_cw_list(String m_idx) {
+        return mapper.search_cw_list(m_idx);
+    }
+
+    public CarVO get_Car(String c_idx) {
+        return mapper.get_car(c_idx);
     }
 
     public int addCar(CarVO cvo) {

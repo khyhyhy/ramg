@@ -4,39 +4,55 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kdt.finalproject.mapper.MypageMapper">
 
-<!-- select -->
 
-<select id="getCar" resultType="map">
-  select c.*, d.c_idx, d.m_idx, e.m_name
-  from charging.car_write d
-  left outer join car_t c on d.c_idx = c.c_idx 
-  left outer join member_t e on d.m_idx = e.m_idx
-</select>
+  <resultMap id="map" type="com.kdt.finalproject.vo.CwriteVO">
+    <id property="cw_idx" column="cw_idx"/>
+    <association property="cvo" ofType="com.kdt.finalproject.vo.CarVO"
+      select="get_car" column="c_idx"/>
+  </resultMap>
 
+  <!-- select -->
 
+  <select id="search_cw_list" resultMap="map" parameterType="String">
+    SELECT * FROM car_write
+    WHERE m_idx = #{m_idx}
+  </select>
 
-<!-- insert -->
-<insert id="addCar" parameterType="com.kdt.finalProject.CarVO">
-    insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, c_addr1) -- 필요한 컬럼들을 나열해주세요
-    values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, #{c_chargetype}, #{c_state}, #{c_city}, #{c_addr1}) -- 모델의 필드와 매핑되는 값을 넣어주세요
-</insert>
-
-<insert id="addCarWrite" parameterType="com.kdt.finalProject.CwriteVO">
-    insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date) -- 필요한 컬럼들을 나열해주세요
-    values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now()) -- 모델의 필드와 매핑되는 값을 넣어주세요
-</insert>
-
-<!-- update -->
-<update id="updateCar" parameterType="com.kdt.finalProject.CarVO">
-    UPDATE car_t
-    SET c_num = #{c_num}, c_name = #{c_name}, c_type = #{c_type}, c_chargetype = #{c_chargetype}, c_state = #{c_state}, c_city = #{c_city}, c_addr1 = #{c_addr1}
+  <select id="get_car" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
+    SELECT * FROM car_t
     WHERE c_idx = #{c_idx}
-  </update>
+  </select>
 
-<update id="updateCarWrite" parameterType="com.kdt.finalProject.CwriteVO">
-    UPDATE car_write
-    SET cw_type = 1
-    WHERE c_idx = #{c_idx} and m_idx = {m_idx}
-</update>
+
+
+  <!-- insert -->
+  <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO">
+      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, c_tcol) -- 필요한 컬럼들을 나열해주세요
+      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, #{c_chargetype}, #{c_state}, #{c_city}, #{c_tcol}) -- 모델의 필드와 매핑되는 값을 넣어주세요
+  </insert>
+
+  <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
+      insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date) -- 필요한 컬럼들을 나열해주세요
+      values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now()) -- 모델의 필드와 매핑되는 값을 넣어주세요
+  </insert>
+
+  <!-- update -->
+  <update id="updateCar" parameterType="com.kdt.finalproject.vo.CarVO">
+      UPDATE car_t
+      SET c_num = #{c_num}, 
+        c_name = #{c_name}, 
+        c_type = #{c_type}, 
+        c_chargetype = #{c_chargetype}, 
+        c_state = #{c_state}, 
+        c_city = #{c_city}, 
+        car_tcol = #{car_tcol}
+      WHERE c_idx = #{c_idx}
+    </update>
+
+  <update id="updateCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
+      UPDATE car_write
+      SET cw_type = 1
+      WHERE c_idx = #{c_idx} and m_idx = #{m_idx}
+  </update>
 
 </mapper>
