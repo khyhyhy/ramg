@@ -22,8 +22,9 @@ public class MypageController {
 
     @GetMapping("car_mt")
     public ModelAndView search_cw_list(String m_idx) {
-        ModelAndView mv = new ModelAndView("car_mt");
+        ModelAndView mv = new ModelAndView();
         mv.addObject("car", service.search_cw_list(m_idx));
+        mv.setViewName("mypage/car_mt");
         return mv;
     }
 

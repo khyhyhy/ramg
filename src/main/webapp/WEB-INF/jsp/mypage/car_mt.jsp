@@ -40,6 +40,11 @@
     <!-- 차량 추가 -->
   <h2>차량 추가</h2>
   <form action="addCar" method="post">
+        </tr>
+    </table>
+    <!-- 차량 추가 -->
+  <h2>차량 추가</h2>
+  <form action="/mypage/car_mt/addCar" method="post">
     <label for="num">차량번호:</label>
     <input type="text" id="num" name="num" required><br>
     <label for="name">차량이름:</label>

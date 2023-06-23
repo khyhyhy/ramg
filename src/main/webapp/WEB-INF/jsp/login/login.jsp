@@ -28,7 +28,7 @@
                 </p>
                 <p>
                     <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=DEfYVqVL7Po51QB3sjNx&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login">
-                        <img src="images/naver/naver_login.png"/>
+                        <img src="images/naver_login.png"/>
                     </a>
                 </p>
             </form>
