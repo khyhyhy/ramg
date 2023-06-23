@@ -131,10 +131,10 @@ public class EdongsikController {
             // 충전 기사들의 위치값 가져오기
             ServiceVO[] sar = service.getEdongsik();
             for (ServiceVO value : sar) {
-                String s_x = value.getS_mapx();
-                String s_y = value.getS_mapy();
+                // String s_x = value.getS_mapx();
+                // String s_y = value.getS_mapy();
 
-                System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
+                // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
 
             
 
@@ -149,9 +149,9 @@ public class EdongsikController {
                 + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             double d = 6371 * c * 1000; // Distance in m
-            System.out.println("현재 지점" + addr1 + "좌표값의 거리는 " + d + "m입니다.");
+            System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
 
-            
+
             }
             // v
 
