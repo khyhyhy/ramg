@@ -7,7 +7,7 @@
 
   <resultMap id="map" type="com.kdt.finalproject.vo.CwriteVO">
     <id property="cw_idx" column="cw_idx"/>
-    <association property="cvo" ofType="com.kdt.finalproject.vo.CarVO"
+    <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO"
       select="get_car" column="c_idx"/>
   </resultMap>
 
