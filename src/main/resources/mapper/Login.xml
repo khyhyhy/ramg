@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kdt.finalproject.mapper.LoginMapper">
+
+<resultMap type="com.kdt.finalproject.vo.MemVO" id="map1">
+	<id column="m_idx" property="m_idx"/>
+	
+	<collection property="c_list" ofType="com.kdt.finalproject.vo.CarVO" 
+  		select="carList" column="m_idx"/>
+</resultMap>
+
+<!--m_idx를 인자로 받음-->
+<select id="carList" resultMap="map1" parameterType="String">
+	SELECT * FROM car_t
+	where m_idx = #{m_idx}
+ </select>
+
+
+  <select id="getList" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+  	SELECT * FROM member_t
+   </select>
+
+   <select id="login" parameterType="Map"
+		resultType="com.kdt.finalproject.vo.MemVO">
+		SELECT * FROM member_t
+		WHERE m_email = #{m_email} AND m_pw = #{m_pw}
+		AND m_status = 1 AND m_class = #{m_class}
+	</select>
+
+  	<insert id="add_mem" parameterType="com.kdt.finalproject.vo.MemVO">
+		INSERT INTO member_t(m_email, m_pw, m_name, m_status, m_class)
+		VALUES(#{m_email}, #{m_pw}, #{m_name}, 1, #{m_class})
+	</insert>
+
+	<select id="check_email" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+		SELECT * FROM member_t
+		WHERE m_email = #{m_email}
+	</select>
+
+	<select id="search_email" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+		SELECT * FROM member_t 
+		WHERE m_email = #{m_email}
+	</select>
+
+</mapper>
+
+
+
+
+
+
+
+
