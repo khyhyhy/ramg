@@ -1,6 +1,7 @@
 package com.kdt.finalproject.controller;
 
 import java.io.File;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -213,17 +214,27 @@ public class AdminController {
 
     // 공지사항 공개/비공개 전환
     @RequestMapping("/admin/notice_changeStatus1")
-    public String notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue) {
+    public String notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue)
+            throws Exception {
         service.notice_chageStatus1(b_idx);
+        System.out.println(b_idx);
+        System.out.println(cPage);
+        System.out.println(searchType);
+        System.out.println(searchValue);
         return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
-                + "&searchValue=" + searchValue;
+                + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
     }
 
     @RequestMapping("/admin/notice_changeStatus0")
-    public String notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue) {
+    public String notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue)
+            throws Exception {
         service.notice_chageStatus0(b_idx);
+        System.out.println(b_idx);
+        System.out.println(cPage);
+        System.out.println(searchType);
+        System.out.println(searchValue);
         return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
-                + "&searchValue=" + searchValue;
+                + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
     }
 
     // 회원 탈퇴
