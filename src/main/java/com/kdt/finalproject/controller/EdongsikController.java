@@ -31,7 +31,7 @@ public class EdongsikController {
 
     private String state;
     private String city;
-    private String tcol;
+    private String addr1;
 
     @Autowired
     HttpSession session;
@@ -66,7 +66,7 @@ public class EdongsikController {
         for (CarVO value : ar) {
             state = value.getC_state();
             city = value.getC_city();
-            tcol = value.getC_addr1();
+            addr1 = value.getC_addr1();
             //tcol = "신림동";
             // System.out.println(str);
         }
@@ -80,7 +80,7 @@ public class EdongsikController {
         sb.append(" ");
         sb.append(city);
         sb.append(" ");
-        sb.append(tcol);
+        sb.append(addr1);
 
         String addr = sb.toString();
         // System.out.println(addr);
@@ -127,7 +127,7 @@ public class EdongsikController {
             mv.addObject("x", x);
             mv.addObject("y", y);
             // -------------------- 고객 위치 값 구하기 끝 ----------------------------
-
+            
             // 충전 기사들의 위치값 가져오기
             ServiceVO[] sar = service.getEdongsik();
             for (ServiceVO value : sar) {
@@ -136,8 +136,23 @@ public class EdongsikController {
 
                 System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
 
-            }
+            
 
+            double lat = Double.valueOf(value.getS_mapy());// 기사위치
+            double lng = Double.valueOf(value.getS_mapx());
+            double lat2 = Double.parseDouble(y); // 고객 차량 y
+            double lng2 = Double.parseDouble(x); // 고객 차량 x
+            double dLat = Math.toRadians(lat - lat2);
+            double dLon = Math.toRadians(lng - lng2);
+
+            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double d = 6371 * c * 1000; // Distance in m
+            System.out.println("현재 지점" + addr1 + "좌표값의 거리는 " + d + "m입니다.");
+
+            
+            }
             // v
 
         } catch (Exception e) {
