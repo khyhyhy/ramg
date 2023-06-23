@@ -29,10 +29,11 @@ public class LoginService {
         return ar;
     }
 
-    public MemVO login(String m_email, String m_pw) {
+    public MemVO login(String m_email, String m_pw, String m_class) {
         Map<String, String> map = new HashMap<>();
         map.put("m_email", m_email);
         map.put("m_pw", m_pw);
+        map.put("m_class", m_class);
 
         return l_Mapper.login(map);
     }
