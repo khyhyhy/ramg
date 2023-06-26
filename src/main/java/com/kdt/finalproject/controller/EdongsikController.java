@@ -11,6 +11,9 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import com.kdt.finalproject.service.EdongsikService;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Controller
@@ -27,7 +31,7 @@ public class EdongsikController {
 
     private String state;
     private String city;
-    private String tcol;
+    private String addr1;
 
     @Autowired
     HttpSession session;
@@ -62,30 +66,30 @@ public class EdongsikController {
         for (CarVO value : ar) {
             state = value.getC_state();
             city = value.getC_city();
-            tcol = value.getCar_tcol();
+            addr1 = value.getC_addr1();
+            //tcol = "신림동";
             // System.out.println(str);
         }
 
         // System.out.println(state);
-        String url = "https://dapi.kakao.com/v2/local/search/address.json?";
-        String restapikey = "Authorization: KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
+        String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
+        String restapikey = "KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
 
         StringBuffer sb = new StringBuffer();
-        sb.append("query=");
         sb.append(state);
         sb.append(" ");
         sb.append(city);
         sb.append(" ");
-        sb.append(tcol);
+        sb.append(addr1);
 
-        String address = sb.toString();
+        String addr = sb.toString();
         // System.out.println(addr);
 
         URL obj;
 
         try {
-            // String address = URLEncoder.encode(addr, "UTF-8");
-            System.out.println(address);
+            String address = URLEncoder.encode(addr, "UTF-8");
+            // System.out.println(address);
             obj = new URL(url + address);
 
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -100,7 +104,7 @@ public class EdongsikController {
             Charset charset = Charset.forName("UTF-8");
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
 
-            String inputLine;
+            String inputLine = null;
             StringBuffer response = new StringBuffer();
 
             while ((inputLine = in.readLine()) != null) {
@@ -108,7 +112,48 @@ public class EdongsikController {
             }
 
             // response 객체를 출력해보자
-            System.out.println(response.toString());
+            // System.out.println("RES :" + response.toString());
+
+            JSONParser jsonParser = new JSONParser();
+            JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
+            JSONArray documents = (JSONArray) json_data.get("documents");
+            JSONObject data = (JSONObject) documents.get(0);
+
+            String x = (String) data.get("x");
+            String y = (String) data.get("y");
+
+            // System.out.println("x:" + x + ", y:" + y);
+
+            mv.addObject("x", x);
+            mv.addObject("y", y);
+            // -------------------- 고객 위치 값 구하기 끝 ----------------------------
+            
+            // 충전 기사들의 위치값 가져오기
+            ServiceVO[] sar = service.getEdongsik();
+            for (ServiceVO value : sar) {
+                // String s_x = value.getS_mapx();
+                // String s_y = value.getS_mapy();
+
+                // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
+
+            
+
+            double lat = Double.valueOf(value.getS_mapy());// 기사위치
+            double lng = Double.valueOf(value.getS_mapx());
+            double lat2 = Double.parseDouble(y); // 고객 차량 y
+            double lng2 = Double.parseDouble(x); // 고객 차량 x
+            double dLat = Math.toRadians(lat - lat2);
+            double dLon = Math.toRadians(lng - lng2);
+
+            double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            double d = 6371 * c * 1000; // Distance in m
+            System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
+
+
+            }
+            // v
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
