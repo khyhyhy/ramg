@@ -29,8 +29,8 @@ public class EdongsikService {
         return vo;
     }
 
-    public ServiceVO[] getEdongsik() {
-        ServiceVO[] ar = mapper.getEdongsik();
+    public ServiceVO[] getEdongsik(String state) {
+        ServiceVO[] ar = mapper.getEdongsik(state);
 
         return ar;
     }
