@@ -5,35 +5,59 @@
 
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+   integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+   integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
   <body>
-   <div>
-    <h1>현재위치끼얏호우</h1>
-   </div>
-   <div id="map" style="width:100%;height:350px;"></div>
+   <!--////////// Header Start ////////////-->
+   <jsp:include page="../main/mainH.jsp"></jsp:include>
+   <!--////////// Header end ////////////-->
 
-   <p id="result"></p>
-   <form action="/taksong/select/">
-    <button type="submit">다음 화면</button>
-    <input type="hidden" id="lat1" name="nowlat" />
-    <input type="hidden" id="lng1" name="nowlng" />
-    <input type="hidden" id="state" name="nowstate" />
-    <input type="hidden" id="city" name="nowcity" />
-   </form>
+   <!--////////// Main start //////////////-->
+   <main>
+
+
+    <div>
+     <h1>현재위치끼얏호우</h1>
+    </div>
+    <div id="map" style="width:100%;height:350px;"></div>
+
+    <p id="result"></p>
+    <form action="/taksong/select/">
+     <button type="submit">다음 화면</button>
+     <input type="hidden" id="lat1" name="nowlat" />
+     <input type="hidden" id="lng1" name="nowlng" />
+     <input type="hidden" id="state" name="nowstate" />
+     <input type="hidden" id="city" name="nowcity" />
+    </form>
+   </main>
+   <!--////////// Main end //////////////-->
+   <!--////////// Foter start //////////////-->
+   <jsp:include page="../main/mainF.jsp"></jsp:include>
+   <!--////////// Foter end //////////////-->
+
+
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8f974dd2f43fefe94e70a9ce228e40e&libraries=services"></script>
    <script>
+    console.log("lat====" + "${lat}");
+    console.log("lng====" + "${lng}");
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
      mapOption = {
-      center: new kakao.maps.LatLng(37.484894218110625, 126.90298865633629), // 지도의 중심좌표
+      center: new kakao.maps.LatLng("${lat}", "${lng}"), // 지도의 중심좌표
       level: 3 // 지도의 확대 레벨
      };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
-    var markerPosition = new kakao.maps.LatLng(37.484894218110625, 126.90298865633629);
+    var markerPosition = new kakao.maps.LatLng("${lat}", "${lng}");
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({

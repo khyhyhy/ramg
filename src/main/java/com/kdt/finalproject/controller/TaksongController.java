@@ -1,5 +1,8 @@
 package com.kdt.finalproject.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +16,12 @@ import com.kdt.finalproject.vo.ServiceVO;
 public class TaksongController {
 
  @Autowired
+ HttpServletRequest request;
+
+ @Autowired
+ HttpSession session;
+
+ @Autowired
  TaksongService service;
 
  String sp = "특별시";
@@ -21,10 +30,19 @@ public class TaksongController {
  int lo;
 
  @RequestMapping("/taksong/")
- public ModelAndView init() {
+ public ModelAndView index() {
   ModelAndView mv = new ModelAndView();
-  int init = service.init().length;
+  mv.setViewName("taksong/index");
 
+  return mv;
+ }
+
+ @RequestMapping("/taksong/local")
+ public ModelAndView local(@Param("lat") String lat, @Param("lng") String lng) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println("lat======" + lat + "lng=====" + lng);
+  mv.addObject("lat", lat);
+  mv.addObject("lng", lng);
   mv.setViewName("taksong/taksong");
   return mv;
  }
