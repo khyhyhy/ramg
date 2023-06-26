@@ -14,6 +14,8 @@ public class TaksongController {
  @Autowired
  TaksongService service;
 
+ int lo;
+
  @RequestMapping("/taksong/")
  public ModelAndView init() {
   ModelAndView mv = new ModelAndView();
@@ -39,6 +41,8 @@ public class TaksongController {
   double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   double d = 6371 * c * 1000; // Distance in m
   System.out.println("현재 지점" + nowcity + "과 구로 디지털 단지의 역 거리는 " + d + "m입니다.");
+  lo = (int) Math.round(d);
+  System.out.println("lo==" + lo);
   return mv;
 
  }
