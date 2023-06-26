@@ -12,5 +12,6 @@ public interface EdongsikMapper {
 
     CwriteVO carList(String m_idx);
 
-    ServiceVO[] getEdongsik();
+    ServiceVO[] getEdongsik(String state);
+
 }
