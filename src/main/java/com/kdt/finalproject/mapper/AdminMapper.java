@@ -23,10 +23,20 @@ public interface AdminMapper {
 
     int notice_write_ok2(BbslogVO vo);
 
+    int notice_edit(BbsVO vo); // 공지 수정
+
     int notice_changeStatus1(String b_idx);
 
     int notice_changeStatus0(String b_idx);
 
     int member_out(String m_idx);
+
+    List<BbsVO> qna(int begin, int end, String searchType, String searchValue);
+
+    int qna_count(String searchType, String searchValue);
+
+    int qna_comm_write(BbsVO vo);
+
+    int qna_comm_write2(BbslogVO vo);
 
 }

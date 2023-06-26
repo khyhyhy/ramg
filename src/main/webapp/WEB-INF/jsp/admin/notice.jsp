@@ -43,8 +43,8 @@ pageEncoding="UTF-8"%>
                 <th>번호</th>
                 <th>제목</th>
                 <th>구분</th>
-                <th>등록일</th>
                 <th>공개여부</th>
+                <th>등록일</th>
             </tr>
         </thead>
 
@@ -65,14 +65,16 @@ pageEncoding="UTF-8"%>
                         </c:if>
                     </td>
                     <td>
-                        <c:if test="${vo.b_to == 0}">
+                        <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
                             전체 공지
                         </c:if>
-                        <c:if test="${vo.b_to == 1}">
+                        <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
                             사업자 공지
                         </c:if>
+                        <c:if test="${vo.b_type == 4}">
+                            FAQ
+                    </c:if>
                     </td>
-                    <td>${vo.bbslog.bl_date}</td>
                     <td>
                         <c:if test="${vo.b_status == 0}">
                             공개
@@ -81,6 +83,7 @@ pageEncoding="UTF-8"%>
                             비공개
                         </c:if>
                     </td>
+                    <td>${vo.bbslog.bl_date}</td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -111,7 +114,6 @@ pageEncoding="UTF-8"%>
     }
 
     function sub2(){
-        console.log('${nowPage}')
         document.frm.action = "/admin/notice_write";
         document.frm.submit();
     }

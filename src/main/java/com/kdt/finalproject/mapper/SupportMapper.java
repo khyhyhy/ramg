@@ -13,7 +13,13 @@ public interface SupportMapper {
 
     int support_notice_count2();
 
-    BbsVO notice_view(int b_idx); // 공지 상세보기
+    BbsVO notice_view(String b_idx); // 공지 상세보기
 
-    int notice_hit(int b_idx); // 공지 조회수
+    int notice_hit(String b_idx); // 공지 조회수
+
+    List<BbsVO> faq(); // 자주하는 질문
+
+    List<BbsVO> qna(int begin, int end, String searchType, String searchValue);
+
+    int support_qna_count(String searchType, String searchValue);
 }

@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
-<title>관리자페이지 공지쓰기</title>
+<title>관리자페이지 공지 수정</title>
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%>
     <div class="container">
         <br>
         <br>
-        <form action="/admin/notice_write_ok" method="post" enctype="multipart/form-data">
+        <form action="/admin/notice_edit_ok" method="post" enctype="multipart/form-data">
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
@@ -44,11 +44,11 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" style="width: 800px;" name="b_title"></td>
+                    <td><input type="text" style="width: 800px;" name="b_title" value="${vo.b_title}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-                    <td><textarea rows="12" cols="50" id="content" name="b_content"></textarea></td>
+                    <td><textarea rows="12" cols="50" id="content" name="b_content">${vo.b_content}</textarea></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
@@ -56,16 +56,21 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
             <div style="height: 80px;" >
-                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">글쓰기</button>
+                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">수정하기</button>
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
             </div>
                 
             <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="b_idx" value="${vo.b_idx}">
             <input type="hidden" name="b_type" id="b_type">
+            <input type="hidden" name="cPage" value="${cPage}">
+            <input type="hidden" name="searchType" value="${searchType}">
+            <input type="hidden" name="searchValue" value="${searchValue}">
         </form>
     </div>
 
-    <form name="frm" method="post" action="/admin/notice">
+    <form name="fm" method="post" action="/admin/notice_view">
+        <input type="hidden" name="b_idx" value="${vo.b_idx}">
         <input type="hidden" name="cPage" value="${cPage}">
         <input type="hidden" name="searchType" value="${searchType}">
         <input type="hidden" name="searchValue" value="${searchValue}">
@@ -148,7 +153,8 @@ pageEncoding="UTF-8"%>
     }
 
     function back(){
-        document.frm.submit();
+        document.fm.submit();
+        
     }
 </script>
 

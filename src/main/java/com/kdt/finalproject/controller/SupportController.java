@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.SupportService;
 import com.kdt.finalproject.util.Support_noitce_paging;
+import com.kdt.finalproject.util.Support_qna_paging;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.MemVO;
 
@@ -78,7 +79,7 @@ public class SupportController {
     }
 
     @RequestMapping("/support/notice_view")
-    public ModelAndView notice_view(int b_idx, String searchType, String searchValue) {
+    public ModelAndView notice_view(String b_idx, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);
@@ -110,4 +111,38 @@ public class SupportController {
 
     }
 
+    @RequestMapping("/support/faq")
+    public ModelAndView faq() {
+        ModelAndView mv = new ModelAndView();
+
+        BbsVO[] ar = service.faq();
+
+        mv.addObject("ar", ar);
+        mv.setViewName("/support/faq");
+
+        return mv;
+    }
+
+    @RequestMapping("/support/qna")
+    public ModelAndView qna(BbsVO vo, String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+
+        int nowPage = 1;
+        int totalRecord = service.support_qna_count(searchType, searchValue);
+
+        Support_qna_paging page = new Support_qna_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        BbsVO[] ar = service.qna(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
+        mv.setViewName("/support/qna");
+
+        return mv;
+    }
 }
