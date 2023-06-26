@@ -214,27 +214,45 @@ public class AdminController {
 
     // 공지사항 공개/비공개 전환
     @RequestMapping("/admin/notice_changeStatus1")
-    public String notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue)
+    @ResponseBody
+    public Map<String, Integer> notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue)
             throws Exception {
-        service.notice_chageStatus1(b_idx);
-        System.out.println(b_idx);
-        System.out.println(cPage);
-        System.out.println(searchType);
-        System.out.println(searchValue);
-        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
-                + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
+        int cnt = service.notice_chageStatus1(b_idx);
+        /*
+         * System.out.println(b_idx);
+         * System.out.println(cPage);
+         * System.out.println(searchType);
+         * System.out.println(searchValue);
+         * 
+         * return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage +
+         * "&searchType=" + searchType
+         * + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
+         */
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+
+        return map;
     }
 
     @RequestMapping("/admin/notice_changeStatus0")
-    public String notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue)
+    @ResponseBody
+    public Map<String, Integer> notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue)
             throws Exception {
-        service.notice_chageStatus0(b_idx);
-        System.out.println(b_idx);
-        System.out.println(cPage);
-        System.out.println(searchType);
-        System.out.println(searchValue);
-        return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage + "&searchType=" + searchType
-                + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
+        int cnt = service.notice_chageStatus0(b_idx);
+        /*
+         * System.out.println(b_idx);
+         * System.out.println(cPage);
+         * System.out.println(searchType);
+         * System.out.println(searchValue);
+         * 
+         * return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage +
+         * "&searchType=" + searchType
+         * + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
+         */
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+
+        return map;
     }
 
     // 회원 탈퇴

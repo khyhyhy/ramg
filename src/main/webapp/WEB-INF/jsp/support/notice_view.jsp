@@ -42,13 +42,15 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
             <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info" onclick="javascript:location.href='/support/notice?cPage=${param.cPage}'">목록</button></th>
+                <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button></th>
             </div>
 
         <form name="frm" method="post">
             <input type="hidden" name="fname"/>
             <input type="hidden" name="b_idx" value="${vo.b_idx}"/>
             <input type="hidden" name="cPage" value="${param.cPage}"/>
+            <input type="hidden" name="searchType" value="${param.searchType}">
+            <input type="hidden" name="searchValue" value="${param.searchValue}">
         </form>
 
     </div>
@@ -61,6 +63,11 @@ pageEncoding="UTF-8"%>
        document.frm.action = "/download";
        document.frm.submit();
    }
+
+   function sub(){
+        document.frm.action = "/support/notice";
+        document.frm.submit();
+    }
 </script>
 </body>
 </html>

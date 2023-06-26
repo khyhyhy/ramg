@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.b_to == 1}">
                                 <span style="font-size: small; color: rgb(179, 179, 179);">[사업자]</span>
                             </c:if>
-                            <a href="/support/notice_view?b_idx=${vo.b_idx}&cPage=${nowPage}">${vo.b_title}</a>
+                            <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
@@ -67,7 +67,21 @@ pageEncoding="UTF-8"%>
             ${pageCode}
         </div>
     </div>
+
+    <form name="frm" method="post" action="/support/notice_view">
+        <input type="hidden" name="b_idx">
+        <input type="hidden" name="cPage" value="${nowPage}">
+        <input type="hidden" name="searchType" value="${param.searchType}">
+        <input type="hidden" name="searchValue" value="${param.searchValue}">
+    </form>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
+
+<script>
+    function sub(b_idx){
+        document.frm.b_idx.value = b_idx;
+        document.frm.submit();
+    }
+</script>
 </body>
 </html>
