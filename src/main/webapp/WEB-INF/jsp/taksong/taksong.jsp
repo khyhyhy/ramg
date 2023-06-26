@@ -74,7 +74,7 @@
        const regex = /(\S+[시군])/;
        const resultt = regex.exec(result[0].address_name);
 
-       const city = resultt[0];
+       const city = result[0].region_2depth_name;
        document.getElementById("city").value = city
       }
 

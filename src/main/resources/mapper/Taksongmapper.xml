@@ -9,6 +9,13 @@
 SELECT * FROM charging.member_t
 </select>
 
+<select id="guservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+SELECT * FROM charging.service_t WHERE s_city = #{gu}
+</select>
+
+<select id="siservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+SELECT * FROM charging.service_t WHERE s_state = #{si}
+</select>
 <!-- insert -->
 
 
