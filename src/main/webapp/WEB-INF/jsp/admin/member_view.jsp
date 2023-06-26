@@ -16,6 +16,8 @@
 
 <main>
 <div class="container">
+    <br>
+    <br>
     <article>
         <table class="table table-bordered">
             <thead>
@@ -70,30 +72,45 @@
         </table>
         <button type="button" class="btn btn-outline-info" onclick="sub()"">목록</button>
         <c:if test="${vo.m_status == 0}">
-            <button type="button" class="btn btn-outline-info" onclick="sub2()">강제탈퇴</button>
+            <button type="button" class="btn btn-outline-info" onclick="member_out()" id="b_out">강제탈퇴</button>
         </c:if>
     </article>
 
     <form name="frm" method="post">
-        <input type="hidden" name="m_idx" value="${vo.m_idx}">
+        <input type="hidden" name="m_idx" value="${vo.m_idx}" id="m_idx">
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="m_status" value="${vo.m_status}" id="m_status">
     </form>
 
 </div>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
     function sub(){
         document.frm.action = "/admin/member";
         document.frm.submit();
     }
 
-    function sub2(){
-        document.frm.action = "/admin/member_out";
-        document.frm.submit();
+    function member_out(){
+
+        if(confirm("정말로 강제 탈퇴 시키겠습니까?")){
+            $.ajax({
+                url: "/admin/member_out",
+                type: "post",
+                data: {"m_idx": $("#m_idx").val()},
+                dataType: "json"
+            }).done(function(data){
+                if(data.res == 1){ // 성공했을 경우
+                    $("#b_out").remove();
+                }
+            });
+        }else{
+            return;
+        }
     }
 </script>
 </body>

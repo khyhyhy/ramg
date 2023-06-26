@@ -19,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.finalproject.service.AdminService;
 import com.kdt.finalproject.util.Admin_member_paging;
 import com.kdt.finalproject.util.Admin_notice_paging;
+import com.kdt.finalproject.util.Admin_qna_paging;
 import com.kdt.finalproject.util.FileRenameUtil;
+import com.kdt.finalproject.util.Support_qna_paging;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.ImgVO;
@@ -72,12 +74,15 @@ public class AdminController {
 
     // 회원 정보 상세보기
     @RequestMapping("/admin/member_view")
-    public ModelAndView member_view(String m_idx) {
+    public ModelAndView member_view(String m_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         MemVO vo = service.member_view(m_idx);
 
         mv.addObject("vo", vo);
+        mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
         mv.setViewName("/admin/member_view");
 
         return mv;
@@ -121,18 +126,21 @@ public class AdminController {
         BbsVO vo = service.notice_view(b_idx);
 
         mv.addObject("vo", vo);
+        mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
         mv.setViewName("/admin/notice_view");
         return mv;
     }
 
     // 공지사항 글쓰기 버튼 눌렀을 때 이동
     @RequestMapping("/admin/notice_write")
-    public ModelAndView notice_write(String cPage) {
+    public ModelAndView notice_write(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
-        System.out.println(cPage);
-
         mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
         mv.setViewName("/admin/notice_write");
 
         return mv;
@@ -146,6 +154,7 @@ public class AdminController {
         // 파일 첨부 시 파일 저장 경로 설정
         // 넘어온 파일이 있는지 확인
         MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
+        System.out.println(vo.getB_type());
 
         if (mf.getSize() > 0) { // 파일을 첨부한 경우
 
@@ -212,22 +221,69 @@ public class AdminController {
         return map;
     }
 
+    // 공지사항 수정 페이지 이동
+    @RequestMapping("/admin/notice_edit")
+    public ModelAndView notice_edit(BbsVO vo, String cPage, String searchType, String searchValue) {
+
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("vo", vo);
+        mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
+        mv.setViewName("/admin/notice_edit");
+        return mv;
+    }
+
+    // 공지사항 수정 완료
+    @RequestMapping("/admin/notice_edit_ok")
+    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue)
+            throws Exception {
+        ModelAndView mv = new ModelAndView();
+
+        System.out.println(vo.getB_idx());
+        // 파일 첨부 시 파일 저장 경로 설정
+        // 넘어온 파일이 있는지 확인
+        MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
+        System.out.println(vo.getB_type());
+
+        if (mf.getSize() > 0) { // 파일을 첨부한 경우
+
+            // 파일을 저장할 곳 (bbs_upload)을 절대경로화 시킨다.
+            String realPath = application.getRealPath(bbs_upload);
+
+            // 파일명 얻기
+            String oname = mf.getOriginalFilename();
+
+            // 이미 같은 이름의 파일이 존재할 수도 있다. 만약 있다면 파일명 뒤에 숫자를 붙여준다. - 객체를 하나 정의
+            String fname = FileRenameUtil.checkFileName(oname, realPath);
+
+            mf.transferTo(new File(realPath, fname));
+
+            // 첨부된 파일명을 DB에 저장하기 위해 vo안에 file_name에 이름을 저장
+            vo.setB_filename(fname);
+            vo.setB_oriname(oname);
+        }
+
+        vo.setB_ip(request.getRemoteAddr());
+
+        service.notice_edit(vo);
+
+        mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
+        mv.setViewName("redirect:/admin/notice_view?b_idx=" + vo.getB_idx());
+
+        return mv;
+    }
+
     // 공지사항 공개/비공개 전환
     @RequestMapping("/admin/notice_changeStatus1")
     @ResponseBody
-    public Map<String, Integer> notice_chageStatus1(String b_idx, String cPage, String searchType, String searchValue)
+    public Map<String, Integer> notice_chageStatus1(String b_idx)
             throws Exception {
         int cnt = service.notice_chageStatus1(b_idx);
-        /*
-         * System.out.println(b_idx);
-         * System.out.println(cPage);
-         * System.out.println(searchType);
-         * System.out.println(searchValue);
-         * 
-         * return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage +
-         * "&searchType=" + searchType
-         * + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
-         */
+
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);
 
@@ -236,19 +292,10 @@ public class AdminController {
 
     @RequestMapping("/admin/notice_changeStatus0")
     @ResponseBody
-    public Map<String, Integer> notice_chageStatus0(String b_idx, String cPage, String searchType, String searchValue)
+    public Map<String, Integer> notice_chageStatus0(String b_idx)
             throws Exception {
         int cnt = service.notice_chageStatus0(b_idx);
-        /*
-         * System.out.println(b_idx);
-         * System.out.println(cPage);
-         * System.out.println(searchType);
-         * System.out.println(searchValue);
-         * 
-         * return "redirect:/admin/notice_view?b_idx=" + b_idx + "&cPage=" + cPage +
-         * "&searchType=" + searchType
-         * + "&searchValue=" + URLEncoder.encode(searchValue, "utf-8");
-         */
+
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);
 
@@ -257,9 +304,78 @@ public class AdminController {
 
     // 회원 탈퇴
     @RequestMapping("/admin/member_out")
-    public String member_out(String m_idx, String cPage, String searchType, String searchValue) {
-        service.member_out(m_idx);
-        return "redirect:/admin/member_view?m_idx=" + m_idx;
+    @ResponseBody
+    public Map<String, Integer> member_out(String m_idx) {
+        int cnt = service.member_out(m_idx);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+
+        return map;
     }
 
+    @RequestMapping("/admin/qna")
+    public ModelAndView qna(BbsVO vo, String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+
+        int nowPage = 1;
+        int totalRecord = service.qna_count(searchType, searchValue);
+
+        Admin_qna_paging page = new Admin_qna_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        BbsVO[] ar = service.qna(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
+        mv.setViewName("/admin/qna");
+
+        return mv;
+    }
+
+    // qna 상세보기
+    @RequestMapping("/admin/qna_view")
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+
+        BbsVO vo = service.qna_view(b_idx);
+
+        mv.addObject("vo", vo);
+        mv.setViewName("/admin/qna_view");
+
+        return mv;
+    }
+
+    @RequestMapping("/admin/qna_comm_write")
+    @ResponseBody
+    public Map<String, Integer> qna_comm_write(String b_content, String b_title, String m_idx, String target) {
+
+        System.out.println(b_content);
+        System.out.println(b_title);
+        System.out.println(m_idx);
+        System.out.println(target);
+
+        BbsVO vo = new BbsVO();
+        BbslogVO vo2 = new BbslogVO();
+
+        vo.setB_content(b_content);
+        vo.setB_title(b_title);
+        vo.setB_target(target);
+        vo.setB_ip(request.getRemoteAddr());
+
+        int cnt = service.qna_comm_write(vo);
+        vo2.setB_idx(vo.getB_idx());
+        vo2.setM_idx(m_idx);
+        int cnt2 = service.qna_comm_write2(vo2);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+        map.put("res2", cnt2);
+
+        return map;
+    }
 }

@@ -69,6 +69,11 @@ public class AdminService {
         return mapper.notice_write_ok2(vo);
     }
 
+    // 공지사항 수정
+    public int notice_edit(BbsVO vo) {
+        return mapper.notice_edit(vo);
+    }
+
     // 공지사항 비공개 변경
     public int notice_chageStatus1(String b_idx) {
         return mapper.notice_changeStatus1(b_idx);
@@ -82,5 +87,37 @@ public class AdminService {
     // 회원 탈퇴
     public int member_out(String m_idx) {
         return mapper.member_out(m_idx);
+    }
+
+    // 문의 보기
+    public BbsVO[] qna(int begin, int end, String searchType, String searchValue) {
+        BbsVO[] ar = null;
+
+        List<BbsVO> list = mapper.qna(begin, end, searchType, searchValue);
+        if (list != null && list.size() > 0) {
+            ar = new BbsVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    // 문의 카운트
+    public int qna_count(String searchType, String searchValue) {
+        return mapper.qna_count(searchType, searchValue);
+    }
+
+    // 문의 상세보기
+    public BbsVO qna_view(String b_idx) {
+        return mapper.notice_view(b_idx);
+    }
+
+    // 문의 댓글달기
+    public int qna_comm_write(BbsVO vo) {
+        return mapper.qna_comm_write(vo);
+    }
+
+    // 문의 댓글달기2
+    public int qna_comm_write2(BbslogVO vo) {
+        return mapper.qna_comm_write2(vo);
     }
 }

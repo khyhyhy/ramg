@@ -67,7 +67,9 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     <where>
+    b_type = 0
       <if test="searchType != null and searchValue != null">
+      AND
         <choose>
           <when test="searchType == 0">
               b_title LIKE concat('%',#{searchValue},'%')
@@ -112,10 +114,75 @@ SELECT COUNT(*) FROM charging.bbs_t
     </where>
 </select>
 
-
-
 <!-- 공지 보기 -->
 <select id="notice_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+SELECT * FROM charging.bbs_t
+WHERE b_idx = #{b_idx}
+</select>
+
+
+<!--qna-->
+<resultMap type="com.kdt.finalproject.vo.BbsVO" id="qnamap">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="qna_log" column="b_idx"/>
+</resultMap>
+
+<!--문의 게시판 글 목록-->
+<select id="qna" parameterType="Map" resultMap="qnamap">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+SELECT * FROM charging.bbs_t 
+<where>
+b_status = 0 AND b_type = 2 
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
+ORDER BY b_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<select id="qna_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+
+<!--문의 갯수-->
+<select id="qna_count" resultType="int">
+SELECT COUNT(*) FROM charging.bbs_t 
+<where>
+b_status = 0 AND b_type = 2
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
+</select>
+
+<!-- 문의 보기 -->
+<select id="qna_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
 SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
@@ -125,7 +192,7 @@ WHERE b_idx = #{b_idx}
 <!-- 공지 작성 -->
 <insert id="notice_write_ok" parameterType="Map" useGeneratedKeys="true" keyProperty="b_idx" keyColumn="b_idx">
 INSERT INTO charging.bbs_t(b_title, b_content, b_type, b_status, b_to, b_hit, b_ip, b_oriname, b_filename)
-VALUES(#{b_title}, #{b_content}, 0, 0, #{b_to}, 0, #{b_ip}, #{b_oriname}, #{b_filename})
+VALUES(#{b_title}, #{b_content}, #{b_type}, 0, #{b_to}, 0, #{b_ip}, #{b_oriname}, #{b_filename})
 </insert>
 
 <!-- 공지 작성 (로그)-->
@@ -135,7 +202,37 @@ VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
 </insert>
 
 
+<!--문의 댓글 작성-->
+<insert id="qna_comm_write" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx" keyColumn="b_idx">
+INSERT INTO charging.bbs_t(b_title, b_content, b_target, b_type, b_status, b_ip)
+VALUES(#{b_title}, #{b_content}, #{b_target}, 3, 0, #{b_ip})
+</insert>
+
+<!-- 문의 댓글 작성 (로그)-->
+<insert id="qna_comm_write2" parameterType="com.kdt.finalproject.vo.BbslogVO">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
+</insert>
+
 <!-- update -->
+
+<!-- 공지 수정-->
+<update id="notice_edit" parameterType="com.kdt.finalproject.vo.BbsVO">
+UPDATE charging.bbs_t
+  <trim prefix="SET" suffixOverrides=",">
+    b_title = #{b_title},
+    b_content = #{b_content},	
+    b_type = #{b_type},	
+    b_to = #{b_to},	
+    b_ip = #{b_ip},	
+      <if test="b_filename != null">
+        b_filename = #{b_filename},
+        b_oriname = #{b_oriname}
+      </if>
+  </trim>
+WHERE b_idx = #{b_idx}
+</update>
+
 
 <!--공지 비공개 변경-->
 <update id="notice_changeStatus1" parameterType="String">
