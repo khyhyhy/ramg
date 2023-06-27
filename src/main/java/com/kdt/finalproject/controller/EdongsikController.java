@@ -10,6 +10,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
@@ -186,7 +187,7 @@ public class EdongsikController {
         return mv;
     }
 
-    @RequestMapping("/edongsik/local/")
+    @RequestMapping("/local/")
     public ModelAndView local(@Param("lat") String lat, @Param("lng") String lng) {
         ModelAndView mv = new ModelAndView();
         System.out.println("lat======" + lat + "lng=====" + lng);
@@ -204,26 +205,19 @@ public class EdongsikController {
         return mv;
     }
 
-    // public int guri(double hlat, double hlng, double plat, double plng) {
-    // int radius = 0;
-
-    // double dLat = Math.toRadians(hlat - plat);
-    // double dLon = Math.toRadians(hlng - plng);
-
-    // double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-    // + Math.cos(Math.toRadians(hlat)) * Math.cos(Math.toRadians(plat)) *
-    // Math.sin(dLon / 2)
-    // * Math.sin(dLon / 2);
-    // double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    // double d = 6371 * c * 1000; // Distance in m
-    // radius = (int) Math.round(d);
-    // return radius;
-    // }
-
     @RequestMapping("/e_search/select/")
     public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
             @Param("nowstate") String nowstate, @Param("nowcity") String nowcity) {
         ModelAndView mv = new ModelAndView();
+        
+        MemVO vo = (MemVO)session.getAttribute("evo");
+        String m_idx = vo.getM_idx();
+        System.out.println("세션m_idx:"+ m_idx);
+
+        CwriteVO cwvo = service.carList(m_idx);
+        List<CarVO> ar = cwvo.getCar_list();
+
+        mv.addObject("c_ar", ar);
 
         int lo;
 

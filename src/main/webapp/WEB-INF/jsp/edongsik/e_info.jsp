@@ -10,6 +10,8 @@
 <body>
     <article>
      <h1>초기작업중</h1>
+
+    <P>세션m_idx: ${sessionScope.evo.m_idx}</P>
      
      <c:forEach items="${c_ar}" var="cvo">
         <h1>${cvo.c_idx}</h1>
