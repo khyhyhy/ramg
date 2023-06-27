@@ -154,7 +154,8 @@ public class SupportController {
     }
 
     @RequestMapping("/support/qna_view")
-    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date,
+            String m_name) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);

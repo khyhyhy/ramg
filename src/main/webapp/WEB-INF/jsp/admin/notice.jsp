@@ -59,7 +59,7 @@ pageEncoding="UTF-8"%>
                 <tr>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
                     <td>
-                        <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
+                        <a href="javascript:sub('${vo.b_idx}', '${vo.bbslog.bl_date}')">${vo.b_title}</a>
                         <c:if test="${vo.b_filename != null}">
                             <img src="../images/link.png" style="width: 14px;">
                         </c:if>
@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
                         </c:if>
                         <c:if test="${vo.b_type == 4}">
                             FAQ
-                    </c:if>
+                        </c:if>
                     </td>
                     <td>
                         <c:if test="${vo.b_status == 0}">
@@ -96,6 +96,7 @@ pageEncoding="UTF-8"%>
 
     <form name="frm" method="post">
         <input type="hidden" name="b_idx">
+        <input type="hidden" name="bl_date">
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -107,9 +108,10 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx){
+    function sub(b_idx, bl_date){
         document.frm.action = "/admin/notice_view";
         document.frm.b_idx.value = b_idx;
+        document.frm.bl_date.value = bl_date;
         document.frm.submit();
     }
 

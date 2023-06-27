@@ -38,6 +38,10 @@ pageEncoding="UTF-8"%>
                     </td>
                 </tr>
                 <tr>
+                    <th>작성자</th>
+                    <td>${param.m_name}</td>
+                </tr>
+                <tr>
                     <th>첨부파일</th>
                     <td>
                         <c:if test="${vo.b_filename != null }">

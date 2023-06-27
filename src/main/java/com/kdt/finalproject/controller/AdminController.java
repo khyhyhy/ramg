@@ -118,7 +118,7 @@ public class AdminController {
 
     // 공지사항 상세보기
     @RequestMapping("/admin/notice_view")
-    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue) {
+    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);
@@ -338,7 +338,8 @@ public class AdminController {
 
     // qna 상세보기
     @RequestMapping("/admin/qna_view")
-    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date,
+            String m_name) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
@@ -354,13 +355,12 @@ public class AdminController {
     // qna 댓글쓰기 (비동기식)
     @RequestMapping("/admin/qna_comm_write")
     @ResponseBody
-    public Map<String, Integer> qna_comm_write(String b_content, String b_title, String m_idx, String target) {
+    public Map<String, Integer> qna_comm_write(String b_content, String m_idx, String target) {
 
         BbsVO vo = new BbsVO();
         BbslogVO vo2 = new BbslogVO();
 
         vo.setB_content(b_content);
-        vo.setB_title(b_title);
         vo.setB_target(target);
         vo.setB_ip(request.getRemoteAddr());
 
@@ -372,20 +372,6 @@ public class AdminController {
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);
         map.put("res2", cnt2);
-
-        return map;
-    }
-
-    @RequestMapping("/admin/qna_view2")
-    @ResponseBody
-    public Map<String, Object> qna_view2(String b_idx) {
-
-        BbsVO vo = service.qna_view(b_idx);
-        BbsVO[] ar = service.qna_comm(b_idx);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("vo", vo);
-        map.put("ar", ar);
 
         return map;
     }

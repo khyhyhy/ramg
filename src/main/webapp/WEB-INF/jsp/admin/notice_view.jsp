@@ -25,6 +25,10 @@ pageEncoding="UTF-8"%>
             </colgroup>
             <tbody>
                 <tr>
+                    <th>작성일</th>
+                    <td>${param.bl_date}</td>
+                </tr>
+                <tr>
                     <th>제목</th>
                     <td>${vo.b_title}</td>
                 </tr>
@@ -52,9 +56,9 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="b_type" value="${vo.b_type}"/>
                 <input type="hidden" name="b_filename" value="${vo.b_filename}"/>
                 <input type="hidden" name="b_status" value="${vo.b_status}" id="b_status"/>
-                <input type="hidden" name="cPage" value="${cPage}"/>
-                <input type="hidden" name="searchType" value="${searchType}"/>
-                <input type="hidden" name="searchValue" value="${searchValue}"/>
+                <input type="hidden" name="cPage" value="${param.cPage}"/>
+                <input type="hidden" name="searchType" value="${param.searchType}"/>
+                <input type="hidden" name="searchValue" value="${param.searchValue}"/>
             </form>
 
             <div style="height: 80px;" >

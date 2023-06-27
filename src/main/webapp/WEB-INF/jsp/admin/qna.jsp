@@ -17,6 +17,17 @@ pageEncoding="UTF-8"%>
 <main>
     <div class="container">
         <h1>문의사항 관리</h1>
+        <form action="/admin/qna" method="post">
+            <div style="height: 60px; float: right;">
+                <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
+                    <option value="0">제목</option>
+                    <option value="1">내용</option>
+                    <option value="2">제목+내용</option>
+                </select>
+                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <button type="submit" class="btn btn-outline-info">검색</button>
+            </div>
+        </form>
         <table class="table table-hover">
             <colgroup>
                 <col width="150px">
@@ -47,7 +58,7 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.b_val1 == 1}">
                                 <img src="../images/lock.png" style="width: 15px;">
                             </c:if>
-                            <a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}')">${vo.b_title}</a>
+                            <a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}','${vo.bbslog.mvo.m_name}')">${vo.b_title}</a>
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
@@ -69,6 +80,7 @@ pageEncoding="UTF-8"%>
         <form action="/admin/qna_view" name="frm" method="post">
             <input type="hidden" name="b_idx">
             <input type="hidden" name="bl_date">
+            <input type="hidden" name="m_name">
             <input type="hidden" name="cPage" value="${nowPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -79,9 +91,10 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx, bl_date){
+    function sub(b_idx, bl_date, m_name){
         document.frm.b_idx.value = b_idx;
         document.frm.bl_date.value = bl_date;
+        document.frm.m_name.value = m_name;
         document.frm.submit();
     }
 </script>

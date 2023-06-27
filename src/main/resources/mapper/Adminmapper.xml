@@ -67,7 +67,7 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     <where>
-    b_type = 0
+    b_type = 0 OR b_type = 4
       <if test="searchType != null and searchValue != null">
       AND
         <choose>
@@ -98,8 +98,9 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <select id="notice_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
     <where>
-    b_type = 0
+    b_type = 0 OR b_type = 4
       <if test="searchType != null and searchValue != null">
+      AND
         <choose>
           <when test="searchType == 0">
               b_title LIKE concat('%',#{searchValue},'%')
@@ -140,7 +141,7 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
 SELECT * FROM charging.bbs_t 
 <where>
-b_status = 0 AND b_type = 2 
+b_status = 0 AND b_type = 2
       <if test="searchType != null and searchValue != null">
       AND
         <choose>
@@ -229,7 +230,7 @@ VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
 <!--문의 댓글 작성-->
 <insert id="qna_comm_write" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx" keyColumn="b_idx">
 INSERT INTO charging.bbs_t(b_title, b_content, b_target, b_type, b_status, b_ip, b_hit)
-VALUES(#{b_title}, #{b_content}, #{b_target}, 3, 0, #{b_ip}, 0)
+VALUES(0, #{b_content}, #{b_target}, 3, 0, #{b_ip}, 0)
 </insert>
 
 <!-- 문의 댓글 작성 (로그)-->
