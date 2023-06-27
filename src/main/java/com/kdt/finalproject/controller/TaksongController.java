@@ -1,5 +1,8 @@
 package com.kdt.finalproject.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -65,6 +68,7 @@ public class TaksongController {
  public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
    @Param("nowstate") String nowstate, @Param("nowcity") String nowcity) {
   ModelAndView mv = new ModelAndView();
+  List<ServiceVO> servicear = new ArrayList<ServiceVO>();
   // double lat = 37.48489405082669;
   // double lng = 126.90278513630275;
   double lat2 = Double.parseDouble(nowlat);
@@ -96,6 +100,7 @@ public class TaksongController {
     if (radius < Integer.parseInt(vo.getS_radius())) {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
      System.out.println();
+     servicear.add(vo);
     } else {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
      System.out.println();
@@ -117,6 +122,7 @@ public class TaksongController {
     if (radius < Integer.parseInt(vo.getS_radius())) {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
      System.out.println();
+     servicear.add(vo);
     } else {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
      System.out.println();
@@ -125,6 +131,7 @@ public class TaksongController {
     ++idx;
    }
   }
+  mv.addObject("servicear", servicear);
   mv.setViewName("taksong/serviceinfo");
   return mv;
  }

@@ -21,31 +21,66 @@
    <!--////////// Header end ////////////-->
 
    <!--////////// Main start //////////////-->
-   <main>
-    <p>"${evo.m_idx}"</p>
-    <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
+   <div class="container">
+    <main>
+     <p>"${evo.m_idx}"</p>
+     <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
-    <div style="display: flex; justify-content: center; margin-top: 50px;">
-     <button type="button" onclick="location.href='??'">충전하기</button>
-     <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-     <button type="button" onclick="location.href='map'">이용내역</button>
-    </div>
+     <div style="display: flex; justify-content: center; margin-top: 50px;">
+      <button type="button" onclick="location.href='??'">충전하기</button>
+      <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+      <button type="button" onclick="location.href='map'">이용내역</button>
+     </div>
 
-    <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
-     
+     <div class="text-center">
+      <div class="row">
+       <div class="col">
+        상단영역
+       </div>
+      </div>
+      <div class="row">
+       <div class="col">
+        <div class="list-group">
+         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">1번마</button>
+         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">2번마</button>
+         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">3번마</button>
+         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">4번마</button>
+        </div>
+       </div>
+       <div class="col">
+        <ul class="list-group">
+         <c:forEach items="${servicear}" var="vo" varStatus="status">
+          <input type="radio" class="btn-check" name="options" id='option${status.index}' autocomplete="off">
+          <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+           for="option${status.index}">${vo.s_city}${vo.s_radius}</label>
+         </c:forEach>
+        </ul>
+       </div>
+       <div class="col">
+        Column
+       </div>
+      </div>
+     </div>
 
-
-    </div>
-    </div>
-    <form action="/taksong/local" method="get">
-     <input type="hidden" id="lat1" name="lat" />
-     <input type="hidden" id="lng1" name="lng" />
-    </form>
-   </main>
+     <form action="/taksong/local" method="get">
+      <input type="hidden" id="lat1" name="lat" />
+      <input type="hidden" id="lng1" name="lng" />
+     </form>
+    </main>
+   </div>
    <!--////////// Main end //////////////-->
    <!--////////// Foter start //////////////-->
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
+   <script>
+    function activate(e) {
+     if (e.classList.contains('active')) {
+      e.classList.remove('active');
+     } else {
+      e.classList.add('active');
+     }
+    }
+   </script>
   </body>
 
   </html>
