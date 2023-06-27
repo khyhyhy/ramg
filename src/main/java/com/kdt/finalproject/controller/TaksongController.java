@@ -94,10 +94,13 @@ public class TaksongController {
 
    System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
 
-   if (radius < Integer.parseInt(vo.getS_radius()))
+   if (radius < Integer.parseInt(vo.getS_radius())) {
     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
-   else
+    System.out.println();
+   } else {
     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
+    System.out.println();
+   }
    ++idx;
   }
 
