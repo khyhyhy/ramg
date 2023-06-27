@@ -32,26 +32,10 @@
     </div>
 
     <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
-
-     <div class="card" style="width: 18rem; ">
-      <img src="/images/map_icon.png" class="card-img-top" alt="...">
-      <div class="card-body">
-       <h5 class="card-title">현재 위치 검색</h5>
-       <p class="card-text"></p>
-       <button type="button " class="btn btn-primary" onclick="conf()">검색</button>
-      </div>
-     </div>
+     
 
 
-     <div class="card" style="width: 18rem; margin-left: 150px;">
-      <img src="/images/car_icon.png" class="card-img-top" alt="...">
-      <div class="card-body">
-       <h5 class="card-title">차량 등록 주소</h5>
-       <p class="card-text"></p>
-       <a href="#" class="btn btn-primary" onclick="location.href='/carAddr/?m_idx=${evo.m_idx}'">검색</a>
-      </div>
-
-     </div>
+    </div>
     </div>
     <form action="/taksong/local" method="get">
      <input type="hidden" id="lat1" name="lat" />
@@ -62,27 +46,6 @@
    <!--////////// Foter start //////////////-->
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
-
-   <script>
-    function conf() {
-     if (confirm("현재위치를 조회하시겠습니까?")) {
-      johoe();
-     } else {
-      alert("위치 기반 서비스를 동의해 주세요");
-     }
-    }
-    function johoe() {
-     navigator.geolocation.getCurrentPosition(function (pos) {
-      console.log(pos);
-      var latitude = pos.coords.latitude;
-      var longitude = pos.coords.longitude;
-      document.getElementById("lat1").value = latitude;
-      document.getElementById("lng1").value = longitude;
-      alert("현재 위치는 : " + latitude + ", " + longitude);
-      document.forms[0].submit();
-     });
-    }
-   </script>
   </body>
 
   </html>

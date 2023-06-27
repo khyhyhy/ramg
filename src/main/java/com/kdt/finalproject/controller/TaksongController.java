@@ -81,32 +81,51 @@ public class TaksongController {
   // System.out.println("현재 지점" + nowstate + "과 구로 디지털 단지의 역 거리는 " + d + "m입니다.");
   System.out.println("nowcity ==" + nowcity);
 
-  // if (nowstate.contains(sp) || nowstate.contains(mp) || nowstate.contains(wp))
-  // {
-  // System.out.println("현재 위치는 특별 혹은 광역 혹은 자치 시입니다.");
-  ServiceVO[] ar = service.siar(nowstate);
+  if (nowstate.contains(sp) || nowstate.contains(mp) || nowstate.contains(wp)) {
+   System.out.println("현재 위치는 특별 혹은 광역 혹은 자치 시입니다.");
+   ServiceVO[] ar = service.siar(nowstate);
 
-  int idx = 1;
+   int idx = 1;
 
-  for (ServiceVO vo : ar) {
-   int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
-     Double.parseDouble(vo.getS_mapx()), Double.parseDouble(vo.getS_mapy()));
+   for (ServiceVO vo : ar) {
+    int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
+      Double.parseDouble(vo.getS_mapx()), Double.parseDouble(vo.getS_mapy()));
 
-   System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
+    System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
 
-   if (radius < Integer.parseInt(vo.getS_radius())) {
-    System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
-    System.out.println();
-   } else {
-    System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
-    System.out.println();
+    if (radius < Integer.parseInt(vo.getS_radius())) {
+     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
+     System.out.println();
+    } else {
+     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
+     System.out.println();
+    }
+
+    ++idx;
    }
-   ++idx;
+
+  } else {
+   ServiceVO[] ar = service.guar(nowcity);
+
+   int idx = 1;
+
+   for (ServiceVO vo : ar) {
+    int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
+      Double.parseDouble(vo.getS_mapx()), Double.parseDouble(vo.getS_mapy()));
+    System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
+
+    if (radius < Integer.parseInt(vo.getS_radius())) {
+     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
+     System.out.println();
+    } else {
+     System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
+     System.out.println();
+    }
+
+    ++idx;
+   }
   }
-
-  // }
-
+  mv.setViewName("taksong/serviceinfo");
   return mv;
-
  }
 }
