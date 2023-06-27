@@ -187,9 +187,9 @@ public class EdongsikController {
     }
 
     @RequestMapping("/e_search/")
-    public ModelAndView init() {
+    public ModelAndView init(@Param("addr") String addr) {
         ModelAndView mv = new ModelAndView();
-
+        mv.addObject("addr", addr);
         mv.setViewName("edongsik/e_search");
         return mv;
     }
@@ -251,6 +251,15 @@ public class EdongsikController {
 
         // }
 
+        return mv;
+
+    }
+
+    @RequestMapping("/e_search/addr/")
+    public ModelAndView select2(@Param("addr") String addr) {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName(addr);
         return mv;
 
     }

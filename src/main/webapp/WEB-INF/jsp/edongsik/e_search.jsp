@@ -13,6 +13,12 @@
     <h1>현재위치끼얏호우</h1>
    </div>
    <div id="map" style="width:100%;height:350px;"></div>
+   <div>
+    <form method="post" action="/e_search/">
+        <input type="text" id="addr" name="addr" />
+        <button type="submit">검색</button>
+    </form>
+   </div>
 
    <p id="result"></p>
    <form action="/e_search/select/">
@@ -83,30 +89,53 @@
 
     });
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    geocoder.addressSearch("'서울특별시 관악구 신림동 1431-25'", function(result, status) {
+
+     
+
+    
+    
+    geocoder.addressSearch("'${addr}'", function(result, status) {
+
+       
 
 // 정상적으로 검색이 완료됐으면 
  if (status === kakao.maps.services.Status.OK) {
 
-    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+    
 
+    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    
     // 결과값으로 받은 위치를 마커로 표시합니다
-    var marker = new kakao.maps.Marker({
+    marker = new kakao.maps.Marker({
         map: map,
-        position: coords
+        position: markerPosition
+
+        
     });
 
     // 인포윈도우로 장소에 대한 설명을 표시합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-    });
-    infowindow.open(map, marker);
+    // var infowindow = new kakao.maps.InfoWindow({
+    //     content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+    // });
+    // infowindow.open(map, marker);
 
     // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-    map.setCenter(coords);
+    map.setCenter(markerPosition);
+
+    var latlng = map.getCenter();
+     marker.setPosition(latlng)
+     document.getElementById("lat1").value = latlng.getLat();
+     document.getElementById("lng1").value = latlng.getLng();
+     var message = '변경된 지도 중심 위도는 ' + latlng.getLat() + ' , ';
+     message += '경도는 ' + latlng.getLng() + ' 임';
+
+     var resultDiv = document.getElementById('result');
+     resultDiv.innerHTML = message;
 } 
 });    
 
+    
    </script>
 
   </body>
