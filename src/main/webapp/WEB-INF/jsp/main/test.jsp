@@ -18,9 +18,12 @@
 
         <!--////////// Main start //////////////-->
         <main>
-            <div class="container">
-                <img src="../images/ramgithunder.png" class="img-fluid" alt="...">
-            </div>
+                <div class="container">
+                    <img src="../images/ramgithunder.png" class="img-fluid" alt="...">
+                </div>
+
+
+
         </main>
         <!--////////// Main end //////////////-->
         <!--////////// Foter start //////////////-->

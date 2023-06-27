@@ -22,14 +22,37 @@
 
    <!--////////// Main start //////////////-->
    <main>
+    <p>"${evo.m_idx}"</p>
+    <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
-
-    <div>
-     <h1>index</h1>
+    <div style="display: flex; justify-content: center; margin-top: 50px;">
+     <button type="button" onclick="location.href='??'">충전하기</button>
+     <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+     <button type="button" onclick="location.href='map'">이용내역</button>
     </div>
 
-    <p id="result"></p>
-    <button type="button" onclick="conf()">다음 화면</button>
+    <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+
+     <div class="card" style="width: 18rem; ">
+      <img src="/images/map_icon.png" class="card-img-top" alt="...">
+      <div class="card-body">
+       <h5 class="card-title">현재 위치 검색</h5>
+       <p class="card-text"></p>
+       <button type="button " class="btn btn-primary" onclick="conf()">검색</button>
+      </div>
+     </div>
+
+
+     <div class="card" style="width: 18rem; margin-left: 150px;">
+      <img src="/images/car_icon.png" class="card-img-top" alt="...">
+      <div class="card-body">
+       <h5 class="card-title">차량 등록 주소</h5>
+       <p class="card-text"></p>
+       <a href="#" class="btn btn-primary" onclick="location.href='/carAddr/?m_idx=${evo.m_idx}'">검색</a>
+      </div>
+
+     </div>
+    </div>
     <form action="/taksong/local" method="get">
      <input type="hidden" id="lat1" name="lat" />
      <input type="hidden" id="lng1" name="lng" />

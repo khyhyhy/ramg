@@ -52,4 +52,8 @@ public class LoginService {
         return l_Mapper.search_email(m_email);
     }
 
+    public MemVO check_email(String m_email) {
+        return l_Mapper.search_email(m_email);
+    }
+
 }

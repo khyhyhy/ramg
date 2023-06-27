@@ -13,6 +13,12 @@
     <h1>현재위치끼얏호우</h1>
    </div>
    <div id="map" style="width:100%;height:350px;"></div>
+   <div>
+    <form method="post" action="/e_search/">
+        <input type="text" id="addr" name="addr" />
+        <button type="submit">주소 검색</button>
+    </form>
+   </div>
 
    <p id="result"></p>
    <form action="/e_search/select/">
@@ -25,40 +31,117 @@
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8f974dd2f43fefe94e70a9ce228e40e&libraries=services"></script>
    <script>
+    console.log("lat====" + "${lat}");
+    console.log("lng====" + "${lng}");
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
      mapOption = {
-      center: new kakao.maps.LatLng(37.484894218110625, 126.90298865633629), // 지도의 중심좌표
+      center: new kakao.maps.LatLng("${lat}", "${lng}"), // 지도의 중심좌표
       level: 3 // 지도의 확대 레벨
      };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
-    var markerPosition = new kakao.maps.LatLng(37.484894218110625, 126.90298865633629);
+    var markerPosition = new kakao.maps.LatLng("${lat}", "${lng}");
 
     // 마커를 생성합니다
     var marker = new kakao.maps.Marker({
      position: markerPosition
+
+     
     });
 
 
     // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map);
+    marker.setMap(map)
 
-    // 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
-    kakao.maps.event.addListener(map, 'dragend', function () {
+    // tilesloaded
+    kakao.maps.event.addListener(map, 'tilesloaded', function () {
 
-     // 지도 중심좌표를 얻어옵니다 
-     var latlng = map.getCenter();
+    var latlng = map.getCenter();
+    marker.setPosition(latlng)
+    document.getElementById("lat1").value = latlng.getLat();
+    document.getElementById("lng1").value = latlng.getLng();
+    var message = '현재 지도 중심 위도는 ' + latlng.getLat() + ' , ';
+    message += '경도는 ' + latlng.getLng() + ' 임';
+
+    var resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = message;
+
+    //map.setCenter(markerPosition);
+
+    geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+
+    });
+    
+    // idle
+    kakao.maps.event.addListener(map, 'idle', function() {
+    
+    var latlng = map.getCenter();
      marker.setPosition(latlng)
      document.getElementById("lat1").value = latlng.getLat();
      document.getElementById("lng1").value = latlng.getLng();
      var message = '변경된 지도 중심 위도는 ' + latlng.getLat() + ' , ';
      message += '경도는 ' + latlng.getLng() + ' 임';
-
+     
      var resultDiv = document.getElementById('result');
      resultDiv.innerHTML = message;
 
-     var callback = function (result, status) {
+     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+    
+    });
+
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    
+    geocoder.addressSearch("'${addr}'", function(result, status) {
+
+       
+
+// 정상적으로 검색이 완료됐으면 
+ if (status === kakao.maps.services.Status.OK) {
+
+    
+
+    markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+    
+    // 결과값으로 받은 위치를 마커로 표시합니다
+    marker
+
+    
+
+    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+    map.setCenter(markerPosition);
+
+    
+} 
+});
+
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+kakao.maps.event.addListener(map, 'click', function(mouseEvent) {      
+    
+    // 클릭한 위도, 경도 정보를 가져옵니다 
+    var latlng = mouseEvent.latLng;
+    
+    var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+    message += '경도는 ' + latlng.getLng() + ' 입니다';
+    
+    var resultDiv = document.getElementById('result'); 
+    resultDiv.innerHTML = message;
+
+    markerPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
+    
+    marker
+    
+    
+    map.setCenter(markerPosition);
+
+   
+});
+// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+var callback = function (result, status) {
       if (status === kakao.maps.services.Status.OK) {
 
        console.log(kakao.maps.services.Status.OK)
@@ -78,34 +161,7 @@
        document.getElementById("city").value = city
       }
 
-     };
-     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
-
-    });
-// ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    geocoder.addressSearch("'서울특별시 관악구 신림동 1431-25'", function(result, status) {
-
-// 정상적으로 검색이 완료됐으면 
- if (status === kakao.maps.services.Status.OK) {
-
-    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-    // 결과값으로 받은 위치를 마커로 표시합니다
-    var marker = new kakao.maps.Marker({
-        map: map,
-        position: coords
-    });
-
-    // 인포윈도우로 장소에 대한 설명을 표시합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
-    });
-    infowindow.open(map, marker);
-
-    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-    map.setCenter(coords);
-} 
-});    
+     };    
 
    </script>
 

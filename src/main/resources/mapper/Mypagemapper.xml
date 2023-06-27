@@ -11,7 +11,15 @@
       select="get_car" column="c_idx"/>
   </resultMap>
 
+  
+
   <!-- select -->
+
+  <select id="getMemberByIdx" resultType="com.kdt.finalproject.vo.MemVO">
+        SELECT * FROM member_t 
+        WHERE m_idx = #{mIdx}
+    </select>
+
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
     SELECT * FROM car_write
@@ -26,14 +34,14 @@
 
 
   <!-- insert -->
-  <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO">
-      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, c_tcol) -- 필요한 컬럼들을 나열해주세요
-      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, #{c_chargetype}, #{c_state}, #{c_city}, #{c_tcol}) -- 모델의 필드와 매핑되는 값을 넣어주세요
+  <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
+      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, car_tcol) 
+      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{car_tcol}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
-      insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date) -- 필요한 컬럼들을 나열해주세요
-      values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now()) -- 모델의 필드와 매핑되는 값을 넣어주세요
+      insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date)
+      values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now())
   </insert>
 
   <!-- update -->
@@ -54,5 +62,12 @@
       SET cw_type = 1
       WHERE c_idx = #{c_idx} and m_idx = #{m_idx}
   </update>
+
+  <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
+        UPDATE member_t
+        SET m_email = #{mEmail}, m_pw = #{mPw}, m_name = #{mName}, m_phone = #{mPhone}, m_address = #{mAddress}, m_class = #{mClass}, m_status = #{mStatus},
+            m_atoken = #{mAtoken}, m_rtoken = #{mRtoken}, m_payment = #{mPayment}, m_date = #{mDate}
+        WHERE m_idx = #{mIdx}
+    </update>
 
 </mapper>

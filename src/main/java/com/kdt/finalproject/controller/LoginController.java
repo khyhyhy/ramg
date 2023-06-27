@@ -23,7 +23,7 @@ public class LoginController {
 
     @GetMapping("login")
     public String login() {
-        return "login/login";
+        return "/login/login";
     }
 
     @PostMapping("login")
@@ -35,9 +35,9 @@ public class LoginController {
         // 로그인이 되었다면 vo가 null이 아니므로 세션에 저장!!
         if (vo != null) {
             session.setAttribute("mvo", vo);
-            mv.setViewName("redirect:/");
+            mv.setViewName("redirect:/main/");
         } else
-            mv.setViewName("login");
+            mv.setViewName("/login/login");
         return mv;
     }
 
@@ -45,7 +45,7 @@ public class LoginController {
     public ModelAndView logout() {
         ModelAndView mv = new ModelAndView();
         session.removeAttribute("mvo");
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/main/");
         return mv;
     }
 

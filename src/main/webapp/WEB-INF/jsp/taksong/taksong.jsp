@@ -47,13 +47,13 @@
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8f974dd2f43fefe94e70a9ce228e40e&libraries=services"></script>
    <script>
-    console.log("lat====" + "${lat}");
-    console.log("lng====" + "${lng}");
+
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
      mapOption = {
       center: new kakao.maps.LatLng("${lat}", "${lng}"), // 지도의 중심좌표
       level: 3 // 지도의 확대 레벨
      };
+
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
     var geocoder = new kakao.maps.services.Geocoder();
@@ -64,10 +64,45 @@
      position: markerPosition
     });
 
-
-    // 마커가 지도 위에 표시되도록 설정합니다
     marker.setMap(map);
 
+    // 드래그 이전 현재위치로 state등 반환
+    kakao.maps.event.addListener(map, 'tilesloaded', function () {
+
+     var latlng = map.getCenter();
+     marker.setPosition(latlng)
+     document.getElementById("lat1").value = latlng.getLat();
+     document.getElementById("lng1").value = latlng.getLng();
+     var message = '현재 지도 중심 위도는 ' + latlng.getLat() + ' , ';
+     message += '경도는 ' + latlng.getLng() + ' 임';
+
+     var resultDiv = document.getElementById('result');
+     resultDiv.innerHTML = message;
+
+     var callback = function (result, status) {
+      if (status === kakao.maps.services.Status.OK) {
+
+       console.log(kakao.maps.services.Status.OK)
+       console.log(result);
+       console.log('전체 지역 명은' + result[0].address_name + '입니다');
+       console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
+       console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
+       document.getElementById("state").value = result[0].region_1depth_name;
+       console.log('행정구역 코드 : ' + result[0].code);
+
+
+
+       const regex = /(\S+[시군])/;
+       const resultt = regex.exec(result[0].address_name);
+
+       const city = result[0].region_2depth_name;
+       document.getElementById("city").value = city
+      }
+
+     };
+     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+
+    });
     // 마우스 드래그로 지도 이동이 완료되었을 때 마지막 파라미터로 넘어온 함수를 호출하도록 이벤트를 등록합니다
     kakao.maps.event.addListener(map, 'dragend', function () {
 
