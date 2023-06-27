@@ -173,6 +173,7 @@ public class NaverController {
                     MemVO vo = ls.search_email(email);
                     if (vo == null) { // 가입여부 확인
                         ls.add_mem(mvo);// 회원가입 - 최초 접근시 한번만 수행!!
+                        // mv.setViewName("mypage/car_mt");
                         vo = mvo;
                     }
                     session.setAttribute("mvo", vo);

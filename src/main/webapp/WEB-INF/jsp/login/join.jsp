@@ -8,11 +8,12 @@
         <div>
           <h1 class="u-text u-text-default u-text-1">회원가입</h1>
         </div> 
-                <form action="join" style="padding: 15px;" source="email" name="form" method="post">
-                  <div>
+              <form action="join" style="padding: 15px;" source="email" name="form" method="post">
+                  
+                <div>
                     <input type="radio" name="m_class" value="0" checked> 개인
-                    <input type="radio" name="m_class" value="1"> 사업자(탁송)
-                    <input type="radio" name="m_class" value="2"> 사업자(이동식)
+                    <input type="radio" name="m_class" value="1"> 사업자
+                    <!-- <input type="radio" name="m_class" value="2"> 사업자 -->
                   </div>
 
                   <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
@@ -22,14 +23,14 @@
                         <input type="email" placeholder="carcharge@naver.com" id="m_email" name="m_email">
                     </div>
                   
-                    <span id="box"></span>
-                   <%-- <button onclick="checkEmail()">중복 체크</button> --%>
-                    <div id="message"></div>
-                  </div>
+                            <span id="box"></span>
+                          <!-- <button onclick="checkEmail()">중복 체크</button> -->
+                            <div id="message"></div>
+                          </div>
 
                   <div>
                     <label for="rg_pw">비밀번호</label>
-                    <input type="password" placeholder="8자 이상이면서 최소한 숫자 하나와 글자 하나를 포함해야 합니다." id="rg_pw" name="m_pw">
+                    <input type="password"  placeholder="8자 이상이면서 최소한 숫자 하나와 글자 하나를 포함해야 합니다." id="rg_pw" name="m_pw">
                   </div>
 
                   <div>
@@ -49,24 +50,20 @@
                 </div>
 
                 <div class="u-align-right u-form-group u-form-submit u-label-top">
-                  <button onclick="send(this.form)" type="button" class="u-btn u-btn-round u-btn-submit u-button-style u-radius-14 u-text-body-alt-color u-btn-1" >가입하기</button>
+                  <button onclick="send(this.form)" type="button" >가입하기</button>
                   <%-- <input type="submit" value="submit" class="u-form-control-hidden"> --%>
                 </div>
-
-                  
-
-                  
-                  <div>
-                    <button onclick="send(this.form)" type="button">가입하기</button>
-                    <%-- <input type="submit" value="submit"> --%>
-                  </div>
-
 
 
                   <!-- <input type="hidden" value="" name="recaptchaResponse">
                   <input type="hidden" value="add" name="type">
                   <input type="hidden" name="formServices" value="a4e7f32e805dd745f9249c7cef4456ee"> -->
-                </form>
+              </form>
+              
+
+
+            </div>
+
               </div>
             </div>
           </div>
@@ -78,8 +75,7 @@
 
 
             <!-- Jquery Plugins, main Jquery -->	
-            <script src="./assets/js/plugins.js"></script>
-            <script src="./assets/js/main.js"></script>
+
             
             <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
             <script>
@@ -89,6 +85,8 @@
                 <c:if test="${cnt == 0}">
                     alert("회원가입에 실패했습니다. 다시 시도하세요");
                 </c:if>
+
+
 
                 function send(form){
 
@@ -175,9 +173,32 @@
                         return;
                     }
                     
+                    $.ajax({
+                      url: 'join',
+                      type: 'POST',
+                      data: $(form).serialize(), // Serialize the form data
+                      success: function(response) {
+                        if (response.success) {
+                          alert("회원가입을 축하합니다. 로그인 해주세요.");
+                          window.location.href = "/login"; // 
+                       
+                        } else {
+                          alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+                        }
+                      },
+                      error: function() {
+                        alert("회원가입에 실패했습니다. 다시 시도해주세요.");
+                      }
+                    });
+
+
                     //document.forms[0].action = "registry.jsp";
                     //document.forms[0].method = "post";
-                    document.form.submit(); //서버로 보낸다.
+                    
+ 
+                    // document.forms[0].action = "login/login.jsp";
+                    
+                    //document.form.submit(); //서버로 보낸다. (일단 주석처리)
                 }
   	
                 $(function(){

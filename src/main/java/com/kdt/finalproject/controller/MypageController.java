@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.finalproject.service.MypageService;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
+import com.kdt.finalproject.vo.MemVO;
 
 @Controller
 public class MypageController {
@@ -32,9 +33,18 @@ public class MypageController {
     public ModelAndView addCar(CarVO cvo) {
         ModelAndView mv = new ModelAndView();
 
+        System.out.println("CVO cnum" + cvo.getC_num());
+
         int cnt = service.addCar(cvo);
 
         mv.addObject("cnt", cnt);
+
+        if (cnt > 0)
+            mv.setViewName("login/login"); // 차량등록 완료후 로그인페이지로 이동
+
+        else
+            mv.setViewName("join");
+
         return mv;
     }
 
