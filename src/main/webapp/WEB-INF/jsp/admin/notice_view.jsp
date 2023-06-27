@@ -42,27 +42,41 @@ pageEncoding="UTF-8"%>
                     <td>${vo.b_content}</td>
                 </tr>
             </table>
+            
+            <form name="frm" method="post">
+                <input type="hidden" name="fname"/>
+                <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
+                <input type="hidden" name="b_title" value="${vo.b_title}"/>
+                <input type="hidden" name="b_filename" value="${vo.b_filename}"/>
+                <input type="hidden" name="b_content" value="${vo.b_content}"/>
+                <input type="hidden" name="b_type" value="${vo.b_type}"/>
+                <input type="hidden" name="b_filename" value="${vo.b_filename}"/>
+                <input type="hidden" name="b_status" value="${vo.b_status}" id="b_status"/>
+                <input type="hidden" name="cPage" value="${cPage}"/>
+                <input type="hidden" name="searchType" value="${searchType}"/>
+                <input type="hidden" name="searchValue" value="${searchValue}"/>
+            </form>
+
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:changeStatus()">
+                <button type="button"  class="btn btn-outline-info" onclick="javascript:changeStatus()" id="btn">
                     <c:if test="${vo.b_status == 0}">비공개</c:if>
                     <c:if test="${vo.b_status == 1}">공개</c:if>
                 </button>
+                <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
             </div>
 
-        <form name="frm" method="get">
-            <input type="hidden" name="fname"/>
-            <input type="hidden" name="b_idx" value="${vo.b_idx}"/>
-            <input type="hidden" name="cPage" value="${param.cPage}"/>
-            <input type="hidden" name="searchType" value="${param.searchType}">
-            <input type="hidden" name="searchValue" value="${param.searchValue}">
-        </form>
+        
+            
     
 
     </body>
 </div>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
+
+
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
     function down(fname) {
         // 인자로 사용자가 클릭한 파일명을 받는다. 이것을 현재 문서 안에 있는 frm이라는 폼객체에 이름이 fname이라는 hidden 요소의 값으로 지정해준다.
@@ -72,16 +86,55 @@ pageEncoding="UTF-8"%>
     }
 
     function changeStatus(){
-        if('${vo.b_status}'== 0)
-            document.frm.action = "/admin/notice_changeStatus1";
-        else if('${vo.b_status}'== 1)
-            document.frm.action = "/admin/notice_changeStatus0";
 
-        document.frm.submit();
+        let st = $("#b_status").val(); // 0 아니면 1
+
+        let b_idx = $("#b_idx").val();    
+
+        if(st == 0){
+            if(confirm("해당 글을 비공개로 변경하시겠습니까?")){
+                $.ajax({
+                    url: "/admin/notice_changeStatus1",
+                    type: "post",
+                    data: {"b_idx":b_idx},
+                    dataType:"json"
+                }).done(function(data){
+                    if(data.res == 1){ //성공한 경우에만 수행
+                        $("#b_status").val(1);
+                        $("#btn").text("공개");
+                    }
+                });
+            }else{
+                return;
+            }
+
+        }else if (st == 1){
+            if(confirm("해당 글을 공개로 변경하시겠습니까?")){
+                $.ajax({
+                    url: "/admin/notice_changeStatus0",
+                    type: "post",
+                    data: {"b_idx":b_idx},
+                    dataType:"json"
+                }).done(function(data){
+                    if(data.res == 1){ //성공한 경우에만 수행
+                        $("#b_status").val(0);
+                        $("#btn").text("비공개");
+                    }
+                });
+            }else{
+                return;
+            }
+        }
+        
     }
 
     function sub(){
         document.frm.action = "/admin/notice";
+        document.frm.submit();
+    }
+
+    function edit(){
+        document.frm.action = "/admin/notice_edit";
         document.frm.submit();
     }
     

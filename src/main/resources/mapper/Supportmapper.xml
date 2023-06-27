@@ -6,7 +6,7 @@
 
 <!-- select -->
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 목록 시작~~~~~~~~~~~~~~~~~~~~~~~ -->
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 시작~~~~~~~~~~~~~~~~~~~~~~~ -->
 
 <resultMap type="com.kdt.finalproject.vo.BbsVO" id="map1">
   <id property="b_idx" column="b_idx"/>
@@ -18,7 +18,23 @@
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
 SELECT * FROM charging.bbs_t 
-WHERE b_status = 0
+<where>
+b_status = 0 AND b_type = 0
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
 ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -29,7 +45,23 @@ ORDER BY b_idx DESC
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
 SELECT * FROM charging.bbs_t
-WHERE b_to = 0 AND b_status = 0
+<where>
+  b_to = 0 AND b_status = 0 AND b_type = 0
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
 ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -45,34 +77,134 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <!-- (Paging) 사업자 공지사항 총 갯수 -->
 <select id="support_notice_count1" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
-WHERE b_status = 0
+<where>
+b_status = 0 AND b_type = 0
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
 </select>
 
 <!-- (Paging) 개인 공지사항 총 갯수 -->
 <select id="support_notice_count2" resultType="int">
-SELECT COUNT(*) FROM charging.bbs_t
-WHERE b_to = 0 AND b_status = 0
+SELECT COUNT(*) FROM charging.bbs_t 
+<where>
+  b_to = 0 AND b_status = 0 AND b_type = 0
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
 </select>
 
-<!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 목록 끝~~~~~~~~~~~~~~~~~~~~~~~ -->
-
 <!-- 공지 보기 -->
-<select id="notice_view" parameterType="int" resultType="com.kdt.finalproject.vo.BbsVO">
+<select id="notice_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
 SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
 
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 끝~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- 자주하는 질문 보기-->
+<select id="faq" resultType="com.kdt.finalproject.vo.BbsVO">
+SELECT * FROM charging.bbs_t
+WHERE b_type = 4 AND b_status = 0
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.BbsVO" id="qnamap">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="qna_log" column="b_idx"/>
+</resultMap>
+
+<!--문의 게시판 글 목록-->
+<select id="qna" parameterType="Map" resultMap="qnamap">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+SELECT * FROM charging.bbs_t 
+<where>
+b_status = 0 AND b_type = 2 
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
+ORDER BY b_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<select id="qna_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+
+<!--문의 갯수-->
+<select id="support_qna_count" resultType="int">
+SELECT COUNT(*) FROM charging.bbs_t 
+<where>
+b_status = 0 AND b_type = 2
+      <if test="searchType != null and searchValue != null">
+      AND
+        <choose>
+          <when test="searchType == 0">
+              b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    </where>
+</select>
+
+
 <!-- insert -->
+
 
 
 <!-- update -->
 
 <!--조회수 증가-->
-<update id="notice_hit" parameterType="int">
+<update id="notice_hit" parameterType="String">
 UPDATE charging.bbs_t
 SET b_hit = b_hit+1
 WHERE b_idx = #{b_idx}
 </update>
+
 
 
 

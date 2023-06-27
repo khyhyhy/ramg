@@ -29,12 +29,12 @@ public class FmapController {
         // http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?serviceKey=bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D&pageNo=1&numOfRows=10&addr=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
         // 한전 에너지센터 : https://bigdata.kepco.co.kr/openapi/v1/EVcharge.do
 
-        String city = "서울";
+        String city = "서울특별시";
         StringBuffer sb = new StringBuffer();
         sb.append("http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList");
         sb.append("?serviceKey=" + key);
-        sb.append("&pageNo=10");
-        sb.append("&numOfRows=10");
+        sb.append("&pageNo=1");
+        sb.append("&numOfRows=400");
         sb.append("&addr=" + URLEncoder.encode(city, "UTF-8"));
 
         URL url = new URL(sb.toString());

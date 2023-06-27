@@ -40,7 +40,6 @@
     </table>
     <!-- 차량 추가 -->
 
-
   <h2>차량 추가</h2>
   <form action="addCar" method="post" name="form">
 
@@ -71,12 +70,11 @@
     <!-- <input type="submit" value="추가"> -->
     <input type="hidden" value="${mvo.m_idx}" name="m_idx"/>
     <button onclick="send(this.form)" type="button">추가</button>
+
   </form>
 </main>
 
-      <!-- Jquery Plugins, main Jquery -->	
-      <script src="./assets/js/plugins.js"></script>
-      <script src="./assets/js/main.js"></script>
+ 
       
       <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
       <script>

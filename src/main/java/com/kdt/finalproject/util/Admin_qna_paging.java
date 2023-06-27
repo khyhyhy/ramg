@@ -1,6 +1,6 @@
 package com.kdt.finalproject.util;
 
-public class Support_noitce_paging {
+public class Admin_qna_paging {
     int nowPage = 1; // 현재 페이지 값 == cPage
     int numPerPage = 10; // 한 페이지당 보여질 게시물 수
 
@@ -23,16 +23,16 @@ public class Support_noitce_paging {
     boolean isPrePage; // false
     boolean isNextPage; // false
 
-    public Support_noitce_paging() {
+    public Admin_qna_paging() {
     };
 
-    public Support_noitce_paging(int numPerpage, int pagePerBlock) {
+    public Admin_qna_paging(int numPerpage, int pagePerBlock) {
         this.numPerPage = numPerpage;
         this.pagePerBlock = pagePerBlock;
     }
 
     // 페이징에 필요한 HTML코드를 생성해 주는 생성자
-    public Support_noitce_paging(int nowPage, int totalRecord, int numPerPage, int pagePerBlock, String searchType,
+    public Admin_qna_paging(int nowPage, int totalRecord, int numPerPage, int pagePerBlock, String searchType,
             String searchValue) {
         this.nowPage = nowPage; // 현재 페이지값
         this.totalRecord = totalRecord; // 총 게시물 수
@@ -71,7 +71,7 @@ public class Support_noitce_paging {
         sb = new StringBuffer("<ol class='paging'>");
 
         if (isPrePage) { // 이전 기능이 적용되는 상황
-            sb.append("<li><a href='/support/notice?cPage=");
+            sb.append("<li><a href='/admin/qna?cPage=");
             sb.append(startPage - pagePerBlock);
             if (searchType != null && searchValue != null) {
                 sb.append("&searchType=" + searchType);
@@ -89,7 +89,7 @@ public class Support_noitce_paging {
                 sb.append(i);
                 sb.append("</li>");
             } else {
-                sb.append("<li><a href='/support/notice?cPage=");
+                sb.append("<li><a href='/admin/qna?cPage=");
                 sb.append(i); // 전달되는 페이지 값
                 if (searchType != null && searchValue != null) {
                     sb.append("&searchType=" + searchType);
@@ -102,7 +102,7 @@ public class Support_noitce_paging {
         }
 
         if (isNextPage) { // 다음 기능이 적용되는 상황
-            sb.append("<li><a href='/support/notice?cPage=");
+            sb.append("<li><a href='/admin/qna?cPage=");
             sb.append(startPage + pagePerBlock);
             if (searchType != null && searchValue != null) {
                 sb.append("&searchType=" + searchType);
@@ -222,5 +222,4 @@ public class Support_noitce_paging {
     public StringBuffer getSb() {
         return sb;
     }
-
 }

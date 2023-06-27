@@ -38,7 +38,7 @@
         <div class="card-body">
           <h5 class="card-title">현재 위치 검색</h5>
           <p class="card-text"></p>
-          <a href="#" class="btn btn-primary">검색</a>
+          <a href="#" class="btn btn-primary" onclick="location.href='/e_search/'">검색</a>
         </div>
       </div>
     

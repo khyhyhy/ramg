@@ -39,4 +39,12 @@ public class MypageService {
     public int updateCarWrite(CwriteVO cwvo) {
         return mapper.updateCarWrite(cwvo);
     }
+
+    public MemVO getMemberByIdx(String mIdx) {
+        return mapper.getMemberByIdx(mIdx);
+    }
+
+    public int updateMember(MemVO mvo) {
+        return mapper.updateMember(mvo);
+    }
 }

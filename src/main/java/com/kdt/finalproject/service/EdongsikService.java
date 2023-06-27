@@ -9,6 +9,7 @@ import com.kdt.finalproject.mapper.EdongsikMapper;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Service
@@ -26,6 +27,12 @@ public class EdongsikService {
         CwriteVO vo = mapper.carList(m_idx);
 
         return vo;
+    }
+
+    public ServiceVO[] getEdongsik(String state) {
+        ServiceVO[] ar = mapper.getEdongsik(state);
+
+        return ar;
     }
 
 }

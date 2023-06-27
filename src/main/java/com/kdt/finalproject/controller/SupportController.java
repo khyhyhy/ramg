@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.SupportService;
-import com.kdt.finalproject.util.Admin_notice_paging;
 import com.kdt.finalproject.util.Support_noitce_paging;
+import com.kdt.finalproject.util.Support_qna_paging;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.MemVO;
 
@@ -35,7 +35,7 @@ public class SupportController {
     private String bbs_upload = "/bbs_upload"; // webapp에 있는 폴더를 의미
 
     @RequestMapping("/support/notice")
-    public ModelAndView notice(MemVO mvo, String cPage) { // 공지사항 표시
+    public ModelAndView notice(MemVO mvo, String cPage, String searchType, String searchValue) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
 
         BbsVO[] ar = null;
@@ -50,10 +50,10 @@ public class SupportController {
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
-            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5);
+            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
             pageCode = page.getSb().toString();
 
-            ar = service.notice_all(page.getBegin(), page.getEnd());
+            ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue);
 
         } else { // 로그인 정보가 없거나 개인이라면 부분 공지 표시
             totalRecord = service.support_notice_count2();
@@ -61,10 +61,10 @@ public class SupportController {
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
-            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5);
+            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
             pageCode = page.getSb().toString();
 
-            ar = service.notice_user(page.getBegin(), page.getEnd());
+            ar = service.notice_user(page.getBegin(), page.getEnd(), searchType, searchValue);
         }
 
         mv.addObject("ar", ar);
@@ -79,7 +79,7 @@ public class SupportController {
     }
 
     @RequestMapping("/support/notice_view")
-    public ModelAndView notice_view(int b_idx) {
+    public ModelAndView notice_view(String b_idx, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);
@@ -111,4 +111,38 @@ public class SupportController {
 
     }
 
+    @RequestMapping("/support/faq")
+    public ModelAndView faq() {
+        ModelAndView mv = new ModelAndView();
+
+        BbsVO[] ar = service.faq();
+
+        mv.addObject("ar", ar);
+        mv.setViewName("/support/faq");
+
+        return mv;
+    }
+
+    @RequestMapping("/support/qna")
+    public ModelAndView qna(BbsVO vo, String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+
+        int nowPage = 1;
+        int totalRecord = service.support_qna_count(searchType, searchValue);
+
+        Support_qna_paging page = new Support_qna_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        BbsVO[] ar = service.qna(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
+        mv.setViewName("/support/qna");
+
+        return mv;
+    }
 }

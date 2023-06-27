@@ -83,4 +83,25 @@ public class MypageController {
         return mv;
 
     }
+
+    @GetMapping("mypage")
+    public ModelAndView getMemberByIdx(String mIdx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("member", service.getMemberByIdx(mIdx));
+        mv.setViewName("mypage/mypage");
+        return mv;
+    }
+
+    @RequestMapping("updateMember")
+    public ModelAndView updateMember(String mIdx) {
+        // System.out.println(m_idx);
+
+        MemVO mvo = service.getMemberByIdx(mIdx);
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("mvo", mvo);
+        mv.setViewName("redirect:/mypage");
+        return mv;
+
+    }
 }
