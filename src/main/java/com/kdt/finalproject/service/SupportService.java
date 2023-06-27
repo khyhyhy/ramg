@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.SupportMapper;
 import com.kdt.finalproject.vo.BbsVO;
+import com.kdt.finalproject.vo.BbslogVO;
 
 @Service
 public class SupportService {
@@ -78,5 +79,30 @@ public class SupportService {
     // 문의 카운트
     public int support_qna_count(String searchType, String searchValue) {
         return mapper.support_qna_count(searchType, searchValue);
+    }
+
+    public BbsVO qna_view(String b_idx) {
+        return mapper.qna_view(b_idx);
+    }
+
+    // 문의 댓글 불러오기
+    public BbsVO[] qna_comm(String b_idx) {
+        BbsVO[] ar = null;
+
+        List<BbsVO> list = mapper.qna_comm(b_idx);
+        if (list != null && list.size() > 0) {
+            ar = new BbsVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    // 문의 작성
+    public int qna_write_ok(BbsVO vo) {
+        return mapper.qna_write_ok(vo);
+    }
+
+    public int qna_write_ok2(BbslogVO vo) {
+        return mapper.qna_write_ok2(vo);
     }
 }

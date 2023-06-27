@@ -120,4 +120,17 @@ public class AdminService {
     public int qna_comm_write2(BbslogVO vo) {
         return mapper.qna_comm_write2(vo);
     }
+
+    // 문의 댓글 불러오기
+    public BbsVO[] qna_comm(String b_idx) {
+        BbsVO[] ar = null;
+
+        List<BbsVO> list = mapper.qna_comm(b_idx);
+        if (list != null && list.size() > 0) {
+            ar = new BbsVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
 }

@@ -12,4 +12,5 @@ import lombok.Setter;
 public class BbslogVO {
     private String bl_idx, m_idx, b_idx, bl_date, bl_type,
             bl_val1, bl_val2, bl_val3, bl_val4, bl_val5;
+    private MemVO mvo;
 }

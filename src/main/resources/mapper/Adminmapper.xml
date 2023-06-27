@@ -98,6 +98,7 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <select id="notice_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
     <where>
+    b_type = 0
       <if test="searchType != null and searchValue != null">
         <choose>
           <when test="searchType == 0">
@@ -125,6 +126,12 @@ WHERE b_idx = #{b_idx}
 <resultMap type="com.kdt.finalproject.vo.BbsVO" id="qnamap">
   <id property="b_idx" column="b_idx"/>
   <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="qna_log" column="b_idx"/>
+  <collection property="c_list" ofType="com.kdt.finalproject.vo.BbsVO" select="comm_list" column="b_idx"/>
+</resultMap>
+
+<resultMap type="com.kdt.finalproject.vo.BbslogVO" id="namemap">
+  <id property="m_idx" column="m_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="qna_name" column="m_idx"/>
 </resultMap>
 
 <!--문의 게시판 글 목록-->
@@ -154,9 +161,20 @@ ORDER BY b_idx DESC
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
 
-<select id="qna_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+<select id="qna_log" parameterType="String" resultMap="namemap">
 SELECT * FROM charging.bbslog
 WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+
+<select id="comm_list" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+  SELECT * FROM charging.bbs_t 
+  where
+  b_status = 0 AND b_target = #{idx}
+</select>
+
+<select id="qna_name" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = #{m_idx}
 </select>
 
 <!--문의 갯수-->
@@ -187,6 +205,12 @@ SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
 
+<!-- 댓글 보기 -->
+<select id="qna_comm" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+SELECT * FROM charging.bbs_t
+WHERE b_target = #{b_idx};
+</select>
+
 <!-- insert -->
 
 <!-- 공지 작성 -->
@@ -204,8 +228,8 @@ VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
 
 <!--문의 댓글 작성-->
 <insert id="qna_comm_write" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx" keyColumn="b_idx">
-INSERT INTO charging.bbs_t(b_title, b_content, b_target, b_type, b_status, b_ip)
-VALUES(#{b_title}, #{b_content}, #{b_target}, 3, 0, #{b_ip})
+INSERT INTO charging.bbs_t(b_title, b_content, b_target, b_type, b_status, b_ip, b_hit)
+VALUES(#{b_title}, #{b_content}, #{b_target}, 3, 0, #{b_ip}, 0)
 </insert>
 
 <!-- 문의 댓글 작성 (로그)-->

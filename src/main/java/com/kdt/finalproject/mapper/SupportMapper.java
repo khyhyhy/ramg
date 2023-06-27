@@ -3,6 +3,7 @@ package com.kdt.finalproject.mapper;
 import java.util.List;
 
 import com.kdt.finalproject.vo.BbsVO;
+import com.kdt.finalproject.vo.BbslogVO;
 
 public interface SupportMapper {
     List<BbsVO> notice_all(int begin, int end, String searchType, String searchValue); // 사업자가 볼 수 있는 공지
@@ -22,4 +23,12 @@ public interface SupportMapper {
     List<BbsVO> qna(int begin, int end, String searchType, String searchValue);
 
     int support_qna_count(String searchType, String searchValue);
+
+    BbsVO qna_view(String b_idx); // 문의 보기
+
+    List<BbsVO> qna_comm(String b_idx);
+
+    int qna_write_ok(BbsVO vo);
+
+    int qna_write_ok2(BbslogVO vo);
 }

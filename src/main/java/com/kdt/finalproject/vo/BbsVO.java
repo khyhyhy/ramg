@@ -1,5 +1,7 @@
 package com.kdt.finalproject.vo;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +20,5 @@ public class BbsVO {
     private BbslogVO bbslog;
 
     private MultipartFile file;
-
+    private List<BbsVO> c_list;
 }

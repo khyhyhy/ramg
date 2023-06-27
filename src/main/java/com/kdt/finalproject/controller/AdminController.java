@@ -1,7 +1,6 @@
 package com.kdt.finalproject.controller;
 
 import java.io.File;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +20,6 @@ import com.kdt.finalproject.util.Admin_member_paging;
 import com.kdt.finalproject.util.Admin_notice_paging;
 import com.kdt.finalproject.util.Admin_qna_paging;
 import com.kdt.finalproject.util.FileRenameUtil;
-import com.kdt.finalproject.util.Support_qna_paging;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.ImgVO;
@@ -314,8 +312,9 @@ public class AdminController {
         return map;
     }
 
+    // 문의사항 불러오기
     @RequestMapping("/admin/qna")
-    public ModelAndView qna(BbsVO vo, String cPage, String searchType, String searchValue) {
+    public ModelAndView qna(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         int nowPage = 1;
@@ -339,25 +338,23 @@ public class AdminController {
 
     // qna 상세보기
     @RequestMapping("/admin/qna_view")
-    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue) {
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
+        BbsVO[] ar = service.qna_comm(b_idx);
 
+        mv.addObject("ar", ar);
         mv.addObject("vo", vo);
         mv.setViewName("/admin/qna_view");
 
         return mv;
     }
 
+    // qna 댓글쓰기 (비동기식)
     @RequestMapping("/admin/qna_comm_write")
     @ResponseBody
     public Map<String, Integer> qna_comm_write(String b_content, String b_title, String m_idx, String target) {
-
-        System.out.println(b_content);
-        System.out.println(b_title);
-        System.out.println(m_idx);
-        System.out.println(target);
 
         BbsVO vo = new BbsVO();
         BbslogVO vo2 = new BbslogVO();
@@ -375,6 +372,20 @@ public class AdminController {
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);
         map.put("res2", cnt2);
+
+        return map;
+    }
+
+    @RequestMapping("/admin/qna_view2")
+    @ResponseBody
+    public Map<String, Object> qna_view2(String b_idx) {
+
+        BbsVO vo = service.qna_view(b_idx);
+        BbsVO[] ar = service.qna_comm(b_idx);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("vo", vo);
+        map.put("ar", ar);
 
         return map;
     }

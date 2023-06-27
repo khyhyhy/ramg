@@ -70,33 +70,18 @@ pageEncoding="UTF-8"%>
                 </c:forEach>
             </table>
                     
-                <table class="table table-bordered">
-                    <colgroup>
-                        <col width="150px">
-                        <col width="*">
-                    </colgroup>
-                    <tr>
-                        <th>제목</th>
-                        <td><input type="text" style="width: 800px;" name="b_title" id="b_title"></td>
-                    </tr>
-                    <tr>
-                        <th>내용</th>
-                        <td><textarea rows="12" cols="100" name="b_content" id="b_content"></textarea></td>
-                    </tr>
-                </table>
-                <div style="height: 80px;" >
-                    <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">댓글 등록</button>
-                    <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                </div>
-                    
-                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
-                <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
-            <form name="frm" method="post" action="/admin/qna">
+            <div style="height: 80px;" >
+                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+            </div>
+                
+            <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="target" value="${vo.b_idx}" id="target">
+            
+            <form name="frm" method="post" action="/support/qna">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
-                <input type="hidden" name="b_idx" value="${param.b_idx}" id="b_idx">
             </form>
 
     </body>
@@ -111,16 +96,16 @@ pageEncoding="UTF-8"%>
         document.frm.submit();
     }
 
-
-
-
     function sendData(){
 
         let m_idx = $("#m_idx").val();
         let target = $("#target").val();
         let b_title = $("#b_title").val();
         let b_content = $("#b_content").val();
-        let b_idx = $("#b_idx").val();
+        console.log(m_idx);
+        console.log(target);
+        console.log(b_title);
+        console.log(b_content);
 
         $.ajax({
            url: "/admin/qna_comm_write",
@@ -130,18 +115,8 @@ pageEncoding="UTF-8"%>
         }).done(function(data){
             if(data.res == 1 && data.res2 == 1){
                 alert("댓글이 등록되었습니다.");
-                
-                $.ajax({
-                    url: "/admin/qna_view2",
-                    type: "post",
-                    data: {"b_idx" : b_idx},
-                    dataType: "json"
-                }).done(function(data){
-                    
-                });
             }
-        })
-
+        });
     }
     
 </script>

@@ -10,15 +10,19 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.SupportService;
+import com.kdt.finalproject.util.FileRenameUtil;
 import com.kdt.finalproject.util.Support_noitce_paging;
 import com.kdt.finalproject.util.Support_qna_paging;
 import com.kdt.finalproject.vo.BbsVO;
+import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.MemVO;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SupportController {
@@ -33,6 +37,9 @@ public class SupportController {
     ResourceLoader resourceLoader;
 
     private String bbs_upload = "/bbs_upload"; // webapp에 있는 폴더를 의미
+
+    @Autowired
+    private HttpServletRequest request;
 
     @RequestMapping("/support/notice")
     public ModelAndView notice(MemVO mvo, String cPage, String searchType, String searchValue) { // 공지사항 표시
@@ -142,6 +149,65 @@ public class SupportController {
         mv.addObject("nowPage", nowPage);
         mv.addObject("blockList", page.getNumPerPage());
         mv.setViewName("/support/qna");
+
+        return mv;
+    }
+
+    @RequestMapping("/support/qna_view")
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
+        ModelAndView mv = new ModelAndView();
+
+        BbsVO vo = service.qna_view(b_idx);
+        BbsVO[] ar = service.qna_comm(b_idx);
+
+        mv.addObject("vo", vo);
+        mv.addObject("ar", ar);
+
+        return mv;
+    }
+
+    // 문의 쓰기 화면 이동
+    @RequestMapping("/support/qna_write")
+    public String qna_wirte(String cPage, String searchType, String searchValue) {
+        return "/support/qna_write";
+    }
+
+    // 문의 작성
+    @RequestMapping("/support/qna_write_ok")
+    public ModelAndView qna_write_ok(BbsVO vo, BbslogVO vo2, String m_idx) throws Exception {
+        ModelAndView mv = new ModelAndView();
+
+        // 파일 첨부 시 파일 저장 경로 설정
+        // 넘어온 파일이 있는지 확인
+        MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
+        System.out.println(vo.getB_type());
+
+        if (mf.getSize() > 0) { // 파일을 첨부한 경우
+
+            // 파일을 저장할 곳 (bbs_upload)을 절대경로화 시킨다.
+            String realPath = application.getRealPath(bbs_upload);
+
+            // 파일명 얻기
+            String oname = mf.getOriginalFilename();
+
+            // 이미 같은 이름의 파일이 존재할 수도 있다. 만약 있다면 파일명 뒤에 숫자를 붙여준다. - 객체를 하나 정의
+            String fname = FileRenameUtil.checkFileName(oname, realPath);
+
+            mf.transferTo(new File(realPath, fname));
+
+            // 첨부된 파일명을 DB에 저장하기 위해 vo안에 file_name에 이름을 저장
+            vo.setB_filename(fname);
+            vo.setB_oriname(oname);
+        }
+
+        vo.setB_ip(request.getRemoteAddr());
+
+        service.qna_write_ok(vo);
+        vo2.setB_idx(vo.getB_idx());
+        vo2.setM_idx(m_idx);
+        service.qna_write_ok2(vo2);
+
+        mv.setViewName("redirect:/support/qna");
 
         return mv;
     }

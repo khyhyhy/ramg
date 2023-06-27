@@ -39,4 +39,6 @@ public interface AdminMapper {
 
     int qna_comm_write2(BbslogVO vo);
 
+    List<BbsVO> qna_comm(String b_idx);
+
 }

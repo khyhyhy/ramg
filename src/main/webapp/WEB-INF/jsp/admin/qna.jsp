@@ -16,10 +16,12 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
+        <h1>문의사항 관리</h1>
         <table class="table table-hover">
             <colgroup>
                 <col width="150px">
                 <col width="*">
+                <col width="150px">
                 <col width="150px">
                 <col width="250px">
             </colgroup>
@@ -27,7 +29,8 @@ pageEncoding="UTF-8"%>
                 <tr class="table-info">
                     <th>번호</th>
                     <th>제목</th>
-                    <th>답변등록</th>
+                    <th>작성자</th>
+                    <th>답변</th>
                     <th>문의작성일</th>
                 </tr>
             </thead>
@@ -41,13 +44,19 @@ pageEncoding="UTF-8"%>
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
                         <td>
-                            <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
-                            [댓글수]
+                            <c:if test="${vo.b_val1 == 1}">
+                                <img src="../images/lock.png" style="width: 15px;">
+                            </c:if>
+                            <a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}')">${vo.b_title}</a>
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
                         </td>
-                        <td>답변등록</td>
+                        <td>${vo.bbslog.mvo.m_name}</td>
+                        <td>
+                            <c:if test="${vo.c_list ne null and vo.c_list.size() > 0}">완료</c:if>
+                            <c:if test="${vo.c_list eq null or vo.c_list.size() == 0}">미등록</c:if>
+                        </td>
                         <td>${vo.bbslog.bl_date}</td>
                     </tr>
                 </c:forEach>
@@ -59,6 +68,7 @@ pageEncoding="UTF-8"%>
 
         <form action="/admin/qna_view" name="frm" method="post">
             <input type="hidden" name="b_idx">
+            <input type="hidden" name="bl_date">
             <input type="hidden" name="cPage" value="${nowPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -69,8 +79,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx){
+    function sub(b_idx, bl_date){
         document.frm.b_idx.value = b_idx;
+        document.frm.bl_date.value = bl_date;
         document.frm.submit();
     }
 </script>
