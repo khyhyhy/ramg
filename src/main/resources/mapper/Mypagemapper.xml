@@ -11,7 +11,15 @@
       select="get_car" column="c_idx"/>
   </resultMap>
 
+  
+
   <!-- select -->
+
+  <select id="getMemberByIdx" resultType="com.kdt.finalproject.vo.MemVO">
+        SELECT * FROM member_t 
+        WHERE m_idx = #{mIdx}
+    </select>
+
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
     SELECT * FROM car_write
@@ -54,5 +62,12 @@
       SET cw_type = 1
       WHERE c_idx = #{c_idx} and m_idx = #{m_idx}
   </update>
+
+  <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
+        UPDATE member_t
+        SET m_email = #{mEmail}, m_pw = #{mPw}, m_name = #{mName}, m_phone = #{mPhone}, m_address = #{mAddress}, m_class = #{mClass}, m_status = #{mStatus},
+            m_atoken = #{mAtoken}, m_rtoken = #{mRtoken}, m_payment = #{mPayment}, m_date = #{mDate}
+        WHERE m_idx = #{mIdx}
+    </update>
 
 </mapper>

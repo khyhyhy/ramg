@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kdt.finalproject.service.MypageService;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
+import com.kdt.finalproject.vo.MemVO;
 
 @Controller
 public class MypageController {
@@ -70,6 +71,27 @@ public class MypageController {
 
         mv.addObject("cw_list", cw_list);
         mv.setViewName("redirect:/car_mt");
+        return mv;
+
+    }
+
+    @GetMapping("mypage")
+    public ModelAndView getMemberByIdx(String mIdx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("member", service.getMemberByIdx(mIdx));
+        mv.setViewName("mypage/mypage");
+        return mv;
+    }
+
+    @RequestMapping("updateMember")
+    public ModelAndView updateMember(String mIdx) {
+        // System.out.println(m_idx);
+
+        MemVO mvo = service.getMemberByIdx(mIdx);
+        ModelAndView mv = new ModelAndView();
+
+        mv.addObject("mvo", mvo);
+        mv.setViewName("redirect:/mypage");
         return mv;
 
     }
