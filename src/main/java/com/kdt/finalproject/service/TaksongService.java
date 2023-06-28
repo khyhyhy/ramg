@@ -15,15 +15,11 @@ public class TaksongService {
  @Autowired
  TaksongMapper mapper;
 
- public MemVO[] init() {
-  MemVO[] ar = null;
+ public MemVO selectmem(String m_idx) {
+  MemVO mvo = null;
 
-  List<MemVO> list = mapper.init();
-  if (list != null && list.size() > 0) {
-   ar = new MemVO[list.size()];
-   list.toArray(ar);
-  }
-  return ar;
+  mvo = mapper.selectmem(m_idx);
+  return mvo;
  }
 
  public ServiceVO[] guar(String gu) {

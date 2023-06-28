@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.TaksongService;
+import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
@@ -134,6 +135,8 @@ public class TaksongController {
     ++idx;
    }
   }
+  MemVO dummy = service.selectmem("2");
+  mv.addObject("evo", dummy);
   mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
   return mv;
