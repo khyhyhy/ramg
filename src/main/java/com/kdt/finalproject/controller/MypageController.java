@@ -31,14 +31,36 @@ public class MypageController {
     @GetMapping("car_list")
     public ModelAndView search_cw_list(String m_idx) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("car", service.search_cw_list(m_idx));
+
+        if (m_idx == null) {
+            // 로그인한 회원의 m_idx를 얻어내자
+            Object obj = session.getAttribute("mvo");
+
+            if (obj != null) {
+                MemVO mvo = (MemVO) obj;
+                m_idx = mvo.getM_idx();
+            }
+        }
+
+        List<CwriteVO> list = service.search_cw_list(m_idx);
+        mv.addObject("car", list);
         mv.setViewName("mypage/car_list");
+
         return mv;
     }
 
     @GetMapping("my_question")
     public ModelAndView search_bl_list(String m_idx) {
         ModelAndView mv = new ModelAndView();
+        if (m_idx == null) {
+            // 로그인한 회원의 m_idx를 얻어내자
+            Object obj = session.getAttribute("mvo");
+
+            if (obj != null) {
+                MemVO mvo = (MemVO) obj;
+                m_idx = mvo.getM_idx();
+            }
+        }
         mv.addObject("mq", service.search_bl_list(m_idx));
         mv.setViewName("mypage/my_question");
         return mv;

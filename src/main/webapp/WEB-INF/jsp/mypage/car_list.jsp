@@ -8,6 +8,18 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>차량 관리</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <style>
+        table{
+            margin: 0 auto;
+            width: 80%;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        table th, table td{
+            border: 1px solid black;
+        }
+        
+   </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -16,17 +28,29 @@
    
 
    <h2> 차량목록</h2>
-   <table>
+   <table id="car_list">
+    <colgroup>
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="100px"/>
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="150px"/>
+        <col width="*"/>
+    </colgroup>
     <thead>
+        <tr><td colspan="8"><a href="/addCar">차량 추가</a></td></tr>
         <tr>
             <th>차량번호</th>
             <th>모델명</th>
             <th>유형</th>
             <th>충전방식</th>
             <th>광역자치단체</th>
-            <th>>기초자치단체</th>
+            <th>기초자치단체</th>
             <th>행정구역</th>
-            <a href="/addCar">차량 추가</a>
+            <th>비고</th>
+            
         </tr>
     </thead>
     <tbody>
