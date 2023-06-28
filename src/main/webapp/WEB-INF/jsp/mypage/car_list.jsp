@@ -30,15 +30,15 @@
         </tr>
     </thead>
     <tbody>
-        <c:forEach var="cvo" items="${cvo}">
+        <c:forEach var="cwvo" items="${car}">
             <tr>
-                <td>${cvo.c_num}</td>
-                <td>${cvo.c_name}</td>
-                <td>${cvo.c_type}</td>
-                <td>${cvo.c_chargetype}</td>
-                <td>${cvo.c_state}</td>
-                <td>${cvo.c_city}</td>
-                <td>${cvo.c_addr1}</td>
+                <td>${cwvo.cvo.c_num}</td>
+                <td>${cwvo.cvo.c_name}</td>
+                <td>${cwvo.cvo.c_type}</td>
+                <td>${cwvo.cvo.c_chargetype}</td>
+                <td>${cwvo.cvo.c_state}</td>
+                <td>${cwvo.cvo.c_city}</td>
+                <td>${cwvo.cvo.c_addr1}</td>
             </tr>
         </c:forEach>
     </tbody>

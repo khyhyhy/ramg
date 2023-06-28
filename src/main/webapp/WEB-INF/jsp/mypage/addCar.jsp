@@ -18,23 +18,39 @@
     <!-- 차량 추가 -->
 
   <h2>차량 추가</h2>
-  <form action="addCar" method="get">
-    <label for="c_num">차량번호</label>
-    <input type="text" id="c_num" name="c_num" value="${cvo.c_num}" required><br>
-    <label for="c_name">모델명</label>
-    <input type="text" id="c_name" name="c_name" value="${cvo.c_name}" required><br>
-    <label for="c_type">유형</label>
-    <input type="text" id="c_type" name="c_type" value="${cvo.c_type}" required><br>
-    <label for="c_chargetype">충전방식</label>
-    <input type="text" id="c_chargetype" name="c_chargetype" value="${cvo.c_chargetype}" required><br>
-    <label for="c_state">광역자치단체</label>
-    <input type="text" id="c_state" name="c_state" value="${cvo.c_state}" required><br>
-    <label for="c_city">기초자치단체</label>
-    <input type="text" id="c_city" name="c_city" value="${cvo.c_city}" required><br>
-    <label for="c_addr1">행정구역</label>
-    <input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" required><br>
+  <table>
+    <tbody>
+        <tr>
+          <th><label for="c_num">차량번호</label></th>
+          <td><input type="text" id="c_num" name="c_num" value="${cvo.c_num}" required></td>
+        </tr>
+        <tr>
+          <th>label for="c_name">모델명</label></th>
+          <td><input type="text" id="c_name" name="c_name" value="${cvo.c_name}" required></td>
+        </tr>
+        <tr>
+          <th><label for="c_type">유형</label></th>
+          <td><input type="text" id="c_type" name="c_type" value="${cvo.c_type}" required></td>
+        </tr>
+        <tr>
+          <th><label for="c_chargetype">충전방식</label></th>
+          <td><input type="text" id="c_chargetype" name="c_chargetype" value="${cvo.c_chargetype}" required></td>
+        </tr>
+        <tr>
+            <th><label for="c_state">광역자치단체</label></th>
+            <td><input type="text" id="c_state" name="c_state" value="${cvo.c_state}" required></td>
+        </tr>
+        <tr>
+            <th><label for="c_city">기초자치단체</label></th>
+            <td><input type="text" id="c_city" name="c_city" value="${cvo.c_city}" required></td>
+        </tr>
+        <tr>
+            <th><label for="c_addr1">행정구역</label></th>
+            <td><input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" required></td>
+        </tr>
     <input type="submit" value="추가">
-  </form>
+    </tbody>
+    </table>
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    </body>
 
