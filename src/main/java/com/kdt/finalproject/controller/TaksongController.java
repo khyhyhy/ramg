@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.TaksongService;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SwriteVO;
 
 @Controller
 public class TaksongController {
@@ -68,7 +69,7 @@ public class TaksongController {
  public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
    @Param("nowstate") String nowstate, @Param("nowcity") String nowcity) {
   ModelAndView mv = new ModelAndView();
-  List<ServiceVO> servicear = new ArrayList<ServiceVO>();
+  List<SwriteVO> swar = new ArrayList<SwriteVO>();
   // double lat = 37.48489405082669;
   // double lng = 126.90278513630275;
   double lat2 = Double.parseDouble(nowlat);
@@ -100,7 +101,8 @@ public class TaksongController {
     if (radius < Integer.parseInt(vo.getS_radius())) {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
      System.out.println();
-     servicear.add(vo);
+     SwriteVO swvo = service.radiuSwriteVO(vo.getS_idx());
+     swar.add(swvo);
     } else {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
      System.out.println();
@@ -122,7 +124,8 @@ public class TaksongController {
     if (radius < Integer.parseInt(vo.getS_radius())) {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 가능합니다");
      System.out.println();
-     servicear.add(vo);
+     SwriteVO swvo = service.radiuSwriteVO(vo.getS_idx());
+     swar.add(swvo);
     } else {
      System.out.println("현재 서비스 객체와의 거리는 " + radius + "M이므로 서비스가 불가합니다");
      System.out.println();
@@ -131,7 +134,7 @@ public class TaksongController {
     ++idx;
    }
   }
-  mv.addObject("servicear", servicear);
+  mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
   return mv;
  }

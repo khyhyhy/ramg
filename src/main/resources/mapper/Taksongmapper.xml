@@ -3,13 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kdt.finalproject.mapper.TaksongMapper">
+
 <resultMap id="rm1" type="com.kdt.finalproject.vo.SwriteVO">
-<!-- <result column="m_idx" property="m_idx"/>
+<result column="m_idx" property="m_idx"/>
 <result column="s_idx" property="s_idx"/>
 <result column="c_idx" property="c_idx"/>
-<association property="mvo" column="m_idx" javaType="com.kdt.miniproject.vo.MemVO" select="mvo"></association>
-<association property="svo" column="s_idx" javaType="com.kdt.miniproject.vo.ServiceVO" select="svo"></association>
-<association property="cvo" column="c_idx" javaType="com.kdt.miniproject.vo.CarVO" select="cvo"></association> -->
+<association property="mvo" column="m_idx" javaType="com.kdt.finalproject.vo.MemVO" select="mvo"></association>
+<association property="svo" column="s_idx" javaType="com.kdt.finalproject.vo.ServiceVO" select="svo"></association>
+<association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
 </resultMap>
 
 
@@ -40,7 +41,7 @@ SELECT * FROM charging.service_t WHERE s_idx = #{param}
 </select>
 
 <select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
-SELECT * FROM charging.car_t WHERE m_idx = #{param}
+SELECT * FROM charging.car_t WHERE c_idx = #{param}
 </select>
 
 <!-- insert -->
