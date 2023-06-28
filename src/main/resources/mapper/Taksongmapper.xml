@@ -3,6 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kdt.finalproject.mapper.TaksongMapper">
+<resultMap id="rm1" type="com.kdt.finalproject.vo.SwriteVO">
+<!-- <result column="m_idx" property="m_idx"/>
+<result column="s_idx" property="s_idx"/>
+<result column="c_idx" property="c_idx"/>
+<association property="mvo" column="m_idx" javaType="com.kdt.miniproject.vo.MemVO" select="mvo"></association>
+<association property="svo" column="s_idx" javaType="com.kdt.miniproject.vo.ServiceVO" select="svo"></association>
+<association property="cvo" column="c_idx" javaType="com.kdt.miniproject.vo.CarVO" select="cvo"></association> -->
+</resultMap>
+
 
 <!-- select -->
 <select id="init" resultType="com.kdt.finalproject.vo.MemVO">
@@ -16,6 +25,24 @@ SELECT * FROM charging.service_t WHERE s_city = #{gu}
 <select id="siservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
 SELECT * FROM charging.service_t WHERE s_state = #{si}
 </select>
+
+<select id="selectSWVO" parameterType="String" resultMap="rm1">
+SELECT * FROM charging.service_write WHERE s_idx = #{param}
+</select>
+
+
+<select id="mvo" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t WHERE m_idx = #{param}
+</select>
+
+<select id="svo" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+SELECT * FROM charging.service_t WHERE s_idx = #{param}
+</select>
+
+<select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
+SELECT * FROM charging.car_t WHERE m_idx = #{param}
+</select>
+
 <!-- insert -->
 
 
