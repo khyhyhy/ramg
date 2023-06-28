@@ -53,9 +53,19 @@
                 </li>
               </ul>
             </div>
+
+            <c:if test = "${sessionScope.mvo eq null}">
               <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                <button type="button" class="btn btn-outline-primary me-2"><a href="/login">Login</a></button>
               </div>
+            </c:if>
+
+            <c:if test = "${sessionScope.mvo ne null}">
+                <div class="col-md-3 text-end">
+                  <button type="button" class="btn btn-outline-primary me-2"><a href="/logout">Logout</a></button>
+                </div>
+            </c:if>
+            
             </header>
         </div>
         <!--////////// Header end ////////////-->
