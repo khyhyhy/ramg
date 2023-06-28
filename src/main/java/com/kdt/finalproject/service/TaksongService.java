@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.kdt.finalproject.mapper.TaksongMapper;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SwriteVO;
 
 @Service
 public class TaksongService {
@@ -43,5 +44,11 @@ public class TaksongService {
    list.toArray(ar);
   }
   return ar;
+ }
+
+ public SwriteVO radiuSwriteVO(String s_idx) {
+  SwriteVO vo = null;
+  vo = mapper.selectSWVO(s_idx);
+  return vo;
  }
 }
