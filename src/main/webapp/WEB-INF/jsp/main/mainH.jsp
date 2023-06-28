@@ -45,10 +45,10 @@
                     <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">마이 페이지</a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/mypage">정보 관리</a></li>
-                        <li><a class="dropdown-item" href="#">차량 관리</a></li>
-                        <li><a class="dropdown-item" href="#">나의 문의</a></li>
-                        <li><a class="dropdown-item" href="#">서비스 이용내역</a></li>
-                        <li><a class="dropdown-item" href="#">나의 리뷰</a></li>
+                        <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
+                        <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
+                        <li><a class="dropdown-item" href="/service_use">서비스 이용내역</a></li>
+                        <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
                     </ul>
                 </li>
               </ul>
