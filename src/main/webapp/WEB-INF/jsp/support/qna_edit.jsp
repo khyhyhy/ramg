@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>관리자페이지 공지 수정</title>
+<title>관리자페이지 공지쓰기</title>
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -21,35 +21,28 @@ pageEncoding="UTF-8"%>
     <div class="container">
         <br>
         <br>
-        <form action="/admin/notice_edit_ok" method="post" enctype="multipart/form-data">
+        <form action="/support/qna_write_ok" method="post" enctype="multipart/form-data">
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
                 <col width="*">
             </colgroup>
                 <tr>
-                    <th>공개범위</th>
+                    <th>제목</th>
                     <td>
-                        <select name="b_to" id="b_to">
-                            <option value="0">전체공개</option>
-                            <option value="1">사업자공개</option>
-                        </select>
+                        <input type="text" style="width: 800px;" name="b_title" value="${vo.b_title}">
                         <div class="form-check" style="display: inline-block; float: right;">
-                            <c:if test="${vo.b_type == 4}">
+                            <c:if test="${vo.b_val1 == 1}">
                                 <input class="form-check-input" type="checkbox" id="flexCheckDefault" checked>
                             </c:if>
-                            <c:if test="${vo.b_type != 4}">
+                            <c:if test="${vo.b_val1 != 1}">
                                 <input class="form-check-input" type="checkbox" id="flexCheckDefault">
                             </c:if>
                             <label class="form-check-label" for="flexCheckDefault">
-                              자주하는 질문
+                              비밀글
                             </label>
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <th>제목</th>
-                    <td><input type="text" style="width: 800px;" name="b_title" value="${vo.b_title}"></td>
                 </tr>
                 <tr>
                     <th>내용</th>
@@ -67,23 +60,16 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
             <div style="height: 80px;" >
-                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">수정하기</button>
+                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">수정</button>
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
             </div>
                 
-            <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
-            <input type="hidden" name="b_idx" value="${vo.b_idx}">
-            <input type="hidden" name="b_type" id="b_type">
-            <input type="hidden" name="cPage" value="${param.cPage}">
-            <input type="hidden" name="searchType" value="${param.searchType}">
-            <input type="hidden" name="searchValue" value="${param.searchValue}">
-            <input type="hidden" name="bl_date" value="${param.bl_date}">
+            <input type="hidden" name="m_idx" value="2"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="b_val1" id="b_val1">
         </form>
     </div>
 
-    <form name="fm" method="post" action="/admin/notice_view">
-        <input type="hidden" name="b_idx" value="${vo.b_idx}">
-        <input type="hidden" name="bl_date" value="${param.bl_date}">
+    <form name="frm" method="post" action="/support/qna">
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -137,13 +123,11 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData() {
+
         if($("#flexCheckDefault").is(":checked")){ 
-            $("#b_type").val("4"); // 체크되었으면 자주하는 질문, b_type => 4
-            $("#b_to").val("0"); // FAQ는 무조건 전체공개
-            // console.log("자주하는 질문");
+            $("#b_val1").val("1"); // 체크되었으면 비밀글
         }else{ 
-            $("#b_type").val("0"); // 안되어있으면 그냥 공지 b_type => 0
-            // console.log("공지");
+            $("#b_val1").val("0"); // 안되어있으면 공개글
         }
 
         if (document.forms[0].b_title.value.trim().length < 1) {
@@ -166,8 +150,7 @@ pageEncoding="UTF-8"%>
     }
 
     function back(){
-        document.fm.submit();
-        
+        document.frm.submit();
     }
 </script>
 

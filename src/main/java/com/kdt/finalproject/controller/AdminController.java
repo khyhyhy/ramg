@@ -152,7 +152,6 @@ public class AdminController {
         // 파일 첨부 시 파일 저장 경로 설정
         // 넘어온 파일이 있는지 확인
         MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
-        System.out.println(vo.getB_type());
 
         if (mf.getSize() > 0) { // 파일을 첨부한 경우
 
@@ -221,30 +220,26 @@ public class AdminController {
 
     // 공지사항 수정 페이지 이동
     @RequestMapping("/admin/notice_edit")
-    public ModelAndView notice_edit(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
+    public ModelAndView notice_edit(String b_idx, String cPage, String searchType, String searchValue) {
 
         ModelAndView mv = new ModelAndView();
+
         BbsVO vo = service.notice_view(b_idx);
 
         mv.addObject("vo", vo);
-        mv.addObject("cPage", cPage);
-        mv.addObject("searchType", searchType);
-        mv.addObject("searchValue", searchValue);
         mv.setViewName("/admin/notice_edit");
         return mv;
     }
 
     // 공지사항 수정 완료
     @RequestMapping("/admin/notice_edit_ok")
-    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue, String bl_date)
+    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue)
             throws Exception {
         ModelAndView mv = new ModelAndView();
 
-        System.out.println(vo.getB_idx());
         // 파일 첨부 시 파일 저장 경로 설정
         // 넘어온 파일이 있는지 확인
         MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
-        System.out.println(vo.getB_type());
 
         if (mf.getSize() > 0) { // 파일을 첨부한 경우
 

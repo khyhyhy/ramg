@@ -63,7 +63,6 @@ public class SupportController {
 
         } else { // 로그인 정보가 없거나 개인이라면 부분 공지 표시
             totalRecord = service.support_notice_count2(searchType, searchValue);
-            System.out.println(totalRecord);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
@@ -154,7 +153,7 @@ public class SupportController {
 
     @RequestMapping("/support/qna_view")
     public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date,
-            String m_name) {
+            String m_name, String m_idx) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
@@ -208,6 +207,16 @@ public class SupportController {
 
         mv.setViewName("redirect:/support/qna");
 
+        return mv;
+    }
+
+    @RequestMapping("/support/qna_edit")
+    public ModelAndView qna_edit(String b_idx, String bl_idx, String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+
+        BbsVO vo = service.qna_view(b_idx);
+        mv.addObject("vo", vo);
+        mv.setViewName("/support/qna_edit");
         return mv;
     }
 }

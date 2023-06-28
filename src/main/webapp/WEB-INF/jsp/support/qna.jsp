@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <h1>문의사항</h1>
+        <h1>문의 게시판</h1>
         <form action="/support/qna" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
@@ -58,9 +58,9 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.b_val1 == 1}">
                                 <img src="../images/lock.png" style="width: 15px;">
                             </c:if>
-                            <c:if test="${vo.b_val1 == 0}"><a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}','${vo.bbslog.mvo.m_name}')">${vo.b_title}</a></c:if>
+                            <c:if test="${vo.b_val1 == 0}"><a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}','${vo.bbslog.mvo.m_name}','${vo.bbslog.m_idx}')">${vo.b_title}</a></c:if>
                             <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx != 2}"><span style="color: rgb(179, 179, 179);">비밀글입니다.</span></c:if> <!--session으로 바꿔야 함-->
-                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == 2}"><a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}','${vo.bbslog.mvo.m_name}')">${vo.b_title}</a></c:if> <!--session으로 바꿔야 함-->
+                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == 2}"><a href="javascript:sub('${vo.b_idx}','${vo.bbslog.bl_date}','${vo.bbslog.mvo.m_name}','${vo.bbslog.m_idx}')">${vo.b_title}</a></c:if> <!--session으로 바꿔야 함-->
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
@@ -84,6 +84,7 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="b_idx">
             <input type="hidden" name="bl_date">
             <input type="hidden" name="m_name">
+            <input type="hidden" name="m_idx">
             <input type="hidden" name="cPage" value="${nowPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -94,12 +95,13 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx, bl_date, m_name){
+    function sub(b_idx, bl_date, m_name, m_idx){
 
         document.frm.action = "/support/qna_view";
         document.frm.b_idx.value = b_idx;
         document.frm.bl_date.value = bl_date;
         document.frm.m_name.value = m_name;
+        document.frm.m_idx.value = m_idx;
         document.frm.submit();
     }
 

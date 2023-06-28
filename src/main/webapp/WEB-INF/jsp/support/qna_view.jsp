@@ -56,7 +56,21 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
 
-            <h2>댓글</h2>
+            <div style="height: 80px;" >
+                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+                <c:if test="${param.m_idx == 2}"><!--session.mvo.m_idx 로 변경해야 함-->
+                    <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
+                </c:if>
+            </div>
+
+
+
+            <c:if test="${ar == null}">
+                아직 댓글이 없습니다.
+            </c:if>
+            <c:if test="${ar != null}">
+                <h2>댓글</h2>
+            </c:if>
             <table class="table table-bordered">
                 <colgroup>
                     <col width="150px">
@@ -73,17 +87,15 @@ pageEncoding="UTF-8"%>
                     </tr>
                 </c:forEach>
             </table>
-                    
-            
-            <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-            </div>
+
                 
             <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname">
+                <input type="hidden" name="b_idx" value="${param.b_idx}">
+                <input type="hidden" name="bl_date" value="${param.bl_date}">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -129,6 +141,11 @@ pageEncoding="UTF-8"%>
                 alert("댓글이 등록되었습니다.");
             }
         });
+    }
+
+    function edit(){
+        document.frm.action = "/support/qna_edit";
+        document.frm.submit();
     }
     
 </script>
