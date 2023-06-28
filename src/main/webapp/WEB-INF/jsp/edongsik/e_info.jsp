@@ -12,18 +12,23 @@
      <h1>초기작업중</h1>
 
     <P>세션m_idx: ${sessionScope.evo.m_idx}</P>
+    <P>세션m_name: ${sessionScope.evo.m_name}</P>
      
-     <c:forEach items="${c_ar}" var="cvo">
-        <h1>${cvo.c_idx}</h1>
-        <h1>${cvo.c_state}</h1>
-        <h1>${cvo.c_name}</h1>
-        <h1>${cvo.c_chargetype}</h1>
+    <!-- 회원 보유 차량 -->
+     <c:forEach items="${cw_ar}" var="cw_ar">
+        <h1>${cw_ar.cvo.c_idx}</h1>
+        <h1>${cw_ar.cvo.c_state}</h1>
+        <h1>${cw_ar.cvo.c_name}</h1>
+        <h1>${cw_ar.cvo.c_chargetype}</h1>
     </c:forEach>   
 
-     <c:forEach items="${s_ar}" var="svo">
-        <h1>${svo.s_idx}</h1>
-        <h1>${svo.s_state}</h1>
-        <h1>${svo.s_radius}</h1>
+    <!-- 충전 차량 정보 -->
+     <c:forEach items="${swar}" var="swar">
+        <h1>${swar.svo.s_idx}</h1>
+        <h1>${swar.svo.s_state}</h1>
+        <h1>${swar.svo.s_radius}</h1>
+        <h1>${swar.cvo.c_name}</h1>
+        <h1>${swar.mvo.m_name}</h1>
     </c:forEach>
     </article>
 </body>

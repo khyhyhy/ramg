@@ -23,8 +23,8 @@ public class EdongsikService {
         return vo;
     }
 
-    public CwriteVO carList(String m_idx) {
-        CwriteVO vo = mapper.carList(m_idx);
+    public List<CwriteVO> carList(String m_idx) {
+        List<CwriteVO> vo = mapper.carList(m_idx);
 
         return vo;
     }
@@ -33,6 +33,12 @@ public class EdongsikService {
         ServiceVO[] ar = mapper.getEdongsik(state);
 
         return ar;
+    }
+
+    public SwriteVO radiusInfo(String s_idx) {
+        SwriteVO vo = mapper.radiusInfo(s_idx);
+
+        return vo;
     }
 
 }
