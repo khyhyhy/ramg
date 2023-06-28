@@ -41,10 +41,10 @@
       <div class="row">
        <div class="col">
         <div class="list-group">
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">1번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">2번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">3번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">4번마</button>
+         <c:forEach items="${evo.cw_list}" var="vo">
+          <button type="button" class="list-group-item list-group-item-action"
+           onclick="activate(this)">${vo.m_idx}</button>
+         </c:forEach>
         </div>
        </div>
        <div class="col">
