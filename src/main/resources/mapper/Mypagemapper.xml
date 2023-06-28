@@ -28,6 +28,16 @@
     <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
       select="search_s" column="s_idx"/>
   </resultMap>
+
+  <resultMap id="map5" type="com.kdt.finalproject.vo.SuseVO">
+    <id property="su_idx" column="su_idx"/>
+    <result property="s_idx" column="s_idx"/>
+    <result property="c_idx" column="c_idx"/>
+    <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
+      select="search_s" column="s_idx"/>
+    <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO"
+      select="get_car" column="c_idx"/>
+  </resultMap>
   
 
   <!-- select -->
@@ -40,7 +50,7 @@
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
     SELECT * FROM car_write
-    WHERE m_idx = #{m_idx}
+    WHERE m_idx = #{m_idx} and cw_type = 0
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
@@ -79,11 +89,21 @@
 
   </select>
 
+  <!-- 회원 서비스 이용 내역 -->
+  <select id="use_service_list" resultMap="map5" parameterType="String">
+    SELECT * FROM charging.service_use
+    WHERE c_idx IN (SELECT c_idx FROM charging.car_write
+		    WHERE m_idx = #{m_idx} AND cw_type = 0)
+  </select>
+
+
+
+
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_num, c_name, c_type, c_chargetype, c_state, c_city, car_addr1) 
-      values (#{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{car_addr1}) 
+      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, c_addr1) 
+      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{c_addr1}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
@@ -100,7 +120,7 @@
         c_chargetype = #{c_chargetype}, 
         c_state = #{c_state}, 
         c_city = #{c_city}, 
-        car_tcol = #{car_tcol}
+        c_addr1 = #{c_addr1}
       WHERE c_idx = #{c_idx}
     </update>
 
@@ -136,5 +156,8 @@
         
         WHERE m_idx = #{m_idx}
     </update>
+
+
+
 
 </mapper>

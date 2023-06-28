@@ -61,4 +61,8 @@ public class MypageService {
     public int updateMember(MemVO mvo) {
         return mapper.updateMember(mvo);
     }
+
+    public List<SuseVO> use_service_list(String m_idx) {
+        return mapper.use_service_list(m_idx);
+    }
 }

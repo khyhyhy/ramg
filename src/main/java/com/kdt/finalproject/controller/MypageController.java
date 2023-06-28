@@ -18,6 +18,7 @@ import com.kdt.finalproject.service.MypageService;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.SuseVO;
 
 @Controller
 public class MypageController {
@@ -71,14 +72,6 @@ public class MypageController {
         ModelAndView mv = new ModelAndView();
         mv.addObject("mr", service.search_bl_list2(m_idx));
         mv.setViewName("mypage/my_review");
-        return mv;
-    }
-
-    @GetMapping("service_use")
-    public ModelAndView search_su_list(String c_idx) {
-        ModelAndView mv = new ModelAndView();
-        mv.addObject("su", service.search_su_list(c_idx));
-        mv.setViewName("mypage/service_use");
         return mv;
     }
 
@@ -179,5 +172,26 @@ public class MypageController {
 
         return map; // 호출한 updateMember.jsp의 비동기식 통신의 done영역으로 json으로 전달됨!
 
+    }
+
+    @GetMapping("use_service_list")
+    public ModelAndView use_service_list(String m_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        if (m_idx == null) {
+            // 로그인한 회원의 m_idx를 얻어내자
+            Object obj = session.getAttribute("mvo");
+
+            if (obj != null) {
+                MemVO mvo = (MemVO) obj;
+                m_idx = mvo.getM_idx();
+            }
+        }
+
+        List<SuseVO> list = service.use_service_list(m_idx);
+        mv.addObject("s_list", list);
+        mv.setViewName("mypage/service_use");
+
+        return mv;
     }
 }

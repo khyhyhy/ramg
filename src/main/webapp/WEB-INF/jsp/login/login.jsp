@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
 </head>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <body>
         <!--////////// Header Start ////////////-->
         <jsp:include page="../main/mainH.jsp"></jsp:include>
@@ -27,10 +25,108 @@
                     </header>
                     <div id="content"> 
                         <c:if test="${sessionScope.mvo eq null}"> <!--세션에 저장된 mvo가 없을때-->     
-                            <form action="login" method="post" name="frm">
+                            
+                                
+
+
+
+                                <!--부트스트랩 추가-->
+                                <div class="d-flex justify-content-center"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
+                                <div class="card shadow p-4 mb-2 bg-body rounded" style="width: 25rem;">
+                                    <div class="card-body">
+
+
 
                                     <!-- 개인 로그인과 사업자 로그인 탭 -->
-                                    <div>
+                                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                                        
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link active" id="tab-personal" data-mdb-toggle="pill" href="#pills-personal" role="tab"
+                                            aria-controls="pills-personal" aria-selected="true">개인 로그인</a>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <a class="nav-link" id="tab-business" data-mdb-toggle="pill" href="#pills-business" role="tab"
+                                            aria-controls="pills-business" aria-selected="false">사업자 로그인</a>
+                                        </li>
+                                    </ul>
+
+                    <div class="tab-content">
+                           
+                                <!-- 개인 로그인 내용 -->
+                              <div class="tab-pane fade show active" id="pills-personal" role="tabpanel" aria-labelledby="tab-personal">
+                                <form action="login" method="post" name="frm">
+                                    <input type="hidden" value="0" name="m_class" id="m_class1"/>
+                                    <!-- Email input -->
+                                    <div class="form-outline mb-4">
+                                        <!-- <label class="form-label" for="m_email">Email</label> -->
+                                        <input type="text" id="m_email" name="m_email" class="form-control" placeholder="Email" />
+                                    </div>
+
+                                    <!-- Password input -->
+                                    <div class="form-outline mb-4">
+                                        <!-- <label class="form-label" for="m_pw">Password</label> -->
+                                        <input type="password" id="m_pw" name="m_pw" class="form-control" placeholder="Password" />
+                                    </div>
+
+                                    <!-- Login button -->
+                                    <div class="text-center">
+                                        <button type="button" class="btn btn-primary btn-block mb-4 " onclick="exe(this.form)"> 로그인</button>
+                                        <button type="button" class="btn btn-primary btn-block mb-4 " onclick="location.href='join'" >회원가입</button>                                    
+
+                                    <p>
+                                        <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=85f3b2dbb6fdbca1b25d54627251ef3b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
+                                            <img src="../images/kakao_login.png" style="width: 190px; height: 45px;"/>
+                                        </a>
+                                    </p>
+                                    <p>
+                                        <a id="naver-login" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=DEfYVqVL7Po51QB3sjNx&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login">
+                                            <img src="../images/naver_login.png" style="width: 188px; height: 45px;"/>
+                                        </a>
+                                    </p>
+                                    </div>
+                                </form>
+                                </div>
+
+
+                        <!-- 사업자 로그인 내용 -->
+                        <div class="tab-pane fade" id="pills-business" role="tabpanel" aria-labelledby="tab-business">
+                            <form action="login" method="post" name="frm">
+                                <input type="hidden" value="1" name="m_class" id="m_class2"/>
+                            <!-- Email input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="m_email" name="m_email" class="form-control" placeholder="Email" />
+                            </div>
+
+                            <!-- Password input -->
+                            <div class="form-outline mb-4">
+                                <input type="password" id="m_pw" name="m_pw" class="form-control" placeholder="Password" />
+                            </div>
+
+                            <!-- Login button -->
+                            <div class="text-center">
+                                <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="exe(this.form)">로그인</button>         
+                                <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button>
+                             </div>
+
+                            
+                            </p>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        </c:if>
+
+                                <!--부트스트랩 추가 끝-->
+
+
+                                    <!--원래 내용------------->
+                                    <!-- 개인 로그인과 사업자 로그인 탭 -->
+                                    <!-- <div>
                                         <input type="radio" id="personal" name="loginType" value="0">
                                         <label for="personal">개인 로그인</label><br>
 
@@ -41,7 +137,6 @@
                                     Email: <input type="text" name="m_email" id="m_email"/><br/>
                                     Password: <input type="password" name="m_pw" id="m_pw"/>
 
-                                    <input type="hidden" value="{mvo.m_class}" name="m_class" id="m_class"/>
                                     
                                     <button type="button" onclick="exe()">로그인</button>
                                     <button type="button"><a href="join">회원가입</a></button>
@@ -54,19 +149,9 @@
                                     <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=DEfYVqVL7Po51QB3sjNx&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login">
                                         <img src="../images/naver_login.png"/>
                                     </a>
-                                </p>
-                            </form>
-                        </c:if>
+                                </p> -->
 
-                                      <!-- ----------------메세지 추가-->
-                                      <c:if test="${not empty message}">
-                                      <input type="hidden" id="chk" value="1"/>
-                                      <div class="message" id="message" title="알림창">
-                                       
-                                            ${message}
-                                        </div>
-                                        </c:if>
-                                    <!------------------메세지 추가 -->
+
                   
             
                             <!--Jquery Plugins, main Jquery	-->
@@ -75,38 +160,71 @@
 
                            <script>
 
-                                $(function(){
-                                      //현재문서에서 id가 chk인 요소를 검색한다
-                                      let v1 = $("#chk").val();  
-                                    //  console.log(v1);
-                                    if(v1 != undefined){
-                                       // console.log(v1);
-                                       $( "#message" ).dialog();
-                                    }
-                                });
+                                // $(function(){
+                                //       //현재문서에서 id가 chk인 요소를 검색한다
+                                //       let v1 = $("#chk").val();  
+                                //     //  console.log(v1);
+                                //     if(v1 != undefined){
+                                //        // console.log(v1);
+                                //        $( "#message" ).dialog();
+                                //     }
+                                // });
 
-                                function exe() {
-                                    console.log("dmdkdkkdkdkdkdkdkdkd");
-                                    if ($("#m_email").val() == "") {
+                                function exe(frm) {
+                                    //console.log("dmdkdkkdkdkdkdkdkdkd");
+                                    if ($(frm.m_email).val() == "") {
                                         alert("이메일을 입력하세요");
-                                        $("#m_email").focus();
+                                        $(frm.m_email).focus();
                                         return;
                                     }
                     
-                                    if ($("#m_pw").val() == "") {
+                                    if ($(frm.m_pw).val() == "") {
                                         alert("비밀번호를 입력하세요");
-                                        $("#m_pw").focus();
+                                        $(frm.m_pw).focus();
                                         return;
                                     }
                     
-                                    document.frm.submit();
+                                    frm.submit();
                                 }
 
-                                $(document).ready(function(){
-                                    $("input[name='loginType']").change(function(){
-                                        $("#m_class").val($(this).val()); // 선택된 라디오 버튼의 값을 설정합니다.
+                                $(document).ready(function() {
+                                    //개인로그인 탭 눌려졌을때
+                                    $("#tab-personal").on("click", function() { 
+
+                                        $(this).addClass("active"); // 개인 로그인 탭을 활성화 상태로 설정
+                                        $("#tab-business").removeClass("active"); // 사업자 로그인 탭의 활성화 상태 제거
+                                        $("#pills-personal").addClass("show active"); // 개인 로그인 내용을 보여줌
+                                        $("#pills-business").removeClass("show active"); // 사업자 로그인 내용을 숨김
+
+                                    $("#m_class1").val("0"); // 개인 로그인 선택 시 m_class 값을 0으로 설정
+                                    $("#kakao-login").show();
+                                    $("#naver-login").show();
+
                                     });
-                                });
+
+                                    //사업자로그인 탭 눌려졌을때
+                                    $("#tab-business").on("click", function() {
+
+                                        $(this).addClass("active"); // 사업자 로그인 탭을 활성화 상태로 설정
+                                        $("#tab-personal").removeClass("active"); // 개인 로그인 탭의 활성화 상태 제거
+                                        $("#pills-business").addClass("show active"); // 사업자 로그인 내용을 보여줌
+                                        $("#pills-personal").removeClass("show active"); // 개인 로그인 내용을 숨김
+
+                                    $("#m_class2").val("1"); // 사업자 로그인 선택 시 m_class 값을 1으로 설정
+                                    $("#kakao-login").hide();
+                                    $("#naver-login").hide();
+
+                                    });
+                            });
+
+
+
+                                //아래는 라디오버튼을 이용한 코드임.
+                                // $(document).ready(function(){
+                                //     $("input[name='loginType']").change(function(){
+                                //         $("#m_class").val($(this).val()); // 선택된 라디오 버튼의 값을 설정합니다.
+                                //     });
+                                // });
                             </script>
                 </article>
             </div>
@@ -118,6 +236,10 @@
         <!--////////// Foter start //////////////-->
         <jsp:include page="../main/mainF.jsp"></jsp:include>
         <!--////////// Foter end //////////////-->
-    
+
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+
 </body>
 </html>
