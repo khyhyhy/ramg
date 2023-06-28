@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 글 보기</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -82,7 +82,8 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
-            <form name="frm" method="post" action="/support/qna">
+            <form name="frm" method="post">
+                <input type="hidden" name="fname">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -97,6 +98,13 @@ pageEncoding="UTF-8"%>
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
     function back(){
+        document.frm.action = "/support/qna";
+        document.frm.submit();
+    }
+    function down(fname) {
+        // 인자로 사용자가 클릭한 파일명을 받는다. 이것을 현재 문서 안에 있는 frm이라는 폼객체에 이름이 fname이라는 hidden 요소의 값으로 지정해준다.
+        document.frm.fname.value = fname;
+        document.frm.action = "/download";
         document.frm.submit();
     }
 

@@ -75,6 +75,9 @@ SELECT * FROM (
           <when test="searchType == 1">
               AND b_content LIKE concat('%',#{searchValue},'%')
           </when>
+          <when test="searchType == 2">
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+          </when>
         </choose>
       </if>
     ORDER BY b_idx DESC
@@ -99,6 +102,9 @@ SELECT COUNT(*) FROM charging.bbs_t
           </when>
           <when test="searchType == 1">
               AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
           </when>
         </choose>
       </if>
@@ -137,6 +143,9 @@ SELECT * FROM (
               <when test="searchType == 1">
                   AND b_content LIKE concat('%',#{searchValue},'%')
               </when>
+              <when test="searchType == 2">
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+          </when>
             </choose>
           </if>
     ORDER BY b_idx DESC
@@ -172,6 +181,9 @@ SELECT COUNT(*) FROM charging.bbs_t
         <when test="searchType == 1">
             AND b_content LIKE concat('%',#{searchValue},'%')
         </when>
+        <when test="searchType == 2">
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+          </when>
       </choose>
     </if>
 </select>
