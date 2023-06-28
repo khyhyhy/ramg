@@ -14,19 +14,10 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
    <article>
-    <h1>정보 관리</h1>
+    <h1>서비스 이용 내역</h1>
    </article>
 
-   <h2>회원 정보</h2>
-    <p>이메일: ${mvo.m_email}</p>
-    <p>이름: ${mvo.m_name}</p>
-    <p>연락처: ${mvo.m_phone}</p>
-    <p>주소: ${mvo.m_address}</p>
-    <c:if test="${mvo.m_class == 0}">
-    <p>결제수단: ${mvo.m_payment}</p>
-    </c:if>
-    <a href="updateMember">Edit</a>
-    <jsp:include page="../main/mainF.jsp"></jsp:include>
-  </body>
+   <jsp:include page="../main/mainF.jsp"></jsp:include>
+</body>
 
-  </html>
+</html>

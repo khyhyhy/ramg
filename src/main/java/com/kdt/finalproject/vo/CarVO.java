@@ -1,5 +1,7 @@
 package com.kdt.finalproject.vo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class CarVO {
             c_state, c_city, c_addr1,
             c_val1, c_val2, c_val3, c_val4, c_val5;
 
+    private List<SuseVO> su_list;
 }

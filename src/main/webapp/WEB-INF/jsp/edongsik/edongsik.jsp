@@ -34,10 +34,11 @@
 
   <!--////////// Main start //////////////-->
   <main></main>
-    <p>"${evo.m_idx}"</p>
-    <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
+    
+    <!-- <p>"${evo.m_idx}"</p>
+    <P>"${sessionScope.evo.m_idx}"</P> -->
 
-    <div style="display: flex; justify-content: center; margin-top: 50px;">
+    <div style="display: flex; justify-content: center; margin-top: 40px;">
         <button type="button" onclick="location.href='??'">충전하기</button>
         <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
         <button type="button" onclick="location.href='map'">이용내역</button>
@@ -66,7 +67,7 @@
       </div>
     
 </div>
-<form action="/edongsik/local/" method="get">
+<form action="/local/" method="get">
   <input type="hidden" id="lat1" name="lat" />
   <input type="hidden" id="lng1" name="lng" />
  </form>

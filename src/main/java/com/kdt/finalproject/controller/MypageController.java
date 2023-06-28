@@ -1,13 +1,17 @@
 package com.kdt.finalproject.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.MypageService;
@@ -21,15 +25,42 @@ public class MypageController {
     @Autowired
     MypageService service;
 
-    @GetMapping("car_mt")
+    @Autowired
+    HttpSession session;
+
+    @GetMapping("car_list")
     public ModelAndView search_cw_list(String m_idx) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("car", service.search_cw_list(m_idx));
-        mv.setViewName("mypage/car_mt");
+        mv.setViewName("mypage/car_list");
         return mv;
     }
 
-    @PostMapping("addCar")
+    @GetMapping("my_question")
+    public ModelAndView search_bl_list(String m_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mq", service.search_bl_list(m_idx));
+        mv.setViewName("mypage/my_question");
+        return mv;
+    }
+
+    @GetMapping("my_review")
+    public ModelAndView search_bl_list2(String m_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mr", service.search_bl_list2(m_idx));
+        mv.setViewName("mypage/my_review");
+        return mv;
+    }
+
+    @GetMapping("service_use")
+    public ModelAndView search_su_list(String c_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("su", service.search_su_list(c_idx));
+        mv.setViewName("mypage/service_use");
+        return mv;
+    }
+
+    @GetMapping("addCar")
     public ModelAndView addCar(CarVO cvo) {
         ModelAndView mv = new ModelAndView();
 
@@ -39,11 +70,7 @@ public class MypageController {
 
         mv.addObject("cnt", cnt);
 
-        if (cnt > 0)
-            mv.setViewName("login/login"); // 차량등록 완료후 로그인페이지로 이동
-
-        else
-            mv.setViewName("join");
+        mv.setViewName("mypage/car_list");
 
         return mv;
     }
@@ -55,6 +82,7 @@ public class MypageController {
         int cnt = service.addCarWrite(cwvo);
 
         mv.addObject("cnt", cnt);
+        mv.setViewName("redirect:/car_list");
         return mv;
     }
 
@@ -66,7 +94,7 @@ public class MypageController {
         ModelAndView mv = new ModelAndView();
 
         mv.addObject("cvo", cvo);
-        mv.setViewName("redirect:/car_mt");
+        mv.setViewName("redirect:/car_list");
         return mv;
 
     }
@@ -79,7 +107,7 @@ public class MypageController {
         ModelAndView mv = new ModelAndView();
 
         mv.addObject("cw_list", cw_list);
-        mv.setViewName("redirect:/car_mt");
+        mv.setViewName("redirect:/car_list");
         return mv;
 
     }
@@ -92,7 +120,7 @@ public class MypageController {
         return mv;
     }
 
-    @RequestMapping("updateMember")
+    @GetMapping("updateMember")
     public ModelAndView updateMember(String mIdx) {
         // System.out.println(m_idx);
 
@@ -100,8 +128,34 @@ public class MypageController {
         ModelAndView mv = new ModelAndView();
 
         mv.addObject("mvo", mvo);
-        mv.setViewName("redirect:/mypage");
+        mv.setViewName("mypage/updateMember");
         return mv;
+
+    }
+
+    @PostMapping("/updateMember")
+    @ResponseBody
+    public Map<String, Integer> updateMember(MemVO vo) {
+        Map<String, Integer> map = new HashMap<>();
+
+        // 로그인한 회원의 m_idx를 얻어내자
+        Object obj = session.getAttribute("mvo");
+
+        if (obj != null) {
+            MemVO mvo = (MemVO) obj;
+            vo.setM_idx(mvo.getM_idx());
+
+            int cnt = service.updateMember(vo);
+            map.put("res", cnt);
+
+            if (cnt == 1) {
+                // 세션의 정보도 변경해야 함!
+                mvo = service.getMemberByIdx(vo.getM_idx());
+                session.setAttribute("mvo", mvo);
+            }
+        }
+
+        return map; // 호출한 updateMember.jsp의 비동기식 통신의 done영역으로 json으로 전달됨!
 
     }
 }

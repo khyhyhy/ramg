@@ -11,11 +11,28 @@
       select="get_car" column="c_idx"/>
   </resultMap>
 
+  <resultMap id="map2" type="com.kdt.finalproject.vo.BbslogVO">
+    <id property="bl_idx" column="bl_idx"/>
+    <association property="bvo" javaType="com.kdt.finalproject.vo.BbsVO"
+      select="search_q" column="b_idx"/>
+  </resultMap>
+
+  <resultMap id="map3" type="com.kdt.finalproject.vo.BbslogVO">
+    <id property="bl_idx" column="bl_idx"/>
+    <association property="bvo" javaType="com.kdt.finalproject.vo.BbsVO"
+      select="search_r" column="b_idx"/>
+  </resultMap>
+
+  <resultMap id="map4" type="com.kdt.finalproject.vo.SwriteVO">
+    <id property="sw_idx" column="sw_idx"/>
+    <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
+      select="search_s" column="s_idx"/>
+  </resultMap>
   
 
   <!-- select -->
 
-  <select id="getMemberByIdx" resultType="com.kdt.finalproject.vo.MemVO">
+  <select id="getMemberByIdx" resultType="com.kdt.finalproject.vo.MemVO" parameterType="String">
         SELECT * FROM member_t 
         WHERE m_idx = #{mIdx}
     </select>
@@ -26,22 +43,52 @@
     WHERE m_idx = #{m_idx}
   </select>
 
+  <select id="search_bl_list" resultMap="map2" parameterType="String">
+    SELECT * FROM bbslog
+    WHERE m_idx = #{m_idx}
+  </select>
+
+  <select id="search_bl_list2" resultMap="map3" parameterType="String">
+    SELECT * FROM bbslog
+    WHERE m_idx = #{m_idx}
+  </select>
+
+  <select id="search_su_list" resultMap="map4" parameterType="String">
+    SELECT * FROM service_use
+    WHERE c_idx = #{c_idx}
+  </select>
+
   <select id="get_car" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
     SELECT * FROM car_t
     WHERE c_idx = #{c_idx}
   </select>
 
+  <select id="search_q" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
+  select * from bbs_t
+  where b_idx = #{b_idx} and b_type = 2
+  </select>
+
+  <select id="search_r" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
+  select * from bbs_t
+  where b_idx = #{b_idx} and b_type = 1
+  </select>
+
+  <select id="search_s" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
+  select * from service_t
+  where s_idx = #{s_idx}
+
+  </select>
 
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, car_tcol) 
-      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{car_tcol}) 
+      insert into car_t (c_num, c_name, c_type, c_chargetype, c_state, c_city, car_addr1) 
+      values (#{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{car_addr1}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
-      insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date)
-      values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now())
+      insert into car_t (cw_type, m_idx, c_idx, cw_date)
+      values (0, #{m_idx}, #{c_idx}, now())
   </insert>
 
   <!-- update -->
@@ -65,9 +112,29 @@
 
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
         UPDATE member_t
-        SET m_email = #{mEmail}, m_pw = #{mPw}, m_name = #{mName}, m_phone = #{mPhone}, m_address = #{mAddress}, m_class = #{mClass}, m_status = #{mStatus},
-            m_atoken = #{mAtoken}, m_rtoken = #{mRtoken}, m_payment = #{mPayment}, m_date = #{mDate}
-        WHERE m_idx = #{mIdx}
+        
+          <trim prefix="SET" suffixOverrides=","> 
+            <if test="m_name != null">
+              m_name = #{m_name}, 
+            </if>
+            <if test="m_phone != null">
+              m_phone = #{m_phone},
+            </if>
+            <if test="m_address != null">
+              m_address = #{m_address},
+            </if>
+            <if test="m_atoken != null">
+              m_atoken = #{m_atoken},
+            </if>
+            <if test="m_rtoken != null">
+              m_rtoken = #{m_rtoken}, 
+            </if>
+            <if test="m_payment != null">
+              m_payment = #{m_payment},
+            </if>
+          </trim>
+        
+        WHERE m_idx = #{m_idx}
     </update>
 
 </mapper>
