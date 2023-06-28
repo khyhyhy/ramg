@@ -30,4 +30,7 @@ public interface MypageMapper {
     List<BbslogVO> search_bl_list2(String m_idx);
 
     List<SuseVO> search_su_list(String c_idx);
+
+    List<SuseVO> use_service_list(String m_idx);
+
 }

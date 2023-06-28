@@ -38,34 +38,29 @@
             <col width="100px"/>
             <col width="150px"/>
             <col width="150px"/>
-            <col width="150px"/>
-            <col width="150px"/>
             <col width="*"/>
         </colgroup>
         <thead>
-            <tr><td colspan="8"><a href="/addCar">차량 추가</a></td></tr>
+            
             <tr>
                 <th>번호</th>
                 <th>제목</th>
-                <th>별점</th>
-                <th>충전방식</th>
-                <th>광역자치단체</th>
-                <th>기초자치단체</th>
-                <th>행정구역</th>
+                <th>날짜</th>
+                <th>조회수</th>
+                <th>문의글 대상</th>
                 <th>비고</th>
                 
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="bvo" items="${mq}">
+            <c:forEach var="lvo" items="${mq}">
                 <tr>
-                    <td>${bvo.c_num}</td>
-                    <td>${bvo.c_name}</td>
-                    <td>${bvo.c_type}</td>
-                    <td>${bvo.c_chargetype}</td>
-                    <td>${bvo.c_state}</td>
-                    <td>${bvo.c_city}</td>
-                    <td>${bvo.c_addr1}</td>
+                    <td>${lvo.bvo.b_idx}</td>
+                    <td>${lvo.bvo.b_title}</td>
+                    <td>${lvo.bl_date}</td>
+                    <td>${lvo.bvo.b_hit}</td>
+                    <td>${lvo.bvo.b_target}</td>
+                    <td></td>
                 </tr>
             </c:forEach>
         </tbody>
