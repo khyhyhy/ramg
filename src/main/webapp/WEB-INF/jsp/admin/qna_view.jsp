@@ -74,13 +74,15 @@ pageEncoding="UTF-8"%>
                 <tbody>
                     <c:forEach items="${ar}" var="vo">
                     <tr>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th><input type="button" value="수정" class="btn btn-outline-info"></th>
-                        <th><input type="button" value="삭제" class="btn btn-outline-info"></th>
+                        <th>${vo.bbslog.mvo.m_name}</th>
+                        <th>${vo.bbslog.bl_date}</th>
+                        <th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th>
                     </tr>
                     <tr> 
                         <td colspan="4" style="height: 200px;">${vo.b_content}</th>
+                    </tr>
+                    <tr style="border: none;"> 
+                        <td colspan="4" style="height: 50px; border: none;"></th>
                     </tr>
                 </c:forEach>
                 </tbody>

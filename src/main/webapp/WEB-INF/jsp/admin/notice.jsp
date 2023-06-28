@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 글 목록</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="../../../css/page.css" rel="stylesheet">
@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
         </div>
     </form>
 
-    <table class="table table-hover">
+    <table class="table table-hover" style="table-layout:fixed">
         <colgroup>
             <col width="150px">
             <col width="*">
@@ -58,7 +58,7 @@ pageEncoding="UTF-8"%>
                
                 <tr>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
-                    <td>
+                    <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
                         <a href="javascript:sub('${vo.b_idx}', '${vo.bbslog.bl_date}')">${vo.b_title}</a>
                         <c:if test="${vo.b_filename != null}">
                             <img src="../images/link.png" style="width: 14px;">

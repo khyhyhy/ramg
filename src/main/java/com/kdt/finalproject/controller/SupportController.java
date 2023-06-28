@@ -181,7 +181,6 @@ public class SupportController {
         // 파일 첨부 시 파일 저장 경로 설정
         // 넘어온 파일이 있는지 확인
         MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
-        System.out.println(vo.getB_type());
 
         if (mf.getSize() > 0) { // 파일을 첨부한 경우
 

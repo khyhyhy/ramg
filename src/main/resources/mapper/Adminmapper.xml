@@ -206,11 +206,35 @@ SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
 
+
 <!-- 댓글 보기 -->
-<select id="qna_comm" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
-SELECT * FROM charging.bbs_t
-WHERE b_target = #{b_idx};
+<resultMap id="comm_map" type="com.kdt.finalproject.vo.BbsVO">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="comm_log" column="b_idx"/>
+</resultMap>
+
+<resultMap id="comm_map2" type="com.kdt.finalproject.vo.BbslogVO">
+  <id property="m_idx" column="m_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="comm_log2" column="m_idx"/>
+</resultMap>
+
+<select id="qna_comm" parameterType="String" resultMap="comm_map">
+SELECT * FROM charging.bbs_t 
+WHERE b_target = #{b_idx}
+ORDER BY b_idx DESC
 </select>
+
+<select id="comm_log" parameterType="String" resultMap="comm_map2">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx}
+</select>
+
+<select id="comm_log2" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = #{m_idx}
+</select>
+<!-- 댓글 보기 -->
+
 
 <!-- insert -->
 

@@ -28,7 +28,7 @@ pageEncoding="UTF-8"%>
                 <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
-        <table class="table table-hover">
+        <table class="table table-hover" style="table-layout:fixed">
             <colgroup>
                 <col width="150px">
                 <col width="*">
@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
-                        <td>
+                        <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
                             <c:if test="${vo.b_val1 == 1}">
                                 <img src="../images/lock.png" style="width: 15px;">
                             </c:if>
