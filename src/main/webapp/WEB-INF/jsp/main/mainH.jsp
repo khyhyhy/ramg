@@ -41,9 +41,18 @@
        <li>
         <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">고객센터</a>
         <ul class="dropdown-menu">
-         <li><a class="dropdown-item" href="#">공지사항</a></li>
-         <li><a class="dropdown-item" href="#">자주하는 질문</a></li>
-         <li><a class="dropdown-item" href="#">문의 게시판</a></li>
+         <li><a class="dropdown-item" href="/support/notice">공지사항</a></li>
+         <li><a class="dropdown-item" href="/support/faq">자주하는 질문</a></li>
+         <li><a class="dropdown-item" href="/support/qna">문의 게시판</a></li>
+        </ul>
+       </li>
+       <li>
+       <li>
+        <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">관리자페이지</a>
+        <ul class="dropdown-menu">
+         <li><a class="dropdown-item" href="/admin/notice">공지사항관리</a></li>
+         <li><a class="dropdown-item" href="/admin/member">멤버관리</a></li>
+         <li><a class="dropdown-item" href="/admin/qna">문의게시판 관리</a></li>
         </ul>
        </li>
        <li>

@@ -93,7 +93,8 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
                 <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
-            <form name="frm" method="post" action="/admin/qna">
+            <form name="frm" method="post">
+                <input type="hidden" name="fname">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -150,8 +151,15 @@ pageEncoding="UTF-8"%>
 
 		});
     }
+    function down(fname) {
+        // 인자로 사용자가 클릭한 파일명을 받는다. 이것을 현재 문서 안에 있는 frm이라는 폼객체에 이름이 fname이라는 hidden 요소의 값으로 지정해준다.
+        document.frm.fname.value = fname;
+        document.frm.action = "/download";
+        document.frm.submit();
+    }
 
     function back(){
+        document.frm.action = "/admin/qna";
         document.frm.submit();
     }
 
