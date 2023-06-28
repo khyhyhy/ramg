@@ -46,14 +46,13 @@ public class SupportController {
         ModelAndView mv = new ModelAndView();
 
         BbsVO[] ar = null;
-        Support_noitce_paging page = null;
-        String pageCode = null;
+        Support_noitce_paging page;
+        String pageCode;
         int nowPage = 1;
         int totalRecord;
 
         if (mvo.getM_class() == "1" || mvo.getM_class() == "2") { // 로그인 정보가 사업자거나 관리자라면 전체 공지 표시
-            totalRecord = service.support_notice_count1();
-
+            totalRecord = service.support_notice_count1(searchType, searchValue);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
@@ -63,8 +62,8 @@ public class SupportController {
             ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue);
 
         } else { // 로그인 정보가 없거나 개인이라면 부분 공지 표시
-            totalRecord = service.support_notice_count2();
-
+            totalRecord = service.support_notice_count2(searchType, searchValue);
+            System.out.println(totalRecord);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 

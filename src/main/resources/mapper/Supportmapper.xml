@@ -13,55 +13,43 @@
   <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="notice_log" column="b_idx"/>
 </resultMap>
 
-<!--사업자 공지-->
+<!--사업자가 볼 수 있는 공지-->
 <select id="notice_all" parameterType="map" resultMap="map1">
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
-SELECT * FROM charging.bbs_t 
-<where>
-b_status = 0 AND b_type = 0
+    SELECT * FROM charging.bbs_t 
+    WHERE (b_status = 0 AND b_type = 0)
       <if test="searchType != null and searchValue != null">
-      AND
         <choose>
           <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
+              AND b_title LIKE concat('%',#{searchValue},'%')
           </when>
           <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+              AND b_content LIKE concat('%',#{searchValue},'%')
           </when>
         </choose>
       </if>
-    </where>
-ORDER BY b_idx DESC
+    ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
 
-<!--개인 공지-->
+<!--개인이 볼 수 있는 공지-->
 <select id="notice_user" parameterType="map" resultMap="map1">
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
 SELECT * FROM charging.bbs_t
-<where>
-  b_to = 0 AND b_status = 0 AND b_type = 0
-      <if test="searchType != null and searchValue != null">
-      AND
-        <choose>
-          <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
-      </if>
-    </where>
+  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0)
+    <if test="searchType != null and searchValue != null">
+      <choose>
+        <when test="searchType == 0">
+            AND b_title LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 1">
+            AND b_content LIKE concat('%',#{searchValue},'%')
+        </when>
+      </choose>
+    </if>
 ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -74,48 +62,36 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 </select>
 
 
-<!-- (Paging) 사업자 공지사항 총 갯수 -->
+<!-- (Paging) 사업자가 볼 수 있는 공지 -->
 <select id="support_notice_count1" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
-<where>
-b_status = 0 AND b_type = 0
-      <if test="searchType != null and searchValue != null">
-      AND
-        <choose>
-          <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
-      </if>
-    </where>
+WHERE (b_status = 0 AND b_type = 0)
+  <if test="searchType != null and searchValue != null">
+    <choose>
+      <when test="searchType == 0">
+          AND b_title LIKE concat('%',#{searchValue},'%')
+      </when>
+      <when test="searchType == 1">
+          AND b_content LIKE concat('%',#{searchValue},'%')
+      </when>
+    </choose>
+  </if>
 </select>
 
-<!-- (Paging) 개인 공지사항 총 갯수 -->
+<!-- (Paging) 개인이 볼 수 있는 공지 -->
 <select id="support_notice_count2" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t 
-<where>
-  b_to = 0 AND b_status = 0 AND b_type = 0
-      <if test="searchType != null and searchValue != null">
-      AND
-        <choose>
-          <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
-      </if>
-    </where>
+  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0)
+    <if test="searchType != null and searchValue != null">
+      <choose>
+        <when test="searchType == 0">
+            AND b_title LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 1">
+            AND b_content LIKE concat('%',#{searchValue},'%')
+        </when>
+      </choose>
+    </if>
 </select>
 
 <!-- 공지 보기 -->
