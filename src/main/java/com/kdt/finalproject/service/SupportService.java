@@ -44,12 +44,12 @@ public class SupportService {
         return mapper.notice_view(b_idx);
     }
 
-    public int support_notice_count1() {
-        return mapper.support_notice_count1();
+    public int support_notice_count1(String searchType, String searchValue) {
+        return mapper.support_notice_count1(searchType, searchValue);
     }
 
-    public int support_notice_count2() {
-        return mapper.support_notice_count2();
+    public int support_notice_count2(String searchType, String searchValue) {
+        return mapper.support_notice_count2(searchType, searchValue);
     }
 
     // 자주하는 질문

@@ -41,10 +41,10 @@
       <div class="row">
        <div class="col">
         <div class="list-group">
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">1번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">2번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">3번마</button>
-         <button type="button" class="list-group-item list-group-item-action" onclick="activate(this)">4번마</button>
+         <c:forEach items="${evo.cw_list}" var="vo">
+          <button type="button" class="list-group-item list-group-item-action"
+           onclick="activate(this)">${vo.m_idx}</button>
+         </c:forEach>
         </div>
        </div>
        <div class="col">
@@ -52,7 +52,7 @@
          <c:forEach items="${servicear}" var="vo" varStatus="status">
           <input type="radio" class="btn-check" name="options" id='option${status.index}' autocomplete="off">
           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-           for="option${status.index}">${vo.s_city}${vo.s_radius}</label>
+           for="option${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
          </c:forEach>
         </ul>
        </div>

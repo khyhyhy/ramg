@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
             </div>
         </form>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="table-layout:fixed">
             <colgroup>
                 <col width="150px">
                 <col width="*">
@@ -48,11 +48,11 @@ pageEncoding="UTF-8"%>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
-                        <td>
+                        <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
                             <c:if test="${vo.b_to == 1}">
                                 <span style="font-size: small; color: rgb(179, 179, 179);">[사업자]</span>
                             </c:if>
-                            <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
+                            <a href="javascript:sub('${vo.b_idx}', '${vo.bbslog.bl_date}')">${vo.b_title}</a>
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
@@ -70,6 +70,7 @@ pageEncoding="UTF-8"%>
 
     <form name="frm" method="post" action="/support/notice_view">
         <input type="hidden" name="b_idx">
+        <input type="hidden" name="bl_date">
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -78,8 +79,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx){
+    function sub(b_idx, bl_date){
         document.frm.b_idx.value = b_idx;
+        document.frm.bl_date.value = bl_date;
         document.frm.submit();
     }
 </script>

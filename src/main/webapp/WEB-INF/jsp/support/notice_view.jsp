@@ -24,8 +24,16 @@ pageEncoding="UTF-8"%>
             </colgroup>
             <tbody>
                 <tr>
+                    <th>작성일</th>
+                    <td>${param.bl_date}</td>
+                </tr>
+                <tr>
                     <th>제목</th>
                     <td>${vo.b_title}</td>
+                </tr>
+                <tr>
+                    <th style="height: 400px;">내용</th>
+                    <td>${vo.b_content}</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
@@ -35,10 +43,6 @@ pageEncoding="UTF-8"%>
                         </c:if>
                         <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>
-                </tr>
-                <tr>
-                    <th style="height: 400px;">내용</th>
-                    <td>${vo.b_content}</td>
                 </tr>
             </table>
             <div style="height: 80px;" >

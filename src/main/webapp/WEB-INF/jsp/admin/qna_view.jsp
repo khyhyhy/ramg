@@ -74,13 +74,15 @@ pageEncoding="UTF-8"%>
                 <tbody>
                     <c:forEach items="${ar}" var="vo">
                     <tr>
-                        <th>작성자</th>
-                        <th>작성일</th>
-                        <th><input type="button" value="수정" class="btn btn-outline-info"></th>
-                        <th><input type="button" value="삭제" class="btn btn-outline-info"></th>
+                        <th>${vo.bbslog.mvo.m_name}</th>
+                        <th>${vo.bbslog.bl_date}</th>
+                        <th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th>
                     </tr>
                     <tr> 
                         <td colspan="4" style="height: 200px;">${vo.b_content}</th>
+                    </tr>
+                    <tr style="border: none;"> 
+                        <td colspan="4" style="height: 50px; border: none;"></th>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -91,7 +93,8 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
                 <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
-            <form name="frm" method="post" action="/admin/qna">
+            <form name="frm" method="post">
+                <input type="hidden" name="fname">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -148,8 +151,15 @@ pageEncoding="UTF-8"%>
 
 		});
     }
+    function down(fname) {
+        // 인자로 사용자가 클릭한 파일명을 받는다. 이것을 현재 문서 안에 있는 frm이라는 폼객체에 이름이 fname이라는 hidden 요소의 값으로 지정해준다.
+        document.frm.fname.value = fname;
+        document.frm.action = "/download";
+        document.frm.submit();
+    }
 
     function back(){
+        document.frm.action = "/admin/qna";
         document.frm.submit();
     }
 

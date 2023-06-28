@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 공지 수정</title>
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -35,7 +35,12 @@ pageEncoding="UTF-8"%>
                             <option value="1">사업자공개</option>
                         </select>
                         <div class="form-check" style="display: inline-block; float: right;">
-                            <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                            <c:if test="${vo.b_type == 4}">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault" checked>
+                            </c:if>
+                            <c:if test="${vo.b_type != 4}">
+                                <input class="form-check-input" type="checkbox" id="flexCheckDefault">
+                            </c:if>
                             <label class="form-check-label" for="flexCheckDefault">
                               자주하는 질문
                             </label>
@@ -52,7 +57,13 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
-                    <td><input type="file" name="file"/></td>
+                    <td>
+                        <input type="file" name="file"/>
+                        <c:if test="${vo.b_filename != null }">
+                            ${vo.b_filename}
+                            <span style="float: right;">파일을 새로 첨부하면 기존 파일은 삭제됩니다</span style="text-align: right;">
+                        </c:if>
+                    </td>
                 </tr>
             </table>
             <div style="height: 80px;" >
@@ -66,11 +77,13 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="cPage" value="${cPage}">
             <input type="hidden" name="searchType" value="${searchType}">
             <input type="hidden" name="searchValue" value="${searchValue}">
+            <input type="hidden" name="bl_date" value="${param.bl_date}">
         </form>
     </div>
 
     <form name="fm" method="post" action="/admin/notice_view">
         <input type="hidden" name="b_idx" value="${vo.b_idx}">
+        <input type="hidden" name="bl_date" value="${param.bl_date}">
         <input type="hidden" name="cPage" value="${cPage}">
         <input type="hidden" name="searchType" value="${searchType}">
         <input type="hidden" name="searchValue" value="${searchValue}">

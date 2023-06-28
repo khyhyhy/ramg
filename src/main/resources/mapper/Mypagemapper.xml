@@ -28,6 +28,16 @@
     <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
       select="search_s" column="s_idx"/>
   </resultMap>
+
+  <resultMap id="map5" type="com.kdt.finalproject.vo.SuseVO">
+    <id property="su_idx" column="su_idx"/>
+    <result property="s_idx" column="s_idx"/>
+    <result property="c_idx" column="c_idx"/>
+    <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
+      select="search_s" column="s_idx"/>
+    <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO"
+      select="get_car" column="c_idx"/>
+  </resultMap>
   
 
   <!-- select -->
@@ -40,7 +50,7 @@
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
     SELECT * FROM car_write
-    WHERE m_idx = #{m_idx}
+    WHERE m_idx = #{m_idx} and cw_type = 0
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
@@ -79,6 +89,16 @@
 
   </select>
 
+  <!-- 회원 서비스 이용 내역 -->
+  <select id="use_service_list" resultMap="map5" parameterType="String">
+    SELECT * FROM charging.service_use
+    WHERE c_idx IN (SELECT c_idx FROM charging.car_write
+		    WHERE m_idx = #{m_idx} AND cw_type = 0)
+  </select>
+
+
+
+
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
@@ -87,8 +107,8 @@
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
-      insert into car_t (cw_idx, cw_type, m_idx, c_idx, cw_date)
-      values (#{cw_idx}, 0, #{m_idx}, #{c_idx}, now())
+      insert into car_t (cw_type, m_idx, c_idx, cw_date)
+      values (0, #{m_idx}, #{c_idx}, now())
   </insert>
 
   <!-- update -->
@@ -112,9 +132,32 @@
 
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
         UPDATE member_t
-        SET m_email = #{mEmail}, m_pw = #{mPw}, m_name = #{mName}, m_phone = #{mPhone}, m_address = #{mAddress}, m_class = #{mClass}, m_status = #{mStatus},
-            m_atoken = #{mAtoken}, m_rtoken = #{mRtoken}, m_payment = #{mPayment}, m_date = #{mDate}
-        WHERE m_idx = #{mIdx}
+        
+          <trim prefix="SET" suffixOverrides=","> 
+            <if test="m_name != null">
+              m_name = #{m_name}, 
+            </if>
+            <if test="m_phone != null">
+              m_phone = #{m_phone},
+            </if>
+            <if test="m_address != null">
+              m_address = #{m_address},
+            </if>
+            <if test="m_atoken != null">
+              m_atoken = #{m_atoken},
+            </if>
+            <if test="m_rtoken != null">
+              m_rtoken = #{m_rtoken}, 
+            </if>
+            <if test="m_payment != null">
+              m_payment = #{m_payment},
+            </if>
+          </trim>
+        
+        WHERE m_idx = #{m_idx}
     </update>
+
+
+
 
 </mapper>

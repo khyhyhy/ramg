@@ -38,6 +38,10 @@ public class EdongsikController {
     String city;
     String addr1;
 
+    List<SwriteVO> swar = new ArrayList<SwriteVO>();
+    List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
+    List<CarVO> cc_ar = new ArrayList<CarVO>();
+
     @Autowired
     HttpSession session;
 
@@ -61,131 +65,132 @@ public class EdongsikController {
         return "map/map";
     }
 
-    @RequestMapping("/carAddr/")
-    public ModelAndView carAddr(String m_idx) throws Exception {
+    // @RequestMapping("/carAddr/")
+    // public ModelAndView carAddr(String m_idx) throws Exception {
 
-        ModelAndView mv = new ModelAndView();
+    // ModelAndView mv = new ModelAndView();
 
-        CwriteVO cwvo = service.carList(m_idx);
-        List<CarVO> ar = cwvo.getCar_list();
-        for (CarVO value : ar) {
-            state = value.getC_state();
-            city = value.getC_city();
-            addr1 = value.getC_addr1();
-            // tcol = "신림동";
-            // System.out.println(str);
+    // CwriteVO cwvo = service.carList(m_idx);
+    // List<CarVO> ar = cwvo.getCar_list();
+    // for (CarVO value : ar) {
+    // state = value.getC_state();
+    // city = value.getC_city();
+    // addr1 = value.getC_addr1();
+    // // tcol = "신림동";
+    // // System.out.println(str);
 
-        }
+    // }
 
-        // System.out.println(state);
-        String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
-        String restapikey = "KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
+    // // System.out.println(state);
+    // String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
+    // String restapikey = "KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
 
-        StringBuffer sb = new StringBuffer();
-        sb.append(state);
-        sb.append(" ");
-        sb.append(city);
-        sb.append(" ");
-        sb.append(addr1);
+    // StringBuffer sb = new StringBuffer();
+    // sb.append(state);
+    // sb.append(" ");
+    // sb.append(city);
+    // sb.append(" ");
+    // sb.append(addr1);
 
-        String addr = sb.toString();
-        // System.out.println(addr);
+    // String addr = sb.toString();
+    // // System.out.println(addr);
 
-        URL obj;
+    // URL obj;
 
-        int lo;
+    // int lo;
 
-        try {
-            String address = URLEncoder.encode(addr, "UTF-8");
-            // System.out.println(address);
-            obj = new URL(url + address);
+    // try {
+    // String address = URLEncoder.encode(addr, "UTF-8");
+    // // System.out.println(address);
+    // obj = new URL(url + address);
 
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    // HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", restapikey);
-            con.setRequestProperty("content-type", "application/json");
-            con.setDoOutput(true);
-            con.setUseCaches(false);
-            con.setDefaultUseCaches(false);
+    // con.setRequestMethod("GET");
+    // con.setRequestProperty("Authorization", restapikey);
+    // con.setRequestProperty("content-type", "application/json");
+    // con.setDoOutput(true);
+    // con.setUseCaches(false);
+    // con.setDefaultUseCaches(false);
 
-            Charset charset = Charset.forName("UTF-8");
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
+    // Charset charset = Charset.forName("UTF-8");
+    // BufferedReader in = new BufferedReader(new
+    // InputStreamReader(con.getInputStream(), charset));
 
-            String inputLine = null;
-            StringBuffer response = new StringBuffer();
+    // String inputLine = null;
+    // StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
+    // while ((inputLine = in.readLine()) != null) {
+    // response.append(inputLine);
+    // }
 
-            // response 객체를 출력해보자
-            // System.out.println("RES :" + response.toString());
+    // // response 객체를 출력해보자
+    // // System.out.println("RES :" + response.toString());
 
-            JSONParser jsonParser = new JSONParser();
-            JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
-            JSONArray documents = (JSONArray) json_data.get("documents");
-            JSONObject data = (JSONObject) documents.get(0);
+    // JSONParser jsonParser = new JSONParser();
+    // JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
+    // JSONArray documents = (JSONArray) json_data.get("documents");
+    // JSONObject data = (JSONObject) documents.get(0);
 
-            String x = (String) data.get("x");
-            String y = (String) data.get("y");
+    // String x = (String) data.get("x");
+    // String y = (String) data.get("y");
 
-            // System.out.println("x:" + x + ", y:" + y);
+    // // System.out.println("x:" + x + ", y:" + y);
 
-            mv.addObject("c_ar", ar);
+    // // mv.addObject("c_ar", ar);
 
-            // -------------------- 고객 위치 값 구하기 끝 ----------------------------
+    // // -------------------- 고객 위치 값 구하기 끝 ----------------------------
 
-            // 충전 기사들의 위치값 가져오기
-            ServiceVO[] sar = service.getEdongsik(state);
-            List<ServiceVO> list = new ArrayList<>();
+    // // 충전 기사들의 위치값 가져오기
+    // ServiceVO[] sar = service.getEdongsik(state);
+    // List<ServiceVO> list = new ArrayList<>();
 
-            for (ServiceVO value : sar) {
-                // String s_x = value.getS_mapx();
-                // String s_y = value.getS_mapy();
+    // for (ServiceVO value : sar) {
+    // // String s_x = value.getS_mapx();
+    // // String s_y = value.getS_mapy();
 
-                // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
+    // // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
 
-                double lat = Double.valueOf(value.getS_mapy());// 기사위치
-                double lng = Double.valueOf(value.getS_mapx());
-                double lat2 = Double.parseDouble(y); // 고객 차량 y
-                double lng2 = Double.parseDouble(x); // 고객 차량 x
-                double dLat = Math.toRadians(lat - lat2);
-                double dLon = Math.toRadians(lng - lng2);
+    // double lat = Double.valueOf(value.getS_mapy());// 기사위치
+    // double lng = Double.valueOf(value.getS_mapx());
+    // double lat2 = Double.parseDouble(y); // 고객 차량 y
+    // double lng2 = Double.parseDouble(x); // 고객 차량 x
+    // double dLat = Math.toRadians(lat - lat2);
+    // double dLon = Math.toRadians(lng - lng2);
 
-                double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                        + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                                * Math.sin(dLon / 2);
-                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-                double d = 6371 * c * 1000; // Distance in m
-                System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
+    // double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+    // + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) *
+    // Math.sin(dLon / 2)
+    // * Math.sin(dLon / 2);
+    // double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    // double d = 6371 * c * 1000; // Distance in m
+    // System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
 
-                lo = (int) Math.round(d);
+    // lo = (int) Math.round(d);
 
-                System.out.println("lo==" + lo);
-                System.out.println(value.getS_radius());
-                // --------------------------------------------------------------------------------
+    // System.out.println("lo==" + lo);
+    // System.out.println(value.getS_radius());
+    // //
+    // --------------------------------------------------------------------------------
 
-                if (lo <= Integer.valueOf(value.getS_radius())) {
-                    list.add(value);
-                }
+    // if (lo <= Integer.valueOf(value.getS_radius())) {
+    // String s_idx = value.getS_idx();
+    // SwriteVO swvo = service.radiusInfo(s_idx);
+    // swar.add(swvo);
+    // mv.addObject("swar", swar);
+    // }
 
-            }
+    // }
 
-            if (list.size() > 0) {
+    // } catch (Exception e) {
+    // // TODO Auto-generated catch block
+    // e.printStackTrace();
+    // }
+    // // System.out.println(ar.);
 
-                mv.addObject("s_ar", list);
-            }
-
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        // System.out.println(ar.);
-
-        mv.setViewName("edongsik/e_info");
-        return mv;
-    }
+    // mv.setViewName("edongsik/e_info");
+    // return mv;
+    // }
 
     @RequestMapping("/local/")
     public ModelAndView local(@Param("lat") String lat, @Param("lng") String lng) {
@@ -209,15 +214,15 @@ public class EdongsikController {
     public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
             @Param("nowstate") String nowstate, @Param("nowcity") String nowcity) {
         ModelAndView mv = new ModelAndView();
-        
-        MemVO vo = (MemVO)session.getAttribute("evo");
+
+        MemVO vo = (MemVO) session.getAttribute("evo");
         String m_idx = vo.getM_idx();
-        System.out.println("세션m_idx:"+ m_idx);
+        System.out.println("세션m_idx:" + m_idx);
 
-        CwriteVO cwvo = service.carList(m_idx);
-        List<CarVO> ar = cwvo.getCar_list();
+        cw_ar = service.carList(m_idx);
 
-        mv.addObject("c_ar", ar);
+        // System.out.println(cvo.getC_idx());
+        mv.addObject("cw_ar", cw_ar);
 
         int lo;
 
@@ -243,7 +248,7 @@ public class EdongsikController {
                             * Math.sin(dLon / 2);
             double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
             double d = 6371 * c * 1000; // Distance in m
-            System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
+            System.out.println("현재 지점과 좌표값의 거리는 " + d + "m입니다.");
 
             lo = (int) Math.round(d);
 
@@ -252,14 +257,15 @@ public class EdongsikController {
             // --------------------------------------------------------------------------------
 
             if (lo <= Integer.valueOf(value.getS_radius())) {
-                list.add(value);
+
+                String s_idx = value.getS_idx();
+                SwriteVO swvo = service.radiusInfo(s_idx);
+                swar.add(swvo);
+
+                mv.addObject("swar", swar);
+
             }
 
-        }
-
-        if (list.size() > 0) {
-
-            mv.addObject("s_ar", list);
         }
 
         mv.setViewName("edongsik/e_info");

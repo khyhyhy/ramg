@@ -221,9 +221,10 @@ public class AdminController {
 
     // 공지사항 수정 페이지 이동
     @RequestMapping("/admin/notice_edit")
-    public ModelAndView notice_edit(BbsVO vo, String cPage, String searchType, String searchValue) {
+    public ModelAndView notice_edit(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
 
         ModelAndView mv = new ModelAndView();
+        BbsVO vo = service.notice_view(b_idx);
 
         mv.addObject("vo", vo);
         mv.addObject("cPage", cPage);
@@ -235,7 +236,7 @@ public class AdminController {
 
     // 공지사항 수정 완료
     @RequestMapping("/admin/notice_edit_ok")
-    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue)
+    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue, String bl_date)
             throws Exception {
         ModelAndView mv = new ModelAndView();
 
