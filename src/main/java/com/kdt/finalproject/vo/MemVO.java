@@ -16,4 +16,6 @@ public class MemVO {
             m_rtoken, m_payment, m_date, m_val2, m_val3, m_val4, m_val5;
 
     private List<CwriteVO> cw_list;
+
+    private List<BbslogVO> bl_list;
 }

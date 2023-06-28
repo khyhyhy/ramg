@@ -29,6 +29,30 @@ public class MypageController {
         return mv;
     }
 
+    @GetMapping("my_question")
+    public ModelAndView search_bl_list(String m_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mq", service.search_bl_list(m_idx));
+        mv.setViewName("mypage/my_question");
+        return mv;
+    }
+
+    @GetMapping("my_review")
+    public ModelAndView search_bl_list2(String m_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("mr", service.search_bl_list2(m_idx));
+        mv.setViewName("mypage/my_review");
+        return mv;
+    }
+
+    @GetMapping("service_use")
+    public ModelAndView search_su_list(String c_idx) {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("su", service.search_su_list(c_idx));
+        mv.setViewName("mypage/service_use");
+        return mv;
+    }
+
     @PostMapping("addCar")
     public ModelAndView addCar(CarVO cvo) {
         ModelAndView mv = new ModelAndView();
@@ -55,6 +79,7 @@ public class MypageController {
         int cnt = service.addCarWrite(cwvo);
 
         mv.addObject("cnt", cnt);
+        mv.setViewName("redirect:/car_mt");
         return mv;
     }
 
