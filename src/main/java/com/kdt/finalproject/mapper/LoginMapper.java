@@ -16,4 +16,6 @@ public interface LoginMapper {
     // MemVO check_id(String id);
     MemVO search_email(String m_email);
 
+    MemVO check_email(String m_email);
+
 }

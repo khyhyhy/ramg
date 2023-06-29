@@ -53,7 +53,7 @@ public class LoginService {
     }
 
     public MemVO check_email(String m_email) {
-        return l_Mapper.search_email(m_email);
+        return l_Mapper.check_email(m_email);
     }
 
 }
