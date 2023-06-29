@@ -17,8 +17,8 @@ WHERE m_idx = '1'
 
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="map1">
   	<result column="c_idx" property="c_idx"/>
-  	<association property="cvo" javaType="com.kdt.finalproject.vo.CarVO" select="carList2" column="c_idx"/>
-  </resultMap>
+  	<association property="cvo" javaType="com.kdt.finalproject.vo.CarVO" select="cvo" column="c_idx"/>
+</resultMap>
 
 <select id="carList" resultMap="map1" parameterType="String">
   SELECT * FROM charging.car_write
@@ -65,6 +65,11 @@ SELECT * FROM charging.service_t WHERE s_idx = #{s_idx}
 
 <select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
 SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
+</select>
+
+<select id="carList3" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
+	SELECT * FROM charging.car_t
+  WHERE c_idx = #{c_idx}
 </select>
 
 

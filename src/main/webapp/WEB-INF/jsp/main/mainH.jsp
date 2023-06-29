@@ -35,7 +35,7 @@
         <ul class="dropdown-menu">
          <li><a class="dropdown-item" href="#">서비스 소개</a></li>
          <li><a class="dropdown-item" href="/taksong/">탁송 서비스</a></li>
-         <li><a class="dropdown-item" href="#">이동식 충전 서비스</a></li>
+         <li><a class="dropdown-item" href="/edongsik/">이동식 충전 서비스</a></li>
         </ul>
        </li>
        <li>

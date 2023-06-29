@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.javassist.expr.NewArray;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -34,14 +35,6 @@ import lombok.val;
 @Controller
 public class EdongsikController {
 
-    String state;
-    String city;
-    String addr1;
-
-    List<SwriteVO> swar = new ArrayList<SwriteVO>();
-    List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
-    List<CarVO> cc_ar = new ArrayList<CarVO>();
-
     @Autowired
     HttpSession session;
 
@@ -49,14 +42,30 @@ public class EdongsikController {
     EdongsikService service;
 
     @RequestMapping("/edongsik/")
-    public String edongsik() {
-        MemVO vo = service.init();
-
+    public ModelAndView edongsik() {
+        // 세션 임의저장ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        MemVO vo2 = service.init();
         // String str = vo.getM_idx();
         // System.out.println(str);
-        session.setAttribute("evo", vo);
+        session.setAttribute("evo", vo2);
+        // 세션 임의저장ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        ModelAndView mv = new ModelAndView();
 
-        return "edongsik/edongsik";
+        MemVO vo = (MemVO) session.getAttribute("evo");
+        String m_idx = vo.getM_idx();
+
+        List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
+        cw_ar = service.carList(m_idx);
+        List<CarVO> carVo = new ArrayList<CarVO>();
+        for (CwriteVO kkk : cw_ar) {
+            CarVO kkk2 = kkk.getCvo();
+
+            carVo.add(kkk2);
+        }
+        mv.addObject("carVo", carVo);
+        mv.setViewName("edongsik/edongsik");
+
+        return mv;
     }
 
     @RequestMapping("/edongsik/map")
@@ -65,132 +74,133 @@ public class EdongsikController {
         return "map/map";
     }
 
-    // @RequestMapping("/carAddr/")
-    // public ModelAndView carAddr(String m_idx) throws Exception {
+    @RequestMapping("/ee")
+    public String ee() {
 
-    // ModelAndView mv = new ModelAndView();
+        return "edongsik/ee";
+    }
 
-    // CwriteVO cwvo = service.carList(m_idx);
-    // List<CarVO> ar = cwvo.getCar_list();
-    // for (CarVO value : ar) {
-    // state = value.getC_state();
-    // city = value.getC_city();
-    // addr1 = value.getC_addr1();
-    // // tcol = "신림동";
-    // // System.out.println(str);
+    @RequestMapping("/carAddr/")
+    public ModelAndView carAddr(String c_idx) throws Exception {
 
-    // }
+        ModelAndView mv = new ModelAndView();
 
-    // // System.out.println(state);
-    // String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
-    // String restapikey = "KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
+        CarVO c_vo = service.carList3(c_idx);
+        List<CarVO> c_ar = new ArrayList<CarVO>();
+        c_ar.add(c_vo);
+        mv.addObject("c_ar", c_ar);
 
-    // StringBuffer sb = new StringBuffer();
-    // sb.append(state);
-    // sb.append(" ");
-    // sb.append(city);
-    // sb.append(" ");
-    // sb.append(addr1);
+        String state = c_vo.getC_state();
+        String city = c_vo.getC_city();
+        String addr1 = c_vo.getC_addr1();
 
-    // String addr = sb.toString();
-    // // System.out.println(addr);
+        System.out.println(state);
+        String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
+        String restapikey = "KakaoAK 560d99cfbbeacf57b6d1aa4d98b99496";
 
-    // URL obj;
+        StringBuffer sb = new StringBuffer();
+        sb.append(state);
+        sb.append(" ");
+        sb.append(city);
+        sb.append(" ");
+        sb.append(addr1);
 
-    // int lo;
+        String addr = sb.toString();
+        // System.out.println(addr);
 
-    // try {
-    // String address = URLEncoder.encode(addr, "UTF-8");
-    // // System.out.println(address);
-    // obj = new URL(url + address);
+        URL obj;
 
-    // HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        int lo;
 
-    // con.setRequestMethod("GET");
-    // con.setRequestProperty("Authorization", restapikey);
-    // con.setRequestProperty("content-type", "application/json");
-    // con.setDoOutput(true);
-    // con.setUseCaches(false);
-    // con.setDefaultUseCaches(false);
+        try {
+            String address = URLEncoder.encode(addr, "UTF-8");
+            // System.out.println(address);
+            obj = new URL(url + address);
 
-    // Charset charset = Charset.forName("UTF-8");
-    // BufferedReader in = new BufferedReader(new
-    // InputStreamReader(con.getInputStream(), charset));
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-    // String inputLine = null;
-    // StringBuffer response = new StringBuffer();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", restapikey);
+            con.setRequestProperty("content-type", "application/json");
+            con.setDoOutput(true);
+            con.setUseCaches(false);
+            con.setDefaultUseCaches(false);
 
-    // while ((inputLine = in.readLine()) != null) {
-    // response.append(inputLine);
-    // }
+            Charset charset = Charset.forName("UTF-8");
+            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
 
-    // // response 객체를 출력해보자
-    // // System.out.println("RES :" + response.toString());
+            String inputLine = null;
+            StringBuffer response = new StringBuffer();
 
-    // JSONParser jsonParser = new JSONParser();
-    // JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
-    // JSONArray documents = (JSONArray) json_data.get("documents");
-    // JSONObject data = (JSONObject) documents.get(0);
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
 
-    // String x = (String) data.get("x");
-    // String y = (String) data.get("y");
+            // response 객체를 출력해보자
+            // System.out.println("RES :" + response.toString());
 
-    // // System.out.println("x:" + x + ", y:" + y);
+            JSONParser jsonParser = new JSONParser();
+            JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
+            JSONArray documents = (JSONArray) json_data.get("documents");
+            JSONObject data = (JSONObject) documents.get(0);
 
-    // // mv.addObject("c_ar", ar);
+            String x = (String) data.get("x");
+            String y = (String) data.get("y");
 
-    // // -------------------- 고객 위치 값 구하기 끝 ----------------------------
+            // System.out.println("x:" + x + ", y:" + y);
 
-    // // 충전 기사들의 위치값 가져오기
-    // ServiceVO[] sar = service.getEdongsik(state);
-    // List<ServiceVO> list = new ArrayList<>();
+            // -------------------- 고객 위치 값 구하기 끝 ----------------------------
 
-    // for (ServiceVO value : sar) {
-    // // String s_x = value.getS_mapx();
-    // // String s_y = value.getS_mapy();
+            // 충전 기사들의 위치값 가져오기
+            ServiceVO[] sar = service.getEdongsik(state);
+            List<SwriteVO> swar = new ArrayList<SwriteVO>();
 
-    // // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
+            for (ServiceVO value : sar) {
+                // String s_x = value.getS_mapx();
+                // String s_y = value.getS_mapy();
 
-    // double lat = Double.valueOf(value.getS_mapy());// 기사위치
-    // double lng = Double.valueOf(value.getS_mapx());
-    // double lat2 = Double.parseDouble(y); // 고객 차량 y
-    // double lng2 = Double.parseDouble(x); // 고객 차량 x
-    // double dLat = Math.toRadians(lat - lat2);
-    // double dLon = Math.toRadians(lng - lng2);
+                // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
 
-    // double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-    // + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) *
-    // Math.sin(dLon / 2)
-    // * Math.sin(dLon / 2);
-    // double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    // double d = 6371 * c * 1000; // Distance in m
-    // System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
+                double lat = Double.valueOf(value.getS_mapy());// 기사위치
+                double lng = Double.valueOf(value.getS_mapx());
+                double lat2 = Double.parseDouble(y); // 고객 차량 y
+                double lng2 = Double.parseDouble(x); // 고객 차량 x
+                double dLat = Math.toRadians(lat - lat2);
+                double dLon = Math.toRadians(lng - lng2);
 
-    // lo = (int) Math.round(d);
+                double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
+                        + Math.cos(Math.toRadians(lat)) * Math.cos(Math.toRadians(lat2)) *
+                                Math.sin(dLon / 2)
+                                * Math.sin(dLon / 2);
+                double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                double d = 6371 * c * 1000; // Distance in m
+                System.out.println("현재 지점 " + addr1 + "과 좌표값의 거리는 " + d + "m입니다.");
 
-    // System.out.println("lo==" + lo);
-    // System.out.println(value.getS_radius());
-    // //
-    // --------------------------------------------------------------------------------
+                lo = (int) Math.round(d);
 
-    // if (lo <= Integer.valueOf(value.getS_radius())) {
-    // String s_idx = value.getS_idx();
-    // SwriteVO swvo = service.radiusInfo(s_idx);
-    // swar.add(swvo);
-    // mv.addObject("swar", swar);
-    // }
+                System.out.println("lo==" + lo);
+                System.out.println(value.getS_radius());
+                // --------------------------------------------------------------------------------
 
-    // }
+                if (lo <= Integer.valueOf(value.getS_radius())) {
 
-    // } catch (Exception e) {
-    // // TODO Auto-generated catch block
-    // e.printStackTrace();
-    // }
-    // // System.out.println(ar.);
+                    String s_idx = value.getS_idx();
+                    SwriteVO swvo = service.radiusInfo(s_idx);
+                    swar.add(swvo);
+                    mv.addObject("swar", swar);
+                }
 
-    // mv.setViewName("edongsik/e_info");
-    // return mv;
-    // }
+            }
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // System.out.println(ar.);
+
+        mv.setViewName("edongsik/e_info");
+        return mv;
+    }
 
     @RequestMapping("/local/")
     public ModelAndView local(@Param("lat") String lat, @Param("lng") String lng) {
@@ -219,16 +229,21 @@ public class EdongsikController {
         String m_idx = vo.getM_idx();
         System.out.println("세션m_idx:" + m_idx);
 
+        List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
         cw_ar = service.carList(m_idx);
+        List<CarVO> c_ar = new ArrayList<CarVO>();
 
+        for (CwriteVO ccvo : cw_ar) {
+            c_ar.add(ccvo.getCvo());
+        }
         // System.out.println(cvo.getC_idx());
-        mv.addObject("cw_ar", cw_ar);
+        mv.addObject("c_ar", c_ar);
 
         int lo;
 
         // 충전 기사들의 위치값 가져오기
         ServiceVO[] sar = service.getEdongsik(nowstate);
-        List<ServiceVO> list = new ArrayList<>();
+        List<SwriteVO> swar = new ArrayList<SwriteVO>();
 
         for (ServiceVO value : sar) {
             // String s_x = value.getS_mapx();

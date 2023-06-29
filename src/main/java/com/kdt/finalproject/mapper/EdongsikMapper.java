@@ -23,4 +23,6 @@ public interface EdongsikMapper {
 
     CarVO cvo(String c_idx);
 
+    CarVO carList3(String c_idx);
+
 }
