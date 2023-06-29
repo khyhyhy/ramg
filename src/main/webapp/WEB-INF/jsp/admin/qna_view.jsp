@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%>
                     <th>첨부파일</th>
                     <td>
                         <c:if test="${vo.b_filename != null }">
-                            <a href="javascript:down('${vo.b_filename}')">${vo.b_filename}</a>
+                            <a href="javascript:down('${vo.b_filename}')">${vo.b_oriname}</a>
                         </c:if>
                         <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>
@@ -91,6 +91,7 @@ pageEncoding="UTF-8"%>
                     
                     
                 <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+                <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
                 <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
@@ -98,7 +99,6 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
-                <input type="hidden" name="b_title" id="b_title">
             </form>
 
     </body>
@@ -168,7 +168,22 @@ pageEncoding="UTF-8"%>
         let m_idx = $("#m_idx").val();
         let target = $("#target").val();
         let b_content = $("#b_content").val();
-        let b_idx = $("#b_idx").val();
+
+        let m_name = $("#m_name").val();
+
+            var today = new Date();
+
+            var year = today.getFullYear();
+            var month = (today.getMonth() + 1).slice(-2);
+            var day = today.getDate().slice(-2);
+            var hours = today.getHours().slice(-2); 
+            var minutes = today.getMinutes().slice(-2);
+            var seconds = today.getSeconds().slice(-2); 
+
+        var nowDate = year + '-' + month  + '-' + day +' '+ hours + ':' + minutes  + ':' + seconds;
+
+
+
 
         if(b_content.trim().length == 0){
             alert("댓글을 입력하세요");
@@ -183,7 +198,7 @@ pageEncoding="UTF-8"%>
            dataType: "json"
         }).done(function(data){
             if(data.res == 1 && data.res2 == 1){
-                $('#comm_table > tbody:last').append('<tr><th>'+'</th><th>'+'</th></tr><tr> <td colspan="2" style="height: 200px;">'+b_content+'</th></tr>');
+                $('#comm_table > tbody:last').append('<tr><th>'+m_name+'</th><th>'+nowDate+'</th><th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th></tr><tr><td colspan="4" style="height: 200px;">'+b_content+'</th></tr><tr style="border: none;"><td colspan="4" style="height: 50px; border: none;"></th></tr>');
                 $("#b_content").val("");
                 alert("댓글이 등록되었습니다.");
             }

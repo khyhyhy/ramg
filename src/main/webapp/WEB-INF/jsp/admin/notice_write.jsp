@@ -31,8 +31,8 @@ pageEncoding="UTF-8"%>
                     <th>공개범위</th>
                     <td>
                         <select name="b_to" id="b_to">
-                            <option value="0">전체공개</option>
-                            <option value="1">사업자공개</option>
+                            <option value="0">전체</option>
+                            <option value="1">사업자</option>
                         </select>
                         <div class="form-check" style="display: inline-block; float: right;">
                             <input class="form-check-input" type="checkbox" id="flexCheckDefault">

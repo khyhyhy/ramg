@@ -29,6 +29,20 @@ pageEncoding="UTF-8"%>
                     <td>${vo.bbslog.bl_date}</td>
                 </tr>
                 <tr>
+                    <th>구분</th>
+                    <td>
+                        <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
+                            전체 공지
+                        </c:if>
+                        <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
+                            사업자 공지
+                        </c:if>
+                        <c:if test="${vo.b_type == 4}">
+                            FAQ
+                        </c:if>
+                    </td>
+                </tr>
+                <tr>
                     <th>제목</th>
                     <td>${vo.b_title}</td>
                 </tr>

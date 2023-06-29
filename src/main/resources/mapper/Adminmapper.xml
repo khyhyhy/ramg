@@ -215,7 +215,6 @@ WHERE b_idx = #{b_idx}
 <select id="qna_comm" parameterType="String" resultMap="comm_map">
 SELECT * FROM charging.bbs_t 
 WHERE b_target = #{b_idx}
-ORDER BY b_idx DESC
 </select>
 
 <select id="comm_log" parameterType="String" resultMap="comm_map2">

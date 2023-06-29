@@ -31,8 +31,14 @@ pageEncoding="UTF-8"%>
                     <th>공개범위</th>
                     <td>
                         <select name="b_to" id="b_to">
-                            <option value="0">전체공개</option>
-                            <option value="1">사업자공개</option>
+                            <c:if test="${vo.b_to == 0}">
+                                <option value="0" selected>전체</option>
+                                <option value="1">사업자</option>
+                            </c:if>
+                            <c:if test="${vo.b_to == 1}">
+                                <option value="0">전체</option>
+                                <option value="1" selected>사업자</option>
+                            </c:if>
                         </select>
                         <div class="form-check" style="display: inline-block; float: right;">
                             <c:if test="${vo.b_type == 4}">

@@ -21,11 +21,28 @@ pageEncoding="UTF-8"%>
     <form action="/admin/notice" method="post">
         <div style="height: 60px; float: right;">
             <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
-                <option value="0">제목</option>
-                <option value="1">내용</option>
-                <option value="2">제목+내용</option>
+                <c:if test="${param.searchType == 0}">
+                    <option value="0" selected>제목</option>
+                    <option value="1">내용</option>
+                    <option value="2">제목+내용</option>
+                </c:if>
+                <c:if test="${param.searchType == 1}">
+                    <option value="0">제목</option>
+                    <option value="1" selected>내용</option>
+                    <option value="2">제목+내용</option>
+                </c:if>
+                <c:if test="${param.searchType == 2}">
+                    <option value="0">제목</option>
+                    <option value="1">내용</option>
+                    <option value="2" selected>제목+내용</option>
+                </c:if>
+                <c:if test="${param.searchValue == null}">
+                    <option value="0">제목</option>
+                    <option value="1">내용</option>
+                    <option value="2">제목+내용</option>
+                </c:if>
             </select>
-            <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+            <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
             <button type="submit" class="btn btn-outline-info">검색</button>
         </div>
     </form>
@@ -33,8 +50,8 @@ pageEncoding="UTF-8"%>
     <table class="table table-hover" style="table-layout:fixed">
         <colgroup>
             <col width="100px">
+            <col width="150px">
             <col width="*">
-            <col width="100px">
             <col width="100px">
             <col width="200px">
             <col width="100px">
@@ -42,8 +59,8 @@ pageEncoding="UTF-8"%>
         <thead>
             <tr class="table-info">
                 <th>번호</th>
-                <th>제목</th>
                 <th>구분</th>
+                <th>제목</th>
                 <th>공개여부</th>
                 <th>등록일</th>
                 <th>조회수</th>
@@ -60,12 +77,6 @@ pageEncoding="UTF-8"%>
                
                 <tr>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
-                    <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-                        <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
-                        <c:if test="${vo.b_filename != null}">
-                            <img src="../images/link.png" style="width: 14px;">
-                        </c:if>
-                    </td>
                     <td>
                         <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
                             전체 공지
@@ -75,6 +86,12 @@ pageEncoding="UTF-8"%>
                         </c:if>
                         <c:if test="${vo.b_type == 4}">
                             FAQ
+                        </c:if>
+                    </td>
+                    <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
+                        <c:if test="${vo.b_filename != null}">
+                            <img src="../images/link.png" style="width: 14px;">
                         </c:if>
                     </td>
                     <td>

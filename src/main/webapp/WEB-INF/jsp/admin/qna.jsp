@@ -20,11 +20,28 @@ pageEncoding="UTF-8"%>
         <form action="/admin/qna" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
-                    <option value="0">제목</option>
-                    <option value="1">내용</option>
-                    <option value="2">제목+내용</option>
+                    <c:if test="${param.searchType == 0}">
+                        <option value="0" selected>제목</option>
+                        <option value="1">내용</option>
+                        <option value="2">제목+내용</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 1}">
+                        <option value="0">제목</option>
+                        <option value="1" selected>내용</option>
+                        <option value="2">제목+내용</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 2}">
+                        <option value="0">제목</option>
+                        <option value="1">내용</option>
+                        <option value="2" selected>제목+내용</option>
+                    </c:if>
+                    <c:if test="${param.searchValue == null}">
+                        <option value="0">제목</option>
+                        <option value="1">내용</option>
+                        <option value="2">제목+내용</option>
+                    </c:if>
                 </select>
-                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
@@ -50,7 +67,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="4">검색 결과가 없습니다.</td>
+                        <td colspan="6">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">

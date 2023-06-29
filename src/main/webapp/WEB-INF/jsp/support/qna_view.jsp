@@ -45,7 +45,7 @@ pageEncoding="UTF-8"%>
                     <th>첨부파일</th>
                     <td>
                         <c:if test="${vo.b_filename != null }">
-                            <a href="javascript:down('${vo.b_filename}')">${vo.b_filename}</a>
+                            <a href="javascript:down('${vo.b_filename}')">${vo.b_oriname}</a>
                         </c:if>
                         <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>

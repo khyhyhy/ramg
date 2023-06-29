@@ -21,11 +21,28 @@ pageEncoding="UTF-8"%>
         <form action="/admin/member" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
+                <c:if test="${param.searchType == 0}">
+                    <option value="0" selected>이름</option>
+                    <option value="1">이메일</option>
+                    <option value="2">전화번호</option>
+                </c:if>
+                <c:if test="${param.searchType == 1}">
+                    <option value="0">이름</option>
+                    <option value="1" selected>이메일</option>
+                    <option value="2">전화번호</option>
+                </c:if>
+                <c:if test="${param.searchType == 2}">
+                    <option value="0">이름</option>
+                    <option value="1">이메일</option>
+                    <option value="2" selected>전화번호</option>
+                </c:if>
+                <c:if test="${param.searchValue == null}">
                     <option value="0">이름</option>
                     <option value="1">이메일</option>
                     <option value="2">전화번호</option>
+                </c:if>
                 </select>
-                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
@@ -52,7 +69,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="5">검색 결과가 없습니다.</td>
+                        <td colspan="6">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach items="${ar}" var="vo">
