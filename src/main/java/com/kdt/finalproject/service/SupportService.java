@@ -105,4 +105,8 @@ public class SupportService {
     public int qna_write_ok2(BbslogVO vo) {
         return mapper.qna_write_ok2(vo);
     }
+
+    public int qna_hit(String b_idx) {
+        return mapper.qna_hit(b_idx);
+    }
 }

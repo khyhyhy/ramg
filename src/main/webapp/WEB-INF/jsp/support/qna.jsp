@@ -30,11 +30,12 @@ pageEncoding="UTF-8"%>
         </form>
         <table class="table table-hover" style="table-layout:fixed">
             <colgroup>
-                <col width="150px">
+                <col width="100px">
                 <col width="*">
-                <col width="150px">
-                <col width="150px">
+                <col width="100px">
+                <col width="100px">
                 <col width="250px">
+                <col width="100px">
             </colgroup>
             <thead>
                 <tr class="table-info">
@@ -43,6 +44,7 @@ pageEncoding="UTF-8"%>
                     <th>작성자</th>
                     <th>답변</th>
                     <th>문의작성일</th>
+                    <th>조회수</th>
                 </tr>
             </thead>
             <tbody>
@@ -71,6 +73,7 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.c_list eq null or vo.c_list.size() == 0}">미등록</c:if>
                         </td>
                         <td>${vo.bbslog.bl_date}</td>
+                        <td>${vo.b_hit}</td>
                     </tr>
                 </c:forEach>
             </tbody>
