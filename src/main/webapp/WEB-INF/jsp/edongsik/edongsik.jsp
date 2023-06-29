@@ -71,36 +71,36 @@
               <h5 class="modal-title" id="exampleModalLabel" style="color: white;">차량 선택</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
 
+            <div class="modal-body">
               <select id="selectCar" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                <option selected>차량 선택</option>
+                <option disabled selected value="">차량 선택</option>
                 <c:forEach items="${carVo}" var="carVo">
                   <option value="${carVo.c_idx}">${carVo.c_name}</option>
                 </c:forEach>  
-                        
-          
-            
-        </select>
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="selectC()">선택 확인</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="selectC()">선택 확인</button>
-      </div>
-    </div>
-  </div>
-</div>
+<!-- Modal 끝-->
 
 <script>
   function selectC(){
 		var selectCar  = document.getElementById("selectCar");
 		var value = (selectCar.options[selectCar.selectedIndex].value);
-		alert("c_idx = "+value);
-
     
-
-   location.href="/carAddr/?c_idx="+value;
-
+    if (value === "") {
+      alert("차량을 선택해주세요.");
+    } else {
+      alert("c_idx = "+value);
+      location.href="/carAddr/?c_idx="+value;
+    }
 	};
 </script>
 
