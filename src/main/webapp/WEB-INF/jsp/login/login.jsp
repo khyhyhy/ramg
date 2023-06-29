@@ -10,6 +10,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
+    <style>
+        .register-link {
+          font-size: 14px; /* 원하는 글씨 크기로 설정 */
+          font-family: "Arial", sans-serif; /* 원하는 글꼴로 설정 */
+        }
+
+        
+        #login-button {
+            width: 310px; /* 원하는 버튼의 너비로 설정 */
+  }
+      </style>
+
 </head>
 <body>
         <!--////////// Header Start ////////////-->
@@ -21,18 +33,15 @@
             <div class="container">
                 <article>
                     <header>
-                        <h1>로그인</h1>
+                        <!-- <h1>로그인</h1> -->
                     </header>
                     <div id="content"> 
                         <c:if test="${sessionScope.mvo eq null}"> <!--세션에 저장된 mvo가 없을때-->     
                             
-                                
-
-
 
                                 <!--부트스트랩 추가-->
                                 <div class="d-flex justify-content-center"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
-                                <div class="card shadow p-4 mb-2 bg-body rounded" style="width: 25rem;">
+                                <div class="card shadow p-4 mb-3 bg-body rounded" style="width: 25rem;" >
                                     <div class="card-body">
 
 
@@ -70,12 +79,20 @@
 
                                     <!-- Login button -->
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary btn-block mb-4 " onclick="exe(this.form)"> 로그인</button>
-                                        <button type="button" class="btn btn-primary btn-block mb-4 " onclick="location.href='join'" >회원가입</button>                                    
+                                        <button type="button" class="btn btn-primary btn-block mb-4 " id="login-button" onclick="exe(this.form)"> 로그인</button>
+                                    </div>
 
+                                        <!--회원가입-->
+                                        <!-- <button type="button" class="btn btn-info btn-block mb-4 " onclick="location.href='join'" >회원가입</button>   -->
+                                        
+                                        <div class="text-center register-link">
+                                            <p>회원이 아닌가요? <a href="join">회원가입</a></p>
+                                        </div>
+                                    
+                                    <div class="text-center">        
                                     <p>
                                         <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=85f3b2dbb6fdbca1b25d54627251ef3b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
-                                            <img src="../images/kakao_login.png" style="width: 190px; height: 45px;"/>
+                                            <img src="../images/kakao_login_large.png" style="width: 190px; height: 45px;" />
                                         </a>
                                     </p>
                                     <p>
@@ -84,6 +101,7 @@
                                         </a>
                                     </p>
                                     </div>
+
                                 </form>
                                 </div>
 

@@ -30,10 +30,6 @@ public class LoginController {
     public ModelAndView login(String m_email, String m_pw, String m_class) {
         ModelAndView mv = new ModelAndView();
 
-        System.out.println(m_email + "m_email");
-        System.out.println(m_pw + "m_pw");
-        System.out.println(m_class + "m_class");
-
         MemVO vo = ls.login(m_email, m_pw, m_class);
 
         // 로그인이 되었다면 vo가 null이 아니므로 세션에 저장!!
