@@ -118,7 +118,7 @@ public class AdminController {
 
     // 공지사항 상세보기
     @RequestMapping("/admin/notice_view")
-    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date) {
+    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);

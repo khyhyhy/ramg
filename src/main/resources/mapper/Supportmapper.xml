@@ -228,13 +228,19 @@ VALUES(#{m_idx}, #{b_idx}, NOW(), 0)
 
 <!-- update -->
 
-<!--조회수 증가-->
+<!--공지 조회수 증가-->
 <update id="notice_hit" parameterType="String">
 UPDATE charging.bbs_t
 SET b_hit = b_hit+1
 WHERE b_idx = #{b_idx}
 </update>
 
+<!--문의 조회수 증가-->
+<update id="qna_hit" parameterType="String">
+UPDATE charging.bbs_t
+SET b_hit = b_hit+1
+WHERE b_idx = #{b_idx}
+</update>
 
 
 

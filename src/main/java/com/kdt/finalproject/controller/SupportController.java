@@ -156,6 +156,7 @@ public class SupportController {
             String m_name, String m_idx) {
         ModelAndView mv = new ModelAndView();
 
+        service.qna_hit(b_idx); // 조회수 증가
         BbsVO vo = service.qna_view(b_idx);
         BbsVO[] ar = service.qna_comm(b_idx);
 

@@ -32,11 +32,12 @@ pageEncoding="UTF-8"%>
 
     <table class="table table-hover" style="table-layout:fixed">
         <colgroup>
-            <col width="150px">
+            <col width="100px">
             <col width="*">
+            <col width="100px">
+            <col width="100px">
             <col width="200px">
-            <col width="200px">
-            <col width="200px">
+            <col width="100px">
         </colgroup>
         <thead>
             <tr class="table-info">
@@ -45,6 +46,7 @@ pageEncoding="UTF-8"%>
                 <th>구분</th>
                 <th>공개여부</th>
                 <th>등록일</th>
+                <th>조회수</th>
             </tr>
         </thead>
 
@@ -59,7 +61,7 @@ pageEncoding="UTF-8"%>
                 <tr>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
                     <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
-                        <a href="javascript:sub('${vo.b_idx}', '${vo.bbslog.bl_date}')">${vo.b_title}</a>
+                        <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
                         <c:if test="${vo.b_filename != null}">
                             <img src="../images/link.png" style="width: 14px;">
                         </c:if>
@@ -84,6 +86,7 @@ pageEncoding="UTF-8"%>
                         </c:if>
                     </td>
                     <td>${vo.bbslog.bl_date}</td>
+                    <td>${vo.b_hit}</td>
                 </tr>
             </c:forEach>
         </tbody>
@@ -96,7 +99,6 @@ pageEncoding="UTF-8"%>
 
     <form name="frm" method="post">
         <input type="hidden" name="b_idx">
-        <input type="hidden" name="bl_date">
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -108,10 +110,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx, bl_date){
+    function sub(b_idx){
         document.frm.action = "/admin/notice_view";
         document.frm.b_idx.value = b_idx;
-        document.frm.bl_date.value = bl_date;
         document.frm.submit();
     }
 

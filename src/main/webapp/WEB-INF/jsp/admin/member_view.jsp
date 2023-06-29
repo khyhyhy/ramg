@@ -32,8 +32,6 @@
                     <th>회원 구분</th>
                     <th>회원 상태</th>
                     <th>회원 가입일</th>
-                    <th>토큰 정보</th>
-                    <th>결제 정보</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,8 +63,6 @@
                         </c:if>
                     </td>
                     <td>${vo.m_date}</td>
-                    <td><input type="button" class="btn btn-outline-info" value="토큰 정보"></td>
-                    <td><input type="button" class="btn btn-outline-info" value="결제 정보"></td>
                 </tr>
             </tbody>
         </table>

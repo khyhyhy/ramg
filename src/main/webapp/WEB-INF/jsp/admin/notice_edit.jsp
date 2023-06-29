@@ -60,7 +60,7 @@ pageEncoding="UTF-8"%>
                     <td>
                         <input type="file" name="file"/>
                         <c:if test="${vo.b_filename != null }">
-                            ${vo.b_filename}
+                            ${vo.b_oriname}
                             <span style="float: right;">파일을 새로 첨부하면 기존 파일은 삭제됩니다</span style="text-align: right;">
                         </c:if>
                     </td>
@@ -73,7 +73,6 @@ pageEncoding="UTF-8"%>
                 
             <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="b_idx" value="${vo.b_idx}">
-            <input type="hidden" name="b_type" id="b_type">
             <input type="hidden" name="cPage" value="${param.cPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">

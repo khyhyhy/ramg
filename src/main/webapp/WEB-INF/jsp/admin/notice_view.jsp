@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <tr>
                     <th>작성일</th>
-                    <td>${param.bl_date}</td>
+                    <td>${vo.bbslog.bl_date}</td>
                 </tr>
                 <tr>
                     <th>제목</th>
@@ -40,7 +40,7 @@ pageEncoding="UTF-8"%>
                     <th>첨부파일</th>
                     <td>
                         <c:if test="${vo.b_filename != null }">
-                            <a href="javascript:down('${vo.b_filename}')">${vo.b_filename}</a>
+                            <a href="javascript:down('${vo.b_filename}')">${vo.b_oriname}</a>
                         </c:if>
                         <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
                     </td>
@@ -49,7 +49,6 @@ pageEncoding="UTF-8"%>
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname"/>
-                <input type="hidden" name="bl_date" value="${param.bl_date}"/>
                 <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
                 <input type="hidden" name="b_status" value="${vo.b_status}" id="b_status"/>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
@@ -60,8 +59,8 @@ pageEncoding="UTF-8"%>
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button>
                 <button type="button"  class="btn btn-outline-info" onclick="javascript:changeStatus()" id="btn">
-                    <c:if test="${vo.b_status == 0}">비공개</c:if>
-                    <c:if test="${vo.b_status == 1}">공개</c:if>
+                    <c:if test="${vo.b_status == 0}">비공개로 변경하기</c:if>
+                    <c:if test="${vo.b_status == 1}">공개로 변경하기</c:if>
                 </button>
                 <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
             </div>
@@ -101,7 +100,7 @@ pageEncoding="UTF-8"%>
                 }).done(function(data){
                     if(data.res == 1){ //성공한 경우에만 수행
                         $("#b_status").val(1);
-                        $("#btn").text("공개");
+                        $("#btn").text("공개로 변경하기");
                     }
                 });
             }else{
@@ -118,7 +117,7 @@ pageEncoding="UTF-8"%>
                 }).done(function(data){
                     if(data.res == 1){ //성공한 경우에만 수행
                         $("#b_status").val(0);
-                        $("#btn").text("비공개");
+                        $("#btn").text("비공개로 변경하기");
                     }
                 });
             }else{

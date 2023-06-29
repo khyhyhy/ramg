@@ -31,10 +31,10 @@ pageEncoding="UTF-8"%>
 
         <table class="table table-hover" style="table-layout:fixed">
             <colgroup>
-                <col width="150px">
+                <col width="100px">
                 <col width="*">
-                <col width="400px">
-                <col width="150px">
+                <col width="200px">
+                <col width="100px">
             </colgroup>
             <thead>
                 <tr class="table-info">
