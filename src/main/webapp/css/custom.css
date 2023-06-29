@@ -1,0 +1,131 @@
+@font-face {
+    font-family:"Wanjoodae";
+    src: url(font/완주대둔산체\ Regular.ttf);
+}
+@font-face {
+    font-family:"TAEBAEK";
+    src: url(font/TAEBAEK\ milkyway.otf);
+}
+@font-face {
+    font-family: "omyu";
+    src: url(font/오뮤_다예쁨체.ttf);
+}
+@font-face {
+    font-family: "Jamsil";
+    src: url(font/The\ Jamsil\ 3\ Regular.ttf);
+}
+@font-face {
+    font-family: "Jamsil-Bold";
+    src: url(font/The\ Jamsil\ 5\ Bold.ttf);
+}
+#bg-top{
+    background-color: #F5D08A;
+    height: 600px;
+}
+#bg-header:hover{
+    background-color: #fff;
+    transition: 1.0s;
+}
+#mycustom-header{
+    font-family: 'Wanjoodae';
+    font-size: 25px;
+}
+#mycustom{
+    border-radius: 25px;
+    font-family: "Wanjoodae";
+    font-size: 18px;
+    padding: 6px 10px;
+}
+#mycustom:hover {
+    background-color: #36454f;
+    color: #fff;
+    padding: 6px 10px;
+    transition: 0.6s;
+}
+
+#mycustom_active {
+    background-color: #36454f;
+    color: #fff;
+    padding: 6px 10px;
+}
+
+#mycustom-mem-btn{
+    border-radius: 25px;
+    font-size: 15px;
+}
+
+#mycustom-album{
+    background-color: transparent;
+}
+
+#mycustom-card-title{
+    font-family: 'omyu';
+    font-size: 22px;
+}
+
+#mycustom-paging{
+    font-family: 'Jamsil';
+    font-size: 20px;
+    color: #696969;
+    border-style: none;
+}
+
+#mycustom-paging:hover{
+    font-family: 'Jamsil';
+    font-size: 20px;
+    color: #ffa07a;
+    border-style: none;
+}
+
+#mycustom-paging-now{
+    font-family: 'Jamsil-Bold';
+    font-size: 20px;
+    color: #ffa07a;
+    border-style: none;
+}
+
+#mycustom-card-date{
+    font-size: 18px;
+}
+
+#mycustom-info-img{
+    width: 1000px;
+    height: 500px;
+}
+
+#mycustom-mapinfo-background{
+    background-color: #dcdcdc;
+}
+
+#mycustom-mapinfo-btn{
+    border-radius: 25px;
+    font-family: "Wanjoodae";
+    font-size: 18px;
+    padding: 6px 10px;
+    background-color: #36454f;
+    color: #fff;
+    padding: 6px 10px;
+    transition: 0.6s;
+    float: right;
+}
+
+#mycustom-mapinfo-title{
+    font-family: "Jamsil-Bold";
+}
+
+#mycustom-mapinfo-info{
+    font-family: "Jamsil";
+    font-size: 25px;
+}
+#mycustom-info-info{
+    font-family: "Jamsil";
+    font-size: 17px;
+    line-height: 2.5em;
+}
+
+#mycustom-mapinfo-rieview{
+    border-style: none;
+    background-color:  #e9e9e9;
+}
+
+
