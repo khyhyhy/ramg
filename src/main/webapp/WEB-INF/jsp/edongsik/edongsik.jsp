@@ -17,6 +17,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+  <style>
+    
+  </style>
+
 <body>
   <!--////////// Header Start ////////////-->
   <jsp:include page="../main/mainH.jsp"></jsp:include>
@@ -41,7 +45,7 @@
         <div class="card-body">
           <h5 class="card-title">현재 위치 검색</h5>
           <p class="card-text"></p>
-          <a href="#" class="btn btn-primary" onclick="conf()">검색</a>
+          <a href="#" class="btn btn-primary" onclick="conf()" style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
         </div>
       </div>
     
@@ -51,11 +55,75 @@
         <div class="card-body">
           <h5 class="card-title">차량 등록 주소</h5>
           <p class="card-text"></p>
-          <a href="#" class="btn btn-primary" onclick="location.href='/carAddr/?m_idx=${evo.m_idx}'">검색</a>
+          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
         </div>
-
       </div>
+
+      <!-- <c:forEach items="${carVo}" var="carVo">
+                  <p>${carVo.c_name}</p>
+                </c:forEach> -->
+      
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #0DCAF0;">
+              <h5 class="modal-title" id="exampleModalLabel" style="color: white;">차량 선택</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+              <select id="selectCar" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option disabled selected value="">차량 선택</option>
+                <c:forEach items="${carVo}" var="carVo">
+                  <option value="${carVo.c_idx}">${carVo.c_name}</option>
+                </c:forEach>  
+              </select>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="selectC()">선택 확인</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Modal 끝-->
+
+<script>
+  function selectC(){
+		var selectCar  = document.getElementById("selectCar");
+		var value = (selectCar.options[selectCar.selectedIndex].value);
     
+    if (value === "") {
+      alert("차량을 선택해주세요.");
+    } else {
+      alert("c_idx = "+value);
+      location.href="/carAddr/?c_idx="+value;
+    }
+	};
+</script>
+
+<!-- <script>
+  const modal = document.querySelector('.modal');
+	        const btnOpenPopup = document.querySelector('#btn-open-popup');
+	        btnOpenPopup.addEventListener('click', () => {
+	          modal.style.display = 'block';
+	        });
+	        
+	        const closeBtn = modal.querySelector(".btn-close")
+	        closeBtn.addEventListener("click", e => {
+	            modal.style.display = "none"
+	        });
+	        
+	        const closeBtn2 = modal.querySelector("#close_bt")
+	        closeBtn2.addEventListener("click", e => {
+	            modal.style.display = "none"
+	        });
+
+</script> -->
+      
+
 </div>
 <form action="/local/" method="get">
   <input type="hidden" id="lat1" name="lat" />
@@ -86,6 +154,19 @@
     document.forms[0].submit();
    });
   }
+
+  function selectCar(form) {
+				//frm.submit();
+				
+				 
+				let selectCar = form.selectCar.value;
+        console.log(selectCar);
+        //form.submit();
+
+        //location.href="/ee/?c_idx="+selectCar;
+      }
+    
+  
  </script>
 
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>

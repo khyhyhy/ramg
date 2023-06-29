@@ -19,7 +19,39 @@
         
         #login-button {
             width: 310px; /* 원하는 버튼의 너비로 설정 */
-  }
+        }
+
+        .form-outline {
+        position: relative;
+        }
+
+        .form-outline input {
+            border: none;
+            border-bottom: 1px solid #ced4da; /* 아래 밑줄 스타일을 설정 */
+            border-radius: 13;
+            padding: 7px 8px;
+            width: 100%;
+        }
+
+        .form-outline input:focus {
+            outline: none;
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .form-outline label {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-size: 0.875rem;
+            transition: transform 0.2s ease-out, font-size 0.2s ease-out;
+        }
+
+        .form-outline input:focus + label,
+        .form-outline input:not(:placeholder-shown) + label {
+            transform: translateY(-35px) scale(0.85); /* 아래로 이동하여 축소되는 효과 적용 */
+            color: #6c757d;
+        }
       </style>
 
 </head>
@@ -65,16 +97,17 @@
                               <div class="tab-pane fade show active" id="pills-personal" role="tabpanel" aria-labelledby="tab-personal">
                                 <form action="login" method="post" name="frm">
                                     <input type="hidden" value="0" name="m_class" id="m_class1"/>
+                                    
                                     <!-- Email input -->
                                     <div class="form-outline mb-4">
                                         <!-- <label class="form-label" for="m_email">Email</label> -->
-                                        <input type="text" id="m_email" name="m_email" class="form-control" placeholder="Email" />
+                                        <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email" />
                                     </div>
 
                                     <!-- Password input -->
                                     <div class="form-outline mb-4">
                                         <!-- <label class="form-label" for="m_pw">Password</label> -->
-                                        <input type="password" id="m_pw" name="m_pw" class="form-control" placeholder="Password" />
+                                        <input type="password" id="m_pw" name="m_pw" class="form-control form-outline" placeholder="Password" />
                                     </div>
 
                                     <!-- Login button -->
@@ -86,7 +119,7 @@
                                         <!-- <button type="button" class="btn btn-info btn-block mb-4 " onclick="location.href='join'" >회원가입</button>   -->
                                         
                                         <div class="text-center register-link">
-                                            <p>회원이 아닌가요? <a href="join">회원가입</a></p>
+                                            <p>계정이 없으신가요? <a href="join">회원가입</a></p>
                                         </div>
                                     
                                     <div class="text-center">        
@@ -122,8 +155,12 @@
 
                             <!-- Login button -->
                             <div class="text-center">
-                                <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="exe(this.form)">로그인</button>         
-                                <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button>
+                                <button type="button" class="btn btn-primary btn-block mb-4 text-center"  id="login-button" onclick="exe(this.form)">로그인</button>         
+                                <!-- <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button> -->
+
+                                <div class="text-center register-link">
+                                    <p>회원이 아닌가요? <a href="join">회원가입</a></p>
+                                </div>
                              </div>
 
                             
@@ -139,35 +176,6 @@
        
         </c:if>
 
-                                <!--부트스트랩 추가 끝-->
-
-
-                                    <!--원래 내용------------->
-                                    <!-- 개인 로그인과 사업자 로그인 탭 -->
-                                    <!-- <div>
-                                        <input type="radio" id="personal" name="loginType" value="0">
-                                        <label for="personal">개인 로그인</label><br>
-
-                                        <input type="radio" id="business" name="loginType" value="1">
-                                        <label for="business">사업자 로그인</label><br>
-                                    </div>
-                                   
-                                    Email: <input type="text" name="m_email" id="m_email"/><br/>
-                                    Password: <input type="password" name="m_pw" id="m_pw"/>
-
-                                    
-                                    <button type="button" onclick="exe()">로그인</button>
-                                    <button type="button"><a href="join">회원가입</a></button>
-                                <p>
-                                    <a href="https://kauth.kakao.com/oauth/authorize?client_id=85f3b2dbb6fdbca1b25d54627251ef3b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
-                                        <img src="../images/kakao_login.png"/>
-                                    </a>
-                                </p>
-                                <p>
-                                    <a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=DEfYVqVL7Po51QB3sjNx&state=STATE_STRING&redirect_uri=http://localhost:8080/naver/login">
-                                        <img src="../images/naver_login.png"/>
-                                    </a>
-                                </p> -->
 
 
                   

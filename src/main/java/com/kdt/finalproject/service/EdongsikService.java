@@ -41,4 +41,10 @@ public class EdongsikService {
         return vo;
     }
 
+    public CarVO carList3(String c_idx) {
+        CarVO vo = mapper.carList3(c_idx);
+
+        return vo;
+    }
+
 }

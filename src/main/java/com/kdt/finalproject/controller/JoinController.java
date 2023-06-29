@@ -76,7 +76,10 @@ public class JoinController {
     @ResponseBody
     public Map<String, String> check_email(@RequestParam String m_email) {
         Map<String, String> map = new HashMap<>();
+
+        System.out.println(m_email + "m_email");
         MemVO mvo = ls.check_email(m_email);
+        System.out.println(mvo + "MVO");
 
         // mvo가 null이면 아이디를 사용가능!, null아니면 사용불가
         if (mvo == null)

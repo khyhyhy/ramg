@@ -15,11 +15,11 @@
     <P>세션m_name: ${sessionScope.evo.m_name}</P>
      
     <!-- 회원 보유 차량 -->
-     <c:forEach items="${cw_ar}" var="cw_ar">
-        <h1>${cw_ar.cvo.c_idx}</h1>
-        <h1>${cw_ar.cvo.c_state}</h1>
-        <h1>${cw_ar.cvo.c_name}</h1>
-        <h1>${cw_ar.cvo.c_chargetype}</h1>
+     <c:forEach items="${c_ar}" var="c_ar">
+        <h1>${c_ar.c_idx}</h1>
+        <h1>${c_ar.c_state}</h1>
+        <h1>${c_ar.c_name}</h1>
+        <h1>${c_ar.c_chargetype}</h1>
     </c:forEach>   
 
     <!-- 충전 차량 정보 -->
