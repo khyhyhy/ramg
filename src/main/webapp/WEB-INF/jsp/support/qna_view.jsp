@@ -6,12 +6,15 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>관리자페이지 글 보기</title>
+<title>고객센터 문의 보기</title>
+<link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script src="../../../js/summernote-lite.js"></script>
+<script src="../../../js/lang/summernote-ko-KR.js"></script>
 <body>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
@@ -26,7 +29,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <tr>
                     <th>작성일</th>
-                    <td>${param.bl_date}</td>
+                    <td>${vo.bbslog.bl_date}</td>
                 </tr>
                 <tr>
                     <th>제목</th>
@@ -39,7 +42,7 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>${param.m_name}</td>
+                    <td>${vo.bbslog.mvo.m_name}</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
@@ -58,44 +61,47 @@ pageEncoding="UTF-8"%>
 
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <c:if test="${param.m_idx == 2}"><!--session.mvo.m_idx 로 변경해야 함-->
+                <c:if test="${vo.bbslog.m_idx == 2}"><!--session.mvo.m_idx 로 변경해야 함-->
                     <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
                 </c:if>
             </div>
 
 
 
-            <c:if test="${ar == null}">
-                아직 댓글이 없습니다.
-            </c:if>
-            <c:if test="${ar != null}">
-                <h2>댓글</h2>
-            </c:if>
-            <table class="table table-bordered">
-                <colgroup>
-                    <col width="150px">
-                    <col width="*">
-                </colgroup>
-                <c:forEach items="${ar}" var="vo">
+            <h2>댓글</h2>
+            <textarea name="b_content" id="b_content"></textarea>
+
+            <div style="height: 80px; margin-top: 10px;">
+                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()">댓글 등록</button>
+            </div>
+            
+            
+            <table class="table table-bordered" id="comm_table">
+                <tbody>
+                    <c:forEach items="${ar}" var="cvo">
                     <tr>
-                        <th>제목</th>
-                        <td>${vo.b_title}</td>
+                        <th>${cvo.bbslog.mvo.m_name}</th>
+                        <th>${cvo.bbslog.bl_date}</th>
+                        <th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th>
                     </tr>
                     <tr> 
-                        <th style="height: 200px;">내용</th>
-                        <td>${vo.b_content}</td>
+                        <td colspan="4" style="height: 200px;">${cvo.b_content}</th>
+                    </tr>
+                    <tr style="border: none;"> 
+                        <td colspan="4" style="height: 50px; border: none;"></th>
                     </tr>
                 </c:forEach>
+                </tbody>
             </table>
 
                 
             <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname">
-                <input type="hidden" name="b_idx" value="${param.b_idx}">
-                <input type="hidden" name="bl_date" value="${param.bl_date}">
+                <input type="hidden" name="b_idx" value="${vo.b_idx}">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
                 <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -107,12 +113,51 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 
-<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>
-    function back(){
-        document.frm.action = "/support/qna";
-        document.frm.submit();
+
+    $(function () {
+
+    $("#b_content").summernote({
+        lang: "ko-KR",
+        placeholder: "댓글을 입력하세요",
+        height: 200,
+        callbacks: {
+            onImageUpload: function (files, editor) {
+                // 이미지가 에디터에 추가될 때마다 수행하는 곳 이미지를 첨부하면 배열로 인식된다. 비동기식 통신을 수행하면 서버에 업로드를 시킬 수 있다.
+                for (let i = 0; i < files.length; i++) 
+                    sendImg(files[i], editor); // 서버와 비동기식 통신을 하는 함수 호출
+                }
+            }
+    });
+
+    });
+
+    function sendImg(file, editor) {
+        // 이미지 파일을 첨부하여 서버로 보내야 하기 때문에 이미지가 아니면 {"type":1, "value":"TEST"} 이런식으로 파라미터
+        // 만든다. 파일을 보낼 때는 FormData를 활용해야 한다.
+        var frm = new FormData();
+
+        // 보내고자 하는 파일을 FormData에 저장
+        frm.append("s_file", file); // 나중에 서버에서 현재 파일을 받을 때는 반드시 s_file이라는 파라미터 이름으로 받아야 한다.
+
+        $.ajax({
+			url: "/saveImg.inc",
+			data: frm,
+			type: "post",
+			contentType: false,
+			processData: false,
+			cache: false,
+			dataType: "json"
+		})
+		.done(function (data) {
+			let path = data.path;
+			let fname = data.fname;
+
+			$("#b_content").summernote("editor.insertImage", path + "/" + fname);
+
+		});
     }
+    
     function down(fname) {
         // 인자로 사용자가 클릭한 파일명을 받는다. 이것을 현재 문서 안에 있는 frm이라는 폼객체에 이름이 fname이라는 hidden 요소의 값으로 지정해준다.
         document.frm.fname.value = fname;
@@ -120,27 +165,48 @@ pageEncoding="UTF-8"%>
         document.frm.submit();
     }
 
+    function back(){
+        document.frm.action = "/support/qna";
+        document.frm.submit();
+    }
+
     function sendData(){
 
         let m_idx = $("#m_idx").val();
         let target = $("#target").val();
-        let b_title = $("#b_title").val();
         let b_content = $("#b_content").val();
-        console.log(m_idx);
-        console.log(target);
-        console.log(b_title);
-        console.log(b_content);
+
+        let m_name = $("#m_name").val();
+
+            var today = new Date();
+
+            var year = today.getFullYear();
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
+            var hours = ('0' + today.getHours()).slice(-2); 
+            var minutes = ('0' + today.getMinutes()).slice(-2);
+            var seconds = ('0' + today.getSeconds()).slice(-2); 
+
+        var nowDate = year + '-' + month  + '-' + day +' '+ hours + ':' + minutes  + ':' + seconds;
+
+        if(b_content.trim().length == 0){
+            alert("댓글을 입력하세요");
+            return;
+        }
 
         $.ajax({
-           url: "/admin/qna_comm_write",
+           url: "/support/qna_comm_write",
            type: "post",
-           data: {"m_idx" : m_idx, "target": target, "b_title":b_title, "b_content":b_content},
+           data: {"m_idx" : m_idx, "target": target, "b_content":b_content},
            dataType: "json"
         }).done(function(data){
             if(data.res == 1 && data.res2 == 1){
+                $('#comm_table > tbody:last').append('<tr><th>'+m_name+'</th><th>'+nowDate+'</th><th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th></tr><tr><td colspan="4" style="height: 200px;">'+b_content+'</th></tr><tr style="border: none;"><td colspan="4" style="height: 50px; border: none;"></th></tr>');
+                $("#b_content").val("");
                 alert("댓글이 등록되었습니다.");
             }
-        });
+        })
+
     }
 
     function edit(){

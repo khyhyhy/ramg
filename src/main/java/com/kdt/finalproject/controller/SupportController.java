@@ -1,6 +1,8 @@
 package com.kdt.finalproject.controller;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -10,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -152,8 +155,7 @@ public class SupportController {
     }
 
     @RequestMapping("/support/qna_view")
-    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date,
-            String m_name, String m_idx) {
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         service.qna_hit(b_idx); // 조회수 증가
@@ -162,7 +164,7 @@ public class SupportController {
 
         mv.addObject("vo", vo);
         mv.addObject("ar", ar);
-
+        mv.setViewName("/support/qna_view");
         return mv;
     }
 
@@ -212,12 +214,78 @@ public class SupportController {
     }
 
     @RequestMapping("/support/qna_edit")
-    public ModelAndView qna_edit(String b_idx, String bl_idx, String cPage, String searchType, String searchValue) {
+    public ModelAndView qna_edit(String b_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
         mv.addObject("vo", vo);
         mv.setViewName("/support/qna_edit");
         return mv;
+    }
+
+    @RequestMapping("/support/qna_edit_ok")
+    public ModelAndView qna_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue) throws Exception {
+        ModelAndView mv = new ModelAndView();
+
+        // 파일 첨부 시 파일 저장 경로 설정
+        // 넘어온 파일이 있는지 확인
+        MultipartFile mf = vo.getFile(); // 파일을 첨부하지 않아도 null이 아님
+
+        if (mf.getSize() > 0) { // 파일을 첨부한 경우
+
+            // 파일을 저장할 곳 (bbs_upload)을 절대경로화 시킨다.
+            String realPath = application.getRealPath(bbs_upload);
+
+            // 파일명 얻기
+            String oname = mf.getOriginalFilename();
+
+            // 이미 같은 이름의 파일이 존재할 수도 있다. 만약 있다면 파일명 뒤에 숫자를 붙여준다. - 객체를 하나 정의
+            String fname = FileRenameUtil.checkFileName(oname, realPath);
+
+            mf.transferTo(new File(realPath, fname));
+
+            // 첨부된 파일명을 DB에 저장하기 위해 vo안에 file_name에 이름을 저장
+            vo.setB_filename(fname);
+            vo.setB_oriname(oname);
+        }
+
+        vo.setB_ip(request.getRemoteAddr());
+
+        service.qna_edit(vo);
+        BbsVO bvo = service.qna_view(vo.getB_idx());
+
+        mv.addObject("vo", bvo);
+        mv.addObject("cPage", cPage);
+        mv.addObject("searchType", searchType);
+        mv.addObject("searchValue", searchValue);
+        mv.setViewName("/support/qna_view");
+
+        return mv;
+    }
+
+    @RequestMapping("/support/qna_comm_write")
+    @ResponseBody
+    public Map<String, Integer> qna_comm_write(String b_content, String m_idx, String target) {
+
+        System.out.println(b_content);
+        System.out.println(m_idx);
+        System.out.println(target);
+        BbsVO vo = new BbsVO();
+        BbslogVO vo2 = new BbslogVO();
+
+        vo.setB_content(b_content);
+        vo.setB_target(target);
+        vo.setB_ip(request.getRemoteAddr());
+
+        int cnt = service.qna_comm_write(vo);
+        vo2.setB_idx(vo.getB_idx());
+        vo2.setM_idx(m_idx);
+        int cnt2 = service.qna_comm_write2(vo2);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+        map.put("res2", cnt2);
+
+        return map;
     }
 }

@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
-<title>관리자페이지 글 보기</title>
+<title>관리자페이지 문의 보기</title>
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -29,7 +29,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <tr>
                     <th>작성일</th>
-                    <td>${param.bl_date}</td>
+                    <td>${vo.bbslog.bl_date}</td>
                 </tr>
                 <tr>
                     <th>제목</th>
@@ -42,7 +42,7 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>${param.m_name}</td>
+                    <td>${vo.bbslog.mvo.m_name}</td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
@@ -87,8 +87,6 @@ pageEncoding="UTF-8"%>
                 </c:forEach>
                 </tbody>
             </table>
-    
-                    
                     
                 <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
                 <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
@@ -174,22 +172,18 @@ pageEncoding="UTF-8"%>
             var today = new Date();
 
             var year = today.getFullYear();
-            var month = (today.getMonth() + 1).slice(-2);
-            var day = today.getDate().slice(-2);
-            var hours = today.getHours().slice(-2); 
-            var minutes = today.getMinutes().slice(-2);
-            var seconds = today.getSeconds().slice(-2); 
+            var month = ('0' + (today.getMonth() + 1)).slice(-2);
+            var day = ('0' + today.getDate()).slice(-2);
+            var hours = ('0' + today.getHours()).slice(-2); 
+            var minutes = ('0' + today.getMinutes()).slice(-2);
+            var seconds = ('0' + today.getSeconds()).slice(-2); 
 
         var nowDate = year + '-' + month  + '-' + day +' '+ hours + ':' + minutes  + ':' + seconds;
-
-
-
 
         if(b_content.trim().length == 0){
             alert("댓글을 입력하세요");
             return;
         }
-
 
         $.ajax({
            url: "/admin/qna_comm_write",

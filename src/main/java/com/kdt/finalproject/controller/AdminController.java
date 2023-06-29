@@ -262,11 +262,13 @@ public class AdminController {
         vo.setB_ip(request.getRemoteAddr());
 
         service.notice_edit(vo);
+        BbsVO bvo = service.notice_view(vo.getB_idx());
 
+        mv.addObject("vo", bvo);
         mv.addObject("cPage", cPage);
         mv.addObject("searchType", searchType);
         mv.addObject("searchValue", searchValue);
-        mv.setViewName("redirect:/admin/notice_view?b_idx=" + vo.getB_idx());
+        mv.setViewName("admin/notice_view");
 
         return mv;
     }
@@ -334,8 +336,7 @@ public class AdminController {
 
     // qna 상세보기
     @RequestMapping("/admin/qna_view")
-    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue, String bl_date,
-            String m_name) {
+    public ModelAndView qna_view(String b_idx, String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);

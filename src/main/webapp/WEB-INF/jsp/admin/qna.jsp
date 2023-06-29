@@ -99,8 +99,6 @@ pageEncoding="UTF-8"%>
 
         <form action="/admin/qna_view" name="frm" method="post">
             <input type="hidden" name="b_idx">
-            <input type="hidden" name="bl_date">
-            <input type="hidden" name="m_name">
             <input type="hidden" name="cPage" value="${nowPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -111,10 +109,8 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx, bl_date, m_name){
+    function sub(b_idx){
         document.frm.b_idx.value = b_idx;
-        document.frm.bl_date.value = bl_date;
-        document.frm.m_name.value = m_name;
         document.frm.submit();
     }
 </script>

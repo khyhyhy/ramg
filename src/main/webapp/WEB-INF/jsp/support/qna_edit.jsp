@@ -21,7 +21,7 @@ pageEncoding="UTF-8"%>
     <div class="container">
         <br>
         <br>
-        <form action="/support/qna_write_ok" method="post" enctype="multipart/form-data">
+        <form action="/support/qna_edit_ok" method="post" enctype="multipart/form-data">
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
@@ -66,6 +66,7 @@ pageEncoding="UTF-8"%>
                 
             <input type="hidden" name="m_idx" value="2"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="b_val1" id="b_val1">
+            <input type="hidden" name="b_idx" value="${vo.b_idx}">
         </form>
     </div>
 

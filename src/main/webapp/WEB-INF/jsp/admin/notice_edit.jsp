@@ -79,6 +79,7 @@ pageEncoding="UTF-8"%>
                 
             <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="b_idx" value="${vo.b_idx}">
+            <input type="hidden" name="b_type" id="b_type">
             <input type="hidden" name="cPage" value="${param.cPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -88,7 +89,6 @@ pageEncoding="UTF-8"%>
 
     <form name="fm" method="post" action="/admin/notice_view">
         <input type="hidden" name="b_idx" value="${vo.b_idx}">
-        <input type="hidden" name="bl_date" value="${param.bl_date}">
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
