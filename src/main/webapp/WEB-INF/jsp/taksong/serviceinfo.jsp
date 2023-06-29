@@ -41,24 +41,42 @@
       <div class="row">
        <div class="col">
         <div class="list-group">
-         <c:forEach items="${evo.cw_list}" var="vo">
-          <button type="button" class="list-group-item list-group-item-action"
-           onclick="activate(this)">${vo.m_idx}</button>
+         <c:forEach items="${evo.cw_list}" var="vo" varStatus="status">
+          <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off">
+          <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+           for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}</label>
          </c:forEach>
         </div>
        </div>
        <div class="col">
         <ul class="list-group">
          <c:forEach items="${servicear}" var="vo" varStatus="status">
-          <input type="radio" class="btn-check" name="options" id='option${status.index}' autocomplete="off">
+          <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-           for="option${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
+           for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
          </c:forEach>
         </ul>
        </div>
        <div class="col">
-        Column
+        <label for="chargebar">충전량</label>
+        <input type="range" class="form-range" step="10" min="50" max="100" id="chargebar" name="chargepersent"
+         value="50" onchange="muckpho(this)">
+        <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+        <p id="muckpho"></p>
        </div>
+      </div>
+      <div class="row">
+       <div class="col"></div>
+       <div class="col"></div>
+       <div class="col">
+        <p>결제정보</p>
+        <p>서비스 비용 : 15.000</p>
+        <p>충전 비용 : 5.000</p>
+        <p>총 비용 : 20.000</p>
+       </div>
+      </div>
+      <div class="row">
+       <div class="col">결제버튼 들어갈 곳</div>
       </div>
      </div>
 
@@ -73,6 +91,9 @@
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
    <script>
+    function muckpho(e) {
+     document.getElementById("muckpho").innerText = e.value
+    }
     function activate(e) {
      if (e.classList.contains('active')) {
       e.classList.remove('active');

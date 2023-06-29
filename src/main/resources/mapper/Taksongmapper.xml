@@ -18,6 +18,10 @@
 <collection property="cw_list" column="m_idx" ofType="com.kdt.finalproject.vo.CwriteVO" select="cwselect"></collection>
 </resultMap>
 
+<resultMap id="rm3" type="com.kdt.finalproject.vo.CwriteVO">
+<result column="c_idx" property="c_idx"/>
+<association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
+</resultMap>
 
 <!-- select -->
 <select id="selectmem" resultMap="rm2" parameterType="String">
@@ -49,7 +53,7 @@ SELECT * FROM charging.service_t WHERE s_idx = #{param}
 SELECT * FROM charging.car_t WHERE c_idx = #{param}
 </select>
 
-<select id="cwselect" parameterType="String" resultType="com.kdt.finalproject.vo.CwriteVO">
+<select id="cwselect" parameterType="String" resultMap="rm3">
 SELECT * FROM charging.car_write WHERE m_idx = #{param}
 </select>
 
