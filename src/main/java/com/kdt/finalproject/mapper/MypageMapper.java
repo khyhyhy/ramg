@@ -17,7 +17,7 @@ public interface MypageMapper {
 
     int addCarWrite(CwriteVO cwvo);
 
-    int updateCar(String c_idx);
+    int updateCar(CarVO cvo);
 
     int updateCarWrite(CwriteVO cwvo);
 

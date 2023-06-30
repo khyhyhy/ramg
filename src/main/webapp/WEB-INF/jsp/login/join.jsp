@@ -15,6 +15,8 @@
 
   <!--head 끝나기전에 style태그 넣는다-->
   <style>
+
+    
     .form-outline {
       position: relative;
     }
@@ -55,6 +57,8 @@
   
     .radio-btn {
       margin-bottom: 20px;
+      font-size: 15px; 
+      font-family: "Arial", sans-serif; 
     }
 
     .divider {
@@ -67,6 +71,14 @@
     font-size: 0.9rem;
     margin-right: 10px;
   }
+
+  #login-link {
+          margin-top : 12px;
+          font-size: 13px; /* 원하는 글씨 크기로 설정 */
+          font-family: "Arial", sans-serif; /* 원하는 글꼴로 설정 */
+          text-align: left;
+        }
+
 
   </style>
   
@@ -88,7 +100,7 @@
 
     <section>
       <header>
-        <h1 class="u-text u-text-default u-text-1">회원가입</h1>
+        <!-- <h1 class="u-text u-text-default u-text-1">회원가입</h1> -->
       </header> 
 
       <!--부트스트랩 추가-->
@@ -98,11 +110,11 @@
       <!--부트스트랩 추가-->
 
 
-          <form action="join" style="padding: 15px;" source="email" name="form" method="post">
+          <form action="join" style="padding: 15px;" source="email" name="form" method="post" class="needs-validation">
               <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
                 
               <div class="radio-btn">
-                  <input type="radio" name="m_class" value="0" checked> 개인                
+                  <input type="radio" name="m_class" value="0" checked> 개인 &nbsp;           
                   <input type="radio" name="m_class" value="1"> 사업자
               </div>
 
@@ -110,7 +122,7 @@
 
                   <div class="form-outline mb-4">
                       <label for="m_email" style="display: block; margin-bottom: 5px;">이메일</label>
-                      <input type="email" placeholder="carcharge@naver.com" class="form-control form-outline" id="m_email" name="m_email" style="width: 300px;">
+                      <input type="email" placeholder="carcharge@naver.com" class="form-control form-outline"  id="m_email" name="m_email" style="width: 300px;" required>
                       <span id="box"></span>
                   </div>
                 
@@ -118,27 +130,31 @@
 
                 <div class="form-outline mb-4">
                     <label for="rg_pw">비밀번호</label>
-                  <input type="password"  placeholder="8자 이상(최소 숫자 1개, 문자 1개 포함)" class="form-control form-outline" id="rg_pw" name="m_pw" style="width: 300px;">                                   
+                  <input type="password"  placeholder="8자 이상(최소 숫자 1개, 문자 1개 포함)" class="form-control form-outline" required id="rg_pw" name="m_pw" style="width: 300px;">                                   
                 </div>
 
                 <div class="form-outline mb-4">
                   <label for="rg_pw_chk">비밀번호 확인</label>
-                  <input type="password" id="rg_pw_chk" name="rg_pw_chk" required="" class="form-control form-outline" placeholder="비밀번호를 다시 입력해주세요" style="width: 300px;">
+                  <input type="password" id="rg_pw_chk" name="rg_pw_chk" required="" class="form-control form-outline" required placeholder="비밀번호를 다시 입력해주세요" style="width: 300px;">
                 </div>
 
                 <div class="form-outline mb-4">
                   <label for="m_name">이름</label>
-                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline" style="width: 300px;">
+                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline" required style="width: 300px;">
                 </div>
 
                 <div class="mb-3">
                 <input type="checkbox" id="agree" name="rg_ok" value="On" class="u-active-palette-4-base u-border-2 u-border-grey-75 u-field-input">
-                <label for="agree" class="u-field-label">이용약관과 개인정보취급방침에 동의합니다.</label>
+                <label for="agree" class="u-field-label" style="font-size: 14px;">이용약관과 개인정보취급방침에 동의합니다.</label>
               </div>
 
               <div class="u-align-right u-form-group u-form-submit u-label-top">
                 <button onclick="send(this.form)" type="button" class="btn btn-primary" >가입하기</button>
                 <%-- <input type="submit" value="submit" class="u-form-control-hidden"> --%>
+              </div>
+
+              <div id="login-link" class="justify-content-end">
+              <p>이미 계정이 있으신가요? <a href="login">로그인</a></p>
               </div>
 
 
@@ -296,35 +312,39 @@
                // 사용자가 id를 입력하기 위해
                // 아이디가 s_id인 솟에서 키보드를 누를 때마다 수행하는 함수를
                // 이벤트 적용시켜보자!
-               $("#m_email").bind("keyup", function(){
-                   //console.log("^^");
-                   //사용자가 입력한 아이디가 s_id에 입력되므로
-                   // 그곳에 있는 값(value)을 가져온다.
-                   var str = $(this).val();
-                   //console.log(str);
+                $("#m_email").bind("keyup", function(){
+                    //console.log("^^");
+                    //사용자가 입력한 아이디가 s_id에 입력되므로
+                    // 그곳에 있는 값(value)을 가져온다.
+                    var str = $(this).val();
+                    //console.log(str);
                    
-                   //str의 값에서 공백이 있는지? 없는지? 판단하고 싶다면 정규표현식 등을 이용
-                   //해야 한다. -- 일단 생략 --
-                   if(str.trim().length > 0){
-                       // 입력된 아이디가 4자 이상 입력했을 경우
-                       // 서버에 비동기식으로 보낸다.
-                       $.ajax({
-                           url: 'checkEmail',
-                           type: 'POST',
-                           data: {"m_email":str.trim()}
-                       }).done(function(res){
-                           // 응답이 성공적으로 도착하는 부분
-                           var msg = res.msg;
-                           if(msg.includes("사용가능")){
-                             $("#box").html(res.msg.trim()).css("color","green");
-                           }else{
-                            $("#box").html(res.msg.trim()).css("color","red");
-                           }
-                       });
-                   }else
-                       $("#box").html("");
-               });
-           });
+                    //str의 값에서 공백이 있는지? 없는지? 판단하고 싶다면 정규표현식 등을 이용
+                    //해야 한다. -- 일단 생략 --
+                    if(str.trim().length > 0){
+                        // 입력된 아이디가 4자 이상 입력했을 경우
+                        // 서버에 비동기식으로 보낸다.
+                        $.ajax({
+                            url: 'checkEmail',
+                            type: 'POST',
+                            data: {"m_email":str.trim()}
+                        }).done(function(res){
+                         // 응답이 성공적으로 도착하는 부분
+                            var msg = res.msg;
+                            if(msg.includes("사용가능")){
+                              $("#box").html(res.msg.trim()).css("color","green");
+                            }else{
+                             $("#box").html(res.msg.trim()).css("color","red");
+                            }
+                        });
+                    }else
+                        $("#box").html("");
+                });
+            });
+
+
+            
+
 
        </script>
 

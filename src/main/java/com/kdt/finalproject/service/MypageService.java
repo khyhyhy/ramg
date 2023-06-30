@@ -46,8 +46,8 @@ public class MypageService {
         return mapper.addCarWrite(cwvo);
     }
 
-    public int updateCar(String c_idx) {
-        return mapper.updateCar(c_idx);
+    public int updateCar(CarVO cvo) {
+        return mapper.updateCar(cvo);
     }
 
     public int updateCarWrite(CwriteVO cwvo) {

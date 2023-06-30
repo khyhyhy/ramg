@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.LoginMapper;
@@ -15,6 +16,9 @@ public class LoginService {
 
     @Autowired
     private LoginMapper l_Mapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     // 비지니스 메서드(로직)
     public MemVO[] getList() {
@@ -29,16 +33,33 @@ public class LoginService {
         return ar;
     }
 
-    public MemVO login(String m_email, String m_pw, String m_class) {
-        Map<String, String> map = new HashMap<>();
-        map.put("m_email", m_email);
-        map.put("m_pw", m_pw);
-        map.put("m_class", m_class);
+    public MemVO login(MemVO mvo) { // 객체 안에 m_email, m_name, m_pw있음.
 
-        return l_Mapper.login(map);
+        MemVO vo = l_Mapper.login(mvo);
+
+        if (vo != null) {
+            if (passwordEncoder.matches(mvo.getM_pw(), vo.getM_pw())) {
+                return vo;
+            }
+        }
+
+        // Map<String, String> map = new HashMap<>();
+        // map.put("m_email", m_email);
+        // map.put("m_pw", m_pw);
+        // map.put("m_class", m_class);
+
+        return null;
     }
 
-    public int add_mem(MemVO vo) {
+    // 회원가입
+    public int add_mem(MemVO mvo) {
+
+        MemVO vo = new MemVO();
+        vo.setM_email(mvo.getM_email());
+        vo.setM_name(mvo.getM_name());
+        vo.setM_class(mvo.getM_class()); // 이거 추가해봄
+
+        vo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
 
         return l_Mapper.add_mem(vo);
     }
