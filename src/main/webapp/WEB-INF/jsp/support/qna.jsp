@@ -50,7 +50,6 @@ pageEncoding="UTF-8"%>
                 <col width="100px">
                 <col width="*">
                 <col width="100px">
-                <col width="100px">
                 <col width="250px">
                 <col width="100px">
             </colgroup>
@@ -59,7 +58,6 @@ pageEncoding="UTF-8"%>
                     <th>번호</th>
                     <th>제목</th>
                     <th>작성자</th>
-                    <th>답변</th>
                     <th>문의작성일</th>
                     <th>조회수</th>
                 </tr>
@@ -77,18 +75,25 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.b_val1 == 1}">
                                 <img src="../images/lock.png" style="width: 15px;">
                             </c:if>
-                            <c:if test="${vo.b_val1 == 0}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a></c:if>
-                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx != 2}"><span style="color: rgb(179, 179, 179);">비밀글입니다.</span></c:if> <!--session으로 바꿔야 함-->
-                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == 2}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a></c:if> <!--session으로 바꿔야 함-->
-                            <c:if test="${vo.b_filename != null}">
-                                <img src="../images/link.png" style="width: 14px;">
+                            <c:if test="${vo.b_val1 == 0}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a><!--공개글일 경우-->
+                                <c:if test="${vo.c_list.size() != 0}">
+                                    [${vo.c_list.size()}]
+                                </c:if>
                             </c:if>
+                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx != 2}"><span style="color: rgb(179, 179, 179);">비밀글입니다.</span></c:if> <!--session으로 바꿔야 함 / 남이 쓴 비밀글일 경우-->
+                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == 2}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a><!--session으로 바꿔야 함 / 내가쓴 비밀글일 경우-->
+                                <c:if test="${vo.c_list.size() != 0}">
+                                    [${vo.c_list.size()}]
+                                </c:if>
+                            </c:if> 
+                            <c:if test="${vo.b_filename != null}">
+                                <c:if test="${vo.b_val1 == 0 && vo.bbslog.m_idx == 2}"><!--session으로 바꿔야 함 / 남이 쓴 비밀글일 경우-->
+                                    <img src="../images/link.png" style="width: 14px;">
+                                </c:if>
+                            </c:if>
+                            
                         </td>
                         <td>${vo.bbslog.mvo.m_name}</td>
-                        <td>
-                            <c:if test="${vo.c_list ne null and vo.c_list.size() > 0}">완료</c:if>
-                            <c:if test="${vo.c_list eq null or vo.c_list.size() == 0}">미등록</c:if>
-                        </td>
                         <td>${vo.bbslog.bl_date}</td>
                         <td>${vo.b_hit}</td>
                     </tr>

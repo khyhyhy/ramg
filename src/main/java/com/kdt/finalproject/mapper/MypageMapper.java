@@ -33,4 +33,6 @@ public interface MypageMapper {
 
     List<SuseVO> use_service_list(String m_idx);
 
+    int deleteCar(String c_idx, String m_idx);
+
 }

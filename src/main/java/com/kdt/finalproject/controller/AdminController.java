@@ -233,7 +233,7 @@ public class AdminController {
 
     // 공지사항 수정 완료
     @RequestMapping("/admin/notice_edit_ok")
-    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue)
+    public ModelAndView notice_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue, String m_idx)
             throws Exception {
         ModelAndView mv = new ModelAndView();
 
@@ -262,6 +262,12 @@ public class AdminController {
         vo.setB_ip(request.getRemoteAddr());
 
         service.notice_edit(vo);
+
+        BbslogVO lvo = new BbslogVO();
+        lvo.setB_idx(vo.getB_idx());
+        lvo.setM_idx(m_idx);
+        service.notice_edit2(lvo);
+
         BbsVO bvo = service.notice_view(vo.getB_idx());
 
         mv.addObject("vo", bvo);
@@ -371,5 +377,39 @@ public class AdminController {
         map.put("res2", cnt2);
 
         return map;
+    }
+
+    // qna 댓글 삭제 (비동기식)
+    @RequestMapping("/admin/qna_comm_del")
+    @ResponseBody
+    public Map<String, Integer> qna_comm_del(String b_idx, String m_idx) {
+
+        BbslogVO vo = new BbslogVO();
+
+        int cnt = service.qna_comm_del(b_idx);
+        vo.setB_idx(b_idx);
+        vo.setM_idx(m_idx);
+        int cnt2 = service.qna_comm_del2(vo);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+        map.put("res2", cnt2);
+
+        return map;
+    }
+
+    @RequestMapping("/admin/notice_del")
+    public ModelAndView notice_del(String b_idx, String m_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        BbslogVO lvo = new BbslogVO();
+
+        service.notice_del(b_idx);
+        lvo.setB_idx(b_idx);
+        lvo.setM_idx(m_idx);
+        service.notice_del2(lvo);
+
+        mv.setViewName("redirect:/admin/notice");
+        return mv;
     }
 }

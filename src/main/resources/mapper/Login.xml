@@ -22,10 +22,12 @@
   	SELECT * FROM member_t
    </select>
 
+   
+
    <select id="login" parameterType="Map"
 		resultType="com.kdt.finalproject.vo.MemVO">
 		SELECT * FROM member_t
-		WHERE m_email = #{m_email} AND m_pw = #{m_pw}
+		WHERE m_email = #{m_email}
 		AND m_status = 1 AND m_class = #{m_class}
 	</select>
 

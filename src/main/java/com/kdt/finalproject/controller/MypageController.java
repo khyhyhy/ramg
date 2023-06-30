@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,17 +77,31 @@ public class MypageController {
     }
 
     @GetMapping("addCar")
-    public ModelAndView addCar(CarVO cvo) {
+    public String addCar() {
+        return "mypage/addCar";
+    }
+
+    @PostMapping("/regCar")
+    public ModelAndView regCar(CarVO cvo) {
         ModelAndView mv = new ModelAndView();
 
-        System.out.println("CVO cnum" + cvo.getC_num());
+        Object obj = session.getAttribute("mvo");
 
-        int cnt = service.addCar(cvo);
+        if (obj != null) {
+            MemVO mvo = (MemVO) obj;
+            int cnt = service.addCar(cvo);
 
-        mv.addObject("cnt", cnt);
+            mv.addObject("cnt", cnt);
+            if (cnt > 0) {
+                CwriteVO cwvo = new CwriteVO();
+                cwvo.setM_idx(mvo.getM_idx());
+                cwvo.setC_idx(cvo.getC_idx());
 
-        mv.setViewName("mypage/car_list");
-
+                service.addCarWrite(cwvo);
+                mv.setViewName("redirect:/car_list");
+            } else
+                mv.setViewName("redirect:/addCar");
+        }
         return mv;
     }
 
@@ -101,27 +116,49 @@ public class MypageController {
         return mv;
     }
 
-    @RequestMapping("updateCar")
+    @GetMapping("updateCar")
     public ModelAndView updateCar(String c_idx) {
-        // System.out.println(m_idx);
-
         CarVO cvo = service.get_Car(c_idx);
         ModelAndView mv = new ModelAndView();
 
         mv.addObject("cvo", cvo);
-        mv.setViewName("redirect:/car_list");
+        mv.setViewName("mypage/updateCar");
         return mv;
+    }
+
+    @PostMapping("/updateCar")
+    @ResponseBody
+    public Map<String, Integer> updateCar(CarVO vo) {
+        Map<String, Integer> map = new HashMap<>();
+
+        Object obj = session.getAttribute("mvo");
+
+        if (obj != null) {
+            MemVO mvo = (MemVO) obj;
+            int cnt = service.updateCar(vo);
+            map.put("res", cnt);
+
+            if (cnt > 0) {
+                CwriteVO cwvo = new CwriteVO();
+                cwvo.setM_idx(mvo.getM_idx());
+                cwvo.setC_idx(vo.getC_idx());
+                cwvo.setCw_state("0");
+
+                service.updateCarWrite(cwvo);
+            }
+        }
+        return map; // 호출한 updateMember.jsp의 비동기식 통신의 done영역으로 json으로 전달됨!
 
     }
 
     @RequestMapping("updateCarWrite")
-    public ModelAndView updateCarWrite(String c_idx, String m_idx) {
+    public ModelAndView updateCarWrite(CwriteVO cwvo) {
         // System.out.println(m_idx);
 
-        List<CwriteVO> cw_list = service.search_cw_list(m_idx);
         ModelAndView mv = new ModelAndView();
+        int cnt = service.updateCarWrite(cwvo);
 
-        mv.addObject("cw_list", cw_list);
+        mv.addObject("cnt", cnt);
         mv.setViewName("redirect:/car_list");
         return mv;
 
@@ -194,4 +231,22 @@ public class MypageController {
 
         return mv;
     }
+
+    @RequestMapping("/deleteCar")
+    @ResponseBody
+    public Map<String, Integer> deleteCar(String c_idx, String m_idx) {
+
+        CwriteVO cwvo = new CwriteVO();
+        cwvo.setM_idx(m_idx);
+        cwvo.setC_idx(c_idx);
+        cwvo.setCw_state("1");
+
+        int cnt = service.updateCarWrite(cwvo);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+
+        return map;
+    }
+
 }

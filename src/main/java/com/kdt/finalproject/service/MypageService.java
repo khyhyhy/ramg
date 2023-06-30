@@ -65,4 +65,8 @@ public class MypageService {
     public List<SuseVO> use_service_list(String m_idx) {
         return mapper.use_service_list(m_idx);
     }
+
+    public int deleteCar(String c_idx, String m_idx) {
+        return mapper.deleteCar(c_idx, m_idx);
+    }
 }

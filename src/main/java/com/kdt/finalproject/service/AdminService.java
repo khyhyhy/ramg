@@ -108,7 +108,7 @@ public class AdminService {
 
     // 문의 상세보기
     public BbsVO qna_view(String b_idx) {
-        return mapper.notice_view(b_idx);
+        return mapper.qna_view(b_idx);
     }
 
     // 문의 댓글달기
@@ -133,4 +133,26 @@ public class AdminService {
         return ar;
     }
 
+    public int notice_edit2(BbslogVO vo) {
+        return mapper.notice_edit2(vo);
+    }
+
+    // 문의 댓글 삭제
+    public int qna_comm_del(String b_idx) {
+        return mapper.qna_comm_del(b_idx);
+    }
+
+    // 문의 댓글 삭제 로그
+    public int qna_comm_del2(BbslogVO vo) {
+        return mapper.qna_comm_del2(vo);
+    }
+
+    // 공지 삭제
+    public int notice_del(String b_idx) {
+        return mapper.notice_del(b_idx);
+    }
+
+    public int notice_del2(BbslogVO vo) {
+        return mapper.notice_del2(vo);
+    }
 }

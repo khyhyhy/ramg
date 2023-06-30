@@ -62,45 +62,44 @@ pageEncoding="UTF-8"%>
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
                 <c:if test="${vo.bbslog.m_idx == 2}"><!--session.mvo.m_idx 로 변경해야 함-->
-                    <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
+                    <span style="float: right;" >
+                        <button type="button" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
+                        <button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button>
+                    </span>
                 </c:if>
             </div>
-
-
-
-            <h2>댓글</h2>
-            <textarea name="b_content" id="b_content"></textarea>
-
-            <div style="height: 80px; margin-top: 10px;">
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()">댓글 등록</button>
-            </div>
-            
             
             <table class="table table-bordered" id="comm_table">
-                <tbody>
-                    <c:forEach items="${ar}" var="cvo">
+                <c:forEach items="${ar}" var="vo">
                     <tr>
-                        <th>${cvo.bbslog.mvo.m_name}</th>
-                        <th>${cvo.bbslog.bl_date}</th>
-                        <th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th>
+                        <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
+                            <c:if test="${vo.bbslog.m_idx == 0}"><!--session.mvo.m_idx 로 변경해야 함-->
+                                <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span>
+                            </c:if>
+                        </th>
                     </tr>
                     <tr> 
-                        <td colspan="4" style="height: 200px;">${cvo.b_content}</th>
+                        <td style="height: 200px;" name="b_content">${vo.b_content}</th>
                     </tr>
                     <tr style="border: none;"> 
                         <td colspan="4" style="height: 50px; border: none;"></th>
                     </tr>
                 </c:forEach>
-                </tbody>
             </table>
 
+            
+            <textarea name="b_content" id="b_content"></textarea>
+            <div style="height: 80px; margin-top: 10px;">
+                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+            </div>
                 
-            <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
             <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname">
+                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
                 <input type="hidden" name="b_idx" value="${vo.b_idx}">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
@@ -178,40 +177,58 @@ pageEncoding="UTF-8"%>
 
         let m_name = $("#m_name").val();
 
-            var today = new Date();
-
-            var year = today.getFullYear();
-            var month = ('0' + (today.getMonth() + 1)).slice(-2);
-            var day = ('0' + today.getDate()).slice(-2);
-            var hours = ('0' + today.getHours()).slice(-2); 
-            var minutes = ('0' + today.getMinutes()).slice(-2);
-            var seconds = ('0' + today.getSeconds()).slice(-2); 
-
-        var nowDate = year + '-' + month  + '-' + day +' '+ hours + ':' + minutes  + ':' + seconds;
-
         if(b_content.trim().length == 0){
             alert("댓글을 입력하세요");
             return;
         }
 
         $.ajax({
-           url: "/support/qna_comm_write",
-           type: "post",
-           data: {"m_idx" : m_idx, "target": target, "b_content":b_content},
-           dataType: "json"
+        url: "/admin/qna_comm_write",
+        type: "post",
+        data: {"m_idx" : m_idx, "target": target, "b_content":b_content},
+        dataType: "json"
         }).done(function(data){
             if(data.res == 1 && data.res2 == 1){
-                $('#comm_table > tbody:last').append('<tr><th>'+m_name+'</th><th>'+nowDate+'</th><th style="text-align: right; width: 160px"><input type="button" value="수정" class="btn btn-outline-info">&nbsp;&nbsp;&nbsp;<input type="button" value="삭제" class="btn btn-outline-info"></th></tr><tr><td colspan="4" style="height: 200px;">'+b_content+'</th></tr><tr style="border: none;"><td colspan="4" style="height: 50px; border: none;"></th></tr>');
-                $("#b_content").val("");
+                $('#b_content').summernote('reset');
                 alert("댓글이 등록되었습니다.");
+                location.reload();
             }
         })
 
     }
 
+    function qna_comm_del(b_idx){
+
+        let m_idx = $("#m_idx").val();
+
+        if(confirm("댓글을 삭제하시겠습니까?")){
+            $.ajax({
+                url: "/admin/qna_comm_del",
+                type: "post",
+                data: {"b_idx": b_idx, "m_idx": m_idx},
+                dataType: "json"
+            }).done(function(data){
+                if(data.res == 1 && data.res2 == 1){
+                    alert("댓글이 삭제되었습니다.");
+                    location.reload();
+                }
+            })
+        }else
+            return;
+        }
+
     function edit(){
         document.frm.action = "/support/qna_edit";
         document.frm.submit();
+    }
+
+    function qna_del(){
+        if(confirm("정말로 삭제하시겠습니까?")){
+            document.frm.action = "/support/qna_del";
+            document.frm.submit();
+        }else{
+            return;
+        }
     }
     
 </script>

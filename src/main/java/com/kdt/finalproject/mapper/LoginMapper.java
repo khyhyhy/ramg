@@ -9,8 +9,9 @@ public interface LoginMapper {
 
     List<MemVO> getList();
 
-    MemVO login(Map<String, String> map);
+    MemVO login(MemVO mvo);
 
+    // 회원가입
     int add_mem(MemVO vo);
 
     // MemVO check_id(String id);
