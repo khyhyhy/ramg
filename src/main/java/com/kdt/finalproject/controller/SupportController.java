@@ -218,14 +218,17 @@ public class SupportController {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
+
         mv.addObject("vo", vo);
         mv.setViewName("/support/qna_edit");
         return mv;
     }
 
     @RequestMapping("/support/qna_edit_ok")
-    public ModelAndView qna_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue) throws Exception {
+    public ModelAndView qna_edit_ok(BbsVO vo, String cPage, String searchType, String searchValue, String m_idx)
+            throws Exception {
         ModelAndView mv = new ModelAndView();
+        BbslogVO lvo = new BbslogVO();
 
         // 파일 첨부 시 파일 저장 경로 설정
         // 넘어온 파일이 있는지 확인
@@ -251,10 +254,16 @@ public class SupportController {
 
         vo.setB_ip(request.getRemoteAddr());
 
-        service.qna_edit(vo);
+        service.qna_edit(vo); // 수정
+        lvo.setB_idx(vo.getB_idx());
+        lvo.setM_idx(m_idx);
+        service.qna_edit2(lvo); // 수정 로그
+
         BbsVO bvo = service.qna_view(vo.getB_idx());
+        BbsVO[] ar = service.qna_comm(bvo.getB_idx());
 
         mv.addObject("vo", bvo);
+        mv.addObject("ar", ar);
         mv.addObject("cPage", cPage);
         mv.addObject("searchType", searchType);
         mv.addObject("searchValue", searchValue);
@@ -267,9 +276,6 @@ public class SupportController {
     @ResponseBody
     public Map<String, Integer> qna_comm_write(String b_content, String m_idx, String target) {
 
-        System.out.println(b_content);
-        System.out.println(m_idx);
-        System.out.println(target);
         BbsVO vo = new BbsVO();
         BbslogVO vo2 = new BbslogVO();
 
@@ -287,5 +293,39 @@ public class SupportController {
         map.put("res2", cnt2);
 
         return map;
+    }
+
+    // qna 댓글 삭제 (비동기식)
+    @RequestMapping("/support/qna_comm_del")
+    @ResponseBody
+    public Map<String, Integer> qna_comm_del(String b_idx, String m_idx) {
+
+        BbslogVO vo = new BbslogVO();
+
+        int cnt = service.qna_comm_del(b_idx);
+        vo.setB_idx(b_idx);
+        vo.setM_idx(m_idx);
+        int cnt2 = service.qna_comm_del2(vo);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+        map.put("res2", cnt2);
+
+        return map;
+    }
+
+    @RequestMapping("/support/qna_del")
+    public ModelAndView qna_del(String b_idx, String m_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        BbslogVO lvo = new BbslogVO();
+
+        service.qna_del(b_idx);
+        lvo.setB_idx(b_idx);
+        lvo.setM_idx(m_idx);
+        service.qna_del2(lvo);
+
+        mv.setViewName("redirect:/support/qna");
+        return mv;
     }
 }

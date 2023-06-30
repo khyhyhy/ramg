@@ -18,7 +18,7 @@
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
-    WHERE (b_status = 0 AND b_type = 0)
+    WHERE (b_status = 0 AND b_type = 0 AND b_val1 = 0)
       <if test="searchType != null and searchValue != null">
         <choose>
           <when test="searchType == 0">
@@ -42,7 +42,7 @@ SELECT * FROM (
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
 SELECT * FROM charging.bbs_t
-  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0)
+  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0 AND b_val1 = 0)
     <if test="searchType != null and searchValue != null">
       <choose>
         <when test="searchType == 0">
@@ -71,7 +71,7 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <!-- (Paging) 사업자가 볼 수 있는 공지 -->
 <select id="support_notice_count1" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
-WHERE (b_status = 0 AND b_type = 0)
+WHERE (b_status = 0 AND b_type = 0 AND b_val1 = 0)
   <if test="searchType != null and searchValue != null">
     <choose>
       <when test="searchType == 0">
@@ -90,7 +90,7 @@ WHERE (b_status = 0 AND b_type = 0)
 <!-- (Paging) 개인이 볼 수 있는 공지 -->
 <select id="support_notice_count2" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t 
-  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0)
+  WHERE (b_to = 0 AND b_status = 0 AND b_type = 0 AND b_val1 = 0)
     <if test="searchType != null and searchValue != null">
       <choose>
         <when test="searchType == 0">
@@ -120,7 +120,7 @@ WHERE b_idx = #{b_idx}
 <!-- 자주하는 질문 보기-->
 <select id="faq" resultType="com.kdt.finalproject.vo.BbsVO">
 SELECT * FROM charging.bbs_t
-WHERE b_type = 4 AND b_status = 0
+WHERE b_type = 4 AND b_status = 0 AND b_val1 = 0
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.BbsVO" id="qnamap">
@@ -214,12 +214,12 @@ b_status = 0 AND b_type = 2
 
 <select id="qna_view" parameterType="String" resultMap="qna_view_map">
 SELECT * FROM charging.bbs_t
-WHERE b_idx = #{b_idx}
+WHERE b_idx = #{b_idx} AND b_status = 0
 </select>
 
 <select id="qna_view_log" parameterType="String" resultMap="qna_view_map2">
 SELECT * FROM charging.bbslog
-WHERE b_idx = #{b_idx}
+WHERE b_idx = #{b_idx} AND bl_type = 0
 </select>
 
 <select id="qna_view_log2" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
@@ -243,12 +243,12 @@ WHERE m_idx = #{m_idx}
 
 <select id="qna_comm" parameterType="String" resultMap="comm_map">
 SELECT * FROM charging.bbs_t 
-WHERE b_target = #{b_idx}
+WHERE b_target = #{b_idx} AND b_status = 0
 </select>
 
 <select id="comm_log" parameterType="String" resultMap="comm_map2">
 SELECT * FROM charging.bbslog
-WHERE b_idx = #{b_idx}
+WHERE b_idx = #{b_idx} AND bl_type = 0
 </select>
 
 <select id="comm_log2" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
@@ -318,5 +318,37 @@ UPDATE charging.bbs_t
 WHERE b_idx = #{b_idx}
 </update>
 
+<insert id="qna_edit2" parameterType="com.kdt.finalproject.vo.BbslogVO">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
+</insert>
+<!-- 문의 수정 -->
+
+
+<!-- 댓글 삭제-->
+<update id="qna_comm_del" parameterType="String">
+UPDATE charging.bbs_t
+SET b_status = 1
+WHERE b_idx = #{b_idx}
+</update>
+
+<!-- 댓글 삭제 (로그)-->
+<insert id="qna_comm_del2" parameterType="com.kdt.finalproject.vo.BbslogVO">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
+</insert>
+
+<!-- 문의 삭제-->
+<update id="qna_del" parameterType="String">
+UPDATE charging.bbs_t
+SET b_status = 1
+WHERE b_idx = #{b_idx}
+</update>
+
+<!-- 문의 삭제 (로그)-->
+<insert id="qna_del2" parameterType="com.kdt.finalproject.vo.BbslogVO">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
+</insert>
 
 </mapper>

@@ -63,8 +63,9 @@ pageEncoding="UTF-8"%>
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname"/>
+                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
                 <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
-                <input type="hidden" name="b_status" value="${vo.b_status}" id="b_status"/>
+                <input type="hidden" name="b_val1" value="${vo.b_val1}" id="b_val1"/>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
                 <input type="hidden" name="searchType" value="${param.searchType}"/>
                 <input type="hidden" name="searchValue" value="${param.searchValue}"/>
@@ -73,10 +74,13 @@ pageEncoding="UTF-8"%>
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button>
                 <button type="button"  class="btn btn-outline-info" onclick="javascript:changeStatus()" id="btn">
-                    <c:if test="${vo.b_status == 0}">비공개로 변경하기</c:if>
-                    <c:if test="${vo.b_status == 1}">공개로 변경하기</c:if>
+                    <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
+                    <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
                 </button>
-                <button type="button" style="float: right;" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
+                <span style="float: right;">
+                    <input type="button" class="btn btn-outline-info" value="수정" onclick="edit()">
+                    <input type="button" class="btn btn-outline-info" value="삭제" onclick="notice_del()">
+                </span>
             </div>
 
         
@@ -100,7 +104,7 @@ pageEncoding="UTF-8"%>
 
     function changeStatus(){
 
-        let st = $("#b_status").val(); // 0 아니면 1
+        let st = $("#b_val1").val(); // 0 아니면 1
 
         let b_idx = $("#b_idx").val();    
 
@@ -113,7 +117,7 @@ pageEncoding="UTF-8"%>
                     dataType:"json"
                 }).done(function(data){
                     if(data.res == 1){ //성공한 경우에만 수행
-                        $("#b_status").val(1);
+                        $("#b_val1").val(1);
                         $("#btn").text("공개로 변경하기");
                     }
                 });
@@ -130,7 +134,7 @@ pageEncoding="UTF-8"%>
                     dataType:"json"
                 }).done(function(data){
                     if(data.res == 1){ //성공한 경우에만 수행
-                        $("#b_status").val(0);
+                        $("#b_val1").val(0);
                         $("#btn").text("비공개로 변경하기");
                     }
                 });
@@ -149,6 +153,15 @@ pageEncoding="UTF-8"%>
     function edit(){
         document.frm.action = "/admin/notice_edit";
         document.frm.submit();
+    }
+
+    function notice_del(){
+        if(confirm("정말로 삭제하시겠습니까?")){
+            document.frm.action = "/admin/notice_del";
+            document.frm.submit();
+        }else{
+            return;
+        }
     }
     
 </script>

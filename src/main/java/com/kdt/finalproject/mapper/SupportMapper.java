@@ -39,4 +39,14 @@ public interface SupportMapper {
     int qna_comm_write(BbsVO vo);
 
     int qna_comm_write2(BbslogVO vo);
+
+    int qna_edit2(BbslogVO vo);
+
+    int qna_comm_del(String b_idx);
+
+    int qna_comm_del2(BbslogVO vo);
+
+    int qna_del(String b_idx);
+
+    int qna_del2(BbslogVO vo);
 }
