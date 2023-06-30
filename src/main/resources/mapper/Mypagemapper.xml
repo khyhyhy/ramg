@@ -49,8 +49,10 @@
 
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
-    SELECT * FROM car_write
-    WHERE m_idx = #{m_idx} and cw_type = 0 and cw_state = 0
+    SELECT distinct c_idx, m_idx 
+    FROM car_write 
+    WHERE m_idx = #{m_idx} and cw_state = 0 and c_idx NOT IN(
+            SELECT c_idx FROM car_write WHERE m_idx=#{m_idx} and cw_state = 1)
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
@@ -124,11 +126,10 @@
       WHERE c_idx = #{c_idx}
     </update>
 
-  <update id="updateCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
-      UPDATE car_write
-      SET cw_type = 1
-      WHERE c_idx = #{c_idx} and m_idx = #{m_idx} and cw_state = 0
-  </update>
+  <insert id="updateCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
+      insert into car_write (cw_type, m_idx, c_idx, cw_date, cw_state)
+      values (1, #{m_idx}, #{c_idx}, now(), #{cw_state})
+  </insert>
 
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
         UPDATE member_t

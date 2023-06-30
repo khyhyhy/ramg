@@ -135,13 +135,14 @@ public class MypageController {
 
         if (obj != null) {
             MemVO mvo = (MemVO) obj;
-            int cnt = service.updateCar(vo.getC_idx());
+            int cnt = service.updateCar(vo);
             map.put("res", cnt);
 
             if (cnt > 0) {
                 CwriteVO cwvo = new CwriteVO();
                 cwvo.setM_idx(mvo.getM_idx());
                 cwvo.setC_idx(vo.getC_idx());
+                cwvo.setCw_state("0");
 
                 service.updateCarWrite(cwvo);
             }
@@ -235,7 +236,12 @@ public class MypageController {
     @ResponseBody
     public Map<String, Integer> deleteCar(String c_idx, String m_idx) {
 
-        int cnt = service.deleteCar(c_idx, m_idx);
+        CwriteVO cwvo = new CwriteVO();
+        cwvo.setM_idx(m_idx);
+        cwvo.setC_idx(c_idx);
+        cwvo.setCw_state("1");
+
+        int cnt = service.updateCarWrite(cwvo);
 
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);
