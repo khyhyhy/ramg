@@ -41,4 +41,15 @@ public interface AdminMapper {
 
     List<BbsVO> qna_comm(String b_idx);
 
+    int notice_edit2(BbslogVO vo);
+
+    BbsVO qna_view(String b_idx);
+
+    int qna_comm_del(String b_idx);
+
+    int qna_comm_del2(BbslogVO vo);
+
+    int notice_del(String b_idx);
+
+    int notice_del2(BbslogVO vo);
 }

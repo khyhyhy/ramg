@@ -95,10 +95,10 @@ pageEncoding="UTF-8"%>
                         </c:if>
                     </td>
                     <td>
-                        <c:if test="${vo.b_status == 0}">
+                        <c:if test="${vo.b_val1 == 0}">
                             공개
                         </c:if>
-                        <c:if test="${vo.b_status == 1}">
+                        <c:if test="${vo.b_val1 == 1}">
                             비공개
                         </c:if>
                     </td>

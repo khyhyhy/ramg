@@ -121,4 +121,28 @@ public class SupportService {
     public int qna_comm_write2(BbslogVO vo) {
         return mapper.qna_comm_write2(vo);
     }
+
+    public int qna_edit2(BbslogVO vo) {
+        return mapper.qna_edit2(vo);
+    }
+
+    // 문의 댓글 삭제
+    public int qna_comm_del(String b_idx) {
+        return mapper.qna_comm_del(b_idx);
+    }
+
+    // 문의 댓글 삭제 로그
+    public int qna_comm_del2(BbslogVO vo) {
+        return mapper.qna_comm_del2(vo);
+    }
+
+    // 문의 삭제
+    public int qna_del(String b_idx) {
+        return mapper.qna_del(b_idx);
+    }
+
+    // 문의 삭제 로그
+    public int qna_del2(BbslogVO vo) {
+        return mapper.qna_del2(vo);
+    }
 }
