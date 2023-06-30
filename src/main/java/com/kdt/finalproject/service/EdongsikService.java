@@ -48,22 +48,22 @@ public class EdongsikService {
         return vo;
     }
 
-    public SuseVO getDummy() {
-        SuseVO vo = mapper.getDummy();
+    // public SuseVO getDummy() {
+    // SuseVO vo = mapper.getDummy();
 
-        return vo;
-    }
+    // return vo;
+    // }
 
-    public SwriteVO getBusiness(String s_idx) {
-        SwriteVO vo = mapper.getBusiness(s_idx);
+    // public SwriteVO getBusiness(String s_idx) {
+    // SwriteVO vo = mapper.getBusiness(s_idx);
 
-        return vo;
-    }
+    // return vo;
+    // }
 
-    public List<SwriteVO> getOrderList(String m_idx) {
-        List<SwriteVO> ar = mapper.getOrderList(m_idx);
+    // public List<SwriteVO> getOrderList(String m_idx) {
+    // List<SwriteVO> ar = mapper.getOrderList(m_idx);
 
-        return ar;
-    }
+    // return ar;
+    // }
 
 }

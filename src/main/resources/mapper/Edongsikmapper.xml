@@ -72,7 +72,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
   WHERE c_idx = #{c_idx}
 </select>
 
-<select id="getDummy" resultType="com.kdt.finalproject.vo.SuseVO">
+<!-- <select id="getDummy" resultType="com.kdt.finalproject.vo.SuseVO">
   SELECT * FROM charging.service_use
   WHERE s_idx = 3
 </select>
@@ -105,7 +105,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 <select id="getOrderList2" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="String">
 	SELECT * FROM charging.service_use
   WHERE s_idx = #{s_idx}
-</select>
+</select> -->
 
 
 <!-- insert -->

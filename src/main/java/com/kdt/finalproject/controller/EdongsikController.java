@@ -213,57 +213,57 @@ public class EdongsikController {
         return mv;
     }
 
-    @RequestMapping("/e_order/")
-    public ModelAndView e_order() {
-        ModelAndView mv = new ModelAndView();
-        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        // 3번 기사 더미데이터 넣기
-        SuseVO suvo = service.getDummy();
-        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        mv.addObject("suvo", suvo);
+    // @RequestMapping("/e_order/")
+    // public ModelAndView e_order() {
+    // ModelAndView mv = new ModelAndView();
+    // // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // // 3번 기사 더미데이터 넣기
+    // SuseVO suvo = service.getDummy();
+    // // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // mv.addObject("suvo", suvo);
 
-        String s_idx = suvo.getS_idx();
-        SwriteVO swvo = service.getBusiness(s_idx);
-        MemVO mvo = swvo.getMvo();
+    // String s_idx = suvo.getS_idx();
+    // SwriteVO swvo = service.getBusiness(s_idx);
+    // MemVO mvo = swvo.getMvo();
 
-        mv.addObject("mvo", mvo);
+    // mv.addObject("mvo", mvo);
 
-        mv.setViewName("edongsik/e_order");
-        return mv;
-    }
+    // mv.setViewName("edongsik/e_order");
+    // return mv;
+    // }
 
-    @RequestMapping("/e_orderList/")
-    public ModelAndView e_orderList() {
-        ModelAndView mv = new ModelAndView();
-        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        // 세션에서 m_idx가져오기
-        MemVO vo = (MemVO) session.getAttribute("evo");
-        String m_idx = vo.getM_idx();
-        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        List<SwriteVO> swList = new ArrayList<SwriteVO>();
-        swList = service.getOrderList(m_idx);
+    // @RequestMapping("/e_orderList/")
+    // public ModelAndView e_orderList() {
+    // ModelAndView mv = new ModelAndView();
+    // // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // // 세션에서 m_idx가져오기
+    // MemVO vo = (MemVO) session.getAttribute("evo");
+    // String m_idx = vo.getM_idx();
+    // // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    // List<SwriteVO> swList = new ArrayList<SwriteVO>();
+    // swList = service.getOrderList(m_idx);
 
-        for (SwriteVO swvo : swList) {
-            SuseVO suvo = swvo.getSuvo();
+    // for (SwriteVO swvo : swList) {
+    // SuseVO suvo = swvo.getSuvo();
 
-            List<SuseVO> suar = new ArrayList<SuseVO>();
-            suar.add(suvo);
+    // List<SuseVO> suar = new ArrayList<SuseVO>();
+    // suar.add(suvo);
 
-            mv.addObject("suList", suar);
+    // mv.addObject("suList", suar);
 
-            String s_idx = suvo.getS_idx();
-            // SwriteVO swvo = service.getBusiness(s_idx);
-            // 여기서부터 시작 월욜일
+    // String s_idx = suvo.getS_idx();
+    // // SwriteVO swvo = service.getBusiness(s_idx);
+    // // 여기서부터 시작 월욜일
 
-            MemVO mvo = swvo.getMvo();
+    // MemVO mvo = swvo.getMvo();
 
-            mv.addObject("mvo", mvo);
+    // mv.addObject("mvo", mvo);
 
-        }
+    // }
 
-        mv.setViewName("edongsik/e_orderList");
-        return mv;
-    }
+    // mv.setViewName("edongsik/e_orderList");
+    // return mv;
+    // }
 
     @RequestMapping("/e_search/")
     public ModelAndView init(@Param("addr") String addr) {
