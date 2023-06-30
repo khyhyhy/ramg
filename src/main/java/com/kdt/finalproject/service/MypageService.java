@@ -46,8 +46,8 @@ public class MypageService {
         return mapper.addCarWrite(cwvo);
     }
 
-    public int updateCar(CarVO cvo) {
-        return mapper.updateCar(cvo);
+    public int updateCar(String c_idx) {
+        return mapper.updateCar(c_idx);
     }
 
     public int updateCarWrite(CwriteVO cwvo) {
@@ -64,5 +64,9 @@ public class MypageService {
 
     public List<SuseVO> use_service_list(String m_idx) {
         return mapper.use_service_list(m_idx);
+    }
+
+    public int deleteCar(String c_idx, String m_idx) {
+        return mapper.deleteCar(c_idx, m_idx);
     }
 }

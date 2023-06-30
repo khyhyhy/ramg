@@ -50,7 +50,7 @@
 
   <select id="search_cw_list" resultMap="map" parameterType="String">
     SELECT * FROM car_write
-    WHERE m_idx = #{m_idx} and cw_type = 0
+    WHERE m_idx = #{m_idx} and cw_type = 0 and cw_state = 0
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
@@ -102,17 +102,17 @@
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_idx, c_num, c_name, c_type, c_chargetype, c_state, c_city, c_addr1) 
-      values (#{c_idx}, #{c_num}, #{c_name}, #{c_type}, # {c_chargetype}, #{c_state}, #{c_city}, #{c_addr1}) 
+      insert into car_t (c_num, c_name, c_type, c_chargetype, c_state, c_city, c_addr1) 
+      values (#{c_num}, #{c_name}, #{c_type}, #{c_chargetype}, #{c_state}, #{c_city}, #{c_addr1}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
-      insert into car_t (cw_type, m_idx, c_idx, cw_date)
-      values (0, #{m_idx}, #{c_idx}, now())
+      insert into car_write (cw_type, m_idx, c_idx, cw_date, cw_state)
+      values (0, #{m_idx}, #{c_idx}, now(), 0)
   </insert>
 
   <!-- update -->
-  <update id="updateCar" parameterType="com.kdt.finalproject.vo.CarVO">
+  <update id="updateCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
       UPDATE car_t
       SET c_num = #{c_num}, 
         c_name = #{c_name}, 
@@ -127,7 +127,7 @@
   <update id="updateCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
       UPDATE car_write
       SET cw_type = 1
-      WHERE c_idx = #{c_idx} and m_idx = #{m_idx}
+      WHERE c_idx = #{c_idx} and m_idx = #{m_idx} and cw_state = 0
   </update>
 
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
@@ -157,7 +157,11 @@
         WHERE m_idx = #{m_idx}
     </update>
 
-
+  <update id="deleteCar" parameterType="com.kdt.finalproject.vo.CwriteVO">
+    UPDATE car_write
+    SET cw_state = 1
+    WHERE cw_state = 0 and c_idx = #{c_idx} and m_idx = #{m_idx}
+  </update>
 
 
 </mapper>

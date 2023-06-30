@@ -17,7 +17,7 @@ public interface MypageMapper {
 
     int addCarWrite(CwriteVO cwvo);
 
-    int updateCar(CarVO cvo);
+    int updateCar(String c_idx);
 
     int updateCarWrite(CwriteVO cwvo);
 
@@ -32,5 +32,7 @@ public interface MypageMapper {
     List<SuseVO> search_su_list(String c_idx);
 
     List<SuseVO> use_service_list(String m_idx);
+
+    int deleteCar(String c_idx, String m_idx);
 
 }
