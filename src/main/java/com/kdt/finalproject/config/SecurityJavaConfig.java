@@ -17,6 +17,7 @@ public class SecurityJavaConfig {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/", "/reg", "/login", "/reqLogin", "/main/", "/join", "/**/*.jpg", "/**/*.png",
+                        "/support/notice", "/**/**",
                         "/**/*.js")
                 .permitAll()
                 .anyRequest().authenticated()
