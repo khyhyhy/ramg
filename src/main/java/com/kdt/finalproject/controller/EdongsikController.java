@@ -28,6 +28,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 import lombok.val;
@@ -209,6 +210,58 @@ public class EdongsikController {
         mv.addObject("lat", lat);
         mv.addObject("lng", lng);
         mv.setViewName("edongsik/e_search");
+        return mv;
+    }
+
+    @RequestMapping("/e_order/")
+    public ModelAndView e_order() {
+        ModelAndView mv = new ModelAndView();
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        // 3번 기사 더미데이터 넣기
+        SuseVO suvo = service.getDummy();
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        mv.addObject("suvo", suvo);
+
+        String s_idx = suvo.getS_idx();
+        SwriteVO swvo = service.getBusiness(s_idx);
+        MemVO mvo = swvo.getMvo();
+
+        mv.addObject("mvo", mvo);
+
+        mv.setViewName("edongsik/e_order");
+        return mv;
+    }
+
+    @RequestMapping("/e_orderList/")
+    public ModelAndView e_orderList() {
+        ModelAndView mv = new ModelAndView();
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        // 세션에서 m_idx가져오기
+        MemVO vo = (MemVO) session.getAttribute("evo");
+        String m_idx = vo.getM_idx();
+        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+        List<SwriteVO> swList = new ArrayList<SwriteVO>();
+        swList = service.getOrderList(m_idx);
+
+        for (SwriteVO swvo : swList) {
+            SuseVO suvo = swvo.getSuvo();
+
+            List<SuseVO> suar = new ArrayList<SuseVO>();
+            suar.add(suvo);
+
+            mv.addObject("suList", suar);
+
+            String s_idx = suvo.getS_idx();
+            // SwriteVO swvo = service.getBusiness(s_idx);
+            // 여기서부터 시작 월욜일
+
+            MemVO mvo = swvo.getMvo();
+
+            mv.addObject("mvo", mvo);
+
+        }
+
+        mv.setViewName("edongsik/e_orderList");
         return mv;
     }
 

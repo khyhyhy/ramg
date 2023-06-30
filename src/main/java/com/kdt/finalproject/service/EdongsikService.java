@@ -10,6 +10,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Service
@@ -45,6 +46,24 @@ public class EdongsikService {
         CarVO vo = mapper.carList3(c_idx);
 
         return vo;
+    }
+
+    public SuseVO getDummy() {
+        SuseVO vo = mapper.getDummy();
+
+        return vo;
+    }
+
+    public SwriteVO getBusiness(String s_idx) {
+        SwriteVO vo = mapper.getBusiness(s_idx);
+
+        return vo;
+    }
+
+    public List<SwriteVO> getOrderList(String m_idx) {
+        List<SwriteVO> ar = mapper.getOrderList(m_idx);
+
+        return ar;
     }
 
 }

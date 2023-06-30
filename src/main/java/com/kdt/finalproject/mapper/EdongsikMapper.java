@@ -6,6 +6,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 public interface EdongsikMapper {
@@ -24,5 +25,11 @@ public interface EdongsikMapper {
     CarVO cvo(String c_idx);
 
     CarVO carList3(String c_idx);
+
+    SuseVO getDummy();
+
+    SwriteVO getBusiness(String s_idx);
+
+    List<SwriteVO> getOrderList(String m_idx);
 
 }

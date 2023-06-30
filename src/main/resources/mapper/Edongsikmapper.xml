@@ -72,6 +72,41 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
   WHERE c_idx = #{c_idx}
 </select>
 
+<select id="getDummy" resultType="com.kdt.finalproject.vo.SuseVO">
+  SELECT * FROM charging.service_use
+  WHERE s_idx = 3
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.SwriteVO" id="map3">
+  	<id column="m_idx" property="m_idx"/>
+  	<collection property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="getBusiness2" column="m_idx"/>
+</resultMap>
+
+<select id="getBusiness" resultMap="map3" parameterType="String">
+  SELECT * FROM charging.service_write
+  WHERE s_idx = #{s_idx}
+</select>
+
+<select id="getBusiness2" resultType="com.kdt.finalproject.vo.MemVO" parameterType="String">
+	SELECT * FROM charging.member_t
+  WHERE m_idx = #{m_idx}
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.SwriteVO" id="map4">
+  	<id column="s_idx" property="s_idx"/>
+  	<collection property="suvo" javaType="com.kdt.finalproject.vo.SuseVO" select="getOrderList2" column="s_idx"/>
+</resultMap>
+
+<select id="getOrderList" resultMap="map4" parameterType="String">
+  SELECT * FROM charging.service_write
+  WHERE m_idx = #{m_idx}
+</select>
+
+<select id="getOrderList2" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="String">
+	SELECT * FROM charging.service_use
+  WHERE s_idx = #{s_idx}
+</select>
+
 
 <!-- insert -->
 
