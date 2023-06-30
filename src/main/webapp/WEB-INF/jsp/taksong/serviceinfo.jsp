@@ -32,6 +32,9 @@
       <button type="button" onclick="location.href='map'">이용내역</button>
      </div>
 
+
+
+
      <div class="text-center">
       <div class="row">
        <div class="col">
@@ -42,18 +45,28 @@
        <div class="col">
         <div class="list-group">
          <c:forEach items="${evo.cw_list}" var="vo" varStatus="status">
-          <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off">
-          <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-           for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}</label>
+          <form>
+           <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off"
+            onclick="carinfo(this.form)">
+           <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
+           <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.c_val3} />
+           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+            for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}</label>
+          </form>
+          <br />
          </c:forEach>
         </div>
        </div>
        <div class="col">
         <ul class="list-group">
          <c:forEach items="${servicear}" var="vo" varStatus="status">
-          <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
-          <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-           for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
+          <form>
+           <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off"
+            onclick="serviceinfo(this.form)">
+           <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
+           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+            for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
+          </form>
          </c:forEach>
         </ul>
        </div>
@@ -62,6 +75,7 @@
         <input type="range" class="form-range" step="10" min="50" max="100" id="chargebar" name="chargepersent"
          value="50" onchange="muckpho(this)">
         <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+        <p id="battery"></p>
         <p id="muckpho"></p>
        </div>
       </div>
@@ -71,7 +85,7 @@
        <div class="col">
         <p>결제정보</p>
         <p>서비스 비용 : 15.000</p>
-        <p>충전 비용 : 5.000</p>
+        <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;</p>
         <p>총 비용 : 20.000</p>
        </div>
       </div>
@@ -79,11 +93,6 @@
        <div class="col">결제버튼 들어갈 곳</div>
       </div>
      </div>
-
-     <form action="/taksong/local" method="get">
-      <input type="hidden" id="lat1" name="lat" />
-      <input type="hidden" id="lng1" name="lng" />
-     </form>
     </main>
    </div>
    <!--////////// Main end //////////////-->
@@ -91,8 +100,26 @@
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
    <script>
+    var btank;
+    var khw = 34.72;
+    function carinfo(f) {
+     console.log("c_idx==/" + f.c_idx.value);
+     console.log("c_val3==" + f.c_val3.value);
+     btank = f.c_val3.value;
+     document.getElementById("battery").innerText = f.c_val3.value + "kWh";
+    }
+    function serviceinfo(f) {
+     console.log("s_idx==" + f.s_idx.value);
+
+    }
+
     function muckpho(e) {
-     document.getElementById("muckpho").innerText = e.value
+
+     document.getElementById("muckpho").innerText = e.value + "%"
+     var chargeprice = (btank / 100 * e.value) * khw
+     console.log(chargeprice);
+     console.log(btank);
+     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice;
     }
     function activate(e) {
      if (e.classList.contains('active')) {
