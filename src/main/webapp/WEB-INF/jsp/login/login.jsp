@@ -52,6 +52,12 @@
             transform: translateY(-35px) scale(0.85); /* 아래로 이동하여 축소되는 효과 적용 */
             color: #6c757d;
         }
+
+        .divider {
+        border-top: 1.7px solid #757571;
+        margin: 10px;
+        width: 300px;
+  }
       </style>
 
 </head>
@@ -117,6 +123,7 @@
 
                                         <!--회원가입-->
                                         <!-- <button type="button" class="btn btn-info btn-block mb-4 " onclick="location.href='join'" >회원가입</button>   -->
+                                        <hr class="divider"/>
                                         
                                         <div class="text-center register-link">
                                             <p>계정이 없으신가요? <a href="join">회원가입</a></p>
@@ -158,8 +165,10 @@
                                 <button type="button" class="btn btn-primary btn-block mb-4 text-center"  id="login-button" onclick="exe(this.form)">로그인</button>         
                                 <!-- <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button> -->
 
+                            <hr class="divider">
+
                                 <div class="text-center register-link">
-                                    <p>회원이 아닌가요? <a href="join">회원가입</a></p>
+                                    <p>계정이 없으신가요? <a href="join">회원가입</a></p>
                                 </div>
                              </div>
 
@@ -176,6 +185,7 @@
        
         </c:if>
 
+        <div class="text-center" id="error-message"></div>
 
 
                   
@@ -197,21 +207,38 @@
                                 // });
 
                                 function exe(frm) {
-                                    //console.log("dmdkdkkdkdkdkdkdkdkd");
                                     if ($(frm.m_email).val() == "") {
-                                        alert("이메일을 입력하세요");
-                                        $(frm.m_email).focus();
-                                        return;
+                                    alert("이메일을 입력하세요");
+                                    $(frm.m_email).focus();
+                                    return;
                                     }
-                    
+
                                     if ($(frm.m_pw).val() == "") {
-                                        alert("비밀번호를 입력하세요");
-                                        $(frm.m_pw).focus();
-                                        return;
+                                    alert("비밀번호를 입력하세요");
+                                    $(frm.m_pw).focus();
+                                    return;
                                     }
-                    
-                                    frm.submit();
+
+                                    $.ajax({
+                                    type: "POST",
+                                    url: "/reqLogin",
+                                    data: $(frm).serialize(),
+                                    datatype: "JSON",
+                                    async: false
+                                    })
+                                    .done(function(response) {
+                                    if (response.success == "1") {
+                                        location.href = "/main/";
+                                    } else {
+                                        alert("로그인에 실패했습니다. 다시 시도해주세요.");
+                                        location.href = "/login";
+                                    }
+                                    })
+                                    .fail(function() {
+                                    alert("로그인 중에 오류가 발생했습니다");
+                                    });
                                 }
+               
 
                                 $(document).ready(function() {
                                     //개인로그인 탭 눌려졌을때

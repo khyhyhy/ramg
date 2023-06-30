@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,10 +35,10 @@ public class JoinController {
     @PostMapping("join")
     @ResponseBody // 이 어노테이션은 응답을 JSON 형식으로 반환시킨다.
 
-    public Map<String, Object> add_mem(MemVO vo) {
+    public Map<String, Object> add_mem(MemVO mvo) {
         Map<String, Object> response = new HashMap<>();
 
-        int cnt = ls.add_mem(vo);
+        int cnt = ls.add_mem(mvo);
 
         if (cnt > 0) {
             response.put("success", true);
@@ -77,11 +78,11 @@ public class JoinController {
     public Map<String, String> check_email(@RequestParam String m_email) {
         Map<String, String> map = new HashMap<>();
 
-        System.out.println(m_email + "m_email");
+        // System.out.println(m_email + "m_email");
         MemVO mvo = ls.check_email(m_email);
-        System.out.println(mvo + "MVO");
+        // // System.out.println(mvo + "MVO");
 
-        // mvo가 null이면 아이디를 사용가능!, null아니면 사용불가
+        // // mvo가 null이면 아이디를 사용가능!, null아니면 사용불가
         if (mvo == null)
             map.put("msg", "<span class='success'>사용가능</span>");
         else
