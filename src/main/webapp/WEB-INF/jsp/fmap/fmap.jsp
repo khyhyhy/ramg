@@ -33,8 +33,7 @@
             <div class="container-fluid text-center">
                 <div class="row">
                   <div class="col-2">
-                    <ul class="list-group">
-                        <li class="list-group-item">An item</li>
+                    <ul class="list-group" id="list1">
                     </ul>
                   </div>
                   <div class="col-10">
@@ -54,20 +53,25 @@
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
-            $(function(){
-                alert("dmdjdjdjdjdj")
-                
-            });
-            var markers =[];
-            var overlays = [];
+
+            var markers =[];//마커 배열
+            var markers2 =[];//내 주변 마커 배열
+            var overlays = [];//커스텀오버레이 배열
+            var overlays2 = [];//내 주변 커스텀오버레이 배열
             var container = document.getElementById('map');
             var imageSrc_ok = "../images/greenicon.png";//충전가능 상태
             var imageSrc_redicon = "../images/redicon.png";//고장 및 점검 상태
             var imageSrc_chargeicon = "../images/chargeicon.png";//충전중 상태
+
             var options = {
                 center: new kakao.maps.LatLng(37.483782, 126.9003409),
                 level: 5
-            }; 
+            };
+
+            var map = new kakao.maps.Map(container, options);
+            var geocoder = new kakao.maps.services.Geocoder();
+            // 원(Circle)의 옵션으로 넣어준 반지름
+            var radius = 3000;
 
              // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
              if (navigator.geolocation) {
@@ -77,17 +81,15 @@
                     //위도경도를 불러온다.
                     var lati = position.coords.latitude, // 위도
                         lon = position.coords.longitude; // 경도
-                    console.log(lati);
-                    console.log(lon);
+                    
 
                     var locPosition = new kakao.maps.LatLng(lati, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                     message = '<div style="padding:5px;">여기요~~~~?!</div>'; // 인포윈도우에 표시될 내용입니다
-
+                    
                     displayMarker(locPosition, message);//마커,인포 표시함수사용
                     //주소를 불러오는 함수 호출
                     getAddr(lati, lon);
                     //주소를 불러오는 함수
-                    
                     function getAddr(lati,lon){
                         let geocoder2 = new kakao.maps.services.Geocoder();
 
@@ -134,8 +136,8 @@
                                             '                <img src="../images/chargestation.png" width="73" height="70"/>' +
                                             '           </div>' + 
                                             '            <div id="desc">' + 
-                                            '                <div id="ellipsis">${vo.addr}</div>' + 
-                                            '                <div id="jibun">땅따닥뷁</div>' + 
+                                            '                <div id="ellipsis">${vo.addr}</div>' +  
+                                            '                <div id="ellipsis">${vo.addr}</div>' +  
                                             '            </div>' + 
                                             '        </div>' +    
                                             '    </div>' +    
@@ -148,38 +150,61 @@
                                                 image: markerImage,
                                                 title:overlayid
                                             });
-                                        
                                             
 
                                             //marker.setMap(map);
                                             markers.push(marker);
-                                            console.log(markers);
-
+                                            
                                             var overlay = new kakao.maps.CustomOverlay({
                                                 content: content,
                                                 position: marker.getPosition(),
                                                 map: map
                                             });
-                                            
-                                            
-
+                                            overlays.push(overlay);
                                             </c:forEach>
+                                            
 
                                             for(i=0; i<markers.length; i++){
-                                                console.log(i, markers[i]);
+                                                
+                                                var c1 = locPosition;
+                                                var c2 = markers[i].getPosition();
+                                               
+                                                var poly = new daum.maps.Polyline({
+                                                    // map: map, 을 하지 않아도 거리는 구할 수 있다.
+                                                    path: [c1, c2]
+                                                });
+                                                var dist = poly.getLength(); // m 단위로 리턴
+                                                
+                                                if (dist < radius) {
+                                                    markers[i].setMap(map);
+                                                    overlays2.push(overlays[i]);
+                                                    markers2.push(markers[i]);
+                                                    //console.log(overlays[i]);
+                                                    
+                                                } else {
+                                                    markers[i].setMap(null);
+                                                }
+                                            }
+                                            console.log(markers2.length);
+                                            
+                                            //console.log(overlays2[0].cc.innerText);
+                                            
+                                            let str ="";
+                                            for(a=0; a<overlays2.length; a++){
+                                                console.log(overlays2[a]);
+                                                str +='<li class="list-group-item">';
+                                                str +=    overlays2[a].cc.innerText;
+                                                str +='     </li>';
+                                            }
+                                            $("#list1").html(str);
+                                            
+                                            for(i=0; i<markers.length; i++){
                                                 kakao.maps.event.addListener(markers[i], 'click', function(){
                                                     
-                                                    console.log(this);
                                                     $('.'+this.Gb).css('display', 'block');
-                                                    
-                                                })
-                                                markers[i].setMap(map); 
-                                                
+                                                })   
                                             }
-
-                                            
                                         }
-                                        
                                     });
                                 }
                             }
@@ -194,8 +219,7 @@
                     
                 displayMarker(locPosition, message);
             }
-            var map = new kakao.maps.Map(container, options);
-            var geocoder = new kakao.maps.services.Geocoder();
+            
             function displayMarker(locPosition, message) {
                 // 마커를 생성합니다
                 var marker = new kakao.maps.Marker({  
@@ -217,15 +241,10 @@
                 map.setCenter(locPosition);   
             }
             
-            
-            
             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
             function removeOverlay(overlayid) {
                 $('.'+overlayid).css('display', 'none');
             }
-
-            
-            
         </script>
 </body>
 </html>
