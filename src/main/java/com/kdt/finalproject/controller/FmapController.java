@@ -18,12 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kdt.finalproject.vo.ChargeVO;
 
 @Controller
 public class FmapController {
 
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
+
+    @RequestMapping("/fmap2")
+    public ModelAndView searchCharger3() throws Exception {
+
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("/fmap/fmap2");
+
+        return mv;
+    }
 
     @RequestMapping("/fmap")
     public ModelAndView searchCharger() throws Exception {
@@ -79,11 +90,37 @@ public class FmapController {
 
     @PostMapping("/here")
     @ResponseBody
-    public Map<String, Object> searchFestival2(String areaCode) throws Exception {
-        Map<String, Object> map = new HashMap<String, Object>();
+    public Map<String, Object> searchFestival2(String lati3, String lon3, String lati2, String lon2) throws Exception {
+        Map<String, Object> map = new HashMap<>();
 
-        https: // apis-navi.kakaomobility.com/v1/directions
+        String apiKey = "f7b7653182e4c0612dac5e8cd9ea9c19";
+        StringBuffer sb = new StringBuffer();
+        sb.append("https://apis-navi.kakaomobility.com/v1/directions");
+        sb.append("?priority=RECOMMEND");
+        sb.append("&car_type=1");
+        sb.append("&car_fuel=GASOLINE");
+        sb.append("&origin=" + lon3 + "%2C" + lati3); // 출발지 위도경도
+        sb.append("&destination=" + lon2 + "%2C" + lati2); // 도착지 위도경도
+        System.out.println(sb.toString());
 
+        URL url = new URL(sb.toString());
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestProperty("Authorization", "KakaoAK " + apiKey);
+        conn.setRequestProperty("Content-Type", "application/json");
+        conn.connect();
+
+        if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+            // API 호출이 성공한 경우
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode root = objectMapper.readTree(conn.getInputStream());
+            JsonNode routes = root.get("routes");
+            System.out.println("////////////////");
+            map.put("key", routes);
+        } else {
+            // API 호출이 실패한 경우
+            map.put("error", "API 호출 실패: " + conn.getResponseCode());
+        }
+        System.out.println("////////////////444");
         return map;
     }
 }

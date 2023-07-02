@@ -53,6 +53,7 @@
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
+            
 
             var markers =[];//마커 배열
             var markers2 =[];//내 주변 마커 배열
@@ -67,7 +68,7 @@
                 center: new kakao.maps.LatLng(37.483782, 126.9003409),
                 level: 5
             };
-
+            
             var map = new kakao.maps.Map(container, options);
             var geocoder = new kakao.maps.services.Geocoder();
             // 원(Circle)의 옵션으로 넣어준 반지름
@@ -81,7 +82,8 @@
                     //위도경도를 불러온다.
                     var lati = position.coords.latitude, // 위도
                         lon = position.coords.longitude; // 경도
-                    
+                    //console.log(lati);
+                    //console.log(lon);
 
                     var locPosition = new kakao.maps.LatLng(lati, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
                     message = '<div style="padding:5px;">여기요~~~~?!</div>'; // 인포윈도우에 표시될 내용입니다
@@ -99,7 +101,7 @@
 
                             if (status === kakao.maps.services.Status.OK) {
 
-                                console.log(result[0].address.address_name);
+                                //console.log(result[0].address.address_name);
 
                                 geocoder.addressSearch(result[0].address.address_name, function(result, status) {
                                       
@@ -161,53 +163,115 @@
                                                 map: map
                                             });
                                             overlays.push(overlay);
-                                            </c:forEach>
+                                        </c:forEach>
                                             
 
-                                            for(i=0; i<markers.length; i++){
+                                        for(i=0; i<markers.length; i++){
+                                            
+                                            var c1 = locPosition;
+                                            var c2 = markers[i].getPosition();
+                                            
+                                            var poly = new daum.maps.Polyline({
+                                                // map: map, 을 하지 않아도 거리는 구할 수 있다.
+                                                path: [c1, c2]
+                                            });
+                                            var dist = poly.getLength(); // m 단위로 리턴
+                                            
+                                            if (dist < radius) {
+                                                markers[i].setMap(map);
+                                                overlays2.push(overlays[i]);
+                                                markers2.push(markers[i]);
+                                                //console.log(overlays[i]);
                                                 
-                                                var c1 = locPosition;
-                                                var c2 = markers[i].getPosition();
-                                               
-                                                var poly = new daum.maps.Polyline({
-                                                    // map: map, 을 하지 않아도 거리는 구할 수 있다.
-                                                    path: [c1, c2]
-                                                });
-                                                var dist = poly.getLength(); // m 단위로 리턴
-                                                
-                                                if (dist < radius) {
-                                                    markers[i].setMap(map);
-                                                    overlays2.push(overlays[i]);
-                                                    markers2.push(markers[i]);
-                                                    //console.log(overlays[i]);
-                                                    
-                                                } else {
-                                                    markers[i].setMap(null);
-                                                }
-                                            }
-                                            console.log(markers2.length);
-                                            
-                                            //console.log(overlays2[0].cc.innerText);
-                                            
-                                            let str ="";
-                                            for(a=0; a<overlays2.length; a++){
-                                                console.log(overlays2[a]);
-                                                str +='<li class="list-group-item">';
-                                                str +=    overlays2[a].cc.innerText;
-                                                str +='     </li>';
-                                            }
-                                            $("#list1").html(str);
-                                            
-                                            for(i=0; i<markers.length; i++){
-                                                kakao.maps.event.addListener(markers[i], 'click', function(){
-                                                    
-                                                    $('.'+this.Gb).css('display', 'block');
-                                                })   
+                                            } else {
+                                                markers[i].setMap(null);
                                             }
                                         }
-                                    });
-                                }
+                                        
+                                        //console.log(overlays2[0].cc.innerText);
+                                        //console.log(markers2[0].getPosition());
+                                        //console.log(markers2[0].getPosition().Ma);
+                                        //console.log(markers2[0].getPosition().La);
+                                        let str ="";
+                                        for(a=0; a<overlays2.length; a++){
+                                            str +='<li class="list-group-item">';
+                                            str +='<a class="tag-link" href="#" data-index="'+a+'">';
+                                            str +=    overlays2[a].cc.innerText;
+                                            str +='</a>';
+                                            str +='</li>';
+                                        }
+                                        $("#list1").html(str);
+                                        
+                                        for(i=0; i<markers.length; i++){
+                                            kakao.maps.event.addListener(markers[i], 'click', function(){
+                                                
+                                                $('.'+this.Gb).css('display', 'block');
+                                            })   
+                                        }
+                                        var polyline, startMarker;
+                                        //비동기식 전송으로 경로를 불러옴
+                                        $('.tag-link').click(function(event) {
+                                            // 몇 번째 항목인지 가져옵니다.
+                                            if (startMarker) {
+                                                startMarker.setMap(null); // 마커 숨기기
+                                                startMarker = null; // 변수 초기화
+                                            }
+                                            if (polyline) {
+                                                polyline.setMap(null); // 마커 숨기기
+                                                polyline = null; // 변수 초기화
+                                            }
+                                            var index = $(this).data("index");
+                                            var lon2 = overlays2[index].getPosition().La;
+                                            var lati2 = overlays2[index].getPosition().Ma;
+                                            var lon3 = lon;
+                                            var lati3 = lati;
+                                            
+                                            $.ajax({
+                                            url: '/here',
+                                            type: "POST",
+                                            dataType: "json",
+                                            data: { lati3: lati3, lon3: lon3, lati2: lati2, lon2: lon2 }
+                                            }).done(function(data) {
+                                            console.log(data);
+
+                                            // Draw the route
+                                            var route = data.key[0];
+                                            var path = route.sections[0].roads;
+                                            var linePath = [];
+                                            for (var i = 0; i < path.length; i++) {
+                                                var vertexes = path[i].vertexes;
+                                                for (var j = 0; j < vertexes.length; j += 2) {
+                                                var point = new kakao.maps.LatLng(vertexes[j + 1], vertexes[j]);
+                                                linePath.push(point);
+                                                }
+                                            }
+                                            polyline = new kakao.maps.Polyline({
+                                                path: linePath,
+                                                strokeWeight: 5,
+                                                strokeColor: '#0080FF',
+                                                strokeOpacity: 1,
+                                                strokeStyle: 'solid'
+                                            });
+
+                                            polyline.setMap(map); // Add the polyline to the map
+                                            
+                                            // Add markers for the origin and destination
+                                            startMarker = new kakao.maps.Marker({
+                                                map: map,
+                                                position: new kakao.maps.LatLng(route.summary.origin.y, route.summary.origin.x)
+                                            });
+                                            
+                                           
+
+
+                                            }).fail(function(err) {
+                                            console.log(err + " Failed222222222222222222");
+                                            });
+                                        });
+                                    }
+                                });
                             }
+                        }
                             geocoder2.coord2Address(coord.getLng(), coord.getLat(), callback);
                         } 
                     });
@@ -245,6 +309,9 @@
             function removeOverlay(overlayid) {
                 $('.'+overlayid).css('display', 'none');
             }
+            
+            
+                    
         </script>
 </body>
 </html>
