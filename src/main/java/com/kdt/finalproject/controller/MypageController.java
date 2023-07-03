@@ -225,13 +225,22 @@ public class MypageController {
 
     @GetMapping("updateReview")
     public ModelAndView updateReview(String b_idx) {
-        BbsVO bvo = (BbsVO) service.search_r(b_idx);
+
         ModelAndView mv = new ModelAndView();
+        BbsVO bvo = service.get_bbs(b_idx);
 
         mv.addObject("bvo", bvo);
         mv.setViewName("mypage/updateReview");
+
         return mv;
+
     }
+
+    // @GetMapping("updateReview")
+    // public String updateReview(String b_idx) {
+
+    // return "mypage/updateReview";
+    // }
 
     @PostMapping("/updateReview")
     @ResponseBody
@@ -320,11 +329,7 @@ public class MypageController {
     @ResponseBody
     public Map<String, Integer> deleteReview(String b_idx) {
 
-        BbsVO bvo = new BbsVO();
-        bvo.setB_idx(b_idx);
-        bvo.setB_status("1");
-
-        int cnt = service.updateReview(bvo);
+        int cnt = service.deleteReview(b_idx);
 
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);

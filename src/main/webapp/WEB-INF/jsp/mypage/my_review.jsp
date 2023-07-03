@@ -53,7 +53,7 @@
          </thead>
          <tbody>
              <c:forEach var="bvo" items="${mr}">
-                 <tr>
+                 <tr onmouseover="regRowNum(this)">
                      <td>${bvo.b_idx}</td>
                      <td>${bvo.b_title}</td>
                      <td>${bvo.b_content}</td>

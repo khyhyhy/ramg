@@ -18,6 +18,8 @@ public interface MypageMapper {
 
     List<BbsVO> search_r(String m_idx);
 
+    BbsVO get_bbs(String b_idx);
+
     int addCarWrite(CwriteVO cwvo);
 
     int updateCar(CarVO cvo);
@@ -38,7 +40,7 @@ public interface MypageMapper {
 
     int deleteReview(String b_idx);
 
-    int updateReview(BbsVO bvo);
+    int updateReview(BbsVO vo);
 
     int updateReviewlog(BbslogVO blvo);
 

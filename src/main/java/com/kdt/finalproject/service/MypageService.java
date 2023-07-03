@@ -39,6 +39,10 @@ public class MypageService {
         return mapper.search_r(m_idx);
     }
 
+    public BbsVO get_bbs(String b_idx) {
+        return mapper.get_bbs(b_idx);
+    }
+
     public int addCar(CarVO cvo) {
         return mapper.addCar(cvo);
     }
@@ -75,8 +79,8 @@ public class MypageService {
         return mapper.deleteReview(b_idx);
     }
 
-    public int updateReview(BbsVO bvo) {
-        return mapper.updateReview(bvo);
+    public int updateReview(BbsVO vo) {
+        return mapper.updateReview(vo);
     }
 
     public int updateReviewlog(BbslogVO blvo) {

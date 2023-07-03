@@ -71,6 +71,11 @@
   where b_idx = #{b_idx} and b_type = 2
   </select>
 
+  <select id="get_bbs" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
+  select * from bbs_t
+  where b_idx = #{b_idx}
+  </select>
+
   <select id="search_r" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
   select * from bbs_t
   where b_type = 1 and b_status = 0 and b_idx IN(
@@ -126,11 +131,13 @@
   <update id="updateReview" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx">
       UPDATE bbs_t
       SET     
-              b_title = #{b_title},
-              b_content = #{b_content},
-              b_score = #{b_score}
+        b_title = #{b_title},
+        b_content = #{b_content},
+        b_score = #{b_score}
       WHERE b_idx = #{b_idx}
     </update>
+
+  
 
   <insert id="updateReviewlog" parameterType="com.kdt.finalproject.vo.BbslogVO">
       insert into bbslog (b_idx, m_idx, bl_date, bl_type)
@@ -170,10 +177,10 @@
     WHERE cw_state = 0 and c_idx = #{c_idx} and m_idx = #{m_idx}
   </update>
 
-  <update id="deleteReview" parameterType="com.kdt.finalproject.vo.BbsVO">
+  <update id="deleteReview" parameterType="String">
     UPDATE bbs_t
     SET b_status = 1
-    WHERE b_idx = #{b_idx} and b_status = 0
+    WHERE b_idx = #{b_idx}
   </update>
 
 

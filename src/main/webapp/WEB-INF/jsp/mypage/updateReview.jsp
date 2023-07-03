@@ -84,14 +84,14 @@
             }else
                 param += "&b_score="+encodeURIComponent(b_score);
 
-                if(b_content.trim().length == 0){
+            if(b_content.trim().length == 0){
                 alert("내용을 입력하세요");
                 $("#b_content").focus();
                 return;
             }else
                 param += "&b_content="+encodeURIComponent(b_content);
 
-                param += "&b_idx="+encodeURIComponent(b_idx);
+            param += "&b_idx="+encodeURIComponent(b_idx);
 
             // 비동기식 통신으로 회원 정보 수정~~~~~~~~~~~~~~~~~~~~~~~~~
             $.ajax({
