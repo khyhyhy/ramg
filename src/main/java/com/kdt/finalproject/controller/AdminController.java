@@ -88,22 +88,24 @@ public class AdminController {
 
     // 공지사항
     @RequestMapping("/admin/notice")
-    public ModelAndView notice(String cPage, String searchType, String searchValue) { // 공지사항 표시
+    public ModelAndView notice(String cPage, String searchType, String searchValue, String category) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
+        System.out.println(category);
 
         // ---------------------paging------------------------------
         int nowPage = 1;
-        int totalRecord = service.notice_count(searchType, searchValue);
+        int totalRecord = service.notice_count(searchType, searchValue, category);
 
         if (cPage != null)
             nowPage = Integer.parseInt(cPage);
 
-        Admin_notice_paging page = new Admin_notice_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        Admin_notice_paging page = new Admin_notice_paging(nowPage, totalRecord, 10, 5, searchType, searchValue,
+                category);
         String pageCode = page.getSb().toString();
 
         // ---------------------paging------------------------------
 
-        BbsVO[] ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue);
+        BbsVO[] ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue, category);
 
         mv.addObject("ar", ar);
         mv.addObject("page", page);
@@ -413,6 +415,34 @@ public class AdminController {
         service.notice_del2(lvo);
 
         mv.setViewName("redirect:/admin/notice");
+        return mv;
+    }
+
+    // qna 공개 비공개 변경
+    @RequestMapping("/admin/qna_change")
+    @ResponseBody
+    public Map<String, Integer> qna_change(String b_idx, String b_val1) {
+        Map<String, Integer> map = new HashMap<>();
+
+        int cnt = service.qna_change(b_idx, b_val1);
+        map.put("res", cnt);
+
+        return map;
+    }
+
+    // qna 삭제
+    @RequestMapping("/admin/qna_del")
+    public ModelAndView qna_del(String b_idx, String m_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        BbslogVO lvo = new BbslogVO();
+
+        service.qna_del(b_idx);
+        lvo.setB_idx(b_idx);
+        lvo.setM_idx(m_idx);
+        service.qna_del2(lvo);
+
+        mv.setViewName("redirect:/admin/qna");
         return mv;
     }
 }

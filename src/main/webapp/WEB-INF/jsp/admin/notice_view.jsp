@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
                     <th>구분</th>
                     <td>
                         <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
-                            전체 공지
+                           일반 공지
                         </c:if>
                         <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
                             사업자 공지
@@ -69,6 +69,7 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
                 <input type="hidden" name="searchType" value="${param.searchType}"/>
                 <input type="hidden" name="searchValue" value="${param.searchValue}"/>
+                <input type="hidden" name="category" value="${param.category}">
             </form>
 
             <div style="height: 80px;" >

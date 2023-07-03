@@ -20,6 +20,30 @@ pageEncoding="UTF-8"%>
     <h1>공지관리</h1>
     <form action="/admin/notice" method="post">
         <div style="height: 60px; float: right;">
+            <span style="float: left; margin-right: 5px;">
+                <select name="category" class="form-select" aria-label="Default select example">
+                    <c:if test="${param.category == 0}">
+                        <option value="0" selected>일반공지</option>
+                        <option value="1">사업자공지</option>
+                        <option value="2">FAQ</option>
+                    </c:if>
+                    <c:if test="${param.category == 1}">
+                        <option value="0">일반공지</option>
+                        <option value="1" selected>사업자공지</option>
+                        <option value="2">FAQ</option>
+                    </c:if>
+                    <c:if test="${param.category == 2}">
+                        <option value="0">일반공지</option>
+                        <option value="1">사업자공지</option>
+                        <option value="2" selected>FAQ</option>
+                    </c:if>
+                    <c:if test="${param.category == null}">
+                        <option value="0">일반공지</option>
+                    <option value="1">사업자공지</option>
+                    <option value="2">FAQ</option>
+                </c:if>
+            </select>
+        </span>
             <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
                 <c:if test="${param.searchType == 0}">
                     <option value="0" selected>제목</option>
@@ -52,7 +76,6 @@ pageEncoding="UTF-8"%>
             <col width="100px">
             <col width="150px">
             <col width="*">
-            <col width="100px">
             <col width="200px">
             <col width="100px">
         </colgroup>
@@ -61,7 +84,6 @@ pageEncoding="UTF-8"%>
                 <th>번호</th>
                 <th>구분</th>
                 <th>제목</th>
-                <th>공개여부</th>
                 <th>등록일</th>
                 <th>조회수</th>
             </tr>
@@ -79,7 +101,7 @@ pageEncoding="UTF-8"%>
                     <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
                     <td>
                         <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
-                            전체 공지
+                             일반 공지
                         </c:if>
                         <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
                             사업자 공지
@@ -89,17 +111,12 @@ pageEncoding="UTF-8"%>
                         </c:if>
                     </td>
                     <td style="text-overflow:ellipsis; overflow:hidden; white-space:nowrap;">
+                        <c:if test="${vo.b_val1 == 1}">
+                            <img src="../images/lock.png" style="width: 15px;">
+                        </c:if>
                         <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
                         <c:if test="${vo.b_filename != null}">
                             <img src="../images/link.png" style="width: 14px;">
-                        </c:if>
-                    </td>
-                    <td>
-                        <c:if test="${vo.b_val1 == 0}">
-                            공개
-                        </c:if>
-                        <c:if test="${vo.b_val1 == 1}">
-                            비공개
                         </c:if>
                     </td>
                     <td>${vo.bbslog.bl_date}</td>
@@ -119,6 +136,7 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="category" value="${param.category}">
     </form>
     
     
