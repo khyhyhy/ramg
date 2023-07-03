@@ -22,7 +22,7 @@
 
    <!--////////// Main start //////////////-->
    <main>
-    <p>"${evo.m_idx}"</p>
+    <p>"${mvo.m_idx}"</p>
     <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
     <div style="display: flex; justify-content: center; margin-top: 50px;">
@@ -48,7 +48,7 @@
       <div class="card-body">
        <h5 class="card-title">차량 등록 주소</h5>
        <p class="card-text"></p>
-       <a href="#" class="btn btn-primary" onclick="location.href='/carAddr/?m_idx=${evo.m_idx}'">검색</a>
+       <a href="#" class="btn btn-primary" onclick="location.href='/carAddr/?m_idx=${mvo.m_idx}'">검색</a>
       </div>
 
      </div>
@@ -65,20 +65,21 @@
 
    <script>
     function conf() {
-     if (confirm("현재위치를 조회하시겠습니까?")) {
+     if (confirm("위치 기반 서비스를 이용하여 현재위치를 조회하시겠습니까?")) {
       johoe();
      } else {
-      alert("위치 기반 서비스를 동의해 주세요");
-      conf2();
+      alert("위치 기반 서비스를 거부하셨습니다.");
+      alert("현재위치를 직접 지정합니다.");
+      document.getElementById("lat1").value = 37.482126867205025;
+      document.getElementById("lng1").value = 126.90147154188523;
+      document.forms[0].submit();
      }
     }
     function conf2() {
      if (confirm("현재위치를 직접 지정하시겠습니까?")) {
-      document.getElementById("lat1").value = 37.482126867205025;
-      document.getElementById("lng1").value = 126.90147154188523;
-      document.forms[0].submit();
+
      } else {
-      alert("위치 기반 서비스를 동의해 주세요");
+      alert("");
      }
     }
     function johoe() {

@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 공지쓰기</title>
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -53,7 +53,7 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
             </div>
                 
-            <input type="hidden" name="m_idx" value="2"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
             <input type="hidden" name="b_val1" id="b_val1">
         </form>
     </div>
