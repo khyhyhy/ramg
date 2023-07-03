@@ -141,4 +141,14 @@ public class TaksongController {
   mv.setViewName("taksong/serviceinfo");
   return mv;
  }
+
+ @RequestMapping("/taksong/serviceok")
+ public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment1) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println("s_idx = " + s_s_idx);
+  System.out.println("c_idx = " + s_c_idx);
+  System.out.println("chargepersent = " + chargepersent);
+  System.out.println("s_payment = " + s_payment1);
+  return mv;
+ }
 }
