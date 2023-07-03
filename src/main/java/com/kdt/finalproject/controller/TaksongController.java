@@ -135,8 +135,8 @@ public class TaksongController {
     ++idx;
    }
   }
-  MemVO dummy = service.selectmem("2");
-  mv.addObject("evo", dummy);
+  // MemVO dummy = service.selectmem("2");
+  // mv.addObject("evo", dummy);
   mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
   return mv;

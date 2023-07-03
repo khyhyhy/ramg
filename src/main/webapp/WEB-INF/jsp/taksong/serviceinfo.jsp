@@ -26,7 +26,7 @@
    <!--////////// Main start //////////////-->
    <div class="container">
     <main>
-     <p>"${evo.m_idx}"</p>
+     <p>"${mvo.m_idx}"</p>
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 50px;">
@@ -48,7 +48,7 @@
        <div class="row">
         <div class="col">
          <div class="list-group">
-          <c:forEach items="${evo.cw_list}" var="vo" varStatus="status">
+          <c:forEach items="${mvo.cw_list}" var="vo" varStatus="status">
            <fieldset onclick="carinfo(this)">
             <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
@@ -89,9 +89,9 @@
         <div class="col"></div>
         <div class="col">
          <p>결제정보</p>
-         <p>서비스 비용 : 15.000</p>
-         <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
-         <p>총 비용 : 20.000</p>
+         <p>서비스 비용 : <section< /p>
+           <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
+           <p>총 비용 : 20.000</p>
         </div>
        </div>
        <div class="row">
