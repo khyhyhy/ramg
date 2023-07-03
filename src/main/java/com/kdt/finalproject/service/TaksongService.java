@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.TaksongMapper;
+import com.kdt.finalproject.vo.CarVO;
+import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SwriteVO;
@@ -46,5 +48,27 @@ public class TaksongService {
   SwriteVO vo = null;
   vo = mapper.selectSWVO(s_idx);
   return vo;
+ }
+
+ public CarVO carList(String c_idx) {
+  CarVO vo = mapper.carList(c_idx);
+
+  return vo;
+ }
+
+ public ServiceVO[] getService(String state) {
+  ServiceVO[] ar = mapper.getService(state);
+
+  return ar;
+ }
+
+ public CwriteVO[] cwselect(String m_idx) {
+  CwriteVO[] ar = null;
+  List<CwriteVO> list = mapper.cwselect(m_idx);
+  if (list != null && list.size() > 0) {
+   ar = new CwriteVO[list.size()];
+   list.toArray(ar);
+  }
+  return ar;
  }
 }

@@ -38,7 +38,7 @@
                   </div>
                   <div class="col-10">
                     <div class="">
-                        <div id="map" style="width: 1296px; height:800px;"></div>
+                        <div id="map" style="width: 1560px; height:800px;"></div>
                     </div>
                   </div>
                 </div>
@@ -66,7 +66,7 @@
 
             var options = {
                 center: new kakao.maps.LatLng(37.483782, 126.9003409),
-                level: 5
+                level: 7
             };
             
             var map = new kakao.maps.Map(container, options);
@@ -109,7 +109,35 @@
                                     if (status === kakao.maps.services.Status.OK) {
                                         var ind = 0;
                                         var mnd = 0;
+                                        var type;
                                         <c:forEach items="${ar}" var="vo">
+                                            <c:if test = "${vo.cpTp eq '1'}">
+                                                type = 'B타입(5핀)';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '2'}">
+                                                type = 'C타입(5핀)';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '3'}">
+                                                type = 'BC타입(5핀)';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '4'}">
+                                                type = 'BC타입(7핀)';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '5'}">
+                                                type = 'DC차데모';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '6'}">
+                                                type = 'AC3상';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '7'}">
+                                                type = 'DC콤보';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '8'}">
+                                                type = ' DC차데모+DC콤보';
+                                            </c:if>
+                                            <c:if test = "${vo.cpTp eq '10'}">
+                                                type = 'DC차데모+AC3상+DC콤보';
+                                            </c:if>
                                             var imageSize = new kakao.maps.Size(24, 35);
 
                                             <c:if test = "${vo.cpStat eq '1'}">
@@ -121,8 +149,8 @@
                                             <c:if test = "${vo.cpStat eq '3'}">
                                                 var markerImage = new kakao.maps.MarkerImage(imageSrc_chargeicon, imageSize); 
                                             </c:if>
+                                            
                                             var pos = new kakao.maps.LatLng('${vo.lat}', '${vo.longi}');
-
                                             var overlayid = "idnum"+ ind++;
                                             var content = document.createElement('div');
                                             content.className = overlayid;
@@ -138,8 +166,7 @@
                                             '                <img src="../images/chargestation.png" width="73" height="70"/>' +
                                             '           </div>' + 
                                             '            <div id="desc">' + 
-                                            '                <div id="ellipsis">${vo.addr}</div>' +  
-                                            '                <div id="ellipsis">${vo.addr}</div>' +  
+                                            '                <div id="ellipsis">${vo.addr}<br/>'+type+'</div>' +   
                                             '            </div>' + 
                                             '        </div>' +    
                                             '    </div>' +    
@@ -165,9 +192,7 @@
                                             overlays.push(overlay);
                                         </c:forEach>
                                             
-
                                         for(i=0; i<markers.length; i++){
-                                            
                                             var c1 = locPosition;
                                             var c2 = markers[i].getPosition();
                                             
@@ -175,6 +200,7 @@
                                                 // map: map, 을 하지 않아도 거리는 구할 수 있다.
                                                 path: [c1, c2]
                                             });
+                                            
                                             var dist = poly.getLength(); // m 단위로 리턴
                                             
                                             if (dist < radius) {
@@ -192,7 +218,9 @@
                                         //console.log(markers2[0].getPosition());
                                         //console.log(markers2[0].getPosition().Ma);
                                         //console.log(markers2[0].getPosition().La);
+                                        
                                         let str ="";
+                                        //화면왼쪽에 목록 표출
                                         for(a=0; a<overlays2.length; a++){
                                             str +='<li class="list-group-item">';
                                             str +='<a class="tag-link" href="#" data-index="'+a+'">';
@@ -201,10 +229,9 @@
                                             str +='</li>';
                                         }
                                         $("#list1").html(str);
-                                        
+                                        //마커 클릭시 오버레이 커스텀 나타남
                                         for(i=0; i<markers.length; i++){
                                             kakao.maps.event.addListener(markers[i], 'click', function(){
-                                                
                                                 $('.'+this.Gb).css('display', 'block');
                                             })   
                                         }
@@ -212,6 +239,7 @@
                                         //비동기식 전송으로 경로를 불러옴
                                         $('.tag-link').click(function(event) {
                                             // 몇 번째 항목인지 가져옵니다.
+                                            console.log("111111111111111111111");
                                             if (startMarker) {
                                                 startMarker.setMap(null); // 마커 숨기기
                                                 startMarker = null; // 변수 초기화
@@ -225,7 +253,6 @@
                                             var lati2 = overlays2[index].getPosition().Ma;
                                             var lon3 = lon;
                                             var lati3 = lati;
-                                            
                                             $.ajax({
                                             url: '/here',
                                             type: "POST",
@@ -234,7 +261,7 @@
                                             }).done(function(data) {
                                             console.log(data);
 
-                                            // Draw the route
+                                            // 루트 그리기 위해 json에서 데이터를 꺼냄
                                             var route = data.key[0];
                                             var path = route.sections[0].roads;
                                             var linePath = [];
@@ -253,16 +280,13 @@
                                                 strokeStyle: 'solid'
                                             });
 
-                                            polyline.setMap(map); // Add the polyline to the map
+                                            polyline.setMap(map); // 경로를 맵에 추가
                                             
-                                            // Add markers for the origin and destination
+                                            // 출발지 마커
                                             startMarker = new kakao.maps.Marker({
                                                 map: map,
                                                 position: new kakao.maps.LatLng(route.summary.origin.y, route.summary.origin.x)
                                             });
-                                            
-                                           
-
 
                                             }).fail(function(err) {
                                             console.log(err + " Failed222222222222222222");
