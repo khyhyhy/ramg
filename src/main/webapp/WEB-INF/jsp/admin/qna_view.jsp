@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
             </div>
             
             <table class="table table-bordered" style="margin: 0;" id="comm_table">
-                <c:forEach items="${ar}" var="vo">
+                <c:forEach items="${car}" var="vo">
                 <tr>
                     <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
                         <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span></th>
@@ -84,8 +84,8 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
             </div>
 
-            <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
-            <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
+            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
+            <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">

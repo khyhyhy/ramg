@@ -324,6 +324,9 @@ public class AdminController {
         int nowPage = 1;
         int totalRecord = service.qna_count(searchType, searchValue);
 
+        if (cPage != null)
+            nowPage = Integer.parseInt(cPage);
+
         Admin_qna_paging page = new Admin_qna_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
         String pageCode = page.getSb().toString();
 
@@ -346,9 +349,9 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.qna_view(b_idx);
-        BbsVO[] ar = service.qna_comm(b_idx);
+        BbsVO[] car = service.qna_comm(b_idx);
 
-        mv.addObject("ar", ar);
+        mv.addObject("car", car);
         mv.addObject("vo", vo);
         mv.setViewName("/admin/qna_view");
 

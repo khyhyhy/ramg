@@ -69,7 +69,7 @@ pageEncoding="UTF-8"%>
                             <c:if test="${vo.b_to == 1}">
                                 <span style="font-size: small; color: rgb(179, 179, 179);">[사업자]</span>
                             </c:if>
-                            <a href="javascript:sub('${vo.b_idx}', '${vo.bbslog.bl_date}')">${vo.b_title}</a>
+                            <a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a>
                             <c:if test="${vo.b_filename != null}">
                                 <img src="../images/link.png" style="width: 14px;">
                             </c:if>
@@ -96,9 +96,8 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 
 <script>
-    function sub(b_idx, bl_date){
+    function sub(b_idx){
         document.frm.b_idx.value = b_idx;
-        document.frm.bl_date.value = bl_date;
         document.frm.submit();
     }
 </script>

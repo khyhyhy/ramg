@@ -63,7 +63,7 @@ pageEncoding="UTF-8"%>
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname"/>
-                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+                <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
                 <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
                 <input type="hidden" name="b_val1" value="${vo.b_val1}" id="b_val1"/>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>

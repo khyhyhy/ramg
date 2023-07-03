@@ -109,11 +109,22 @@ SELECT COUNT(*) FROM charging.bbs_t
     </if>
 </select>
 
-<!-- 공지 보기 -->
-<select id="notice_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+<!-- 공지 상세 보기 -->
+<resultMap id="notice_view_map" type="com.kdt.finalproject.vo.BbsVO">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="notice_view_log" column="b_idx"/>
+</resultMap>
+
+<select id="notice_view" parameterType="String" resultMap="notice_view_map">
 SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
+
+<select id="notice_view_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+<!-- 공지 상세 보기 -->
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 끝~~~~~~~~~~~~~~~~~~~~~~~ -->
 
