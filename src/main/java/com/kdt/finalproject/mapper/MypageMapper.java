@@ -2,6 +2,7 @@ package com.kdt.finalproject.mapper;
 
 import java.util.List;
 
+import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
@@ -15,6 +16,8 @@ public interface MypageMapper {
 
     CarVO get_car(String c_idx);
 
+    List<BbsVO> search_r(String m_idx);
+
     int addCarWrite(CwriteVO cwvo);
 
     int updateCar(CarVO cvo);
@@ -27,12 +30,16 @@ public interface MypageMapper {
 
     List<BbslogVO> search_bl_list(String m_idx);
 
-    List<BbslogVO> search_bl_list2(String m_idx);
-
     List<SuseVO> search_su_list(String c_idx);
 
-    List<SuseVO> use_service_list(String m_idx);
+    List<SuseVO> use_service_list(String m_idx, String s_idx);
 
     int deleteCar(String c_idx, String m_idx);
+
+    int deleteReview(String b_idx);
+
+    int updateReview(BbsVO bvo);
+
+    int updateReviewlog(BbslogVO blvo);
 
 }

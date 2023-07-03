@@ -17,14 +17,9 @@
       select="search_q" column="b_idx"/>
   </resultMap>
 
-  <resultMap id="map3" type="com.kdt.finalproject.vo.BbslogVO">
-    <id property="bl_idx" column="bl_idx"/>
-    <association property="bvo" javaType="com.kdt.finalproject.vo.BbsVO"
-      select="search_r" column="b_idx"/>
-  </resultMap>
 
-  <resultMap id="map4" type="com.kdt.finalproject.vo.SwriteVO">
-    <id property="sw_idx" column="sw_idx"/>
+  <resultMap id="map4" type="com.kdt.finalproject.vo.SuseVO">
+    <id property="su_idx" column="su_idx"/>
     <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO"
       select="search_s" column="s_idx"/>
   </resultMap>
@@ -56,14 +51,10 @@
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
-    SELECT * FROM bbslog
-    WHERE m_idx = #{m_idx}
+    SELECT * FROM bbs_t
+    WHERE b_idx = #{b_idx}
   </select>
 
-  <select id="search_bl_list2" resultMap="map3" parameterType="String">
-    SELECT * FROM bbslog
-    WHERE m_idx = #{m_idx}
-  </select>
 
   <select id="search_su_list" resultMap="map4" parameterType="String">
     SELECT * FROM service_use
@@ -82,7 +73,8 @@
 
   <select id="search_r" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
   select * from bbs_t
-  where b_idx = #{b_idx} and b_type = 1
+  where b_type = 1 and b_status = 0 and b_idx IN(
+  SELECT b_idx FROM bbslog WHERE m_idx= #{m_idx} and bl_type = 0)
   </select>
 
   <select id="search_s" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
@@ -95,7 +87,7 @@
   <select id="use_service_list" resultMap="map5" parameterType="String">
     SELECT * FROM charging.service_use
     WHERE c_idx IN (SELECT c_idx FROM charging.car_write
-		    WHERE m_idx = #{m_idx} AND cw_type = 0)
+		    WHERE m_idx = #{m_idx} AND cw_type = 0) and s_idx = #{s_idx}
   </select>
 
 
@@ -131,6 +123,20 @@
       values (1, #{m_idx}, #{c_idx}, now(), #{cw_state})
   </insert>
 
+  <update id="updateReview" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx">
+      UPDATE bbs_t
+      SET     
+              b_title = #{b_title},
+              b_content = #{b_content},
+              b_score = #{b_score}
+      WHERE b_idx = #{b_idx}
+    </update>
+
+  <insert id="updateReviewlog" parameterType="com.kdt.finalproject.vo.BbslogVO">
+      insert into bbslog (b_idx, m_idx, bl_date, bl_type)
+      values (#{b_idx}, #{m_idx}, now(), 1)
+  </insert>
+
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
         UPDATE member_t
         
@@ -162,6 +168,12 @@
     UPDATE car_write
     SET cw_state = 1
     WHERE cw_state = 0 and c_idx = #{c_idx} and m_idx = #{m_idx}
+  </update>
+
+  <update id="deleteReview" parameterType="com.kdt.finalproject.vo.BbsVO">
+    UPDATE bbs_t
+    SET b_status = 1
+    WHERE b_idx = #{b_idx} and b_status = 0
   </update>
 
 

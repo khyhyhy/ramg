@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!DOCTYPE html>
@@ -61,7 +62,7 @@
          <li><a class="dropdown-item" href="/mypage">정보 관리</a></li>
          <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
          <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
-         <li><a class="dropdown-item" href="/service_use">서비스 이용내역</a></li>
+         <li><a class="dropdown-item" href="/use_service_list">서비스 이용내역</a></li>
          <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
         </ul>
        </li>

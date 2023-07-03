@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.MypageMapper;
+import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
@@ -26,16 +27,16 @@ public class MypageService {
         return mapper.search_bl_list(m_idx);
     }
 
-    public List<BbslogVO> search_bl_list2(String m_idx) {
-        return mapper.search_bl_list2(m_idx);
-    }
-
     public List<SuseVO> search_su_list(String c_idx) {
         return mapper.search_su_list(c_idx);
     }
 
     public CarVO get_Car(String c_idx) {
         return mapper.get_car(c_idx);
+    }
+
+    public List<BbsVO> search_r(String m_idx) {
+        return mapper.search_r(m_idx);
     }
 
     public int addCar(CarVO cvo) {
@@ -62,11 +63,23 @@ public class MypageService {
         return mapper.updateMember(mvo);
     }
 
-    public List<SuseVO> use_service_list(String m_idx) {
-        return mapper.use_service_list(m_idx);
+    public List<SuseVO> use_service_list(String m_idx, String s_idx) {
+        return mapper.use_service_list(m_idx, s_idx);
     }
 
     public int deleteCar(String c_idx, String m_idx) {
         return mapper.deleteCar(c_idx, m_idx);
+    }
+
+    public int deleteReview(String b_idx) {
+        return mapper.deleteReview(b_idx);
+    }
+
+    public int updateReview(BbsVO bvo) {
+        return mapper.updateReview(bvo);
+    }
+
+    public int updateReviewlog(BbslogVO blvo) {
+        return mapper.updateReviewlog(blvo);
     }
 }
