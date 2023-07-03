@@ -90,7 +90,6 @@ public class AdminController {
     @RequestMapping("/admin/notice")
     public ModelAndView notice(String cPage, String searchType, String searchValue, String category) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
-        System.out.println(category);
 
         // ---------------------paging------------------------------
         int nowPage = 1;

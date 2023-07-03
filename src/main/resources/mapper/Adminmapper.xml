@@ -78,6 +78,9 @@ SELECT * FROM (
           <when test="category == 2">
            AND b_type = 4
           </when>
+          <when test="category == 3">
+           AND (b_type = 0 OR b_type = 4)
+          </when>
         </choose>
       </if>
       <if test="searchType != null and searchValue != null">
@@ -125,6 +128,9 @@ SELECT COUNT(*) FROM charging.bbs_t
           </when>
           <when test="category == 2">
            AND b_type = 4
+          </when>
+          <when test="category == 3">
+           AND (b_type = 0 OR b_type = 4)
           </when>
         </choose>
       </if>

@@ -23,25 +23,35 @@ pageEncoding="UTF-8"%>
             <span style="float: left; margin-right: 5px;">
                 <select name="category" class="form-select" aria-label="Default select example">
                     <c:if test="${param.category == 0}">
+                        <option value="3">전체</option>
                         <option value="0" selected>일반공지</option>
                         <option value="1">사업자공지</option>
                         <option value="2">FAQ</option>
                     </c:if>
                     <c:if test="${param.category == 1}">
+                        <option value="3">전체</option>
                         <option value="0">일반공지</option>
                         <option value="1" selected>사업자공지</option>
                         <option value="2">FAQ</option>
                     </c:if>
                     <c:if test="${param.category == 2}">
+                        <option value="3">전체</option>
                         <option value="0">일반공지</option>
                         <option value="1">사업자공지</option>
                         <option value="2" selected>FAQ</option>
                     </c:if>
-                    <c:if test="${param.category == null}">
+                    <c:if test="${param.category == 3}">
+                        <option value="3" selected>전체</option>
                         <option value="0">일반공지</option>
-                    <option value="1">사업자공지</option>
-                    <option value="2">FAQ</option>
-                </c:if>
+                        <option value="1">사업자공지</option>
+                        <option value="2">FAQ</option>
+                    </c:if>
+                    <c:if test="${param.category == null}">
+                        <option value="3">전체</option>
+                        <option value="0">일반공지</option>
+                        <option value="1">사업자공지</option>
+                        <option value="2">FAQ</option>
+                    </c:if>
             </select>
         </span>
             <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
