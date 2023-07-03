@@ -38,6 +38,7 @@ pageEncoding="UTF-8"%>
         <br>
       </div>
     </div>
+    
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
 </body>

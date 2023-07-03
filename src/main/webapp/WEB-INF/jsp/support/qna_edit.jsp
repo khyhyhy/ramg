@@ -64,9 +64,12 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
             </div>
                 
-            <input type="hidden" name="m_idx" value="2"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
             <input type="hidden" name="b_val1" id="b_val1">
             <input type="hidden" name="b_idx" value="${vo.b_idx}">
+            <input type="hidden" name="cPage" value="${param.cPage}">
+            <input type="hidden" name="searchType" value="${param.searchType}">
+            <input type="hidden" name="searchValue" value="${param.searchValue}">
         </form>
     </div>
 
