@@ -26,6 +26,7 @@ import com.kdt.finalproject.vo.MemVO;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class SupportController {
@@ -39,22 +40,31 @@ public class SupportController {
     @Autowired
     ResourceLoader resourceLoader;
 
+    @Autowired
+    HttpSession session;
+
     private String bbs_upload = "/bbs_upload"; // webapp에 있는 폴더를 의미
 
     @Autowired
     private HttpServletRequest request;
 
     @RequestMapping("/support/notice")
-    public ModelAndView notice(MemVO mvo, String cPage, String searchType, String searchValue) { // 공지사항 표시
+    public ModelAndView notice(String cPage, String searchType, String searchValue) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
 
-        BbsVO[] ar = null;
-        Support_noitce_paging page;
-        String pageCode;
-        int nowPage = 1;
-        int totalRecord;
+        MemVO mvo = null;
+        if (session.getAttribute("mvo") != null) {
+            mvo = (MemVO) session.getAttribute("mvo");
+        }
 
-        if (mvo.getM_class() == "1" || mvo.getM_class() == "2") { // 로그인 정보가 사업자거나 관리자라면 전체 공지 표시
+        BbsVO[] ar = null;
+        Support_noitce_paging page = null;
+        String pageCode = null;
+        int nowPage = 1;
+        int totalRecord = 0;
+
+        if (mvo != null && (mvo.getM_class().equals("1") || mvo.getM_class().equals("2"))) { // 로그인 정보가 사업자거나 관리자라면 전체
+                                                                                             // 공지 표시
             totalRecord = service.support_notice_count1(searchType, searchValue);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
