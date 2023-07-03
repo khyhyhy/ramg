@@ -165,6 +165,10 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
 
         let m_idx = $("#m_idx").val();
         let target = $("#target").val();
@@ -193,6 +197,10 @@ pageEncoding="UTF-8"%>
     }
 
     function qna_comm_del(b_idx){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
 
         let m_idx = $("#m_idx").val();
 
@@ -247,6 +255,10 @@ pageEncoding="UTF-8"%>
 
     }
     function qna_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/admin/qna_del";
             document.frm.submit();

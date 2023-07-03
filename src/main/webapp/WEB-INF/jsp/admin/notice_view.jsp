@@ -152,11 +152,20 @@ pageEncoding="UTF-8"%>
     }
 
     function edit(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         document.frm.action = "/admin/notice_edit";
         document.frm.submit();
     }
 
     function notice_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/admin/notice_del";
             document.frm.submit();

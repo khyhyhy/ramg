@@ -91,7 +91,9 @@ pageEncoding="UTF-8"%>
             <textarea name="b_content" id="b_content"></textarea>
             <div style="height: 80px; margin-top: 10px;">
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+                <c:if test="${session.mvo != null}">
+                    <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+                </c:if>
             </div>
                 
             <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
@@ -238,11 +240,20 @@ pageEncoding="UTF-8"%>
         }
 
     function edit(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         document.frm.action = "/support/qna_edit";
         document.frm.submit();
     }
 
     function qna_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+        
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/support/qna_del";
             document.frm.submit();
