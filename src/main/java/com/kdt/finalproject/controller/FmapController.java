@@ -28,18 +28,9 @@ public class FmapController {
 
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
 
-    @RequestMapping("/fmap2")
-    public ModelAndView searchCharger3() throws Exception {
-
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("/fmap/fmap2");
-
-        return mv;
-    }
-
-    @RequestMapping("/fmap")
+    @RequestMapping("/fmap/")
     public ModelAndView searchCharger() throws Exception {
-
+        System.out.println("////////////////////////////111");
         ModelAndView mv = new ModelAndView();
         // 한전공공api :
         // http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?serviceKey=bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D&pageNo=1&numOfRows=10&addr=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
