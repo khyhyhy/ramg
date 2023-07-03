@@ -44,26 +44,26 @@
         상단영역
        </div>
       </div>
-      <div class="row">
-       <div class="col">
-        <div class="list-group">
-         <form>
+      <form action="/taksong/serviceok" method="post">
+       <div class="row">
+        <div class="col">
+         <div class="list-group">
           <c:forEach items="${evo.cw_list}" var="vo" varStatus="status">
            <fieldset onclick="carinfo(this)">
             <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-             for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}</label>
+             for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}/${vo.cvo.c_type}</label>
             <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
             <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.c_val3} />
            </fieldset>
            <br />
           </c:forEach>
-         </form>
+
+         </div>
         </div>
-       </div>
-       <div class="col">
-        <ul class="list-group">
-         <form>
+        <div class="col">
+         <ul class="list-group">
+
           <c:forEach items="${servicear}" var="vo" varStatus="status">
            <fieldset onclick="serviceinfo(this)">
             <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
@@ -72,36 +72,51 @@
             <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
            </fieldset>
           </c:forEach>
-         </form>
-        </ul>
+         </ul>
+        </div>
+        <div class="col">
+         <label for="chargebar">충전량</label>
+         <input type="range" class="form-range custom-range" step="10" min="50" max="100" id="chargebar"
+          name="chargepersent" value="50" list="tickmarks" onchange="muckpho(this)">
+         <datalist id="tickmarks"></datalist>
+         <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+         <p id="battery"></p>
+         <p id="muckpho"></p>
+        </div>
        </div>
-       <div class="col">
-        <label for="chargebar">충전량</label>
-        <input type="range" class="form-range custom-range" step="10" min="50" max="100" id="chargebar"
-         name="chargepersent" value="50" list="tickmarks" onchange="muckpho(this)">
-        <datalist id="tickmarks"></datalist>
-        <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
-        <p id="battery"></p>
-        <p id="muckpho"></p>
+       <div class="row">
+        <div class="col"></div>
+        <div class="col"></div>
+        <div class="col">
+         <p>결제정보</p>
+         <p>서비스 비용 : 15.000</p>
+         <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
+         <p>총 비용 : 20.000</p>
+        </div>
        </div>
-      </div>
-      <div class="row">
-       <div class="col"></div>
-       <div class="col"></div>
-       <div class="col">
-        <p>결제정보</p>
-        <p>서비스 비용 : 15.000</p>
-        <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
-        <p>총 비용 : 20.000</p>
+       <div class="row">
+        <div class="col">
+         <div>
+          <input type="radio" class="btn-check" name="s_payment1" id="payment1" autocomplete="off" onclick="sinyoung()">
+          <label class="btn btn-outline-primary" for="payment1">신용카드</label>
+
+          <input type="radio" class="btn-check" name="s_payment1" id="payment2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="payment2">무통장거래</label>
+          <select style="display: none;" id="sinyong" name="s_payment2">
+           <option></option>
+          </select>
+         </div>
+        </div>
        </div>
-      </div>
-      <div class="row">
-       <div class="col">결제정보 들어갈 곳</div>
-      </div>
-      <div class="row">
-       <div class="col">결제버튼 들어갈 곳</div>
-      </div>
+       <div class="row"><br />
+       </div>
+       <div class="row">
+        <div class="col"><button type="submit" class="btn btn-primary btn-lg">서비스 신청하기</button></div>
+       </div>
      </div>
+     <input type="hidden" id="s_c_idx" name="s_c_idx" />
+     <input type="hidden" id="s_s_idx" name="s_s_idx" />
+     </form>
     </main>
    </div>
    <!--////////// Main end //////////////-->
@@ -112,16 +127,22 @@
 
     var btank;
     var khw = 34.72;
+
+    function sinyoung() {
+     document.getElementById("sinyong").style()
+    }
+
     function carinfo(f) {
      console.log("c_idx==/" + f.querySelector('input[name="c_idx"]').value);
      console.log("c_val3==" + f.querySelector('input[name="c_val3"]').value);
      btank = f.querySelector('input[name="c_val3"]').value
      document.getElementById("battery").innerText = btank + "kWh";
+     document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
     }
 
     function serviceinfo(f) {
      console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
-
+     document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
     }
 
     function muckpho(e) {
@@ -135,30 +156,6 @@
 
      document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice + "원";
     }
-
-
-    function createTickmarks() {
-     var tickmarksContainer = document.getElementById("tickmarks");
-     var min = parseInt(document.getElementById("chargebar").min);
-     var max = parseInt(document.getElementById("chargebar").max);
-     var step = 10;
-
-     tickmarksContainer.innerHTML = ""; // 기존 눈금 삭제
-
-     for (var i = min; i <= max; i += step) {
-      var option = document.createElement("option");
-      option.value = i;
-      option.text = i;
-      tickmarksContainer.appendChild(option);
-     }
-    }
-
-    // 페이지 로드 시 눈금 생성
-    window.addEventListener("load", createTickmarks);
-
-    // 값이 변경될 때마다 눈금 업데이트
-    document.getElementById("chargebar").addEventListener("input", createTickmarks);
-
 
    </script>
   </body>
