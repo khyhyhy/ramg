@@ -150,23 +150,20 @@ WHERE b_type = 4 AND b_status = 0 AND b_val1 = 0
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
   SELECT * FROM charging.bbs_t 
-  <where>
-  b_status = 0 AND b_type = 2 
+  WHERE (b_status = 0 AND b_type = 2 )
         <if test="searchType != null and searchValue != null">
-        AND
           <choose>
             <when test="searchType == 0">
-                b_title LIKE concat('%',#{searchValue},'%')
+              AND b_title LIKE concat('%',#{searchValue},'%')
             </when>
             <when test="searchType == 1">
-                b_content LIKE concat('%',#{searchValue},'%')
+              AND b_content LIKE concat('%',#{searchValue},'%')
             </when>
             <when test="searchType == 2">
-                b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
             </when>
           </choose>
         </if>
-      </where>
   ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -190,24 +187,21 @@ WHERE m_idx = #{m_idx}
 
 <!--문의 갯수-->
 <select id="support_qna_count" resultType="int">
-SELECT COUNT(*) FROM charging.bbs_t 
-<where>
-b_status = 0 AND b_type = 2
-      <if test="searchType != null and searchValue != null">
-      AND
-        <choose>
-          <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
-      </if>
-    </where>
+  SELECT COUNT(*) FROM charging.bbs_t 
+  WHERE b_status = 0 AND b_type = 2
+    <if test="searchType != null and searchValue != null">
+      <choose>
+        <when test="searchType == 0">
+            AND b_title LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 1">
+            AND b_content LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 2">
+            AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+        </when>
+      </choose>
+    </if>
 </select>
 
 

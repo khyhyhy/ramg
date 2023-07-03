@@ -84,6 +84,7 @@ pageEncoding="UTF-8"%>
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
             <input type="hidden" name="bl_date" value="${param.bl_date}">
+            <input type="hidden" name="category" value="${param.category}">
         </form>
     </div>
 
@@ -92,6 +93,7 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="category" value="${param.category}">
     </form>
 
 </main>
@@ -142,6 +144,11 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData() {
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+
         if($("#flexCheckDefault").is(":checked")){ 
             $("#b_type").val("4"); // 체크되었으면 자주하는 질문, b_type => 4
             $("#b_to").val("0"); // FAQ는 무조건 전체공개

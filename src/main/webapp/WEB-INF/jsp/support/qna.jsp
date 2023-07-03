@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="6">검색 결과가 없습니다.</td>
+                        <td colspan="5">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">

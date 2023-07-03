@@ -59,7 +59,13 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
             <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+                <input type="hidden" id="b_val1" value="${vo.b_val1}"/>
+                <button type="button" class="btn btn-outline-info" onclick="javascript:back();">목록</button>
+                <button type="button" class="btn btn-outline-info" onclick="javascript:qna_change()" id="btn">
+                    <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
+                    <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
+                </button>
+                <span style="float: right;"><button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button></span>
             </div>
             
             <table class="table table-bordered" style="margin: 0;" id="comm_table">
@@ -84,11 +90,12 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
             </div>
 
-            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
-            <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
-            <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
+                <input type="hidden" name="b_idx" value="${vo.b_idx}">
+                <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
+                <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
+                <input type="hidden" name="target" value="${vo.b_idx}" id="target">
                 <input type="hidden" name="fname">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
@@ -158,6 +165,10 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
 
         let m_idx = $("#m_idx").val();
         let target = $("#target").val();
@@ -186,6 +197,10 @@ pageEncoding="UTF-8"%>
     }
 
     function qna_comm_del(b_idx){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
 
         let m_idx = $("#m_idx").val();
 
@@ -203,6 +218,53 @@ pageEncoding="UTF-8"%>
             })
         }else
             return;
+    }
+
+    function qna_change(){
+
+        let b_idx = $("#target").val();
+        let b_val1 = $("#b_val1").val();
+        let msg = "";
+
+        if(b_val1 == '0'){
+            b_val1 = '1';
+            msg = "해당 글을 비공개로 변경하시겠습니까?";
+        }else{
+            b_val1 = '0';
+            msg = "해당 글을 공개로 변경하시겠습니까?";
+        }
+        if(confirm(msg)){
+            $.ajax({
+                url: "/admin/qna_change",
+                type: "post",
+                data: {"b_idx": b_idx, "b_val1": b_val1},
+                dataType: "json"
+            }).done(function(data){
+                if(data.res == 1){
+                    if(b_val1 == '1'){
+                        $("#b_val1").val(1);
+                        $("#btn").text("공개로 변경하기");
+                    }else{
+                        $("#b_val1").val(0);
+                        $("#btn").text("비공개로 변경하기");
+                    }
+                }
+            })
+        }else
+            return;
+
+    }
+    function qna_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+        if(confirm("정말로 삭제하시겠습니까?")){
+            document.frm.action = "/admin/qna_del";
+            document.frm.submit();
+        }else{
+            return;
+        }
     }
     
 </script>

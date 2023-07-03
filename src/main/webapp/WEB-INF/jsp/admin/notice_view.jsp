@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
                     <th>구분</th>
                     <td>
                         <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
-                            전체 공지
+                           일반 공지
                         </c:if>
                         <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
                             사업자 공지
@@ -69,6 +69,7 @@ pageEncoding="UTF-8"%>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
                 <input type="hidden" name="searchType" value="${param.searchType}"/>
                 <input type="hidden" name="searchValue" value="${param.searchValue}"/>
+                <input type="hidden" name="category" value="${param.category}">
             </form>
 
             <div style="height: 80px;" >
@@ -151,11 +152,20 @@ pageEncoding="UTF-8"%>
     }
 
     function edit(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         document.frm.action = "/admin/notice_edit";
         document.frm.submit();
     }
 
     function notice_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/admin/notice_del";
             document.frm.submit();
