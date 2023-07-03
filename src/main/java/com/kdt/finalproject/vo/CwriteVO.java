@@ -14,4 +14,5 @@ public class CwriteVO {
     List<CarVO> car_list;
 
     private CarVO cvo;
+    private List<SuseVO> suvo;
 }

@@ -68,42 +68,47 @@
                        <th colspan="2" style="text-align: center;">서비스 상태</th>
                    </tr>
                </thead>
-
+               
+               
                <tbody>
-                   <tr style="height: 150px; margin-bottom: 100px;">
-                       <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
-                       <td style="text-align: center; vertical-align: middle;"></td>
-                       <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
-                       <td style="text-align: center; vertical-align: middle;">서비스 금액</td>
-                       <td style="text-align: center; vertical-align: middle;">충전 금액</td>
-                       <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
-                    
-                       <c:choose>
-                            <c:when test="${suvo.su_status == 5}">
-                                <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
-                            </c:when>
-                            <c:when test="${suvo.su_status == 1}">
-                                <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
-                            </c:when>
-                            <c:when test="${suvo.su_status == 2}">
-                                <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 이동중</td>
-                            </c:when>
-                            <c:when test="${suvo.su_status == 3}">
-                                <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 도착</td>
-                            </c:when>
-                            <c:when test="${suvo.su_status == 4}">
-                                <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
-                            </c:when>
-                            <c:when test="${suvo.su_status == 0}">
-                                <td style="text-align: center; vertical-align: middle;">충전완료</td>
-                                <td style="text-align: center; vertical-align: middle;">
-                                    <button type="button">후기 작성</button>
-                                </td>
-                            </c:when>
-                        </c:choose>
+                   <c:forEach items="${suar}" var="suar">
                        
-                    </tr>
-               </tbody>
+                       <tr style="height: 150px; margin-bottom: 100px;">
+                        <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
+                           <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}</td>   
+                           <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
+                           <td style="text-align: center; vertical-align: middle;">서비스 금액</td>
+                           <td style="text-align: center; vertical-align: middle;">충전 금액</td>
+                           <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+
+                           <!-- <c:choose>
+                               <c:when test="${suar.su_status == 5}">
+                                   <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 1}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 2}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 이동중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 3}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 도착</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 4}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 0}">
+                                    <td style="text-align: center; vertical-align: middle;">충전완료</td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <button type="button">후기 작성</button>
+                                    </td>
+                                </c:when>
+                            </c:choose> -->
+                        </tr>
+                    
+                        
+                    </c:forEach>  
+                    </tbody>
         </table>
 
       </div>

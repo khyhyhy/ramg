@@ -26,10 +26,14 @@ public interface EdongsikMapper {
 
     CarVO carList3(String c_idx);
 
-    // SuseVO getDummy();
+    SuseVO getDummy();
 
-    // SwriteVO getBusiness(String s_idx);
+    SwriteVO getBusiness(String s_idx);
 
-    // List<SwriteVO> getOrderList(String m_idx);
+    List<CwriteVO> getOrderList(String m_idx);
+
+    MemVO mvo2(String m_idx);
+
+    ServiceVO svo2(String s_idx);
 
 }

@@ -12,6 +12,7 @@ public class SwriteVO {
   MemVO mvo;
   ServiceVO svo;
   CarVO cvo;
-  SuseVO suvo;
 
+  MemVO mvo2;
+  ServiceVO svo2;
 }

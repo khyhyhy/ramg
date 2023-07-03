@@ -157,7 +157,7 @@
                <tbody>
                    <tr style="height: 150px; margin-bottom: 100px;">
                        <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
-                       <td style="text-align: center; vertical-align: middle;"></td>
+                       <td style="text-align: center; vertical-align: middle;">${mvo.m_name} ${mvo.m_phone}</td>
                        <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
                        <td style="text-align: center; vertical-align: middle;">서비스 금액</td>
                        <td style="text-align: center; vertical-align: middle;">충전 금액</td>
