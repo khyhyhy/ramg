@@ -3,6 +3,7 @@ package com.kdt.finalproject.controller;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -82,9 +83,9 @@ public class FmapController {
                     statUpdateDatetime);
             ar[i++] = vo;
         }
+
         mv.addObject("ar", ar);
         mv.setViewName("/fmap/fmap");
-        System.out.println("ddddddddddddd여기왔어");
         return mv;
     }
 
@@ -92,7 +93,7 @@ public class FmapController {
     @ResponseBody
     public Map<String, Object> searchFestival2(String lati3, String lon3, String lati2, String lon2) throws Exception {
         Map<String, Object> map = new HashMap<>();
-
+        System.out.println("/////////////////////11");
         String apiKey = "f7b7653182e4c0612dac5e8cd9ea9c19";
         StringBuffer sb = new StringBuffer();
         sb.append("https://apis-navi.kakaomobility.com/v1/directions");
@@ -101,26 +102,25 @@ public class FmapController {
         sb.append("&car_fuel=GASOLINE");
         sb.append("&origin=" + lon3 + "%2C" + lati3); // 출발지 위도경도
         sb.append("&destination=" + lon2 + "%2C" + lati2); // 도착지 위도경도
-        System.out.println(sb.toString());
-
+        System.out.println("/////////////////////22");
         URL url = new URL(sb.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestProperty("Authorization", "KakaoAK " + apiKey);
         conn.setRequestProperty("Content-Type", "application/json");
         conn.connect();
-
+        System.out.println("/////////////////////33");
         if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
             // API 호출이 성공한 경우
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode root = objectMapper.readTree(conn.getInputStream());
             JsonNode routes = root.get("routes");
-            System.out.println("////////////////");
+
             map.put("key", routes);
         } else {
             // API 호출이 실패한 경우
             map.put("error", "API 호출 실패: " + conn.getResponseCode());
         }
-        System.out.println("////////////////444");
+        System.out.println("/////////////////////");
         return map;
     }
 }
