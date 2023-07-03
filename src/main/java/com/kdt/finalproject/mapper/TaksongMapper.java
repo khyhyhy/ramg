@@ -24,4 +24,9 @@ public interface TaksongMapper {
  CarVO cvo(String c_idx);
 
  List<CwriteVO> cwselect(String m_idx);
+
+ CarVO carList(String c_idx);
+
+ ServiceVO[] getService(String state);
+
 }

@@ -61,7 +61,7 @@ pageEncoding="UTF-8"%>
 
             <div style="height: 80px;" >
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <c:if test="${vo.bbslog.m_idx == 2}"><!--session.mvo.m_idx 로 변경해야 함-->
+                <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
                     <span style="float: right;" >
                         <button type="button" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
                         <button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button>
@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
                 <c:forEach items="${ar}" var="vo">
                     <tr>
                         <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
-                            <c:if test="${vo.bbslog.m_idx == 0}"><!--session.mvo.m_idx 로 변경해야 함-->
+                            <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
                                 <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span>
                             </c:if>
                         </th>
@@ -91,15 +91,17 @@ pageEncoding="UTF-8"%>
             <textarea name="b_content" id="b_content"></textarea>
             <div style="height: 80px; margin-top: 10px;">
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+                <c:if test="${session.mvo != null}">
+                    <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+                </c:if>
             </div>
                 
-            <input type="hidden" name="m_name" value="댓글" id="m_name"> <!--로그인 정보 생기면 ${session.mvo.m_name}로 바꿔야 함-->
+            <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname">
-                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+                <input type="hidden" name="m_idx" value=" ${sessionScope.mvo.m_idx}" id="m_idx">
                 <input type="hidden" name="b_idx" value="${vo.b_idx}">
                 <input type="hidden" name="cPage" value="${param.cPage}">
                 <input type="hidden" name="searchType" value="${param.searchType}">
@@ -115,20 +117,40 @@ pageEncoding="UTF-8"%>
 <script>
 
     $(function () {
-
-    $("#b_content").summernote({
-        lang: "ko-KR",
-        placeholder: "댓글을 입력하세요",
-        height: 200,
-        callbacks: {
-            onImageUpload: function (files, editor) {
-                // 이미지가 에디터에 추가될 때마다 수행하는 곳 이미지를 첨부하면 배열로 인식된다. 비동기식 통신을 수행하면 서버에 업로드를 시킬 수 있다.
-                for (let i = 0; i < files.length; i++) 
+        
+        if('${sessionScope.mvo}'== ""){
+            $("#b_content").summernote({
+            lang: "ko-KR",
+            placeholder: "댓글을 작성하려면 먼저 로그인 해주세요",
+            height: 200,
+            callbacks: {
+                onImageUpload: function (files, editor) {
+                    // 이미지가 에디터에 추가될 때마다 수행하는 곳 이미지를 첨부하면 배열로 인식된다. 비동기식 통신을 수행하면 서버에 업로드를 시킬 수 있다.
+                    for (let i = 0; i < files.length; i++) 
                     sendImg(files[i], editor); // 서버와 비동기식 통신을 하는 함수 호출
                 }
             }
-    });
+            });
+            $('#b_content').summernote('disable');
+        }else{
+            $("#b_content").summernote({
+            lang: "ko-KR",
+            placeholder: "댓글을 입력하세요",
+            height: 200,
+            callbacks: {
+                onImageUpload: function (files, editor) {
+                    // 이미지가 에디터에 추가될 때마다 수행하는 곳 이미지를 첨부하면 배열로 인식된다. 비동기식 통신을 수행하면 서버에 업로드를 시킬 수 있다.
+                    for (let i = 0; i < files.length; i++) 
+                    sendImg(files[i], editor); // 서버와 비동기식 통신을 하는 함수 호출
+                }
+            }
+            });
+        }
+            
 
+            
+        
+        
     });
 
     function sendImg(file, editor) {
@@ -218,11 +240,20 @@ pageEncoding="UTF-8"%>
         }
 
     function edit(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         document.frm.action = "/support/qna_edit";
         document.frm.submit();
     }
 
     function qna_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+        
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/support/qna_del";
             document.frm.submit();

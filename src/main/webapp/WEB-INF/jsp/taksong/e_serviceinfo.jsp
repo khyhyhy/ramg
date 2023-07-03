@@ -47,18 +47,12 @@
       <form action="/taksong/serviceok" method="post">
        <div class="row">
         <div class="col">
-         <div class="list-group">
-          <c:forEach items="${mvo.cw_list}" var="vo" varStatus="status">
-           <fieldset onclick="carinfo(this)">
-            <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
-            <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-             for="car${status.index}">${vo.m_idx}/${vo.cvo.c_name}/${vo.cvo.c_type}</label>
-            <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
-            <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.c_val3} />
-           </fieldset>
-           <br />
-          </c:forEach>
-
+         <div class="list-group" onclick="carinfo(this)">
+          <input type="radio" class="btn-check" name="car" id='car' autocomplete="off" />
+          <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+           for="car">${sessionScope.mvo.m_idx}/${cvo.c_name}/${cvo.c_type}</label>
+          <input type="hidden" name="c_idx" value=${cvo.c_idx} />
+          <input type="hidden" id="tank" name="c_val3" value=${cvo.c_val3} />
          </div>
         </div>
         <div class="col">
@@ -70,7 +64,6 @@
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
              for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
             <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
-            <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
            </fieldset>
           </c:forEach>
          </ul>
@@ -90,9 +83,9 @@
         <div class="col"></div>
         <div class="col">
          <p>결제정보</p>
-         <p id="sprice">서비스&nbsp;비용&nbsp;:&nbsp;원</p>
+         <p>서비스 비용 : </p>
          <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
-         <p id="fprice">총&nbsp;비용&nbsp;:&nbsp;원</p>
+         <p>총 비용 : 20.000</p>
         </div>
        </div>
        <div class="row">
@@ -128,9 +121,7 @@
 
     var btank;
     var khw = 34.72;
-    let serviceprice;
-    let chargeprice;
-    var f_price;
+
     function sinyoung() {
      document.getElementById("sinyong").style()
     }
@@ -141,46 +132,25 @@
      btank = f.querySelector('input[name="c_val3"]').value
      document.getElementById("battery").innerText = btank + "kWh";
      document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
-     if (chargeprice != null) {
-      chargeprice = null;
-     }
-     l_price();
     }
 
     function serviceinfo(f) {
-     serviceprice = f.querySelector('input[name="s_price"]').value;
      console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
      document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
-     var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-     document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
-
-     l_price()
     }
 
     function muckpho(e) {
 
      document.getElementById("muckpho").innerText = e.value + "%"
-     chargeprice = (btank / 100 * e.value) * khw;
+     var chargeprice = (btank / 100 * e.value) * khw
      console.log(chargeprice);
      console.log(btank);
      chargeprice = Math.floor(chargeprice).toString();
-     var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     chargeprice = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
-     l_price()
+     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice + "원";
     }
 
-    function l_price() {
-     if (chargeprice != null && serviceprice != null) {
-      f_price = Number(chargeprice) + Number(serviceprice);
-
-      f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
-     }
-     else {
-      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
-     }
-    }
    </script>
   </body>
 

@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%>
                     <th>구분</th>
                     <td>
                         <c:if test="${vo.b_to == 0 && vo.b_type == 0}">
-                            전체 공지
+                           일반 공지
                         </c:if>
                         <c:if test="${vo.b_to == 1 && vo.b_type == 0}">
                             사업자 공지
@@ -63,12 +63,13 @@ pageEncoding="UTF-8"%>
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname"/>
-                <input type="hidden" name="m_idx" value="0" id="m_idx"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+                <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
                 <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
                 <input type="hidden" name="b_val1" value="${vo.b_val1}" id="b_val1"/>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
                 <input type="hidden" name="searchType" value="${param.searchType}"/>
                 <input type="hidden" name="searchValue" value="${param.searchValue}"/>
+                <input type="hidden" name="category" value="${param.category}">
             </form>
 
             <div style="height: 80px;" >
@@ -151,11 +152,20 @@ pageEncoding="UTF-8"%>
     }
 
     function edit(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
         document.frm.action = "/admin/notice_edit";
         document.frm.submit();
     }
 
     function notice_del(){
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+
         if(confirm("정말로 삭제하시겠습니까?")){
             document.frm.action = "/admin/notice_del";
             document.frm.submit();

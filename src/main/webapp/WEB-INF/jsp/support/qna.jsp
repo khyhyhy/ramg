@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="6">검색 결과가 없습니다.</td>
+                        <td colspan="5">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
@@ -80,14 +80,14 @@ pageEncoding="UTF-8"%>
                                     [${vo.c_list.size()}]
                                 </c:if>
                             </c:if>
-                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx != 2}"><span style="color: rgb(179, 179, 179);">비밀글입니다.</span></c:if> <!--session으로 바꿔야 함 / 남이 쓴 비밀글일 경우-->
-                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == 2}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a><!--session으로 바꿔야 함 / 내가쓴 비밀글일 경우-->
+                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx != sessionScope.mvo.m_idx}"><span style="color: rgb(179, 179, 179);">비밀글입니다.</span></c:if> <!--남이 쓴 비밀글일 경우-->
+                            <c:if test="${vo.b_val1 == 1 && vo.bbslog.m_idx == sessionScope.mvo.m_idx}"><a href="javascript:sub('${vo.b_idx}')">${vo.b_title}</a><!--내가쓴 비밀글일 경우-->
                                 <c:if test="${vo.c_list.size() != 0}">
                                     [${vo.c_list.size()}]
                                 </c:if>
                             </c:if> 
                             <c:if test="${vo.b_filename != null}">
-                                <c:if test="${vo.b_val1 == 0 && vo.bbslog.m_idx == 2}"><!--session으로 바꿔야 함 / 남이 쓴 비밀글일 경우-->
+                                <c:if test="${vo.b_val1 == 0}">
                                     <img src="../images/link.png" style="width: 14px;">
                                 </c:if>
                             </c:if>
@@ -102,7 +102,9 @@ pageEncoding="UTF-8"%>
         </table>
         <div style="height: 80px;" >
             ${pageCode}
-            <input type="button" style="float: right;" class="btn btn-outline-info" value="글쓰기" onclick="sub2()">
+            <c:if test="${sessionScope.mvo != null}">
+                <input type="button" style="float: right;" class="btn btn-outline-info" value="글쓰기" onclick="sub2()">
+            </c:if>
         </div>
 
         <form name="frm" method="post">

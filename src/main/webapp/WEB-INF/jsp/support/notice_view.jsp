@@ -25,7 +25,7 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <tr>
                     <th>작성일</th>
-                    <td>${param.bl_date}</td>
+                    <td>${vo.bbslog.bl_date}</td>
                 </tr>
                 <tr>
                     <th>제목</th>

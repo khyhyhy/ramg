@@ -28,7 +28,7 @@
    <article>
     <h1>서비스 이용 내역</h1>
    </article>
-   <table id="car_list">
+   <table id="su_list">
     <colgroup>
         <col width="150px"/>
         <col width="150px"/>

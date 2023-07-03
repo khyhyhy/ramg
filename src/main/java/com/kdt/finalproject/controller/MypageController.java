@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.MypageService;
+import com.kdt.finalproject.vo.BbsVO;
+import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SuseVO;
 
 @Controller
@@ -69,9 +72,18 @@ public class MypageController {
     }
 
     @GetMapping("my_review")
-    public ModelAndView search_bl_list2(String m_idx) {
+    public ModelAndView search_r(String m_idx) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("mr", service.search_bl_list2(m_idx));
+        if (m_idx == null) {
+            // 로그인한 회원의 m_idx를 얻어내자
+            Object obj = session.getAttribute("mvo");
+
+            if (obj != null) {
+                MemVO mvo = (MemVO) obj;
+                m_idx = mvo.getM_idx();
+            }
+        }
+        mv.addObject("mr", service.search_r(m_idx));
         mv.setViewName("mypage/my_review");
         return mv;
     }
@@ -211,10 +223,65 @@ public class MypageController {
 
     }
 
-    @GetMapping("use_service_list")
-    public ModelAndView use_service_list(String m_idx) {
-        ModelAndView mv = new ModelAndView();
+    @GetMapping("updateReview")
+    public ModelAndView updateReview(String b_idx) {
 
+        ModelAndView mv = new ModelAndView();
+        BbsVO bvo = service.get_bbs(b_idx);
+
+        mv.addObject("bvo", bvo);
+        mv.setViewName("mypage/updateReview");
+
+        return mv;
+
+    }
+
+    // @GetMapping("updateReview")
+    // public String updateReview(String b_idx) {
+
+    // return "mypage/updateReview";
+    // }
+
+    @PostMapping("/updateReview")
+    @ResponseBody
+    public Map<String, Integer> updateReview(BbsVO bvo) {
+        Map<String, Integer> map = new HashMap<>();
+
+        Object obj = session.getAttribute("mvo");
+
+        if (obj != null) {
+            MemVO mvo = (MemVO) obj;
+            int cnt = service.updateReview(bvo);
+            map.put("res", cnt);
+
+            if (cnt > 0) {
+                BbslogVO blvo = new BbslogVO();
+                blvo.setM_idx(mvo.getM_idx());
+                blvo.setB_idx(bvo.getB_idx());
+
+                service.updateReviewlog(blvo);
+            }
+        }
+        return map; // 호출한 updateMember.jsp의 비동기식 통신의 done영역으로 json으로 전달됨!
+
+    }
+
+    @RequestMapping("updateBbslog")
+    public ModelAndView updateBbslog(BbslogVO blvo) {
+        // System.out.println(m_idx);
+
+        ModelAndView mv = new ModelAndView();
+        int cnt = service.updateReviewlog(blvo);
+
+        mv.addObject("cnt", cnt);
+        mv.setViewName("redirect:/my_review");
+        return mv;
+
+    }
+
+    @GetMapping("use_service_list")
+    public ModelAndView use_service_list(String m_idx, String s_idx) {
+        ModelAndView mv = new ModelAndView();
         if (m_idx == null) {
             // 로그인한 회원의 m_idx를 얻어내자
             Object obj = session.getAttribute("mvo");
@@ -225,9 +292,18 @@ public class MypageController {
             }
         }
 
-        List<SuseVO> list = service.use_service_list(m_idx);
+        if (s_idx == null) {
+            // 로그인한 회원의 m_idx를 얻어내자
+            Object obj = session.getAttribute("svo");
+
+            if (obj != null) {
+                ServiceVO svo = (ServiceVO) obj;
+                s_idx = svo.getS_idx();
+            }
+        }
+        List<SuseVO> list = service.use_service_list(m_idx, s_idx);
         mv.addObject("s_list", list);
-        mv.setViewName("mypage/service_use");
+        mv.setViewName("mypage/use_service_list");
 
         return mv;
     }
@@ -242,6 +318,18 @@ public class MypageController {
         cwvo.setCw_state("1");
 
         int cnt = service.updateCarWrite(cwvo);
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("res", cnt);
+
+        return map;
+    }
+
+    @RequestMapping("/deleteReview")
+    @ResponseBody
+    public Map<String, Integer> deleteReview(String b_idx) {
+
+        int cnt = service.deleteReview(b_idx);
 
         Map<String, Integer> map = new HashMap<>();
         map.put("res", cnt);

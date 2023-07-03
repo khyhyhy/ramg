@@ -77,13 +77,14 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
             </div>
                 
-            <input type="hidden" name="m_idx" value="0"> <!--로그인 정보 생기면 ${session.mvo.m_idx}로 바꿔야 함-->
+            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">
             <input type="hidden" name="b_idx" value="${vo.b_idx}">
             <input type="hidden" name="b_type" id="b_type">
             <input type="hidden" name="cPage" value="${param.cPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
             <input type="hidden" name="bl_date" value="${param.bl_date}">
+            <input type="hidden" name="category" value="${param.category}">
         </form>
     </div>
 
@@ -92,6 +93,7 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="category" value="${param.category}">
     </form>
 
 </main>
@@ -142,6 +144,11 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData() {
+        if('${sessionScope.mvo}' == ""){
+            alert("로그인을 먼저 해주세요");
+            return;
+        }
+
         if($("#flexCheckDefault").is(":checked")){ 
             $("#b_type").val("4"); // 체크되었으면 자주하는 질문, b_type => 4
             $("#b_to").val("0"); // FAQ는 무조건 전체공개

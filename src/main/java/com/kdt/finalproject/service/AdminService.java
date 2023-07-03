@@ -38,10 +38,10 @@ public class AdminService {
     }
 
     // 공지사항 불러오기
-    public BbsVO[] notice_all(int begin, int end, String searchType, String searchValue) {
+    public BbsVO[] notice_all(int begin, int end, String searchType, String searchValue, String category) {
         BbsVO[] ar = null;
 
-        List<BbsVO> list = mapper.notice_all(begin, end, searchType, searchValue);
+        List<BbsVO> list = mapper.notice_all(begin, end, searchType, searchValue, category);
         if (list != null && list.size() > 0) {
             ar = new BbsVO[list.size()];
             list.toArray(ar);
@@ -50,8 +50,8 @@ public class AdminService {
     }
 
     // 공지사항 페이징
-    public int notice_count(String searchType, String searchValue) {
-        return mapper.notice_count(searchType, searchValue);
+    public int notice_count(String searchType, String searchValue, String category) {
+        return mapper.notice_count(searchType, searchValue, category);
     }
 
     // 공지사항 상세정보
@@ -154,5 +154,18 @@ public class AdminService {
 
     public int notice_del2(BbslogVO vo) {
         return mapper.notice_del2(vo);
+    }
+
+    // 문의 공개/비공개 변경
+    public int qna_change(String b_idx, String b_val1) {
+        return mapper.qna_change(b_idx, b_val1);
+    }
+
+    public int qna_del(String b_idx) {
+        return mapper.qna_del(b_idx);
+    }
+
+    public int qna_del2(BbslogVO vo) {
+        return mapper.qna_del2(vo);
     }
 }

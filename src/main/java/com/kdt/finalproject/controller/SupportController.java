@@ -142,11 +142,14 @@ public class SupportController {
     }
 
     @RequestMapping("/support/qna")
-    public ModelAndView qna(BbsVO vo, String cPage, String searchType, String searchValue) {
+    public ModelAndView qna(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
         int nowPage = 1;
         int totalRecord = service.support_qna_count(searchType, searchValue);
+
+        if (cPage != null)
+            nowPage = Integer.parseInt(cPage);
 
         Support_qna_paging page = new Support_qna_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
         String pageCode = page.getSb().toString();
@@ -170,10 +173,10 @@ public class SupportController {
 
         service.qna_hit(b_idx); // 조회수 증가
         BbsVO vo = service.qna_view(b_idx);
-        BbsVO[] ar = service.qna_comm(b_idx);
+        BbsVO[] car = service.qna_comm(b_idx);
 
         mv.addObject("vo", vo);
-        mv.addObject("ar", ar);
+        mv.addObject("ar", car);
         mv.setViewName("/support/qna_view");
         return mv;
     }

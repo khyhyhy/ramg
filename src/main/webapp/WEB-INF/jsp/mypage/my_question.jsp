@@ -31,7 +31,7 @@
    </article>
 
    <div id="content">
-    <table id="car_list">
+    <table id="bl_list">
         <colgroup>
             <col width="150px"/>
             <col width="150px"/>

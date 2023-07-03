@@ -1,5 +1,7 @@
 package com.kdt.finalproject.vo;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,4 +16,5 @@ public class BbslogVO {
             bl_val1, bl_val2, bl_val3, bl_val4, bl_val5;
     private MemVO mvo;
     private BbsVO bvo;
+    private List<BbsVO> bl_list;
 }

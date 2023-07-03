@@ -63,7 +63,26 @@ WHERE m_idx = #{m_idx}
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
-    WHERE (b_type = 0 OR b_type = 4) AND b_status = 0
+    WHERE b_status = 0
+      <if test="category == null">
+        AND (b_type = 0 OR b_type = 4)
+      </if>
+      <if test="category != null">
+        <choose>
+          <when test="category == 0">
+           AND b_type = 0 AND b_to = 0
+          </when>
+          <when test="category == 1">
+           AND b_type = 0 AND b_to = 1
+          </when>
+          <when test="category == 2">
+           AND b_type = 4
+          </when>
+          <when test="category == 3">
+           AND (b_type = 0 OR b_type = 4)
+          </when>
+        </choose>
+      </if>
       <if test="searchType != null and searchValue != null">
         <choose>
           <when test="searchType == 0">
@@ -95,7 +114,26 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <!-- (Paging) 공지사항 총 갯수 -->
 <select id="notice_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
-    WHERE (b_type = 0 OR b_type = 4) AND b_status = 0
+    WHERE b_status = 0
+      <if test="category == null">
+        AND (b_type = 0 OR b_type = 4)
+      </if>
+      <if test="category != null">
+        <choose>
+          <when test="category == 0">
+           AND b_type = 0 AND b_to = 0
+          </when>
+          <when test="category == 1">
+           AND b_type = 0 AND b_to = 1
+          </when>
+          <when test="category == 2">
+           AND b_type = 4
+          </when>
+          <when test="category == 3">
+           AND (b_type = 0 OR b_type = 4)
+          </when>
+        </choose>
+      </if>
       <if test="searchType != null and searchValue != null">
         <choose>
           <when test="searchType == 0">
@@ -327,6 +365,15 @@ SET b_val1 = 0
 WHERE b_idx = #{b_idx}
 </update>
 
+
+<!--문의 공개 변경-->
+<update id="qna_change" parameterType="Map">
+UPDATE charging.bbs_t
+SET b_val1 = #{b_val1}
+WHERE b_idx = #{b_idx}
+</update>
+
+
 <!--회원 탈퇴-->
 <update id="member_out" parameterType="String">
 UPDATE charging.member_t
@@ -348,17 +395,29 @@ INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
 VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
 </insert>
 
-<!-- 문의 삭제-->
+<!-- 공지 삭제-->
 <update id="notice_del" parameterType="String">
 UPDATE charging.bbs_t
 SET b_status = 1
 WHERE b_idx = #{b_idx}
 </update>
 
-<!-- 문의 삭제 (로그)-->
+<!-- 공지 삭제 (로그)-->
 <insert id="notice_del2" parameterType="com.kdt.finalproject.vo.BbslogVO">
 INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
 VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
 </insert>
 
+<!-- 문의 삭제-->
+<update id="qna_del" parameterType="String">
+UPDATE charging.bbs_t
+SET b_status = 1
+WHERE b_idx = #{b_idx}
+</update>
+
+<!-- 문의 삭제 (로그)-->
+<insert id="qna_del2" parameterType="com.kdt.finalproject.vo.BbslogVO">
+INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
+VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
+</insert>
 </mapper>

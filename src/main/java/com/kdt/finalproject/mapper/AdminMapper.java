@@ -13,9 +13,9 @@ public interface AdminMapper {
 
     MemVO member_view(String m_idx);
 
-    List<BbsVO> notice_all(int begin, int end, String searchType, String searchValue);
+    List<BbsVO> notice_all(int begin, int end, String searchType, String searchValue, String category);
 
-    int notice_count(String searchType, String searchValue);
+    int notice_count(String searchType, String searchValue, String category);
 
     BbsVO notice_view(String b_idx); // 공지 상세보기
 
@@ -52,4 +52,11 @@ public interface AdminMapper {
     int notice_del(String b_idx);
 
     int notice_del2(BbslogVO vo);
+
+    int qna_change(String b_idx, String b_val1);
+
+    int qna_del(String b_idx);
+
+    int qna_del2(BbslogVO vo);
+
 }

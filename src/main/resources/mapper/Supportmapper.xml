@@ -109,11 +109,22 @@ SELECT COUNT(*) FROM charging.bbs_t
     </if>
 </select>
 
-<!-- 공지 보기 -->
-<select id="notice_view" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+<!-- 공지 상세 보기 -->
+<resultMap id="notice_view_map" type="com.kdt.finalproject.vo.BbsVO">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="notice_view_log" column="b_idx"/>
+</resultMap>
+
+<select id="notice_view" parameterType="String" resultMap="notice_view_map">
 SELECT * FROM charging.bbs_t
 WHERE b_idx = #{b_idx}
 </select>
+
+<select id="notice_view_log" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+<!-- 공지 상세 보기 -->
 
 <!-- ~~~~~~~~~~~~~~~~~~~~~~~공지 끝~~~~~~~~~~~~~~~~~~~~~~~ -->
 
@@ -139,23 +150,20 @@ WHERE b_type = 4 AND b_status = 0 AND b_val1 = 0
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
   SELECT * FROM charging.bbs_t 
-  <where>
-  b_status = 0 AND b_type = 2 
+  WHERE (b_status = 0 AND b_type = 2 )
         <if test="searchType != null and searchValue != null">
-        AND
           <choose>
             <when test="searchType == 0">
-                b_title LIKE concat('%',#{searchValue},'%')
+              AND b_title LIKE concat('%',#{searchValue},'%')
             </when>
             <when test="searchType == 1">
-                b_content LIKE concat('%',#{searchValue},'%')
+              AND b_content LIKE concat('%',#{searchValue},'%')
             </when>
             <when test="searchType == 2">
-                b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
             </when>
           </choose>
         </if>
-      </where>
   ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -179,24 +187,21 @@ WHERE m_idx = #{m_idx}
 
 <!--문의 갯수-->
 <select id="support_qna_count" resultType="int">
-SELECT COUNT(*) FROM charging.bbs_t 
-<where>
-b_status = 0 AND b_type = 2
-      <if test="searchType != null and searchValue != null">
-      AND
-        <choose>
-          <when test="searchType == 0">
-              b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              b_content LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 2">
-              b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
-      </if>
-    </where>
+  SELECT COUNT(*) FROM charging.bbs_t 
+  WHERE b_status = 0 AND b_type = 2
+    <if test="searchType != null and searchValue != null">
+      <choose>
+        <when test="searchType == 0">
+            AND b_title LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 1">
+            AND b_content LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 2">
+            AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+        </when>
+      </choose>
+    </if>
 </select>
 
 

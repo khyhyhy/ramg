@@ -34,7 +34,7 @@ public class Admin_notice_paging {
 
     // 페이징에 필요한 HTML코드를 생성해 주는 생성자
     public Admin_notice_paging(int nowPage, int totalRecord, int numPerPage, int pagePerBlock, String searchType,
-            String searchValue) {
+            String searchValue, String category) {
         this.nowPage = nowPage; // 현재 페이지값
         this.totalRecord = totalRecord; // 총 게시물 수
         this.numPerPage = numPerPage; // 한 페이지에 보여질 게시물 수
@@ -74,9 +74,10 @@ public class Admin_notice_paging {
         if (isPrePage) { // 이전 기능이 적용되는 상황
             sb.append("<li><a href='/admin/notice?cPage=");
             sb.append(startPage - pagePerBlock);
-            if (searchType != null && searchValue != null) {
+            if (searchType != null && searchValue != null && category != null) {
                 sb.append("&searchType=" + searchType);
                 sb.append("&searchValue=" + searchValue);
+                sb.append("&category=" + category);
             }
             sb.append("'>&lt;</a></li>"); // <a href='list.inc?cPage=1'> < </a></li>
         } else
@@ -92,9 +93,10 @@ public class Admin_notice_paging {
             } else {
                 sb.append("<li><a href='/admin/notice?cPage=");
                 sb.append(i); // 전달되는 페이지 값
-                if (searchType != null && searchValue != null) {
+                if (searchType != null && searchValue != null && category != null) {
                     sb.append("&searchType=" + searchType);
                     sb.append("&searchValue=" + searchValue);
+                    sb.append("&category=" + category);
                 }
                 sb.append("'>");
                 sb.append(i); // 화면에 표현되는 페이지 번호
@@ -105,9 +107,10 @@ public class Admin_notice_paging {
         if (isNextPage) { // 다음 기능이 적용되는 상황
             sb.append("<li><a href='/admin/notice?cPage=");
             sb.append(startPage + pagePerBlock);
-            if (searchType != null && searchValue != null) {
+            if (searchType != null && searchValue != null && category != null) {
                 sb.append("&searchType=" + searchType);
                 sb.append("&searchValue=" + searchValue);
+                sb.append("&category=" + category);
             }
             sb.append("'>&lt;</a></li>"); // <a href='list.inc?cPage=1'> < </a></li>
         } else
