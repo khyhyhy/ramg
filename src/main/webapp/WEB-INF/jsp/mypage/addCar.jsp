@@ -18,7 +18,7 @@
     <!-- 차량 추가 -->
 
   <h2>차량 추가</h2>
-        <form action="regCar" method="post">
+        <form action="regCar" method="post" id="regCar">
           <label for="c_num">차량번호</label>
           <input type="text" id="c_num" name="c_num" value="${car.c_num}" /><br/>
         
