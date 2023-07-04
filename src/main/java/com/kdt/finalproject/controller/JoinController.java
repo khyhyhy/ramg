@@ -99,9 +99,10 @@ public class JoinController {
     @ResponseBody
     public Map<String, String> check_phone(MemVO vo) {
 
+        // System.out.println(vo.getM_phone() + "M_PHONE");
+
         Map<String, String> map = new HashMap<>();
 
-        // System.out.println(mvo1.getM_phone() + "MPHONE");
         MemVO mvo = ls.check_phone(vo.getM_phone());
 
         if (mvo == null)

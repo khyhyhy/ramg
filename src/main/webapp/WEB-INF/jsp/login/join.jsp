@@ -373,18 +373,17 @@
                     $.ajax({
                       url: 'checkPhone',
                       type: 'POST',
-                      // data:  {
-                      //         "m_phone": phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3
-                      //        }, //전송할 데이터
+                       data:  {
+                               "m_phone": phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3
+                              }, //전송할 데이터
 
-                      data: {
-                        "m_phone_part1": phoneNumberPart1,
-                        "m_phone_part2": phoneNumberPart2,
-                        "m_phone_part3": phoneNumberPart3
-                      },
+                      // data: {
+                      //   "m_phone_part1": phoneNumberPart1,
+                      //   "m_phone_part2": phoneNumberPart2,
+                      //   "m_phone_part3": phoneNumberPart3
+                      // },
                       success: function(response){
                         //요청 성공시
-                        // $('#phoneCheckResult').html(response.str);
                             if (response.str.includes("사용 가능한 번호입니다")) {
                               alert("사용 가능한 번호입니다.");
                             } else {
@@ -401,14 +400,11 @@
                // 아이디가 s_id인 솟에서 키보드를 누를 때마다 수행하는 함수를
                // 이벤트 적용시켜보자!
                 $("#m_email").bind("focusout", function(){
-                    //console.log("^^");
-                    //사용자가 입력한 아이디가 s_id에 입력되므로
-                    // 그곳에 있는 값(value)을 가져온다.
+
                     var str = $(this).val();
                     //console.log(str);
                    
-                    //str의 값에서 공백이 있는지? 없는지? 판단하고 싶다면 정규표현식 등을 이용
-                    //해야 한다. -- 일단 생략 --
+
                     if(str.trim().length > 0){
                         // 입력된 아이디가 4자 이상 입력했을 경우
                         // 서버에 비동기식으로 보낸다.
