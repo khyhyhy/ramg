@@ -14,10 +14,10 @@ public class SupportService {
     @Autowired
     SupportMapper mapper;
 
-    public BbsVO[] notice_all(int begin, int end, String searchType, String searchValue) {
+    public BbsVO[] notice_all(int begin, int end, String searchType, String searchValue, String category) {
         BbsVO[] ar = null;
 
-        List<BbsVO> list = mapper.notice_all(begin, end, searchType, searchValue);
+        List<BbsVO> list = mapper.notice_all(begin, end, searchType, searchValue, category);
         if (list != null && list.size() > 0) {
             ar = new BbsVO[list.size()];
             list.toArray(ar);
@@ -44,8 +44,8 @@ public class SupportService {
         return mapper.notice_view(b_idx);
     }
 
-    public int support_notice_count1(String searchType, String searchValue) {
-        return mapper.support_notice_count1(searchType, searchValue);
+    public int support_notice_count1(String searchType, String searchValue, String category) {
+        return mapper.support_notice_count1(searchType, searchValue, category);
     }
 
     public int support_notice_count2(String searchType, String searchValue) {

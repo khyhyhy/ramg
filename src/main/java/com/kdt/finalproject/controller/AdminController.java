@@ -42,22 +42,23 @@ public class AdminController {
 
     // 회원 목록
     @RequestMapping("/admin/member")
-    public ModelAndView member(String cPage, String searchType, String searchValue) {
+    public ModelAndView member(String cPage, String searchType, String searchValue, String m_class) {
         ModelAndView mv = new ModelAndView();
 
         // ---------paging------------
         int nowPage = 1;
-        int totalRecord = service.member_count(searchType, searchValue);
+        int totalRecord = service.member_count(searchType, searchValue, m_class);
 
         if (cPage != null)
             nowPage = Integer.parseInt(cPage);
 
-        Admin_member_paging page = new Admin_member_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        Admin_member_paging page = new Admin_member_paging(nowPage, totalRecord, 10, 5, searchType, searchValue,
+                m_class);
         String pageCode = page.getSb().toString();
 
         // ---------paging------------
 
-        MemVO[] ar = service.member(page.getBegin(), page.getEnd(), searchType, searchValue);
+        MemVO[] ar = service.member(page.getBegin(), page.getEnd(), searchType, searchValue, m_class);
 
         mv.addObject("ar", ar);
         mv.addObject("page", page);
@@ -76,7 +77,9 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
 
         MemVO vo = service.member_view(m_idx);
+        int qna_cnt = service.member_qna_count(m_idx);
 
+        mv.addObject("qna_cnt", qna_cnt);
         mv.addObject("vo", vo);
         mv.addObject("cPage", cPage);
         mv.addObject("searchType", searchType);

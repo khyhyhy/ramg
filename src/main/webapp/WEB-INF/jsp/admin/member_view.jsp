@@ -66,6 +66,13 @@
                 </tr>
             </tbody>
         </table>
+        
+            <table class="table table-bordered">
+                <tr>
+                    <th><a href="#">서비스 이용 내역</a> / <a href="javascript:qna()">작성한 문의</a> [${qna_cnt}] </th>
+                </tr>
+            </table>
+
         <button type="button" class="btn btn-outline-info" onclick="sub()"">목록</button>
         <c:if test="${vo.m_status == 0}">
             <button type="button" class="btn btn-outline-info" onclick="member_out()" id="b_out">강제탈퇴</button>
@@ -107,6 +114,12 @@
         }else{
             return;
         }
+    }
+    function qna(){
+        document.frm.action = "/admin/qna";
+        document.frm.searchType.value = "3";
+        document.frm.searchValue.value = "${vo.m_name}";
+        document.frm.submit();
     }
 </script>
 </body>

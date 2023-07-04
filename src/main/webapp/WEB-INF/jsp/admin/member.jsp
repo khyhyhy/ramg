@@ -20,6 +20,40 @@ pageEncoding="UTF-8"%>
         <h1>회원관리</h1>
         <form action="/admin/member" method="post">
             <div style="height: 60px; float: right;">
+                
+                <select name="m_class" class="form-select" aria-label="Default select example" style="width: 140px; display: inline-block;">
+                    <c:if test="${param.searchType == 0}">
+                        <option value="3">전체</option>
+                        <option value="0" selected>개인 회원</option>
+                        <option value="1">사업자 회원</option>
+                        <option value="2">관리자</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 1}">
+                        <option value="3">전체</option>
+                        <option value="0">개인 회원</option>
+                        <option value="1" selected>사업자 회원</option>
+                        <option value="2">관리자</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 2}">
+                        <option value="3">전체</option>
+                        <option value="0">개인 회원</option>
+                        <option value="1">사업자 회원</option>
+                        <option value="2" selected>관리자</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 3}">
+                        <option value="3" selected>전체</option>
+                        <option value="0">개인 회원</option>
+                        <option value="1">사업자 회원</option>
+                        <option value="2">관리자</option>
+                    </c:if>
+                    <c:if test="${param.searchType == null}">
+                        <option value="3">전체</option>
+                        <option value="0">개인 회원</option>
+                        <option value="1">사업자 회원</option>
+                        <option value="2">관리자</option>
+                    </c:if>
+                </select>
+
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
                 <c:if test="${param.searchType == 0}">
                     <option value="0" selected>이름</option>
@@ -42,6 +76,7 @@ pageEncoding="UTF-8"%>
                     <option value="2">전화번호</option>
                 </c:if>
                 </select>
+                
                 <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-info">검색</button>
             </div>

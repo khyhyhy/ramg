@@ -11,16 +11,32 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.member_t
       <where>
+          <if test="m_class != null">
+            <choose>
+              <when test="m_class == 0">
+                m_class = 0
+              </when>
+              <when test="m_class == 1">
+                m_class = 1
+              </when>
+              <when test="m_class == 2">
+                m_class = 2
+              </when>
+              <when test="m_class == 3">
+                m_class = 0 OR m_class = 1 OR m_class = 2
+              </when>
+            </choose>
+          </if>
           <if test="searchType != null and searchValue != null">
               <choose>
                   <when test="searchType == 0">
-                      m_name LIKE concat('%',#{searchValue},'%')
+                      AND m_name LIKE concat('%',#{searchValue},'%')
                   </when>
                   <when test="searchType == 1">
-                      m_email LIKE concat('%',#{searchValue},'%')
+                      AND m_email LIKE concat('%',#{searchValue},'%')
                   </when>
                   <when test="searchType == 2">
-                      m_phone LIKE concat('%',#{searchValue},'%')
+                      AND m_phone LIKE concat('%',#{searchValue},'%')
                   </when>
               </choose>
           </if>
@@ -33,16 +49,32 @@ SELECT * FROM (
 <select id="member_count" parameterType="Map" resultType="int">
 SELECT COUNT(*) FROM charging.member_t
 <where>
+  <if test="m_class != null">
+    <choose>
+      <when test="m_class == 0">
+        m_class = 0
+      </when>
+      <when test="m_class == 1">
+        m_class = 1
+      </when>
+      <when test="m_class == 2">
+        m_class = 2
+      </when>
+      <when test="m_class == 3">
+        m_class = 0 OR m_class = 1 OR m_class = 2
+      </when>
+    </choose>
+  </if>
   <if test="searchType != null and searchValue != null">
     <choose>
       <when test="searchType == 0">
-          m_name LIKE concat('%',#{searchValue},'%')
+          AND m_name LIKE concat('%',#{searchValue},'%')
       </when>
       <when test="searchType == 1">
-          m_email LIKE concat('%',#{searchValue},'%')
+          AND m_email LIKE concat('%',#{searchValue},'%')
       </when>
       <when test="searchType == 2">
-          m_phone LIKE concat('%',#{searchValue},'%')
+          AND m_phone LIKE concat('%',#{searchValue},'%')
       </when>
     </choose>
   </if>
@@ -186,8 +218,14 @@ SELECT * FROM (
                   AND b_content LIKE concat('%',#{searchValue},'%')
               </when>
               <when test="searchType == 2">
-              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
-          </when>
+                AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+              </when>
+              <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
             </choose>
           </if>
     ORDER BY b_idx DESC
@@ -236,6 +274,12 @@ SELECT COUNT(*) FROM charging.bbs_t
         <when test="searchType == 2">
               AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
           </when>
+          <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
       </choose>
     </if>
 </select>
@@ -297,6 +341,11 @@ WHERE m_idx = #{m_idx}
 </select>
 <!-- 댓글 보기 -->
 
+
+<select id="member_qna_count" parameterType="String" resultType="int">
+SELECT COUNT(*) FROM charging.bbs_t 
+WHERE b_status = 0 AND b_type = 2 AND b_idx IN(select b_idx from bbslog where bl_type = 0 and m_idx = #{m_idx})
+</select>
 
 <!-- insert -->
 

@@ -7,9 +7,9 @@ import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.MemVO;
 
 public interface AdminMapper {
-    List<MemVO> member(int begin, int end, String searchType, String searchValue);
+    List<MemVO> member(int begin, int end, String searchType, String searchValue, String m_class);
 
-    int member_count(String searchType, String searchValue);
+    int member_count(String searchType, String searchValue, String m_class);
 
     MemVO member_view(String m_idx);
 
@@ -58,5 +58,7 @@ public interface AdminMapper {
     int qna_del(String b_idx);
 
     int qna_del2(BbslogVO vo);
+
+    int member_qna_count(String m_idx);
 
 }

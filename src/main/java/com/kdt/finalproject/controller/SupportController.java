@@ -49,7 +49,7 @@ public class SupportController {
     private HttpServletRequest request;
 
     @RequestMapping("/support/notice")
-    public ModelAndView notice(String cPage, String searchType, String searchValue) { // 공지사항 표시
+    public ModelAndView notice(String cPage, String searchType, String searchValue, String category) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
 
         MemVO mvo = null;
@@ -65,21 +65,21 @@ public class SupportController {
 
         if (mvo != null && (mvo.getM_class().equals("1") || mvo.getM_class().equals("2"))) { // 로그인 정보가 사업자거나 관리자라면 전체
                                                                                              // 공지 표시
-            totalRecord = service.support_notice_count1(searchType, searchValue);
+            totalRecord = service.support_notice_count1(searchType, searchValue, category);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
-            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue, category);
             pageCode = page.getSb().toString();
 
-            ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue);
+            ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue, category);
 
         } else { // 로그인 정보가 없거나 개인이라면 부분 공지 표시
             totalRecord = service.support_notice_count2(searchType, searchValue);
             if (cPage != null)
                 nowPage = Integer.parseInt(cPage);
 
-            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+            page = new Support_noitce_paging(nowPage, totalRecord, 10, 5, searchType, searchValue, category);
             pageCode = page.getSb().toString();
 
             ar = service.notice_user(page.getBegin(), page.getEnd(), searchType, searchValue);

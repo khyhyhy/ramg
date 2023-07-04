@@ -19,6 +19,32 @@ pageEncoding="UTF-8"%>
         <h1>공지사항</h1>
         <form action="">
             <div style="height: 60px; float: right;">
+                <c:if test="${sessionScope.mvo.m_class == 1 || sessionScope.mvo.m_class == 2}">
+                    <span style="float: left; margin-right: 5px;">
+                        <select name="category" class="form-select" aria-label="Default select example">
+                            <c:if test="${param.category == 0}">
+                            <option value="3">전체</option>
+                            <option value="0" selected>일반공지</option>
+                            <option value="1">사업자공지</option>
+                        </c:if>
+                        <c:if test="${param.category == 1}">
+                            <option value="3">전체</option>
+                            <option value="0">일반공지</option>
+                            <option value="1" selected>사업자공지</option>
+                        </c:if>
+                        <c:if test="${param.category == 3}">
+                            <option value="3" selected>전체</option>
+                            <option value="0">일반공지</option>
+                            <option value="1">사업자공지</option>
+                        </c:if>
+                        <c:if test="${param.category == null}">
+                            <option value="3">전체</option>
+                            <option value="0">일반공지</option>
+                            <option value="1">사업자공지</option>
+                        </c:if>
+                        </select>
+                    </span>
+                </c:if>
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
                     <c:if test="${param.searchType == 0}">
                         <option value="0" selected>제목</option>
@@ -41,7 +67,7 @@ pageEncoding="UTF-8"%>
                         <option value="2">제목+내용</option>
                     </c:if>
                 </select>
-                <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                <input type="text" name="searchValue" value="${param.searchValue}"class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
@@ -62,6 +88,11 @@ pageEncoding="UTF-8"%>
                 </tr>
             </thead>
             <tbody>
+                <c:if test="${ar == null}">
+                <tr>
+                    <td colspan="4">검색 결과가 없습니다.</td>
+                </tr>
+                </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>

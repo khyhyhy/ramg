@@ -17,10 +17,10 @@ public class AdminService {
     AdminMapper mapper;
 
     // 회원 정보 불러오기
-    public MemVO[] member(int begin, int end, String searchType, String searchValue) {
+    public MemVO[] member(int begin, int end, String searchType, String searchValue, String m_class) {
         MemVO[] ar = null;
 
-        List<MemVO> list = mapper.member(begin, end, searchType, searchValue);
+        List<MemVO> list = mapper.member(begin, end, searchType, searchValue, m_class);
         if (list != null && list.size() > 0) {
             ar = new MemVO[list.size()];
             list.toArray(ar);
@@ -29,8 +29,8 @@ public class AdminService {
     }
 
     // 회원 리스트 카운트
-    public int member_count(String searchType, String searchValue) {
-        return mapper.member_count(searchType, searchValue);
+    public int member_count(String searchType, String searchValue, String m_class) {
+        return mapper.member_count(searchType, searchValue, m_class);
     }
 
     public MemVO member_view(String m_idx) {
@@ -167,5 +167,9 @@ public class AdminService {
 
     public int qna_del2(BbslogVO vo) {
         return mapper.qna_del2(vo);
+    }
+
+    public int member_qna_count(String m_idx) {
+        return mapper.member_qna_count(m_idx);
     }
 }

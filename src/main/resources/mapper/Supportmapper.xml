@@ -19,6 +19,22 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     WHERE (b_status = 0 AND b_type = 0 AND b_val1 = 0)
+      <if test="category == null">
+        AND b_type = 0 
+      </if>
+      <if test="category != null">
+        <choose>
+          <when test="category == 0">
+           AND b_type = 0 AND b_to = 0
+          </when>
+          <when test="category == 1">
+           AND b_type = 0 AND b_to = 1
+          </when>
+          <when test="category == 3">
+           AND b_type = 0
+          </when>
+        </choose>
+      </if>
       <if test="searchType != null and searchValue != null">
         <choose>
           <when test="searchType == 0">
@@ -72,6 +88,22 @@ WHERE b_idx = #{b_idx} AND bl_type = 0
 <select id="support_notice_count1" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t
 WHERE (b_status = 0 AND b_type = 0 AND b_val1 = 0)
+      <if test="category == null">
+        AND b_type = 0 
+      </if>
+      <if test="category != null">
+        <choose>
+          <when test="category == 0">
+           AND b_type = 0 AND b_to = 0
+          </when>
+          <when test="category == 1">
+           AND b_type = 0 AND b_to = 1
+          </when>
+          <when test="category == 3">
+           AND b_type = 0
+          </when>
+        </choose>
+      </if>
   <if test="searchType != null and searchValue != null">
     <choose>
       <when test="searchType == 0">
@@ -162,6 +194,12 @@ SELECT * FROM (
             <when test="searchType == 2">
               AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
             </when>
+            <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
           </choose>
         </if>
   ORDER BY b_idx DESC
@@ -200,6 +238,12 @@ WHERE m_idx = #{m_idx}
         <when test="searchType == 2">
             AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
         </when>
+        <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
       </choose>
     </if>
 </select>
