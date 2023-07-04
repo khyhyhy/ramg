@@ -112,7 +112,7 @@ public class TaksongController {
 
    for (ServiceVO vo : ar) {
     int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
-      Double.parseDouble(vo.getS_mapx()), Double.parseDouble(vo.getS_mapy()));
+      Double.parseDouble(vo.getS_mapy()), Double.parseDouble(vo.getS_mapx()));
 
     System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
 
@@ -136,7 +136,7 @@ public class TaksongController {
 
    for (ServiceVO vo : ar) {
     int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
-      Double.parseDouble(vo.getS_mapx()), Double.parseDouble(vo.getS_mapy()));
+      Double.parseDouble(vo.getS_mapy()), Double.parseDouble(vo.getS_mapx()));
     System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
 
     if (radius < Integer.parseInt(vo.getS_radius())) {
@@ -157,21 +157,6 @@ public class TaksongController {
 
   mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
-  return mv;
- }
-
- @RequestMapping("/taksong/serviceok")
- public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment1,
-   String s_payment2) {
-  ModelAndView mv = new ModelAndView();
-  System.out.println("s_idx = " + s_s_idx);
-  System.out.println("c_idx = " + s_c_idx);
-  System.out.println("chargepersent = " + chargepersent);
-  System.out.println("s_payment1 = " + s_payment1);
-  System.out.println("s_payment2 = " + s_payment2);
-
-
-  
   return mv;
  }
 
@@ -254,8 +239,8 @@ public class TaksongController {
 
     // System.out.println("이동식차량 x:" + s_x + ", 이동식차량 y:" + s_y);
 
-    double lng = Double.valueOf(value.getS_mapy());// 기사위치
-    double lat = Double.valueOf(value.getS_mapx());
+    double lng = Double.valueOf(value.getS_mapx());// 기사위치
+    double lat = Double.valueOf(value.getS_mapy());
     double lat2 = Double.parseDouble(y); // 고객 차량 y
     double lng2 = Double.parseDouble(x); // 고객 차량 x
     double dLat = Math.toRadians(lat - lat2);
@@ -291,7 +276,21 @@ public class TaksongController {
   }
   // System.out.println(ar.);
   System.out.println("carAdd탈출준비 ");
-  mv.setViewName("taksong/e_serviceinfo");
+  mv.setViewName("taksong/serviceinfo");
+  return mv;
+ }
+
+ @RequestMapping("/taksong/serviceok")
+ public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment,
+   String s_payinfo, String s_sprice, String s_cprice) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println("s_idx = " + s_s_idx);
+  System.out.println("c_idx = " + s_c_idx);
+  System.out.println("chargepersent = " + chargepersent);
+  System.out.println("s_payment = " + s_payment);
+  System.out.println("s_payinfo = " + s_payinfo);
+  System.out.println("s_sprice = " + s_sprice);
+  System.out.println("s_cprice = " + s_cprice);
   return mv;
  }
 }

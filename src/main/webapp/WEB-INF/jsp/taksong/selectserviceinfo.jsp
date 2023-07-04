@@ -64,6 +64,7 @@
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
              for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
             <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
+            <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
            </fieldset>
           </c:forEach>
          </ul>
@@ -83,22 +84,34 @@
         <div class="col"></div>
         <div class="col">
          <p>결제정보</p>
-         <p>서비스 비용 : </p>
+         <p id="sprice">서비스&nbsp;비용&nbsp;:&nbsp;원</p>
          <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
-         <p>총 비용 : 20.000</p>
+         <p id="fprice">총&nbsp;비용&nbsp;:&nbsp;원</p>
         </div>
        </div>
        <div class="row">
         <div class="col">
          <div>
-          <input type="radio" class="btn-check" name="s_payment1" id="payment1" autocomplete="off" onclick="sinyoung()">
+          <input type="radio" class="btn-check" name="s_payment1" id="payment1" autocomplete="off" onclick="sinyoung()"
+           value="신용카드">
           <label class="btn btn-outline-primary" for="payment1">신용카드</label>
-
-          <input type="radio" class="btn-check" name="s_payment1" id="payment2" autocomplete="off">
+          <input type="radio" class="btn-check" name="s_payment1" id="payment2" autocomplete="off" onclick="tong()"
+           value="무통장거래">
           <label class="btn btn-outline-primary" for="payment2">무통장거래</label>
-          <select style="display: none;" id="sinyong" name="s_payment2">
-           <option></option>
+          <select class="form-select form-select-sm" style="display: none; width: 20%;" id="sinyong" name="s_payment2">
+           <option value="gukmin">국민카드</option>
+           <option value="shinhan">신한카드</option>
+           <option value="bici">BC카드</option>
+           <option value="woori">우리카드</option>
           </select>
+          <select class="form-select form-select-sm" style="display: none; width: 20%;" id="tongjang" name="s_payment2">
+           <option value="gukmin">국민은행</option>
+           <option value="shinhan">신한은행</option>
+           <option value="giup">기업은행</option>
+           <option value="woori">우리은행</option>
+          </select>
+          <input type="text" id="tongtext" name="s_payment2" class="form-control" style=" display: none ;width: 40%"
+           placeholder="계좌번호">
          </div>
         </div>
        </div>
@@ -121,9 +134,35 @@
 
     var btank;
     var khw = 34.72;
+    let serviceprice;
+    let chargeprice;
+    var f_price;
 
     function sinyoung() {
-     document.getElementById("sinyong").style()
+     var sinyongSelect = document.getElementById("sinyong");
+     var tongjangSelect = document.getElementById("tongjang");
+     var tongtextInput = document.getElementById("tongtext");
+
+     sinyongSelect.style.display = "inline";
+     tongjangSelect.style.display = "none";
+     tongtextInput.style.display = "none";
+     sinyongSelect.disabled = false;
+     tongjangSelect.disabled = true;
+     tongtextInput.disabled = true;
+
+
+    }
+
+    function tong() {
+     var sinyongSelect = document.getElementById("sinyong");
+     var tongjangSelect = document.getElementById("tongjang");
+     var tongtextInput = document.getElementById("tongtext");
+     sinyongSelect.style.display = "none";
+     tongjangSelect.style.display = "inline";
+     tongtextInput.style.display = "inline";
+     sinyongSelect.disabled = true;
+     tongjangSelect.disabled = false;
+     tongtextInput.disabled = false;
     }
 
     function carinfo(f) {
@@ -132,25 +171,46 @@
      btank = f.querySelector('input[name="c_val3"]').value
      document.getElementById("battery").innerText = btank + "kWh";
      document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
+     if (chargeprice != null) {
+      chargeprice = null;
+     }
+     l_price();
     }
 
     function serviceinfo(f) {
+     serviceprice = f.querySelector('input[name="s_price"]').value;
      console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
      document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
+     var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
+
+     l_price()
     }
 
     function muckpho(e) {
 
      document.getElementById("muckpho").innerText = e.value + "%"
-     var chargeprice = (btank / 100 * e.value) * khw
+     chargeprice = (btank / 100 * e.value) * khw;
      console.log(chargeprice);
      console.log(btank);
      chargeprice = Math.floor(chargeprice).toString();
-     chargeprice = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+     var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice + "원";
+     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
+     l_price()
     }
 
+    function l_price() {
+     if (chargeprice != null && serviceprice != null) {
+      f_price = Number(chargeprice) + Number(serviceprice);
+
+      f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
+     }
+     else {
+      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
+     }
+    }
    </script>
   </body>
 
