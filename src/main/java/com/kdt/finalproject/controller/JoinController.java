@@ -36,7 +36,11 @@ public class JoinController {
     @ResponseBody // 이 어노테이션은 응답을 JSON 형식으로 반환시킨다.
 
     public Map<String, Object> add_mem(MemVO mvo) {
+
         Map<String, Object> response = new HashMap<>();
+
+        System.out.println(mvo.getM_email() + "M_EMAIL");
+        // mvo.setM_phone(mPhone); // 추가
 
         int cnt = ls.add_mem(mvo);
 
@@ -89,6 +93,26 @@ public class JoinController {
             map.put("msg", "<span class='fail'>사용불가</span>");
 
         return map;
+    }
+
+    @PostMapping("checkPhone")
+    @ResponseBody
+    public Map<String, String> check_phone(MemVO vo) {
+
+        // System.out.println(vo.getM_phone() + "M_PHONE");
+
+        Map<String, String> map = new HashMap<>();
+
+        MemVO mvo = ls.check_phone(vo.getM_phone());
+
+        if (mvo == null)
+            map.put("str", "<span class='success'>사용 가능한 번호입니다</span>");
+
+        else
+            map.put("str", "<span class='fail'>이미 등록된 번호입니다</span>");
+
+        return map;
+
     }
 
 }

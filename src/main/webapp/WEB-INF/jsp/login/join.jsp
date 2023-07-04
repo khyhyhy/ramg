@@ -122,11 +122,10 @@
 
                   <div class="form-outline mb-4">
                       <label for="m_email" style="display: block; margin-bottom: 5px;">이메일</label>
-                      <input type="email" placeholder="carcharge@naver.com" class="form-control form-outline"  id="m_email" name="m_email" style="width: 300px;" required>
+                      <input type="email"  placeholder="carcharge@naver.com" class="form-control form-outline"  id="m_email" name="m_email" style="width: 300px;" required>
                       <span id="box"></span>
                   </div>
                 
-
 
                 <div class="form-outline mb-4">
                     <label for="rg_pw">비밀번호</label>
@@ -142,6 +141,23 @@
                   <label for="m_name">이름</label>
                   <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline" required style="width: 300px;">
                 </div>
+
+                <!--연락처 추가 // m_phone을 m_phone_part1으로 잠깐 바꿈-->
+                <div class="form-outline mb-4">
+                    <label for="m_phone_part1">연락처</label>
+                    <div class="d-flex align-items-center">
+                      <input type="text" id="m_phone_part1" name="m_phone_part1" placeholder="010" class="form-control form-outline" required style="width: 70px;" maxlength="3">
+                      <span>&nbsp;-&nbsp;</span>
+                      <input type="text"  id="m_phone_part2" name="m_phone_part2" placeholder="1234" class="form-control form-outline" required style="width: 80px;" maxlength="4">
+                      <span> &nbsp;-&nbsp;</span>
+                      <input type="text"  id="m_phone_part3" name="m_phone_part3" placeholder="5678" class="form-control form-outline" required style="width: 80px;" maxlength="4">
+                      &nbsp;
+                      <button type="button" id="phoneCheckBtn" class="btn btn-secondary btn-sm" >중복체크</button> <!-- 중복체크 버튼 추가 -->
+                      <!-- <span id="phoneCheckResult"></span> -->
+                  </div>
+                </div>
+
+
 
                 <div class="mb-3">
                 <input type="checkbox" id="agree" name="rg_ok" value="On" class="u-active-palette-4-base u-border-2 u-border-grey-75 u-field-input">
@@ -193,23 +209,24 @@
            </c:if>
 
 
-
            function send(form){
+
 
              //라디오버튼 값을 서버로 보내기
              var mClassValue = $('input[name="m_class"]:checked').val();
              $('#m_class_hidden').val(mClassValue);
 
+             //핸드폰 중복확인
+             //함수 추가해봄
 
-               // 현재 문서에서 "chk"라는 아이디를 가진 요소의 class가 success인지? 확인!
-               /*let chk = $("#chk").hasClass("success");
-               
-               //let chk = document.getElementById("chk").className;
-               
-               if(!chk){
-                   alert("아이디 체크를 먼저 해주새요!");
-                   return;
-               }*/
+             let phoneNumberPart1 = $('#m_phone_part1').val();
+             let phoneNumberPart2 = $('#m_phone_part2').val();
+             let phoneNumberPart3 = $('#m_phone_part3').val();
+            let phoneNumber = phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3 
+            
+            // let phoneNumber = $("#m_phone").val();
+             let phoneNumberPattern = /^\d+$/; // 숫자만 포함하는 정규표현식
+
                
                //let id = $("#rg_id").val();
                
@@ -271,7 +288,20 @@
                    $("#m_name").focus();
                    return;
                }
-               
+
+              //연락처 유효성 검사
+              if (phoneNumberPart1.trim().length < 1 || phoneNumberPart2.trim().length < 1 || phoneNumberPart3.trim().length < 1) {
+                  alert("연락처를 모두 입력하세요");
+                  $("#m_phone_part1").focus();
+                  return;
+                }
+
+                if (!phoneNumberPattern.test(phoneNumber)) {
+              alert("연락처는 숫자만 입력해야 합니다");
+              $("#m_phone_part1").focus();
+              return;
+            }
+
                
                if(!$("#agree").is(":checked")){
                    alert("약관동의를 해주세요");
@@ -283,6 +313,7 @@
                  url: 'join',
                  type: 'POST',
                  data: $(form).serialize(), // Serialize the form data
+
                  success: function(response) {
                    if (response.success) {
                      alert("회원가입을 축하합니다. 로그인 해주세요.");
@@ -308,19 +339,72 @@
            }
 
            $(function(){
+
+              //핸드폰 번호 중복체크 기능
+              $('#phoneCheckBtn').click(function(){
+                var phoneNumberPart1 = $('#m_phone_part1').val();
+                var phoneNumberPart2 = $('#m_phone_part2').val();
+                var phoneNumberPart3 = $('#m_phone_part3').val();
+                var phoneNumber = phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3;
+
+                // console.log(phoneNumberPart1);
+                // console.log(phoneNumberPart2);
+                // console.log(phoneNumberPart3);
+
+                  // 숫자만 입력되었는지 확인
+                  var phoneNumberPattern = /^\d+$/;
+
+                  
+
+              //연락처 유효성 검사
+              if (phoneNumberPart1.trim().length < 1 || phoneNumberPart2.trim().length < 1 || phoneNumberPart3.trim().length < 1) {
+                  alert("연락처를 모두 입력하세요");
+                  $("#m_phone_part1").focus();
+                  return;
+                }
+
+                if (!phoneNumberPattern.test(phoneNumber)) {
+              alert("연락처는 숫자만 입력해야 합니다");
+              $("#m_phone_part1").focus();
+              return;
+            }
+
+                //중복체크 버튼이 눌렀을때 발생하는 비동기통신
+                    $.ajax({
+                      url: 'checkPhone',
+                      type: 'POST',
+                       data:  {
+                               "m_phone": phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3
+                              }, //전송할 데이터
+
+                      // data: {
+                      //   "m_phone_part1": phoneNumberPart1,
+                      //   "m_phone_part2": phoneNumberPart2,
+                      //   "m_phone_part3": phoneNumberPart3
+                      // },
+                      success: function(response){
+                        //요청 성공시
+                            if (response.str.includes("사용 가능한 번호입니다")) {
+                              alert("사용 가능한 번호입니다.");
+                            } else {
+                              alert("이미 등록된 번호입니다.");
+                            }
+                      },
+                      error: function() {
+                        console.error('중복 체크 요청 실패');
+                      }
+                    });
+              });
                
                // 사용자가 id를 입력하기 위해
                // 아이디가 s_id인 솟에서 키보드를 누를 때마다 수행하는 함수를
                // 이벤트 적용시켜보자!
-                $("#m_email").bind("keyup", function(){
-                    //console.log("^^");
-                    //사용자가 입력한 아이디가 s_id에 입력되므로
-                    // 그곳에 있는 값(value)을 가져온다.
+                $("#m_email").bind("focusout", function(){
+
                     var str = $(this).val();
                     //console.log(str);
                    
-                    //str의 값에서 공백이 있는지? 없는지? 판단하고 싶다면 정규표현식 등을 이용
-                    //해야 한다. -- 일단 생략 --
+
                     if(str.trim().length > 0){
                         // 입력된 아이디가 4자 이상 입력했을 경우
                         // 서버에 비동기식으로 보낸다.
