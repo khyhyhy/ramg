@@ -21,6 +21,11 @@
         #ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; color: azure;}
         #jibun {font-size: 11px;color: #888;margin-top: -2px;}
         #img {border: 0px; position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 0px solid #ddd;color: #888;overflow: hidden;}
+        .box {
+            border: 1px solid black;
+            padding: 10px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -33,17 +38,38 @@
             <div class="container-fluid text-center">
                 <div class="row">
                   <div class="col-2">
-                    <ul class="list-group" id="list1">
+                    <div style="display: flex; justify-content: flex-end;">
+                      <ul class="nav">
+                        <li class="nav-item">
+                          <div class="box">
+                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 30px; height: 30px;" src="../images/greenicon.png"/><br/>충전가능</a>
+                          </div>
+                        </li>
+                        <li class="nav-item">
+                          <div class="box" style="border-left: none;">
+                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/redicon.png"/><br/>불가능</a>
+                          </div>
+                        </li>
+                        <li class="nav-item">
+                          <div class="box" style="border-left: none;">
+                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/chargeicon.png/"><br/>충전중</a>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                    <ul class="list-group">
+                      <li class="list-group-item">내 주변 가까운 충전소</li>
                     </ul>
+                    <ul class="list-group" id="list1" style="height: 800px; overflow-y: scroll;"></ul>
+                    <ul class="list-group"></ul>
                   </div>
                   <div class="col-10">
-                    <div class="">
-                        <div id="map" style="width: 1560px; height:800px;"></div>
+                    <div class="row">
+                      <div id="map" style="width: 100%; height: 800px;"></div>
                     </div>
                   </div>
                 </div>
               </div>
-            
         </main>
         <!--////////// Main end //////////////-->
 
@@ -54,7 +80,7 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
             
-
+            var csid = [];
             var markers =[];//마커 배열
             var markers2 =[];//내 주변 마커 배열
             var overlays = [];//커스텀오버레이 배열
@@ -72,7 +98,7 @@
             var map = new kakao.maps.Map(container, options);
             var geocoder = new kakao.maps.services.Geocoder();
             // 원(Circle)의 옵션으로 넣어준 반지름
-            var radius = 3000;
+            var radius = 30000;
 
              // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
              if (navigator.geolocation) {
@@ -139,17 +165,9 @@
                                                 type = 'DC차데모+AC3상+DC콤보';
                                             </c:if>
                                             var imageSize = new kakao.maps.Size(24, 35);
-
-                                            <c:if test = "${vo.cpStat eq '1'}">
-                                                var markerImage = new kakao.maps.MarkerImage(imageSrc_ok, imageSize);
-                                            </c:if>
-                                            <c:if test = "${vo.cpStat eq '2'}">
-                                                var markerImage = new kakao.maps.MarkerImage(imageSrc_redicon, imageSize); 
-                                            </c:if>
-                                            <c:if test = "${vo.cpStat eq '3'}">
-                                                var markerImage = new kakao.maps.MarkerImage(imageSrc_chargeicon, imageSize); 
-                                            </c:if>
                                             
+                                            csid.push(${vo.csId});
+
                                             var pos = new kakao.maps.LatLng('${vo.lat}', '${vo.longi}');
                                             var overlayid = "idnum"+ ind++;
                                             var content = document.createElement('div');
@@ -157,14 +175,14 @@
                                             content.style = 'display : none;';
                                             content.innerHTML = '<div id="wrap">' + 
                                             '       <div id="info">' + 
-                                            '        <div id="title">' + 
+                                                '        <div id="title">' + 
                                             '            ${vo.csNm}' + 
                                             '            <span id="close" onClick="removeOverlay(\''+overlayid+'\')" title="닫기"></span>' + 
                                             '        </div>' + 
                                             '        <div id="body">' + 
-                                            '            <div id="img">' +
+                                                '            <div id="img">' +
                                             '                <img src="../images/chargestation.png" width="73" height="70"/>' +
-                                            '           </div>' + 
+                                            '           </div>' +  
                                             '            <div id="desc">' + 
                                             '                <div id="ellipsis">${vo.addr}<br/>'+type+'</div>' +   
                                             '            </div>' + 
@@ -174,13 +192,21 @@
                                             
                                             // 마커 위에 커스텀오버레이를 표시합니다
                                             // 마커를 중심으로 커스텀 오버레이를 표시하기위해 CSS를 이용해 위치를 설정했습니다
+                                            <c:if test = "${vo.cpStat eq '1'}">
+                                                var markerImage = new kakao.maps.MarkerImage(imageSrc_ok, imageSize);
+                                            </c:if>
+                                             <c:if test = "${vo.cpStat eq '2'}">
+                                                    var markerImage = new kakao.maps.MarkerImage(imageSrc_chargeicon, imageSize); 
+                                            </c:if>
+                                            <c:if test = "${vo.cpStat eq '3'}">
+                                                    var markerImage = new kakao.maps.MarkerImage(imageSrc_redicon, imageSize); 
+                                            </c:if>
                                             var marker = new kakao.maps.Marker({
                                                 position: pos,
                                                 image: markerImage,
                                                 title:overlayid
                                             });
                                             
-
                                             //marker.setMap(map);
                                             markers.push(marker);
                                             
@@ -189,10 +215,16 @@
                                                 position: marker.getPosition(),
                                                 map: map
                                             });
+
                                             overlays.push(overlay);
-                                        </c:forEach>
                                             
+                                            </c:forEach>
+                                            console.log(csid[0]);
+
+
+
                                         for(i=0; i<markers.length; i++){
+                                            
                                             var c1 = locPosition;
                                             var c2 = markers[i].getPosition();
                                             
@@ -207,26 +239,47 @@
                                                 markers[i].setMap(map);
                                                 overlays2.push(overlays[i]);
                                                 markers2.push(markers[i]);
-                                                //console.log(overlays[i]);
+                                                console.log('markers-' + i, markers[i]);
                                                 
                                             } else {
                                                 markers[i].setMap(null);
                                             }
                                         }
+                                        //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
+                                        overlays2.sort(function(a, b) {
+                                        var c1 = locPosition;
+                                        var c2a = a.getPosition();
+                                        var c2b = b.getPosition();
+
+                                        var polyA = new daum.maps.Polyline({
+                                            path: [c1, c2a]
+                                        });
+                                        var polyB = new daum.maps.Polyline({
+                                            path: [c1, c2b]
+                                        });
+
+                                        var distA = polyA.getLength();
+                                        var distB = polyB.getLength();
+
+                                        return distA - distB;
+
+                                        });
                                         
                                         //console.log(overlays2[0].cc.innerText);
-                                        //console.log(markers2[0].getPosition());
+                                        
                                         //console.log(markers2[0].getPosition().Ma);
                                         //console.log(markers2[0].getPosition().La);
                                         
                                         let str ="";
                                         //화면왼쪽에 목록 표출
+                                        var d = 1;
                                         for(a=0; a<overlays2.length; a++){
                                             str +='<li class="list-group-item">';
-                                            str +='<a class="tag-link" href="#" data-index="'+a+'">';
-                                            str +=    overlays2[a].cc.innerText;
+                                            str +='<a style="text-decoration: none;" class="tag-link" href="#" data-index="'+a+'">';
+                                            str += d+'.' + overlays2[a].cc.innerText;
                                             str +='</a>';
                                             str +='</li>';
+                                            d++;
                                         }
                                         $("#list1").html(str);
                                         //마커 클릭시 오버레이 커스텀 나타남
@@ -239,7 +292,7 @@
                                         //비동기식 전송으로 경로를 불러옴
                                         $('.tag-link').click(function(event) {
                                             // 몇 번째 항목인지 가져옵니다.
-                                            console.log("111111111111111111111");
+                                            
                                             if (startMarker) {
                                                 startMarker.setMap(null); // 마커 숨기기
                                                 startMarker = null; // 변수 초기화
@@ -259,7 +312,7 @@
                                             dataType: "json",
                                             data: { lati3: lati3, lon3: lon3, lati2: lati2, lon2: lon2 }
                                             }).done(function(data) {
-                                            console.log(data);
+                                            
 
                                             // 루트 그리기 위해 json에서 데이터를 꺼냄
                                             var route = data.key[0];
@@ -332,10 +385,7 @@
             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
             function removeOverlay(overlayid) {
                 $('.'+overlayid).css('display', 'none');
-            }
-            
-            
-                    
+            }    
         </script>
 </body>
 </html>
