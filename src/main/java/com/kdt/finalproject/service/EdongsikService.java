@@ -48,17 +48,17 @@ public class EdongsikService {
         return vo;
     }
 
-    public SuseVO getDummy() {
-        SuseVO vo = mapper.getDummy();
+    public SuseVO getOrder(String su_idx) {
+        SuseVO vo = mapper.getOrder(su_idx);
 
         return vo;
     }
 
-    public SwriteVO getBusiness(String s_idx) {
-        SwriteVO vo = mapper.getBusiness(s_idx);
+    // public SwriteVO getBusiness(String s_idx) {
+    //     SwriteVO vo = mapper.getBusiness(s_idx);
 
-        return vo;
-    }
+    //     return vo;
+    // }
 
     public List<CwriteVO> getOrderList(String m_idx) {
         List<CwriteVO> ar = mapper.getOrderList(m_idx);

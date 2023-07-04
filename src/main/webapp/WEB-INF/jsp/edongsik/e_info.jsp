@@ -11,8 +11,8 @@
     <article>
      <h1>초기작업중</h1>
 
-    <P>세션m_idx: ${sessionScope.evo.m_idx}</P>
-    <P>세션m_name: ${sessionScope.evo.m_name}</P>
+    <P>세션m_idx: ${sessionScope.mvo.m_idx}</P>
+    <P>세션m_name: ${sessionScope.mvo.m_name}</P>
      
     <!-- 회원 보유 차량 -->
      <c:forEach items="${c_ar}" var="c_ar">

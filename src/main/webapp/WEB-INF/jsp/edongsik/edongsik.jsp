@@ -29,13 +29,13 @@
   <!--////////// Main start //////////////-->
   <main></main>
     
-    <!-- <p>"${evo.m_idx}"</p>
-    <P>"${sessionScope.evo.m_idx}"</P> -->
+    
+    <!-- <P>"${sessionScope.mvo1.m_idx}"</P> -->
 
     <div style="display: flex; justify-content: center; margin-top: 40px;">
         <button type="button" onclick="location.href='??'">충전하기</button>
-        <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-        <button type="button" onclick="location.href='map'">이용내역</button>
+        <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+        <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
     </div>
  
     <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
@@ -45,7 +45,17 @@
         <div class="card-body">
           <h5 class="card-title">현재 위치 검색</h5>
           <p class="card-text"></p>
-          <a href="#" class="btn btn-primary" onclick="conf()" style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
+
+          <c:if test="${sessionScope.mvo ne null}">
+            <button class="btn btn-primary" onclick="conf()" style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</button>
+          </c:if>
+
+          <c:if test="${sessionScope.mvo eq null}">
+          <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+          data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+          data-bs-content="로그인이 필요합니다">검색</button>
+         </c:if>
+
         </div>
       </div>
     
@@ -55,13 +65,19 @@
         <div class="card-body">
           <h5 class="card-title">차량 등록 주소</h5>
           <p class="card-text"></p>
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
-        </div>
-      </div>
 
-      <!-- <c:forEach items="${carVo}" var="carVo">
-                  <p>${carVo.c_name}</p>
-                </c:forEach> -->
+        <c:if test="${sessionScope.mvo ne null}">
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+         style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
+       </c:if>
+
+       <c:if test="${sessionScope.mvo eq null}">
+        <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+         data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+         data-bs-content="로그인이 필요합니다">검색</button>
+       </c:if>
+          </div>
+      </div>
       
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -89,41 +105,6 @@
         </div>
       </div>
 <!-- Modal 끝-->
-
-<script>
-  function selectC(){
-		var selectCar  = document.getElementById("selectCar");
-		var value = (selectCar.options[selectCar.selectedIndex].value);
-    
-    if (value === "") {
-      alert("차량을 선택해주세요.");
-    } else {
-      alert("c_idx = "+value);
-      location.href="/carAddr/?c_idx="+value;
-    }
-	};
-</script>
-
-<!-- <script>
-  const modal = document.querySelector('.modal');
-	        const btnOpenPopup = document.querySelector('#btn-open-popup');
-	        btnOpenPopup.addEventListener('click', () => {
-	          modal.style.display = 'block';
-	        });
-	        
-	        const closeBtn = modal.querySelector(".btn-close")
-	        closeBtn.addEventListener("click", e => {
-	            modal.style.display = "none"
-	        });
-	        
-	        const closeBtn2 = modal.querySelector("#close_bt")
-	        closeBtn2.addEventListener("click", e => {
-	            modal.style.display = "none"
-	        });
-
-</script> -->
-      
-
 </div>
 <form action="/local/" method="get">
   <input type="hidden" id="lat1" name="lat" />
@@ -136,13 +117,27 @@
 <!--////////// Foter end //////////////-->
 
 <script>
-  function conf() {
-   if (confirm("현재위치를 조회하시겠습니까?")) {
-    johoe();
-   } else {
-    alert("위치 기반 서비스를 동의해 주세요");
-   }
-  }
+   const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+   const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
+
+   function conf() {
+     if (confirm("위치 기반 서비스를 이용하여 현재위치를 조회하시겠습니까?")) {
+      johoe();
+     } else {
+      alert("위치 기반 서비스를 거부하셨습니다.");
+      alert("현재위치를 직접 지정합니다.");
+      document.getElementById("lat1").value = 37.482126867205025;
+      document.getElementById("lng1").value = 126.90147154188523;
+      document.forms[0].submit();
+     }
+    }
+    function conf2() {
+     if (confirm("현재위치를 직접 지정하시겠습니까?")) {
+
+     } else {
+      alert("");
+     }
+    }
   function johoe() {
    navigator.geolocation.getCurrentPosition(function (pos) {
     console.log(pos);
@@ -155,17 +150,17 @@
    });
   }
 
-  function selectCar(form) {
-				//frm.submit();
-				
-				 
-				let selectCar = form.selectCar.value;
-        console.log(selectCar);
-        //form.submit();
-
-        //location.href="/ee/?c_idx="+selectCar;
-      }
+  function selectC(){
+		var selectCar  = document.getElementById("selectCar");
+		var value = (selectCar.options[selectCar.selectedIndex].value);
     
+    if (value === "") {
+      alert("차량을 선택해주세요.");
+    } else {
+      alert("c_idx = "+value);
+      location.href="/carAddr/?c_idx="+value;
+    }
+	};
   
  </script>
 

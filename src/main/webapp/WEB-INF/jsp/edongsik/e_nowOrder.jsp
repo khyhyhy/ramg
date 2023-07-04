@@ -28,18 +28,22 @@
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
       <button type="button" onclick="location.href='??'">충전하기</button>
-      <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+      <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
       <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
      </div>
 
-     <div class="text-center">
+     
+    <c:forEach items="${suar}" var="suar">
 
-            <c:if test="${svo.s_type == 1}">
+     <!-- 이동식 사진-->
+         <c:if test="${suar.svo.s_type == 1}">
+             <c:if test="${suar.su_status ne 5}">
+                <div class="text-center">
 
                 <div class="row" style="margin-top: 60px;">
                 <div class="col"></div>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 0}">
+                    <c:when test="${suar.su_status == 0}">
                         <div class="col">
                             <img src="/images/su_status00.png"/>
                             <label style="display: flex; justify-content: center;">주문 대기중</label>
@@ -53,7 +57,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 1}">
+                    <c:when test="${suar.su_status == 1}">
                         <div class="col">
                             <img src="/images/su_status11.png" />
                             <label style="display: flex; justify-content: center;">주문 접수</label>
@@ -67,7 +71,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 2}">
+                    <c:when test="${suar.su_status == 2}">
                         <div class="col">
                             <img src="/images/su_status22.png" />
                             <label style="display: flex; justify-content: center;">충전지 이동중</label>
@@ -81,7 +85,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 3}">
+                    <c:when test="${suar.su_status == 3}">
                         <div class="col">
                             <img src="/images/su_status33.png" />
                             <label style="display: flex; justify-content: center;">충전지 도착</label>
@@ -95,7 +99,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 4}">
+                    <c:when test="${suar.su_status == 4}">
                         <div class="col">
                             <img src="/images/su_status44.png" />
                             <label style="display: flex; justify-content: center;">충전중</label>
@@ -109,7 +113,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 5}">
+                    <c:when test="${suar.su_status == 5}">
                         <div class="col">
                             <img src="/images/su_status55.png" />
                             <label style="display: flex; justify-content: center;">충전완료</label>
@@ -124,24 +128,96 @@
                 </c:choose>
                 <div class="col"></div>
                 </div>
-
+            </c:if>
             </c:if>
 
+        <!-- 이동식 정보-->
+        <c:if test="${suar.svo.s_type == 1}">
+        <c:if test="${suar.su_status ne 5}">
 
-            <c:if test="${svo.s_type == 0}">
-            
+            <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+                 <table summary="게시판 목록" class="table table-hover">
+					
+                    <colgroup>
+                        <col width="250px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        
+                        <col width="120px">
+                        <col width="120px">
+                    </colgroup>
+           
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">서비스 정보</th>
+                            <th style="text-align: center;">업체정보</th>
+                            <th style="text-align: center;">주문일자</th>
+                            <th style="text-align: center;">서비스 금액</th>
+                            <th style="text-align: center;">충전 금액</th>
+                            <th style="text-align: center;">총 결제금액</th>
+                            <th colspan="2" style="text-align: center;">서비스 상태</th>
+                        </tr>
+                    </thead>
+               
+               
+                    <tbody>
+                        <tr style="height: 150px; margin-bottom: 100px;">
+                            <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name} ${suar.mvo.m_phone}</td>   
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+                        
+                            <c:choose>
+                            <c:when test="${suar.su_status == 0}">
+                                <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 1}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 2}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 이동중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 3}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 도착</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 4}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 5}">
+                                    <td style="text-align: center; vertical-align: middle;">충전완료</td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <button type="button">후기 작성</button>
+                                    </td>
+                                </c:when>
+                            </c:choose>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </c:if>
+        </c:if>
+
+         <!-- 탁송 그림-->
+        <c:if test="${suar.svo.s_type == 0}">
+            <c:if test="${suar.su_status ne 7}">
+                <div>
                 <div class="row" style="margin-top: 60px;">
-                    
-                    <c:if test="${suvo.su_status == 8}">
+                    <c:if test="${suar.su_status == 8}">
                         <div class="col">
-                                <img src="/images/su_status55.png" />
-                                <label style="display: flex; justify-content: center;">문제발생</label>
+                            <img src="/images/su_status55.png" />
+                            <label style="display: flex; justify-content: center;">문제발생</label>
                         </div>
                     </c:if>
-
-
+                  
                     <c:choose>
-                        <c:when test="${suvo.su_status == 0}">
+                        <c:when test="${suar.su_status == 0}">
                             <div class="col">
                                 <img src="/images/su_status00.png"/>
                                 <label style="display: flex; justify-content: center;">주문 대기중</label>
@@ -155,7 +231,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 1}">
+                        <c:when test="${suar.su_status == 1}">
                             <div class="col">
                                 <img src="/images/su_status11.png" />
                                 <label style="display: flex; justify-content: center;">주문 접수</label>
@@ -169,7 +245,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 2}">
+                        <c:when test="${suar.su_status == 2}">
                             <div class="col">
                                 <img src="/images/su_status22.png" />
                                 <label style="display: flex; justify-content: center;">탁송기사 이동중</label>
@@ -183,7 +259,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 3}">
+                        <c:when test="${suar.su_status == 3}">
                             <div class="col">
                                 <img src="/images/su_status33.png" />
                                 <label style="display: flex; justify-content: center;">차량픽업</label>
@@ -197,7 +273,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 4}">
+                        <c:when test="${suar.su_status == 4}">
                             <div class="col">
                                 <img src="/images/su_status44.png" />
                                 <label style="display: flex; justify-content: center;">충전소 이동중</label>
@@ -211,7 +287,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 5}">
+                        <c:when test="${suar.su_status == 5}">
                             <div class="col">
                                 <img src="/images/su_status55.png" />
                                 <label style="display: flex; justify-content: center;">충전중</label>
@@ -225,7 +301,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 6}">
+                        <c:when test="${suar.su_status == 6}">
                             <div class="col">
                                 <img src="/images/su_status55.png" />
                                 <label style="display: flex; justify-content: center;">도착지 이동중</label>
@@ -239,7 +315,7 @@
                         </c:otherwise>
                     </c:choose>
                     <c:choose>
-                        <c:when test="${suvo.su_status == 7}">
+                        <c:when test="${suar.su_status == 7}">
                             <div class="col">
                                 <img src="/images/su_status55.png" />
                                 <label style="display: flex; justify-content: center;">도착완료</label>
@@ -252,136 +328,104 @@
                             </div>
                         </c:otherwise>
                     </c:choose>
-                    
-                    </div>
-            
+                  
+                </div>
+                </div>
+
             </c:if>
+        </c:if>
 
-      </div>
-      <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
-        <table summary="게시판 목록" class="table table-hover">
+
+        <!--탁송 정보-->
+        <c:if test="${suar.svo.s_type == 0}">
+        <c:if test="${suar.su_status ne 7}">
+
+
+            <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
+                <table summary="게시판 목록" class="table table-hover">
 					
-            <colgroup>
-               <col width="250px">
-               <col width="130px">
-               <col width="130px">
-               <col width="130px">
-               <col width="130px">
-               <col width="130px">
-               
-               <col width="120px">
-               <col width="120px">
-           </colgroup>
+                    <colgroup>
+                        <col width="250px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        <col width="130px">
+                        
+                        <col width="120px">
+                        <col width="120px">
+                    </colgroup>
            
-               <thead>
-                   <tr>
-                       <th style="text-align: center;">서비스 정보</th>
-                       <th style="text-align: center;">업체정보</th>
-                       <th style="text-align: center;">주문일자</th>
-                       <th style="text-align: center;">서비스 금액</th>
-                       <th style="text-align: center;">충전 금액</th>
-                       <th style="text-align: center;">총 결제금액</th>
-                       <th colspan="2" style="text-align: center;">서비스 상태</th>
-                   </tr>
-               </thead>
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">서비스 정보</th>
+                            <th style="text-align: center;">업체정보</th>
+                            <th style="text-align: center;">주문일자</th>
+                            <th style="text-align: center;">서비스 금액</th>
+                            <th style="text-align: center;">충전 금액</th>
+                            <th style="text-align: center;">총 결제금액</th>
+                            <th colspan="2" style="text-align: center;">서비스 상태</th>
+                        </tr>
+                    </thead>
+               
+               
+                    <tbody>
+                            
+                        <tr style="height: 150px; margin-bottom: 100px;">
 
-               <tbody>
-                <c:if test="${svo.s_type == 1}">
-                    
-                     <tr style="height: 150px; margin-bottom: 100px;">
+                            <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name} ${suar.mvo.m_phone}</td>   
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+                        
+                            <c:choose>
+                                <c:when test="${suar.su_status == 0}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 1}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 2}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">탁송기사 이동중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 3}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">차량픽업</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 4}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전소 이동중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 5}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 6}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">도착지 이동중</td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 7}">
+                                    <td style="text-align: center; vertical-align: middle;">도착완료</td>
+                                    <td style="text-align: center; vertical-align: middle;">
+                                        <button type="button">후기 작성</button>
+                                    </td>
+                                </c:when>
+                                <c:when test="${suar.su_status == 8}">
+                                    <td colspan="2" style="text-align: center; vertical-align: middle;">문제발생</td>
+                                </c:when>
+                            </c:choose>
 
-                         <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
-                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name} ${mvo.m_phone}</td>   
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
-                     
-                         <c:choose>
-                         <c:when test="${suvo.su_status == 0}">
-                             <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
-                             </c:when>
-                             <c:when test="${suvo.su_status == 1}">
-                                 <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
-                             </c:when>
-                             <c:when test="${suvo.su_status == 2}">
-                                 <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 이동중</td>
-                             </c:when>
-                             <c:when test="${suvo.su_status == 3}">
-                                 <td colspan="2" style="text-align: center; vertical-align: middle;">충전지 도착</td>
-                             </c:when>
-                             <c:when test="${suvo.su_status == 4}">
-                                 <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
-                             </c:when>
-                             <c:when test="${suvo.su_status == 5}">
-                                 <td style="text-align: center; vertical-align: middle;">충전완료</td>
-                                 <td style="text-align: center; vertical-align: middle;">
-                                     <button type="button">후기 작성</button>
-                                 </td>
-                             </c:when>
-                         </c:choose>
-                     </tr>
-                     
-                 </c:if>
+                        </tr>
+                                    
+                    </tbody>
+                </table>
+            </div>
+        </c:if>
+    </c:if>
 
-                 <c:if test="${svo.s_type == 0}">
 
-                     <tr style="height: 150px; margin-bottom: 100px;">
+    </c:forEach>  
 
-                         <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
-                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name} ${mvo.m_phone}</td>   
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
-                     
-                         <c:choose>
-                             <c:when test="${suvo.su_status == 0}">
-                                 <td colspan="2" style="text-align: center; vertical-align: middle;">주문 대기중</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 1}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">주문 접수</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 2}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">탁송기사 이동중</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 3}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">차량픽업</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 4}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">충전소 이동중</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 5}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 6}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">도착지 이동중</td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 7}">
-                                  <td style="text-align: center; vertical-align: middle;">도착완료</td>
-                                  <td style="text-align: center; vertical-align: middle;">
-                                      <button type="button">후기 작성</button>
-                                  </td>
-                              </c:when>
-                              <c:when test="${suvo.su_status == 8}">
-                                  <td colspan="2" style="text-align: center; vertical-align: middle;">문제발생</td>
-                              </c:when>
-                         </c:choose>
 
-                     </tr>
-                     
-                 </c:if>
-               </tbody>
-        </table>
-
-      </div>
-
-      <!-- <div class="row">
-       <div class="col">결제버튼 들어갈 곳</div>
-      </div>
-     </div> -->
-
-     
+      
     </main>
    </div>
    <!--////////// Main end //////////////-->
