@@ -58,7 +58,6 @@ public class MypageController {
     public ModelAndView search_bl_list(String m_idx) {
         ModelAndView mv = new ModelAndView();
         if (m_idx == null) {
-            // 로그인한 회원의 m_idx를 얻어내자
             Object obj = session.getAttribute("mvo");
 
             if (obj != null) {

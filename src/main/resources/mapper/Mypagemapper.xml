@@ -51,8 +51,8 @@
   </select>
 
   <select id="search_bl_list" resultMap="map2" parameterType="String">
-    SELECT * FROM bbs_t
-    WHERE b_idx = #{b_idx}
+    SELECT * FROM bbslog
+        WHERE m_idx = #{m_idx}
   </select>
 
 
