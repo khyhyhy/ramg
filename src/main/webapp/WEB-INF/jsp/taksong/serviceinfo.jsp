@@ -72,6 +72,7 @@
             <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
             <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
            </fieldset>
+           <br />
           </c:forEach>
          </ul>
         </div>
@@ -98,14 +99,26 @@
        <div class="row">
         <div class="col">
          <div>
-          <input type="radio" class="btn-check" name="s_payment1" id="payment1" autocomplete="off" onclick="sinyoung()">
+          <input type="radio" class="btn-check" name="s_payment1" id="payment1" autocomplete="off" onclick="sinyoung()"
+           value="신용카드">
           <label class="btn btn-outline-primary" for="payment1">신용카드</label>
-
-          <input type="radio" class="btn-check" name="s_payment1" id="payment2" autocomplete="off">
+          <input type="radio" class="btn-check" name="s_payment1" id="payment2" autocomplete="off" onclick="tong()"
+           value="무통장거래">
           <label class="btn btn-outline-primary" for="payment2">무통장거래</label>
-          <select style="display: none;" id="sinyong" name="s_payment2">
-           <option></option>
+          <select class="form-select form-select-sm" style="display: none; width: 20%;" id="sinyong" name="s_payment2">
+           <option value="gukmin">국민카드</option>
+           <option value="shinhan">신한카드</option>
+           <option value="bici">BC카드</option>
+           <option value="woori">우리카드</option>
           </select>
+          <select class="form-select form-select-sm" style="display: none; width: 20%;" id="tongjang" name="s_payment2">
+           <option value="gukmin">국민은행</option>
+           <option value="shinhan">신한은행</option>
+           <option value="giup">기업은행</option>
+           <option value="woori">우리은행</option>
+          </select>
+          <input type="text" id="tongtext" name="s_payment2" class="form-control" style=" display: none ;width: 40%"
+           placeholder="계좌번호">
          </div>
         </div>
        </div>
@@ -131,8 +144,32 @@
     let serviceprice;
     let chargeprice;
     var f_price;
+
     function sinyoung() {
-     document.getElementById("sinyong").style()
+     var sinyongSelect = document.getElementById("sinyong");
+     var tongjangSelect = document.getElementById("tongjang");
+     var tongtextInput = document.getElementById("tongtext");
+
+     sinyongSelect.style.display = "inline";
+     tongjangSelect.style.display = "none";
+     tongtextInput.style.display = "none";
+     sinyongSelect.disabled = false;
+     tongjangSelect.disabled = true;
+     tongtextInput.disabled = true;
+
+
+    }
+
+    function tong() {
+     var sinyongSelect = document.getElementById("sinyong");
+     var tongjangSelect = document.getElementById("tongjang");
+     var tongtextInput = document.getElementById("tongtext");
+     sinyongSelect.style.display = "none";
+     tongjangSelect.style.display = "inline";
+     tongtextInput.style.display = "inline";
+     sinyongSelect.disabled = true;
+     tongjangSelect.disabled = false;
+     tongtextInput.disabled = false;
     }
 
     function carinfo(f) {

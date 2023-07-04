@@ -161,12 +161,17 @@ public class TaksongController {
  }
 
  @RequestMapping("/taksong/serviceok")
- public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment1) {
+ public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment1,
+   String s_payment2) {
   ModelAndView mv = new ModelAndView();
   System.out.println("s_idx = " + s_s_idx);
   System.out.println("c_idx = " + s_c_idx);
   System.out.println("chargepersent = " + chargepersent);
-  System.out.println("s_payment = " + s_payment1);
+  System.out.println("s_payment1 = " + s_payment1);
+  System.out.println("s_payment2 = " + s_payment2);
+
+
+  
   return mv;
  }
 
