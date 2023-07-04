@@ -19,4 +19,6 @@ public interface LoginMapper {
 
     MemVO check_email(String m_email);
 
+    MemVO check_phone(String m_phone);
+
 }

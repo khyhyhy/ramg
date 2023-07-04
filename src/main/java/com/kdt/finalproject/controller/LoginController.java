@@ -54,10 +54,10 @@ public class LoginController {
     @ResponseBody
 
     public Map<String, Object> login(MemVO vo) {
-        System.out.println("아무거나");
-        System.out.println("EMAIL" + vo.getM_email() + "8484848484");
-        System.out.println("pw0" + vo.getM_pw() + "8484848484");
-        System.out.println("mclass" + vo.getM_class() + "8484848484");
+        // System.out.println("아무거나");
+        // System.out.println("EMAIL" + vo.getM_email() + "8484848484");
+        // System.out.println("pw0" + vo.getM_pw() + "8484848484");
+        // System.out.println("mclass" + vo.getM_class() + "8484848484");
         Map<String, Object> response = new HashMap<>();
 
         // // 사용자가 입력한 id를 가지고 DB로부터 MemVO 객체를 검색한다.
@@ -81,16 +81,16 @@ public class LoginController {
         return mv;
     }
 
-    @RequestMapping("sign")
-    public ModelAndView sign(String m_class) {
-        ModelAndView mv = new ModelAndView();
+    // @RequestMapping("sign")
+    // public ModelAndView sign(String m_class) {
+    // ModelAndView mv = new ModelAndView();
 
-        if (m_class == "0" || m_class == "2")
-            mv.setViewName("redirect:/car_mt");
+    // if (m_class == "0" || m_class == "2")
+    // mv.setViewName("redirect:/car_mt");
 
-        else
-            mv.setViewName("redirect:login");
+    // else
+    // mv.setViewName("redirect:login");
 
-        return mv;
-    }
+    // return mv;
+    // }
 }

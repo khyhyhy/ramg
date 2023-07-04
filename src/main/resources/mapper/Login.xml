@@ -28,13 +28,19 @@
 		resultType="com.kdt.finalproject.vo.MemVO">
 		SELECT * FROM member_t
 		WHERE m_email = #{m_email}
-		AND m_status = 1 AND m_class = #{m_class}
+		AND m_status = 0 AND m_class = #{m_class}
 	</select>
 
   	<insert id="add_mem" parameterType="com.kdt.finalproject.vo.MemVO">
-		INSERT INTO member_t(m_email, m_pw, m_name, m_status, m_class)
-		VALUES(#{m_email}, #{m_pw}, #{m_name}, 1, #{m_class})
+		INSERT INTO member_t(m_email, m_pw, m_name, m_phone, m_date, m_status, m_class)
+		VALUES(#{m_email}, #{m_pw}, #{m_name}, #{m_phone}, NOW(), 0, #{m_class})
 	</insert>
+
+	<select id="check_phone" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+		SELECT * FROM member_t
+		WHERE m_phone = #{m_phone}
+	</select>
+	
 
 	<select id="check_email" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
 		SELECT * FROM member_t

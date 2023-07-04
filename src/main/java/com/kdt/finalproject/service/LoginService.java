@@ -54,10 +54,21 @@ public class LoginService {
     // 회원가입
     public int add_mem(MemVO mvo) {
 
+        StringBuffer sb = new StringBuffer();
+        // 잠깐 수정
+        // sb.append(mvo.getS_phone()[0]);
+        // sb.append(mvo.getS_phone()[1]);
+        // sb.append(mvo.getS_phone()[2]);
+
+        sb.append(mvo.getM_phone_part1()); // 수정된 필드 이름으로 변경
+        sb.append(mvo.getM_phone_part2()); // 수정된 필드 이름으로 변경
+        sb.append(mvo.getM_phone_part3()); // 수정된 필드 이름으로 변경
+
         MemVO vo = new MemVO();
         vo.setM_email(mvo.getM_email());
         vo.setM_name(mvo.getM_name());
-        vo.setM_class(mvo.getM_class()); // 이거 추가해봄
+        vo.setM_class(mvo.getM_class());
+        vo.setM_phone(sb.toString());
 
         vo.setM_pw(passwordEncoder.encode(mvo.getM_pw()));
 
@@ -75,6 +86,10 @@ public class LoginService {
 
     public MemVO check_email(String m_email) {
         return l_Mapper.check_email(m_email);
+    }
+
+    public MemVO check_phone(String m_phone) {
+        return l_Mapper.check_phone(m_phone);
     }
 
 }
