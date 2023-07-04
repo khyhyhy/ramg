@@ -147,7 +147,7 @@
   <update id="updateMember" parameterType="com.kdt.finalproject.vo.MemVO">
         UPDATE member_t
         
-          <trim prefix="SET" suffixOverrides=","> 
+          <trim prefix="SET" suffixOverrides=",">
             <if test="m_name != null">
               m_name = #{m_name}, 
             </if>

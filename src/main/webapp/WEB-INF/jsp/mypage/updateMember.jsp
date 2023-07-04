@@ -44,6 +44,7 @@
             
             <td colspan="2">
                 <input type="button" id="btn" value="변경하기"/>
+                <input type="button" id="btn2" value="돌아가기" onclick="javascript:location.href='mypage'"/>
             </td>
         </tr>
     </tbody>
