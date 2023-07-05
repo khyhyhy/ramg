@@ -46,6 +46,8 @@ public class TaksongController {
  String mp = "자치";
  int lo;
 
+ 
+
  @RequestMapping("/taksong/")
  public ModelAndView index() {
   ModelAndView mv = new ModelAndView();
