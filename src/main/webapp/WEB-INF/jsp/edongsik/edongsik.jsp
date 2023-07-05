@@ -33,9 +33,23 @@
     <!-- <P>"${sessionScope.mvo1.m_idx}"</P> -->
 
     <div style="display: flex; justify-content: center; margin-top: 40px;">
-        <button type="button" onclick="location.href='??'">충전하기</button>
-        <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-        <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+      <button type="button" onclick="location.href='??'">충전하기</button>
+        <c:if test="${sessionScope.mvo ne null}">
+          <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+        </c:if>
+
+        <c:if test="${sessionScope.mvo eq null}">
+          <button type="button " style="margin-left: 50px; margin-right: 50px;" data-bs-container="body"
+            data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="로그인이 필요합니다">현재상황</button>
+        </c:if>
+
+        <c:if test="${sessionScope.mvo ne null}">
+          <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+        </c:if>
+
+        <c:if test="${sessionScope.mvo eq null}">
+          <button type="button " data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="로그인이 필요합니다">이용내역</button>
+        </c:if>
     </div>
  
     <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
@@ -55,6 +69,7 @@
           data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
           data-bs-content="로그인이 필요합니다">검색</button>
          </c:if>
+          
 
         </div>
       </div>

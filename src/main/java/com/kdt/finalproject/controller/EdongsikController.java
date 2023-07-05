@@ -45,21 +45,21 @@ public class EdongsikController {
     @RequestMapping("/edongsik/")
     public ModelAndView edongsik() {
         ModelAndView mv = new ModelAndView();
-        
+
         MemVO mvo1 = (MemVO) session.getAttribute("mvo");
         if (mvo1 != null) {
-        String m_idx = mvo1.getM_idx();
-        System.out.println("진짜 세션: "+ m_idx);
+            String m_idx = mvo1.getM_idx();
+            System.out.println("진짜 세션: " + m_idx);
 
-        List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
-        cw_ar = service.carList(m_idx);
-        List<CarVO> carVo = new ArrayList<CarVO>();
-        for (CwriteVO kkk : cw_ar) {
-            CarVO kkk2 = kkk.getCvo();
+            List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
+            cw_ar = service.carList(m_idx);
+            List<CarVO> carVo = new ArrayList<CarVO>();
+            for (CwriteVO kkk : cw_ar) {
+                CarVO kkk2 = kkk.getCvo();
 
-            carVo.add(kkk2);
-        }
-        mv.addObject("carVo", carVo);
+                carVo.add(kkk2);
+            }
+            mv.addObject("carVo", carVo);
         }
         mv.setViewName("edongsik/edongsik");
 
@@ -173,6 +173,7 @@ public class EdongsikController {
                     String s_idx = value.getS_idx();
                     SwriteVO swvo = service.radiusInfo(s_idx);
                     swar.add(swvo);
+
                     mv.addObject("swar", swar);
                 }
 
@@ -207,8 +208,7 @@ public class EdongsikController {
         SwriteVO swvo = service.radiusInfo(s_idx);
         MemVO mvo = swvo.getMvo();
         ServiceVO svo = swvo.getSvo();
-        
-        
+
         mv.addObject("mvo", mvo);
         mv.addObject("svo", svo);
 
@@ -218,12 +218,12 @@ public class EdongsikController {
 
     @RequestMapping("/e_nowOrder/")
     public ModelAndView e_nowOrder() {
-         ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView();
 
         MemVO mvo1 = (MemVO) session.getAttribute("mvo");
         String m_idx = mvo1.getM_idx();
-        
-        //System.out.println("세션" + m_idx);
+
+        // System.out.println("세션" + m_idx);
 
         List<CwriteVO> cwList = new ArrayList<CwriteVO>();
         cwList = service.getOrderList(m_idx);
@@ -239,26 +239,23 @@ public class EdongsikController {
                 System.out.println("c_idx" + su_vo.getC_idx());
                 System.out.println("Su_date" + su_vo.getSu_date());
                 System.out.println("s_idx" + su_vo.getS_idx());
-                
+
                 String s_idx = su_vo.getS_idx();
                 System.out.println(s_idx);
 
-                //SwriteVO swvo = service.getBusiness(s_idx);
-    
+                // SwriteVO swvo = service.getBusiness(s_idx);
+
                 SwriteVO swvo = service.radiusInfo(s_idx);
-    
+
                 MemVO mvo = swvo.getMvo();
                 ServiceVO svo = swvo.getSvo();
-    
+
                 su_vo.setSvo(svo);
                 su_vo.setMvo(mvo);
-    
+
                 System.out.println(mvo.getM_idx());
                 System.out.println(svo.getS_type());
             }
-
-            
-
 
         }
 
@@ -274,8 +271,8 @@ public class EdongsikController {
 
         MemVO mvo1 = (MemVO) session.getAttribute("mvo");
         String m_idx = mvo1.getM_idx();
-        
-        //System.out.println("세션" + m_idx);
+
+        // System.out.println("세션" + m_idx);
 
         List<CwriteVO> cwList = new ArrayList<CwriteVO>();
         cwList = service.getOrderList(m_idx);
@@ -291,26 +288,23 @@ public class EdongsikController {
                 System.out.println("c_idx" + su_vo.getC_idx());
                 System.out.println("Su_date" + su_vo.getSu_date());
                 System.out.println("s_idx" + su_vo.getS_idx());
-                
+
                 String s_idx = su_vo.getS_idx();
                 System.out.println(s_idx);
 
-                //SwriteVO swvo = service.getBusiness(s_idx);
-    
+                // SwriteVO swvo = service.getBusiness(s_idx);
+
                 SwriteVO swvo = service.radiusInfo(s_idx);
-    
+
                 MemVO mvo = swvo.getMvo();
                 ServiceVO svo = swvo.getSvo();
-    
+
                 su_vo.setSvo(svo);
                 su_vo.setMvo(mvo);
-    
+
                 System.out.println(mvo.getM_idx());
                 System.out.println(svo.getS_type());
             }
-
-            
-
 
         }
 
