@@ -22,9 +22,15 @@
         #jibun {font-size: 11px;color: #888;margin-top: -2px;}
         #img {border: 0px; position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 0px solid #ddd;color: #888;overflow: hidden;}
         .box {
+            width: 120px;
+            height: 80px;
             border: 1px solid black;
+            border-radius: 3px;
             padding: 10px;
             display: inline-block;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
     </style>
 </head>
@@ -35,38 +41,36 @@
 
         <!--////////// Main start //////////////-->
         <main>
+            <div style="display: flex; justify-content: flex-end;">
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <div class="box">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</a>
+                        </li>
+                    </div>
+                    <div class="box" style="border-left: none;">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</a>
+                        </li>
+                    </div>
+                    <div class="box" style="border-left: none;">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</a> 
+                        </li>
+                    </div>
+                </ul>
+            </div>
             <div class="container-fluid text-center">
                 <div class="row">
-                  <div class="col-2">
-                    <div style="display: flex; justify-content: flex-end;">
-                      <ul class="nav">
-                        <li class="nav-item">
-                          <div class="box">
-                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 30px; height: 30px;" src="../images/greenicon.png"/><br/>충전가능</a>
-                          </div>
-                        </li>
-                        <li class="nav-item">
-                          <div class="box" style="border-left: none;">
-                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/redicon.png"/><br/>불가능</a>
-                          </div>
-                        </li>
-                        <li class="nav-item">
-                          <div class="box" style="border-left: none;">
-                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/chargeicon.png/"><br/>충전중</a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
+                  <div class="col-2" style="padding-right: 0;">
                     <ul class="list-group">
                       <li class="list-group-item">내 주변 가까운 충전소</li>
                     </ul>
-                    <ul class="list-group" id="list1" style="height: 800px; overflow-y: scroll;"></ul>
+                    <ul class="list-group" id="list1" style="height: 750px; overflow-y: scroll;"></ul>
                     <ul class="list-group"></ul>
                   </div>
-                  <div class="col-10">
-                    <div class="row">
+                  <div class="col-10" style="padding-left: 0;">
                       <div id="map" style="width: 100%; height: 800px;"></div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -98,7 +102,7 @@
             var map = new kakao.maps.Map(container, options);
             var geocoder = new kakao.maps.services.Geocoder();
             // 원(Circle)의 옵션으로 넣어준 반지름
-            var radius = 30000;
+            var radius = 5000;
 
              // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
              if (navigator.geolocation) {
@@ -112,7 +116,7 @@
                     //console.log(lon);
 
                     var locPosition = new kakao.maps.LatLng(lati, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-                    message = '<div style="padding:5px;">여기요~~~~?!</div>'; // 인포윈도우에 표시될 내용입니다
+                    message = '<div style="padding:5px;">현재위치</div>'; // 인포윈도우에 표시될 내용입니다
                     
                     displayMarker(locPosition, message);//마커,인포 표시함수사용
                     //주소를 불러오는 함수 호출

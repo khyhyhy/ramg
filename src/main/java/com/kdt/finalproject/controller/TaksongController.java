@@ -26,6 +26,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Controller
@@ -44,6 +45,8 @@ public class TaksongController {
  String wp = "광역시";
  String mp = "자치";
  int lo;
+
+ 
 
  @RequestMapping("/taksong/")
  public ModelAndView index() {
@@ -282,7 +285,7 @@ public class TaksongController {
 
  @RequestMapping("/taksong/serviceok")
  public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment,
-   String s_payinfo, String s_sprice, String s_cprice) {
+   String s_payinfo, String s_sprice, String s_cprice, String s_type) {
   ModelAndView mv = new ModelAndView();
   System.out.println("s_idx = " + s_s_idx);
   System.out.println("c_idx = " + s_c_idx);
@@ -291,6 +294,21 @@ public class TaksongController {
   System.out.println("s_payinfo = " + s_payinfo);
   System.out.println("s_sprice = " + s_sprice);
   System.out.println("s_cprice = " + s_cprice);
+  SuseVO suvo = new SuseVO();
+  suvo.setS_idx(s_s_idx);
+  ServiceVO svo = service.svosel(s_s_idx);
+  suvo.setSu_type(svo.getS_type());
+  suvo.setC_idx(s_c_idx);
+  suvo.setSu_percent(chargepersent);
+  suvo.setSu_status("0");
+  suvo.setSu_payment(s_payment);
+  suvo.setSu_payinfo(s_payinfo);
+  suvo.setSu_sprice(s_sprice);
+  suvo.setSu_cprice(s_cprice);
+  boolean chk = service.suseVOin(suvo);
+  System.out.println(chk);
+
+  mv.setViewName("edongsik/e_orderList");
   return mv;
  }
 }

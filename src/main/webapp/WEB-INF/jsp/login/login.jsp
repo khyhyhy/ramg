@@ -18,8 +18,13 @@
 
         
         #login-button {
-            width: 310px; /* 원하는 버튼의 너비로 설정 */
+            width: 310px; /* 원하는 버튼의 너비로 설정 */           
         }
+
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 0.45rem rgba(20, 203, 216, 0.87);
+          }
 
         .form-outline {
         position: relative;
@@ -57,7 +62,9 @@
         border-top: 1.7px solid #757571;
         margin: 10px;
         width: 300px;
-  }
+  
+  
+    }
       </style>
 
 </head>
@@ -107,7 +114,7 @@
                                     <!-- Email input -->
                                     <div class="form-outline  mb-3 form-floating mb-3">
                                         <!-- <label class="form-label" for="m_email">Email</label> -->
-                                        <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email" />
+                                        <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email"/>
                                         <label for="m_email" class="form-label text-secondary fs-6">Email</label>
 
                                     </div>
@@ -210,6 +217,8 @@
                                 //        $( "#message" ).dialog();
                                 //     }
                                 // });
+
+
 
                                 function exe(frm) {
                                     if ($(frm.m_email).val() == "") {

@@ -77,22 +77,51 @@ public class JoinController {
     // return mv;
     // }
 
+    // 일단 주석
+    // @PostMapping("checkEmail")
+    // @ResponseBody
+    // public Map<String, String> check_email(@RequestParam String m_email) {
+    // Map<String, String> map = new HashMap<>();
+
+    // // System.out.println(m_email + "m_email");
+    // MemVO mvo = ls.check_email(m_email);
+    // // // System.out.println(mvo + "MVO");
+
+    // // // mvo가 null이면 아이디를 사용가능!, null아니면 사용불가
+    // if (mvo == null)
+    // map.put("msg", "<span class='success'>사용가능</span>");
+    // else
+    // map.put("msg", "<span class='fail'>사용불가</span>");
+
+    // return map;
+    // }
+
     @PostMapping("checkEmail")
     @ResponseBody
     public Map<String, String> check_email(@RequestParam String m_email) {
         Map<String, String> map = new HashMap<>();
 
-        // System.out.println(m_email + "m_email");
-        MemVO mvo = ls.check_email(m_email);
-        // // System.out.println(mvo + "MVO");
-
-        // // mvo가 null이면 아이디를 사용가능!, null아니면 사용불가
-        if (mvo == null)
-            map.put("msg", "<span class='success'>사용가능</span>");
-        else
+        // 이메일 형식이 올바르지 않은 경우
+        if (!isValidEmailFormat(m_email)) {
             map.put("msg", "<span class='fail'>사용불가</span>");
+        } else {
+            MemVO mvo = ls.check_email(m_email);
+            // mvo가 null이면 아이디를 사용가능!, null이 아니면 사용불가
+            if (mvo == null) {
+                map.put("msg", "<span class='success'>사용가능</span>");
+            } else {
+                map.put("msg", "<span class='fail'>사용불가</span>");
+            }
+        }
 
         return map;
+    }
+
+    // 이메일 형식 유효성 검사 메소드
+    private boolean isValidEmailFormat(String email) {
+        // 이메일 형식을 정규표현식을 사용하여 검사합니다.
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        return email.matches(emailRegex) && !email.endsWith(".") && !email.startsWith(".") && !email.contains("..");
     }
 
     @PostMapping("checkPhone")
