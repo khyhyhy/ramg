@@ -18,18 +18,16 @@ public class ServiceController {
  @Autowired
  HttpSession session;
 
- @RequestMapping("/mypage/service/")
+ @RequestMapping("/mypage/serviceadd/")
  public ModelAndView serviceadd() {
   ModelAndView mv = new ModelAndView();
   mv.setViewName("service/serviceadd");
   return mv;
  }
 
- @RequestMapping("/mypage/service/tsearch")
+ @RequestMapping("/mypage/service/")
  public ModelAndView init(@Param("addr") String addr) {
   ModelAndView mv = new ModelAndView();
-  mv.addObject("addr", addr);
-  mv.setViewName("service/serviceadd");
   return mv;
  }
 }
