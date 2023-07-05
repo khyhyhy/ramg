@@ -18,7 +18,7 @@
   <body>
    <!--////////// Header Start ////////////-->
    <div class="container-fluid bg-info">
-    <header style="margin-bottom: 0.5rem!important;"
+    <header style="margin-bottom: 0.0rem!important;"
      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
       <svg class="bi me-2" width="50" height="35"><img src="../images/thunder.png" /></svg>

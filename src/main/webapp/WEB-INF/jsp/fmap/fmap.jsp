@@ -24,14 +24,15 @@
         .box {
             width: 120px;
             height: 80px;
-            border: 1px solid black;
-            border-radius: 3px;
+
             padding: 10px;
             display: inline-block;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            background-color: azure;
         }
+        
     </style>
 </head>
 <body>
@@ -41,39 +42,44 @@
 
         <!--////////// Main start //////////////-->
         <main>
-            <div style="display: flex; justify-content: flex-end;">
-                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                    <div class="box">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</a>
-                        </li>
-                    </div>
-                    <div class="box" style="border-left: none;">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</a>
-                        </li>
-                    </div>
-                    <div class="box" style="border-left: none;">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</a> 
-                        </li>
-                    </div>
-                </ul>
-            </div>
             <div class="container-fluid text-center">
                 <div class="row">
-                  <div class="col-2" style="padding-right: 0;">
-                    <ul class="list-group">
-                      <li class="list-group-item">내 주변 가까운 충전소</li>
-                    </ul>
-                    <ul class="list-group" id="list1" style="height: 750px; overflow-y: scroll;"></ul>
-                    <ul class="list-group"></ul>
-                  </div>
-                  <div class="col-10" style="padding-left: 0;">
-                      <div id="map" style="width: 100%; height: 800px;"></div>
-                  </div>
+                    <div class="col-2" style="padding-right: 2px;">
+                        <ul class="list-group">
+                            <li class="list-group-item">내 주변 가까운 충전소</li>
+                        </ul>
+                        <ul class="list-group" id="list1" style="border: 3px solid black;height: 840px; overflow-y: scroll;"></ul> 
+                    </div>
+                    <div class="col" style="padding-left: 0;">
+                        <div class="col">
+                            <div class="d-flex justify-content-between" >
+                                <div class="col" >
+                                    <ul class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
+                                        <div class="box">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" aria-current="page" href="#"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</a>
+                                            </li>
+                                        </div>
+                                        <div class="box" style="border-left: none;">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</a>
+                                            </li>
+                                        </div>
+                                        <div class="box" style="border-left: none;">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</a> 
+                                            </li>
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div id="map" style="width: 100%; height: 800px;"></div>
+                        </div>
+                    </div>
                 </div>
-              </div>
+            </div>
         </main>
         <!--////////// Main end //////////////-->
 
@@ -84,7 +90,7 @@
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
             
-            var csid = [];
+            
             var markers =[];//마커 배열
             var markers2 =[];//내 주변 마커 배열
             var overlays = [];//커스텀오버레이 배열
@@ -169,8 +175,6 @@
                                                 type = 'DC차데모+AC3상+DC콤보';
                                             </c:if>
                                             var imageSize = new kakao.maps.Size(24, 35);
-                                            
-                                            csid.push(${vo.csId});
 
                                             var pos = new kakao.maps.LatLng('${vo.lat}', '${vo.longi}');
                                             var overlayid = "idnum"+ ind++;
@@ -223,7 +227,7 @@
                                             overlays.push(overlay);
                                             
                                             </c:forEach>
-                                            console.log(csid[0]);
+                                            
 
 
 
