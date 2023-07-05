@@ -8,6 +8,15 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>차량 관리</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <style>
+      h2{
+        text-align: center;
+      }
+      #addCar{
+        text-align: center;
+        margin: auto;
+      }
+  </style>
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -18,7 +27,7 @@
     <!-- 차량 추가 -->
 
   <h2>차량 추가</h2>
-        <form action="regCar" method="post" id="regCar">
+        <form action="addCar" method="post" id="addCar">
           <label for="c_num">차량번호</label>
           <input type="text" id="c_num" name="c_num" value="${car.c_num}" /><br/>
         

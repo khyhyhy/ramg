@@ -92,8 +92,8 @@ public class MypageController {
         return "mypage/addCar";
     }
 
-    @PostMapping("/regCar")
-    public ModelAndView regCar(CarVO cvo) {
+    @PostMapping("/addCar")
+    public ModelAndView addCar(CarVO cvo) {
         ModelAndView mv = new ModelAndView();
 
         Object obj = session.getAttribute("mvo");
