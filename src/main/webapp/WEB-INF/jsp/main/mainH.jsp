@@ -1,9 +1,7 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
   <!DOCTYPE html>
   <html>
-
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +13,6 @@
    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
   <body>
    <!--////////// Header Start ////////////-->
    <div class="container-fluid bg-info">
@@ -25,7 +22,6 @@
       <svg class="bi me-2" width="50" height="35"><img src="../images/thunder.png" /></svg>
       <span class="fs-4 text-white">람쥐썬더 전기차 충전소</span>
      </a>
-
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li>
@@ -49,7 +45,7 @@
        </li>
        <li>
         <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">마이 페이지</a>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu">    
          <li><a class="dropdown-item" href="/mypage">정보 관리</a></li>
          <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
          <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
@@ -59,25 +55,18 @@
        </li>
       </ul>
      </div>
-
      <c:if test="${sessionScope.mvo eq null}">
       <div class="col-md-3 text-end">
        <button type="button" class="btn btn-outline-primary me-2"><a href="/login">Login</a></button>
       </div>
      </c:if>
-
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
        <button type="button" class="btn btn-outline-primary me-2"><a href="/logout">Logout</a></button>
       </div>
      </c:if>
-
     </header>
    </div>
    <!--////////// Header end ////////////-->
-
-
-
   </body>
-
   </html>

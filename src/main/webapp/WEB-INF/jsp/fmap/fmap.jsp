@@ -35,28 +35,28 @@
 
         <!--////////// Main start //////////////-->
         <main>
+            <div style="display: flex; justify-content: flex-end;">
+                <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+                    <li class="nav-item">
+                        <div style="border: 2px solid black; display: inline-block; padding: 5px;">
+                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 30px; height: 30px;" src="../images/greenicon.png"/><br/>충전가능</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div style="border: 2px solid black; display: inline-block; padding: 5px; border-left: none;">
+                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/redicon.png"/><br/>불가능</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <div style="border: 2px solid black; display: inline-block; padding: 5px; border-left: none;">
+                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/chargeicon.png/"><br/>충전중</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <div class="container-fluid text-center">
                 <div class="row">
                   <div class="col-2">
-                    <div style="display: flex; justify-content: flex-end;">
-                      <ul class="nav">
-                        <li class="nav-item">
-                          <div class="box">
-                            <a class="nav-link active" aria-current="page" href="#"><img style="width: 30px; height: 30px;" src="../images/greenicon.png"/><br/>충전가능</a>
-                          </div>
-                        </li>
-                        <li class="nav-item">
-                          <div class="box" style="border-left: none;">
-                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/redicon.png"/><br/>불가능</a>
-                          </div>
-                        </li>
-                        <li class="nav-item">
-                          <div class="box" style="border-left: none;">
-                            <a class="nav-link" href="#"><img style="width: 30px; height: 30px;" src="../images/chargeicon.png/"><br/>충전중</a>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
                     <ul class="list-group">
                       <li class="list-group-item">내 주변 가까운 충전소</li>
                     </ul>
