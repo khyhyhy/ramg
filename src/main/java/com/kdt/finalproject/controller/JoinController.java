@@ -121,7 +121,7 @@ public class JoinController {
     private boolean isValidEmailFormat(String email) {
         // 이메일 형식을 정규표현식을 사용하여 검사합니다.
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        return email.matches(emailRegex);
+        return email.matches(emailRegex) && !email.endsWith(".") && !email.startsWith(".") && !email.contains("..");
     }
 
     @PostMapping("checkPhone")
