@@ -105,15 +105,18 @@
                                     <input type="hidden" value="0" name="m_class" id="m_class1"/>
                                     
                                     <!-- Email input -->
-                                    <div class="form-outline mb-4">
+                                    <div class="form-outline  mb-3 form-floating mb-3">
                                         <!-- <label class="form-label" for="m_email">Email</label> -->
                                         <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email" />
+                                        <label for="m_email" class="form-label text-secondary fs-6">Email</label>
+
                                     </div>
 
                                     <!-- Password input -->
-                                    <div class="form-outline mb-4">
+                                    <div class="form-outline mb-4 form-floating mb-3">
                                         <!-- <label class="form-label" for="m_pw">Password</label> -->
-                                        <input type="password" id="m_pw" name="m_pw" class="form-control form-outline" placeholder="Password" />
+                                        <input type="password" id="m_pw" name="m_pw" class="form-control form-outline" placeholder="Password"/>
+                                        <label for="m_pw" class="form-label text-secondary fs-6">Password</label>
                                     </div>
 
                                     <!-- Login button -->
@@ -151,13 +154,15 @@
                             <form action="login" method="post" name="frm">
                                 <input type="hidden" value="1" name="m_class" id="m_class2"/>
                             <!-- Email input -->
-                            <div class="form-outline mb-4">
-                                <input type="text" id="m_email" name="m_email" class="form-control" placeholder="Email" />
+                            <div class="form-outline mb-4 form-floating mb-3">
+                                <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email" />
+                                <label for="m_email" class="form-label text-secondary fs-6">Email</label>
                             </div>
 
                             <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="m_pw" name="m_pw" class="form-control" placeholder="Password" />
+                            <div class="form-outline mb-4 form-floating mb-3">
+                                <input type="password" id="m_pw" name="m_pw" class="form-control form-outline" placeholder="Password" />
+                                <label for="m_pw" class="form-label text-secondary fs-6">Password</label>
                             </div>
 
                             <!-- Login button -->

@@ -78,6 +78,10 @@
           font-family: "Arial", sans-serif; /* 원하는 글꼴로 설정 */
           text-align: left;
         }
+    
+   .custom-shadow {
+      box-shadow: 0 0 8px rgba(55, 223, 235, 0.9); /* 음영 스타일 설정 */
+    }
 
 
   </style>
@@ -122,36 +126,38 @@
 
                   <div class="form-outline mb-4">
                       <label for="m_email" style="display: block; margin-bottom: 5px;">이메일</label>
-                      <input type="email"  placeholder="carcharge@naver.com" class="form-control form-outline"  id="m_email" name="m_email" style="width: 300px;" required>
+                      <input type="email"  placeholder="ramsi@ramsithunder.com" class="form-control form-outline custom-shadow"  id="m_email" name="m_email" style="width: 300px;" required>
+
                       <span id="box"></span>
                   </div>
                 
 
                 <div class="form-outline mb-4">
-                    <label for="rg_pw">비밀번호</label>
-                  <input type="password"  placeholder="8자 이상(최소 숫자 1개, 문자 1개 포함)" class="form-control form-outline" required id="rg_pw" name="m_pw" style="width: 300px;">                                   
+                  <label for="rg_pw">비밀번호</label>
+                  <input type="password"  placeholder="8자 이상(최소 숫자 1개, 문자 1개 포함)" class="form-control form-outline custom-shadow" required id="rg_pw" name="m_pw" style="width: 300px;">                                   
+
                 </div>
 
                 <div class="form-outline mb-4">
                   <label for="rg_pw_chk">비밀번호 확인</label>
-                  <input type="password" id="rg_pw_chk" name="rg_pw_chk" required="" class="form-control form-outline" required placeholder="비밀번호를 다시 입력해주세요" style="width: 300px;">
+                  <input type="password" id="rg_pw_chk" name="rg_pw_chk" required="" class="form-control form-outline custom-shadow" required placeholder="비밀번호를 다시 입력해주세요" style="width: 300px;">
                 </div>
 
                 <div class="form-outline mb-4">
                   <label for="m_name">이름</label>
-                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline" required style="width: 300px;">
+                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline custom-shadow" required style="width: 300px;">
                 </div>
 
                 <!--연락처 추가 // m_phone을 m_phone_part1으로 잠깐 바꿈-->
                 <div class="form-outline mb-4">
                     <label for="m_phone_part1">연락처</label>
                     <div class="d-flex align-items-center">
-                      <input type="text" id="m_phone_part1" name="m_phone_part1" placeholder="010" class="form-control form-outline" required style="width: 70px;" maxlength="3">
+                      <input type="text" id="m_phone_part1" name="m_phone_part1" placeholder="010" class="form-control form-outline custom-shadow" required style="width: 70px;" maxlength="3">
                       <span>&nbsp;-&nbsp;</span>
-                      <input type="text"  id="m_phone_part2" name="m_phone_part2" placeholder="1234" class="form-control form-outline" required style="width: 80px;" maxlength="4">
+                      <input type="text"  id="m_phone_part2" name="m_phone_part2" placeholder="1234" class="form-control form-outline custom-shadow" required style="width: 80px;" maxlength="4">
                       <span> &nbsp;-&nbsp;</span>
-                      <input type="text"  id="m_phone_part3" name="m_phone_part3" placeholder="5678" class="form-control form-outline" required style="width: 80px;" maxlength="4">
-                      &nbsp;
+                      <input type="text"  id="m_phone_part3" name="m_phone_part3" placeholder="5678" class="form-control form-outline custom-shadow" required style="width: 80px;" maxlength="4">
+                      &nbsp;&nbsp;
                       <button type="button" id="phoneCheckBtn" class="btn btn-secondary btn-sm" >중복체크</button> <!-- 중복체크 버튼 추가 -->
                       <!-- <span id="phoneCheckResult"></span> -->
                   </div>
@@ -165,9 +171,11 @@
               </div>
 
               <div class="u-align-right u-form-group u-form-submit u-label-top">
-                <button onclick="send(this.form)" type="button" class="btn btn-primary" >가입하기</button>
+                <button onclick="send(this.form)" type="button" class="btn btn-primary bg-gradient" >가입하기</button>
                 <%-- <input type="submit" value="submit" class="u-form-control-hidden"> --%>
               </div>
+
+              <hr class="divider">
 
               <div id="login-link" class="justify-content-end">
               <p>이미 계정이 있으신가요? <a href="login">로그인</a></p>
