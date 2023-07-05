@@ -81,4 +81,9 @@ public class TaksongService {
   }
   return chk;
  }
+
+ public ServiceVO svosel(String s_idx) {
+  ServiceVO svo = mapper.svo(s_idx);
+  return svo;
+ }
 }

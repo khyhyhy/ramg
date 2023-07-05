@@ -143,6 +143,7 @@
      <input type="hidden" id="s_s_idx" name="s_s_idx" />
      <input type="hidden" id="s_sprice" name="s_sprice" />
      <input type="hidden" id="s_cprice" name="s_cprice" />
+     <input type="hidden" id="s_cprice" name="s_type" value="0" />
      </form>
     </main>
    </div>
