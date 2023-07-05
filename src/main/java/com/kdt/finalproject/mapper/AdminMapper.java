@@ -61,4 +61,5 @@ public interface AdminMapper {
 
     int member_qna_count(String m_idx);
 
+    MemVO admin_login(MemVO vo);
 }

@@ -28,47 +28,30 @@
 
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li>
-        <a href="/fmap/" class="nav-link px-2 link-secondary text-white">충전소 찾기</a>
-      </li>
-       <li>
-        <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">충전 서비스</a>
-        <ul class="dropdown-menu">
-         <li><a class="dropdown-item" href="#">서비스 소개</a></li>
-         <li><a class="dropdown-item" href="/taksong/">탁송 서비스</a></li>
-         <li><a class="dropdown-item" href="/edongsik/">이동식 충전 서비스</a></li>
-        </ul>
-       </li>
-       <li>
-        <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">고객센터</a>
-        <ul class="dropdown-menu">
-         <li><a class="dropdown-item" href="/support/notice">공지사항</a></li>
-         <li><a class="dropdown-item" href="/support/faq">자주하는 질문</a></li>
-         <li><a class="dropdown-item" href="/support/qna">문의 게시판</a></li>
-        </ul>
-       </li>
-       <li>
-        <a href="#" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">마이 페이지</a>
-        <ul class="dropdown-menu">
-         <li><a class="dropdown-item" href="/mypage">정보 관리</a></li>
-         <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
-         <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
-         <li><a class="dropdown-item" href="/use_service_list">서비스 이용내역</a></li>
-         <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
-        </ul>
-       </li>
+        <li>
+          <a href="/main/" class="nav-link px-2 link-secondary text-white">메인페이지</a>
+        </li>
+        <li>
+          <a href="/admin/notice" class="nav-link px-2 link-secondary text-white">공지사항관리</a>
+        </li>
+        <li>
+          <a href="/admin/member" class="nav-link px-2 link-secondary text-white">회원관리</a>
+        </li>
+        <li>
+          <a href="/admin/qna" class="nav-link px-2 link-secondary text-white">문의게시판 관리</a>
+        </li>
       </ul>
      </div>
 
      <c:if test="${sessionScope.mvo eq null}">
       <div class="col-md-3 text-end">
-       <button type="button" class="btn btn-outline-primary me-2"><a href="/login">Login</a></button>
+       <button type="button" class="btn btn-outline-primary me-2"><a href="/admin/login">Login</a></button>
       </div>
      </c:if>
 
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
-       <button type="button" class="btn btn-outline-primary me-2"><a href="/logout">Logout</a></button>
+       <button type="button" class="btn btn-outline-primary me-2"><a href="/admin/logout">Logout</a></button>
       </div>
      </c:if>
 

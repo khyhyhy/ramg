@@ -12,7 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <body>
-<jsp:include page="../main/mainH.jsp"></jsp:include>
+<jsp:include page="mainH.jsp"></jsp:include>
 
 <main>
 <div class="container">
@@ -23,12 +23,9 @@
             <thead>
                 <tr>
                     <th>회원 번호</th>
-                    <th>이메일</th>
                     <th>이름</th>
+                    <th>이메일</th>
                     <th>전화번호</th>
-                    <c:if test="${vo.m_class == 1}">
-                        <th>주소</th>
-                    </c:if>
                     <th>회원 구분</th>
                     <th>회원 상태</th>
                     <th>회원 가입일</th>
@@ -37,12 +34,11 @@
             <tbody>
                 <tr>
                     <td>${vo.m_idx}</td>
-                    <td>${vo.m_email}</td>
                     <td>${vo.m_name}</td>
-                    <td>${vo.m_phone}</td>
-                    <c:if test="${vo.m_class == 1}">
-                        <td>${vo.m_address}</td>
-                    </c:if>
+                    <td>${vo.m_email}</td>
+                    <td>
+                        ${vo.m_phone.substring(0,3) }-${vo.m_phone.substring(3,7) }-${vo.m_phone.substring(7,11) }
+                    </td>
                     <td>
                         <c:if test="${vo.m_class == 0}">
                             개인 회원
@@ -89,7 +85,7 @@
 
 </div>
 </main>
-<jsp:include page="../main/mainF.jsp"></jsp:include>
+<jsp:include page="mainF.jsp"></jsp:include>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>

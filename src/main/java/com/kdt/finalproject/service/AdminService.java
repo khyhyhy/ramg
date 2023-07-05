@@ -172,4 +172,8 @@ public class AdminService {
     public int member_qna_count(String m_idx) {
         return mapper.member_qna_count(m_idx);
     }
+
+    public MemVO admin_login(MemVO vo) {
+        return mapper.admin_login(vo);
+    }
 }

@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 <script src="../../../js/summernote-lite.js"></script>
 <script src="../../../js/lang/summernote-ko-KR.js"></script>
 <body>
-<jsp:include page="../main/mainH.jsp"></jsp:include>
+<jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container">
         <br>
@@ -105,7 +105,7 @@ pageEncoding="UTF-8"%>
     </body>
 </div>
 </main>
-<jsp:include page="../main/mainF.jsp"></jsp:include>
+<jsp:include page="mainF.jsp"></jsp:include>
 
 
 <script>

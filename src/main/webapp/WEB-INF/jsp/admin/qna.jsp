@@ -13,7 +13,7 @@ pageEncoding="UTF-8"%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <link href="../../../css/page.css" rel="stylesheet">
 <body>
-<jsp:include page="../main/mainH.jsp"></jsp:include>
+<jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container">
         <h1>문의사항 관리</h1>
@@ -113,7 +113,7 @@ pageEncoding="UTF-8"%>
         
     </div>
 </main>
-<jsp:include page="../main/mainF.jsp"></jsp:include>
+<jsp:include page="mainF.jsp"></jsp:include>
 
 <script>
     function sub(b_idx){

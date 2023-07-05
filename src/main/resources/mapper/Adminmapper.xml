@@ -347,6 +347,11 @@ SELECT COUNT(*) FROM charging.bbs_t
 WHERE b_status = 0 AND b_type = 2 AND b_idx IN(select b_idx from bbslog where bl_type = 0 and m_idx = #{m_idx})
 </select>
 
+<select id="admin_login" parameterType="com.kdt.finalproject.vo.MemVO" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_email = #{m_email} AND m_pw = #{m_pw} AND m_class = 2
+</select>
+
 <!-- insert -->
 
 <!-- 공지 작성 -->

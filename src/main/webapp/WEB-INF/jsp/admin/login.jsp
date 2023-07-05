@@ -15,9 +15,21 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-       
-
-        
+    <h2>관리자 로그인</h2>
+    <form action="/admin/login" method="post">
+    <table>
+        <tr>
+            <th>EMAIL </th>
+            <td><input type="text" name="m_email"></td>
+        </tr>
+            <th>PW </th>
+            <td><input type="password" name="m_pw"></td>
+        <tr>
+            <th><button type="submit">로그인</button></th>
+        </tr>
+    </table>
+    </form>
+    
     </div>
 </main>
 <jsp:include page="mainF.jsp"></jsp:include>

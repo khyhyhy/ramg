@@ -6,9 +6,11 @@ import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,6 +38,9 @@ public class AdminController {
 
     @Autowired
     private ServletContext application; // 파일첨부 시 경로를 절대경로화 시키기 위해 필요
+
+    @Autowired
+    HttpSession session;
 
     private String bbs_upload = "/bbs_upload";
     private String editor_path = "/editor_upload";
@@ -446,5 +451,36 @@ public class AdminController {
 
         mv.setViewName("redirect:/admin/qna");
         return mv;
+    }
+
+    @GetMapping("/admin/login")
+    public String login() {
+        return "/admin/login";
+    }
+
+    @PostMapping("/admin/login")
+    public ModelAndView login(MemVO vo) {
+        ModelAndView mv = new ModelAndView();
+
+        String path;
+
+        MemVO mvo = service.admin_login(vo);
+        if (mvo != null) {
+            session.setAttribute("mvo", mvo);
+            path = "redirect:/admin/notice";
+        } else {
+            path = "/admin/login";
+        }
+
+        mv.setViewName(path);
+        return mv;
+    }
+
+    @RequestMapping("/admin/logout")
+    public String admin_logout() {
+
+        session.removeAttribute("mvo");
+
+        return "/admin/login";
     }
 }
