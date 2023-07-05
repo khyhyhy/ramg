@@ -26,6 +26,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Controller
@@ -291,6 +292,19 @@ public class TaksongController {
   System.out.println("s_payinfo = " + s_payinfo);
   System.out.println("s_sprice = " + s_sprice);
   System.out.println("s_cprice = " + s_cprice);
+  SuseVO suvo = new SuseVO();
+  suvo.setS_idx(s_s_idx);
+  suvo.setC_idx(s_c_idx);
+  suvo.setSu_percent(chargepersent);
+  suvo.setSu_status("0");
+  suvo.setSu_payment(s_payment);
+  suvo.setSu_payinfo(s_payinfo);
+  suvo.setSu_sprice(s_sprice);
+  suvo.setSu_cprice(s_cprice);
+  boolean chk = service.suseVOin(suvo);
+  System.out.println(chk);
+  
+  mv.setViewName("edongsik/e_orderList");
   return mv;
  }
 }

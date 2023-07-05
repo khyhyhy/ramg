@@ -6,6 +6,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 public interface TaksongMapper {
@@ -29,4 +30,5 @@ public interface TaksongMapper {
 
  ServiceVO[] getService(String state);
 
+ int susein(SuseVO suvo);
 }

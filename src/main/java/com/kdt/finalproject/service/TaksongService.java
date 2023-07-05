@@ -10,6 +10,7 @@ import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Service
@@ -70,5 +71,14 @@ public class TaksongService {
    list.toArray(ar);
   }
   return ar;
+ }
+
+ public boolean suseVOin(SuseVO suvo) {
+  boolean chk = false;
+  int cnt = mapper.susein(suvo);
+  if (cnt == 1) {
+   chk = !chk;
+  }
+  return chk;
  }
 }
