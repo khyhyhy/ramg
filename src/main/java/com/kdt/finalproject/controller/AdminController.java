@@ -483,4 +483,13 @@ public class AdminController {
 
         return "/admin/login";
     }
+
+    @RequestMapping("/admin/car")
+    public ModelAndView car() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("/admin/car");
+
+        return mv;
+    }
 }

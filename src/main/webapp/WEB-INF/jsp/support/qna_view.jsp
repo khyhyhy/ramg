@@ -91,7 +91,7 @@ pageEncoding="UTF-8"%>
             <textarea name="b_content" id="b_content"></textarea>
             <div style="height: 80px; margin-top: 10px;">
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <c:if test="${session.mvo != null}">
+                <c:if test="${sessionScope.mvo != null}">
                     <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
                 </c:if>
             </div>

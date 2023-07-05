@@ -18,7 +18,7 @@ pageEncoding="UTF-8"%>
 <body>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <br>
         <br>
         <form action="/admin/notice_write_ok" method="post" enctype="multipart/form-data">
@@ -73,7 +73,6 @@ pageEncoding="UTF-8"%>
     </form>
 
 </main>
-<jsp:include page="mainF.jsp"></jsp:include>
 
 <script>
     $(function () {

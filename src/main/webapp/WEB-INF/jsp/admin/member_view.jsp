@@ -15,7 +15,7 @@
 <jsp:include page="mainH.jsp"></jsp:include>
 
 <main>
-<div class="container">
+<div class="container" style="margin-top: 100px;">
     <br>
     <br>
     <article>
@@ -85,7 +85,6 @@
 
 </div>
 </main>
-<jsp:include page="mainF.jsp"></jsp:include>
 
 <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 <script>

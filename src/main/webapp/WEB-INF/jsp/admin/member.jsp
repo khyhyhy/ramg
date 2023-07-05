@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 <body>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <h1>회원관리</h1>
         <form action="/admin/member" method="post">
             <div style="height: 60px; float: right;">
@@ -138,7 +138,6 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="searchValue" value="${param.searchValue}">
     </form>
 </main>
-<jsp:include page="mainF.jsp"></jsp:include>
 
 <script>
     function sub(m_idx){

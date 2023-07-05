@@ -15,7 +15,7 @@ pageEncoding="UTF-8"%>
 <body>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
-    <div class="container">
+    <div class="container" style="margin-top: 100px;">
         <h1>문의사항 관리</h1>
         <form action="/admin/qna" method="post">
             <div style="height: 60px; float: right;">
@@ -113,7 +113,6 @@ pageEncoding="UTF-8"%>
         
     </div>
 </main>
-<jsp:include page="mainF.jsp"></jsp:include>
 
 <script>
     function sub(b_idx){

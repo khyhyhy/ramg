@@ -12,18 +12,14 @@ pageEncoding="UTF-8"%>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 <body>
+<jsp:include page="mainH.jsp"></jsp:include>
 <main>
-    <div class="container" style="margin-top: 100px;">
-    <form action="/admin/login" method="post">
-        <div style="margin: 0 auto; width: 300px;">
-            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-            <input type="email" name="m_email" class="form-control">
-            <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-            <input type="password" name="m_pw"class="form-control" >
-            <button type="submit" class="btn btn-outline-info" style="margin-top: 30px; width: 300px;">로그인</button>
-        </div>
-    </form>
-    
+    <div class="container">
+       <h1>차량관리</h1>
+
+
+       
+        
     </div>
 </main>
 </body>
