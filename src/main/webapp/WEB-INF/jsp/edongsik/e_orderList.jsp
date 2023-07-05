@@ -77,7 +77,12 @@
                            <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
-                           <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+
+                            <c:set var="num1" value="${suar.su_sprice}" />
+                            <c:set var="num2" value="${suar.su_cprice}" />
+                            <c:set var="sum" value="${(num1 + num2)}" />
+
+                           <td style="text-align: center; vertical-align: middle;">${sum}</td>
 
                    
                         <c:if test="${suar.svo.s_type == 1}">
@@ -144,6 +149,34 @@
                         </tr>
                     </c:forEach>  
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="7">
+                                <ol class="paging">
+                                    <c:if test="${page.startPage == 1 }">
+                                            <li class="disable">&lt;</li>
+                                    </c:if>
+                                    <c:if test="${page.startPage ne 1 }">
+                                            <li><a href="/e_orderList/?cPage=${page.startPage-page.pagePerBlock }">&lt;</a></li>
+                                    </c:if>		
+                                    <c:forEach begin="${page.startPage }" end="${page.endPage }" varStatus="st">
+                                          <c:if test="${nowPage == st.index }">
+                                              <li class="now">${st.index }</li>								
+                                          </c:if>
+                                          <c:if test="${nowPage != st.index }">
+                                              <li><a href="/e_orderList/?cPage=${st.index }">${st.index }</a></li>
+                                          </c:if>
+                                     </c:forEach>
+                                     <c:if test="${page.endPage < page.totalPage }">
+                                             <li><a href="/e_orderList/?cPage=${page.startPage + page.pagePerBlock }">&gt;</a></li>
+                                     </c:if>
+                                     <c:if test="${page.endPage >= page.totalPage }">
+                                            <li class="disable">&gt;</li>
+                                    </c:if>
+                                </ol>
+                            </td>
+                        </tr>
+                    </tfoot>
         </table>
 
       </div>

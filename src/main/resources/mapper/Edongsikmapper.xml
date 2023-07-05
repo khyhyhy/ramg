@@ -107,28 +107,39 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
   WHERE c_idx = #{c_idx}
 </select>
 
-<!-- 
-<resultMap type="com.kdt.finalproject.vo.SwriteVO" id="map3">
-  <result column="m_idx" property="m_idx"/>
-  <result column="s_idx" property="s_idx"/>
-  <association property="mvo" column="m_idx" javaType="com.kdt.finalproject.vo.MemVO" select="mvo2"></association>
-  <association property="svo" column="s_idx" javaType="com.kdt.finalproject.vo.ServiceVO" select="svo2"></association>
-</resultMap>
-
-<select id="getBusiness" resultMap="map3" parameterType="String">
-SELECT * FROM charging.service_write
-WHERE s_idx = #{s_idx}
+<!-- 페이징이 들어간 주문내역-->
+<select id="getMyOderList" parameterType="Map" resultType="com.kdt.finalproject.vo.SuseVO">
+  SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(  
+	SELECT * FROM charging.service_use
+	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
+	  WHERE m_idx = #{m_idx} and cw_type = 0)
+      ORDER BY su_idx ASC
+	) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
 
-<select id="mvo2" resultType="com.kdt.finalproject.vo.MemVO" parameterType="String">
-  SELECT * FROM charging.member_t
-WHERE m_idx = #{m_idx}
-</select>
+<!-- 총 게시물의 수를 반환하는 SELECT -->
+  <select id="totalCount" resultType="int">
+  	SELECT COUNT(*) FROM service_use
+  </select>
 
-<select id="svo2" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
-  SELECT * FROM charging.service_t
-WHERE s_idx = #{s_idx}
-</select> -->
+  <!-- 원글들을 가져오는 SELECT -->
+  <select id="suseList" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="Map">
+  	SELECT * FROM(
+		SELECT @RN:=@RN+1 AS rnum,a.* FROM(
+			SELECT * FROM service_use
+			WHERE status = 0 AND bname='BBS'
+			ORDER BY b_idx DESC
+		) a, (SELECT @RN:=0) b
+	) c WHERE c.rnum BETWEEN #{begin} AND #{end}
+  </select>
+
+  <select id="totalCountByM_idx" resultType="int" parameterType="String">
+  	SELECT COUNT(*) FROM charging.service_use
+	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
+	  WHERE m_idx = #{m_idx} and cw_type = 0)
+  </select>
 
 <!-- insert -->
 

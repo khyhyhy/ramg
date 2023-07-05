@@ -30,8 +30,8 @@
 
      <div style="display: flex; justify-content: center; margin-top: 50px;">
       <button type="button" onclick="location.href='??'">충전하기</button>
-      <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-      <button type="button" onclick="location.href='map'">이용내역</button>
+      <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+      <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
      </div>
 
 
