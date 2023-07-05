@@ -83,6 +83,31 @@
       box-shadow: 0 0 8px rgba(55, 223, 235, 0.9); /* 음영 스타일 설정 */
     }
 
+  .form-outline input {
+    background-color: #f8f9fa; /* 연한 회색 배경색 설정 */
+  }
+
+
+  .form-outline input:not(:placeholder-shown) {
+    background-color: #dfd9dd;
+  }
+
+  .btn-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.3rem rgba(20, 203, 216, 0.87);
+  }
+
+  .btn-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.4rem rgba(20, 203, 216, 0.87);
+  }
+
+  #email-message{
+    font-size : 15px;
+    font-family: "Arial", sans-serif;
+  }
+
+  
 
   </style>
   
@@ -118,7 +143,7 @@
               <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
                 
               <div class="radio-btn">
-                  <input type="radio" name="m_class" value="0" checked> 개인 &nbsp;           
+                  <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;           
                   <input type="radio" name="m_class" value="1"> 사업자
               </div>
 
@@ -126,8 +151,8 @@
 
                   <div class="form-outline mb-4">
                       <label for="m_email" style="display: block; margin-bottom: 5px;">이메일</label>
-                      <input type="email"  placeholder="ramsi@ramsithunder.com" class="form-control form-outline custom-shadow"  id="m_email" name="m_email" style="width: 300px;" required>
-
+                      <input type="email"  onkeyup="checkEmail(this.value)" placeholder="ramsi@ramsithunder.com" class="form-control form-outline custom-shadow"  id="m_email" name="m_email" style="width: 300px;" required>
+                      <div id="email-message" style="color: red;"></div>
                       <span id="box"></span>
                   </div>
                 
@@ -145,7 +170,7 @@
 
                 <div class="form-outline mb-4">
                   <label for="m_name">이름</label>
-                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력하세요." class="form-control form-outline custom-shadow" required style="width: 300px;">
+                  <input type="text" id="m_name" name="m_name" placeholder="이름을 입력해주세요" class="form-control form-outline custom-shadow" required style="width: 300px;">
                 </div>
 
                 <!--연락처 추가 // m_phone을 m_phone_part1으로 잠깐 바꿈-->
@@ -210,13 +235,24 @@
        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
        <script>
 
+        function checkEmail(email) {
+          var atCount = email.split('@').length - 1;
+          var dotCount = email.split('.').length - 1;
+          var specialChars = /[!#%^&*()+=\\]/g;
+        
+          if (atCount === 1 && dotCount === 1 && !specialChars.test(email) &&!email.endsWith('.')) {
+            document.getElementById("email-message").textContent = "";
+          } else {
+            document.getElementById("email-message").textContent = "이메일 형식이 올바르지 않습니다";
+          }
+        }
 
 
            <c:if test="${cnt == 0}">
                alert("회원가입에 실패했습니다. 다시 시도하세요");
            </c:if>
 
-
+          //가입하기 버튼 눌렀을때
            function send(form){
 
 
@@ -256,7 +292,7 @@
                }
                
                if(!check5.test(email)){
-                   alert("이메일 형식이 올바르지 않습니다.");
+                   alert("이메일 형식이 올바르지 않습니다");
                    $("#m_email").focus();
                    return;
                }
@@ -336,14 +372,6 @@
                  }
                });
 
-
-               //document.forms[0].action = "registry.jsp";
-               //document.forms[0].method = "post";
-               
-
-               // document.forms[0].action = "login/login.jsp";
-               
-               //document.form.submit(); //서버로 보낸다. (일단 주석처리)
            }
 
            $(function(){
@@ -404,9 +432,7 @@
                     });
               });
                
-               // 사용자가 id를 입력하기 위해
-               // 아이디가 s_id인 솟에서 키보드를 누를 때마다 수행하는 함수를
-               // 이벤트 적용시켜보자!
+              //이메일 입력했을때 나오는 메세지
                 $("#m_email").bind("focusout", function(){
 
                     var str = $(this).val();
@@ -425,6 +451,7 @@
                             var msg = res.msg;
                             if(msg.includes("사용가능")){
                               $("#box").html(res.msg.trim()).css("color","green");
+
                             }else{
                              $("#box").html(res.msg.trim()).css("color","red");
                             }
