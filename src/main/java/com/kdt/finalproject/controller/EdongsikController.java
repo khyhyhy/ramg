@@ -24,6 +24,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.EdongsikService;
+import com.kdt.finalproject.util.Admin_member_paging;
+import com.kdt.finalproject.util.Paging;
+import com.kdt.finalproject.util.edongsik_orderList_paging;
+import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
@@ -266,28 +270,49 @@ public class EdongsikController {
     }
 
     @RequestMapping("/e_orderList/")
-    public ModelAndView e_orderList() {
+    public ModelAndView e_orderList(String cPage) {
         ModelAndView mv = new ModelAndView();
 
-        MemVO mvo1 = (MemVO) session.getAttribute("mvo");
-        String m_idx = mvo1.getM_idx();
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO mvo1 = (MemVO) obj;
+            String m_idx = mvo1.getM_idx();
+            // ---------paging------------
+            int nowPage = 1;
 
-        // System.out.println("세션" + m_idx);
+            edongsik_orderList_paging page = new edongsik_orderList_paging(5, 5);
 
-        List<CwriteVO> cwList = new ArrayList<CwriteVO>();
-        cwList = service.getOrderList(m_idx);
+            // paging처리에서 중요한 것은
+            // 1) 전체 게시물의 수를 알아내야 한다.
+            int totalRecord = service.getTotalCount(m_idx);
+            page.setTotalRecord(totalRecord); // 전체 페이지를 같이 구해준다.
 
-        List<SuseVO> suar = new ArrayList<SuseVO>();
+            // 페이징 처리
+            if (cPage != null)
+                nowPage = Integer.parseInt(cPage);
 
-        for (CwriteVO cwvo : cwList) {
-            List<SuseVO> su_list = cwvo.getSuvo();
+            // paging처리에서 중요한 것은
+            // 2) 현재 페이지 값을 지정해야 한다.
+            page.setNowPage(nowPage); // begin, end, startPage, endPage등이 구해진다.
+            SuseVO[] ar = service.getMyOderList(page.getBegin(), page.getEnd(), m_idx);
 
-            for (SuseVO su_vo : su_list) {
-                su_vo.setCwvo(cwvo);
-                suar.add(su_vo);
-                System.out.println("c_idx" + su_vo.getC_idx());
-                System.out.println("Su_date" + su_vo.getSu_date());
-                System.out.println("s_idx" + su_vo.getS_idx());
+            // ---------paging------------
+
+            // System.out.println("세션" + m_idx);
+
+            List<CwriteVO> cwList = service.getOrderList(m_idx);
+
+            List<SuseVO> suar = new ArrayList<SuseVO>();
+
+            // for (CwriteVO cwvo : cwList) {
+            // List<SuseVO> su_list = cwvo.getSuvo();
+
+            for (SuseVO su_vo : ar) {// for (SuseVO su_vo : su_list) {
+                // su_vo.setCwvo(cwvo);
+                // suar.add(su_vo);
+                // System.out.println("c_idx" + su_vo.getC_idx());
+                // System.out.println("Su_date" + su_vo.getSu_date());
+                // System.out.println("s_idx" + su_vo.getS_idx());
 
                 String s_idx = su_vo.getS_idx();
                 System.out.println(s_idx);
@@ -306,10 +331,17 @@ public class EdongsikController {
                 System.out.println(svo.getS_type());
             }
 
+            // }
+
+            // mv.addObject("suar", suar);
+            mv.addObject("suar", ar);
+            // mv.addObject("ar", ar);
+            mv.addObject("page", page);
+            mv.addObject("totalRecord", totalRecord);
+            mv.addObject("nowPage", nowPage);
+            mv.addObject("blockList", page.getNumPerPage());
+
         }
-
-        mv.addObject("suar", suar);
-
         mv.setViewName("edongsik/e_orderList");
         return mv;
     }

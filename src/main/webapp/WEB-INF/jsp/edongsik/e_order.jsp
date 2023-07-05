@@ -295,7 +295,12 @@
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+
+                        <c:set var="num1" value="${suvo.su_sprice}" />
+                        <c:set var="num2" value="${suvo.su_cprice}" />
+                        <c:set var="sum" value="${(num1 + num2)}" />
+
+                         <td style="text-align: center; vertical-align: middle;">${sum}</td>
                      
                          <c:choose>
                          <c:when test="${suvo.su_status == 0}">

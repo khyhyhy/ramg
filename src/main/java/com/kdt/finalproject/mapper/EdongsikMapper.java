@@ -1,7 +1,9 @@
 package com.kdt.finalproject.mapper;
 
 import java.util.List;
+import java.util.Map;
 
+import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
@@ -31,5 +33,13 @@ public interface EdongsikMapper {
     // SwriteVO getBusiness(String s_idx);
 
     List<CwriteVO> getOrderList(String m_idx);
+
+    List<SuseVO> getMyOderList(Map<String, Object> map);
+
+    List<SuseVO> suseList(int begin, int end);
+
+    int totalCount();
+
+    int totalCountByM_idx(String m_idx);
 
 }

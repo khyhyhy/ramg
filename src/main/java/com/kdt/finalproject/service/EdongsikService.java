@@ -1,11 +1,14 @@
 package com.kdt.finalproject.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.EdongsikMapper;
+import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
@@ -55,15 +58,50 @@ public class EdongsikService {
     }
 
     // public SwriteVO getBusiness(String s_idx) {
-    //     SwriteVO vo = mapper.getBusiness(s_idx);
+    // SwriteVO vo = mapper.getBusiness(s_idx);
 
-    //     return vo;
+    // return vo;
     // }
 
     public List<CwriteVO> getOrderList(String m_idx) {
         List<CwriteVO> ar = mapper.getOrderList(m_idx);
 
         return ar;
+    }
+
+    public SuseVO[] getAll(int begin, int end) {
+        SuseVO[] ar = null;
+
+        List<SuseVO> list = mapper.suseList(begin, end);
+        if (list != null && list.size() > 0) {
+            ar = new SuseVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    public SuseVO[] getMyOderList(int begin, int end, String m_idx) {
+        SuseVO[] ar = null;
+        Map<String, Object> map = new HashMap<>();
+        map.put("m_idx", m_idx);
+        map.put("begin", begin);
+        map.put("end", end);
+
+        List<SuseVO> list = mapper.getMyOderList(map);
+        if (list != null && list.size() > 0) {
+            ar = new SuseVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    public int getTotalCount(String m_idx) {
+        int cnt = 0;
+        if (m_idx == null)
+            cnt = mapper.totalCount();
+        else
+            cnt = mapper.totalCountByM_idx(m_idx);
+        return cnt;
     }
 
 }

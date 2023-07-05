@@ -28,7 +28,7 @@
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
       <button type="button" onclick="location.href='??'">충전하기</button>
-      <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
+      <button type="button" onclick="location.href=''" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
       <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
      </div>
 
@@ -170,7 +170,12 @@
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
-                            <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+
+                            <c:set var="num1" value="${suar.su_sprice}" />
+                            <c:set var="num2" value="${suar.su_cprice}" />
+                            <c:set var="sum" value="${(num1 + num2)}" />
+
+                            <td style="text-align: center; vertical-align: middle;">${sum}</td>
                         
                             <c:choose>
                             <c:when test="${suar.su_status == 0}">
@@ -378,7 +383,12 @@
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
-                            <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+
+                            <c:set var="num1" value="${suar.su_sprice}" />
+                            <c:set var="num2" value="${suar.su_cprice}" />
+                            <c:set var="sum" value="${(num1 + num2)}" />
+
+                            <td style="text-align: center; vertical-align: middle;">${sum}</td>
                         
                             <c:choose>
                                 <c:when test="${suar.su_status == 0}">
