@@ -114,7 +114,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 	SELECT * FROM charging.service_use
 	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
 	  WHERE m_idx = #{m_idx} and cw_type = 0)
-      ORDER BY su_idx ASC
+      ORDER BY su_idx DESC
 	) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
