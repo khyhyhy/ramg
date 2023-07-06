@@ -180,8 +180,8 @@
              <c:if test="${cwar ne null}">
               <option selected disabled>차량을 선택해주세요</option>
               <c:forEach items="${cwar}" var="vo">
-               <option value=" ${vo.cvo.c_idx}" data-addr="${vo.cvo.c_state} ${vo.cvo.c_city}">
-                ${vo.cvo.c_name}(${vo.cvo.c_state}/${vo.cvo.c_city})</option>
+               <option value=" ${vo.cvo.c_idx}" data-addr="${vo.cvo.c_state} ${vo.cvo.c_city} ${vo.cvo.c_addr1}">
+                ${vo.cvo.c_name}</option>
               </c:forEach>
              </c:if>
             </select>
@@ -197,6 +197,7 @@
              <div id="map2" style="width:100%;height:350px;"></div>
             </div>
            </div>
+           <input class="btn btn-outline-secondary" type="text" id="e_addr" name="e_addr" readonly onclick="esearch()">
            <div class="input-group mb-3">
             <span class="input-group-text" id="e_radius">서비스 가능 범위</span>
             <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
@@ -249,6 +250,8 @@
      let addr = $("#e_car").find("option:selected").data('addr');
      console.log(addr);
      document.getElementById("map2col").click();
+     document.getElementById("e_addr").value = addr;
+     document.getElementById("e_addr").click();
     }
 
     var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
@@ -461,9 +464,9 @@
 
     function esearch() {
      console.log("esearch진입");
-     var t_addr = document.getElementById("t_addr").value;
+     var e_addr = document.getElementById("e_addr").value;
 
-     geocoder.addressSearch(t_addr, function (result, status) {
+     geocoder.addressSearch(e_addr, function (result, status) {
 
 
       console.log("1");
@@ -486,35 +489,13 @@
 
 
        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+       map2.relayout();
        map2.setCenter(markerPosition);
-       map2.relayout;
 
       }
      });
     }
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
-    kakao.maps.event.addListener(map2, 'click', function (mouseEvent) {
-
-     // 클릭한 위도, 경도 정보를 가져옵니다 
-     var latlng = mouseEvent.latLng;
-
-     var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-     message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
-
-     markerPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
-
-     marker
-
-
-     map2.setCenter(markerPosition);
-
-
-    });
-
 
 
 
