@@ -32,6 +32,32 @@
      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taksongadd">
       탁송 서비스 등록
      </button>
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edongsikadd">
+      이동식 서비스 등록
+     </button>
+     <br />
+     <br />
+     <br />
+     <div class="row">
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+       Column
+      </div>
+      <div class="col">
+       Column
+      </div>
+     </div>
 
      <!-- Modal -->
 
@@ -71,17 +97,17 @@
           <!-- 정보영역 -->
           <form novalidate>
            <div class="input-group input-group-sm mb-3">
-            <input class="form-control" type="text" id="t_state" name="s_state" readonly>
-            <input class="form-control" type="text" id="t_city" name="s_city" readonly>
+            <input class="form-control" type="text" id="t_state" readonly>
+            <input class="form-control" type="text" id="t_city" readonly>
             <input type="hidden" id="t_lat" name="lat">
             <input type="hidden" id="t_lng" name="lng">
             <div class="input-group mb-3">
              <span class="input-group-text" id="t_radius">서비스 가능 범위</span>
-             <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
+             <input type="text" class="form-control" placeholder="m단위 ex)1000m">
             </div>
             <div class="input-group mb-3">
              <span class="input-group-text" id="t_price">서비스 비용 설정</span>
-             <select class="form-select form-select-sm" id="t_price" name="s_val1">
+             <select class="form-select form-select-sm" id="t_price">
               <option value="7000">7.000원</option>
               <option value="6000">6.000원</option>
               <option value="5000">5.000원</option>
@@ -101,12 +127,86 @@
        </div>
       </div>
       </form>
-    </main>
+     </div>
+
+
+     <div class="modal fade" id="edongsikadd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+       <div class="modal-content">
+        <div class="modal-header">
+         <h1 class="modal-title fs-5" id="staticBackdropLabel">이동식 충전 서비스 등록</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <!-- 지도영역 -->
+         <!-- 정보영역 -->
+         <form novalidate>
+          <div class="input-group input-group-sm mb-3">
+           <div class="input-group mb-3">
+            <span class="input-group-text">이동식 충전 차량 등록</span>
+            <select class="form-select form-select-sm" id="e_car">
+             <c:if test="${cwar eq null}">
+              <option>등록된 차량이 없습니다</option>
+             </c:if>
+             <!-- <c:if test="${cwar ne null}">
+              <c:forEach items="${cwar}" var="vo" varstatus="status">
+               <option value="${vo.cvo.c_idx}">${vo.cvo.c_name}</option>
+               <input type="hidden" id="">
+              </c:forEach> -->
+             <!-- </c:if> -->
+            </select>
+           </div>
+           <input class="form-control" type="text" id="e_state" readonly>
+           <input class="form-control" type="text" id="e_city" readonly>
+           <input type="hidden" id="e_lat" name="lat">
+           <input type="hidden" id="e_lng" name="lng">
+           <div class="input-group mb-3">
+            <span class="input-group-text" id="e_radius">서비스 가능 범위</span>
+            <input type="text" class="form-control" placeholder="m단위 ex)1000m">
+           </div>
+           <div class="input-group mb-3">
+            <span class="input-group-text">서비스 비용 설정</span>
+            <select class="form-select form-select-sm" id="e_price">
+             <option value="10000">10.000원</option>
+             <option value="9000">9.000원</option>
+             <option value="8000">8.000원</option>
+             <option value="7000">7.000원</option>
+             <option value="6000">6.000원</option>
+             <option value="5000">5.000원</option>
+             <option value="4000">4.000원</option>
+            </select>
+           </div>
+          </div>
+          <!-- 정보영역끝 -->
+        </div>
+        <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+         <button type="button" class="btn btn-primary">등록</button>
+        </div>
+       </div>
+      </div>
+     </div>
+     </form>
+   </div>
+
+   </main>
    </div>
    <!--////////// Main end //////////////-->
    <!--////////// Foter start //////////////-->
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
+   <script>
+
+    // 폼 수집용
+   </script>
+
+
+
+
+
+
+
 
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8f974dd2f43fefe94e70a9ce228e40e&libraries=services"></script>
@@ -231,7 +331,6 @@
 
 
 
-
     function map1reload() {
      map1.relayout();
     }
@@ -258,8 +357,8 @@
 
     };
 
-
    </script>
   </body>
+
 
   </html>
