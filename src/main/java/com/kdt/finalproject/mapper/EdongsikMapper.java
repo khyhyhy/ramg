@@ -12,8 +12,6 @@ import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 public interface EdongsikMapper {
-    MemVO init();
-
     List<CwriteVO> carList(String m_idx);
 
     ServiceVO[] getEdongsik(String state);
@@ -30,13 +28,9 @@ public interface EdongsikMapper {
 
     SuseVO getOrder(String su_idx);
 
-    // SwriteVO getBusiness(String s_idx);
-
     List<CwriteVO> getOrderList(String m_idx);
 
     List<SuseVO> getMyOderList(Map<String, Object> map);
-
-    List<SuseVO> suseList(int begin, int end);
 
     int totalCount();
 

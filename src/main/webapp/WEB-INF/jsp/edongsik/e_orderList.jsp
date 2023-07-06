@@ -16,6 +16,33 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
+   <style>
+    #myform fieldset{
+        display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+        direction: rtl; /* 이모지 순서 반전 */
+        border: 0; /* 필드셋 테두리 제거 */
+    }
+    #myform fieldset legend{
+        text-align: left;
+    }
+    #myform input[type=radio]{
+        display: none; /* 라디오박스 감춤 */
+    }
+    #myform label{
+        font-size: 2em; /* 이모지 크기 */
+        color: transparent; /* 기존 이모지 컬러 제거 */
+        text-shadow: 0 0 0 #f0f0f0; /* 새 이모지 색상 부여 */
+    }
+    #myform label:hover{
+        text-shadow: 0 0 0 #ffbc00; /* 마우스 호버 */
+    }
+    #myform label:hover ~ label{
+        text-shadow: 0 0 0 #ffbc00; /* 마우스 호버 뒤에오는 이모지들 */
+    }
+    #myform input[type=radio]:checked ~ label{
+        text-shadow: 0 0 0 #ffbc00; /* 마우스 클릭 체크 */
+    }
+   </style>
   <body>
    <!--////////// Header Start ////////////-->
    <jsp:include page="../main/mainH.jsp"></jsp:include>
@@ -138,7 +165,9 @@
                                     <c:when test="${suar.su_status == 7}">
                                         <td style="text-align: center; vertical-align: middle;">도착완료</td>
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <button type="button">후기 작성</button>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(this)">후기 작성
+                                                <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
+                                            </button>
                                         </td>
                                     </c:when>
                                     <c:when test="${suar.su_status == 8}">
@@ -165,7 +194,7 @@
                                               <li class="now">${st.index }</li>								
                                           </c:if>
                                           <c:if test="${nowPage != st.index }">
-                                              <li><a href="/e_orderList/?cPage=${st.index }">${st.index }</a></li>
+                                              <li><a href="/e_orderList/?cPage=${st.index }">${st.index}</a></li>
                                           </c:if>
                                      </c:forEach>
                                      <c:if test="${page.endPage < page.totalPage }">
@@ -180,6 +209,53 @@
                     </tfoot>
         </table>
 
+        <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: #0DCAF0;">
+              <h5 class="modal-title" id="exampleModalLabel" style="color: white;">후기작성</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                
+                <form name="myform" id="myform" method="post" action="">
+                    <fieldset>
+                        <input type="radio" name="rating" value="5" id="rate1"><label for="rate1">⭐</label>
+                        <input type="radio" name="rating" value="4" id="rate2"><label for="rate2">⭐</label>
+                        <input type="radio" name="rating" value="3" id="rate3"><label for="rate3">⭐</label>
+                        <input type="radio" name="rating" value="2" id="rate4"><label for="rate4">⭐</label>
+                        <input type="radio" name="rating" value="1" id="rate5"><label for="rate5">⭐</label>
+
+                        <input type="hidden" id="modalSuIdx">
+                            <script>
+                                function openModal(button) {
+                                    var su_idx  = document.getElementById("su_idx").value;
+                                    var modalSuIdx = document.getElementById("modalSuIdx");
+                                    modalSuIdx.value = su_idx;
+                                }
+                            </script>
+                        
+                    </fieldset>
+                </form>
+                    
+                    <div class="mb-3">
+                        <br/>
+                        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="addReview(this.form)">선택 확인</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Modal 끝-->
+
       </div>
 
       
@@ -190,7 +266,45 @@
    <jsp:include page="../main/mainF.jsp"></jsp:include>
    <!--////////// Foter end //////////////-->
    <script>
+
+    function addReview(form){
+        // 폼 요소를 가져옵니다.
+        var form = document.getElementById("myform");
+        
+
+        // 폼 요소 내의 라디오 버튼들을 가져옵니다.
+        var radioButtons = form.elements["rating"];
+
+        // 선택된 값을 저장할 변수를 선언합니다.
+        var selectedValue = "";
+
+        // 라디오 버튼들을 순회하면서 선택된 값을 찾습니다.
+        for (var i = 0; i < radioButtons.length; i++) {
+        if (radioButtons[i].checked) {
+            selectedValue = radioButtons[i].value;
+            break; // 선택된 값을 찾았으면 반복문을 종료합니다.
+        }
+        }
+        var su_idx = document.getElementById("modalSuIdx").value;
+        var review = document.getElementById("exampleFormControlTextarea1").value;
+
+        // 선택된 값을 출력합니다.
+       
+        alert("su_idx :"+su_idx);
+        alert("review :"+review);
+        alert("selectedValue :"+selectedValue);
+		
     
+    if (selectedValue === "") {
+      alert("별점을 선택해주세요.");
+    } else if(review === ""){
+      alert("내용을 입력해주세요.");
+    }else{  
+      location.href="/review/?su_idx="+su_idx+"&review="+review+"&selectedValue="+selectedValue;
+    }
+	};
+
+   
    </script>
   </body>
 

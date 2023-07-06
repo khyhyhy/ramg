@@ -240,12 +240,12 @@ public class EdongsikController {
             for (SuseVO su_vo : su_list) {
                 su_vo.setCwvo(cwvo);
                 suar.add(su_vo);
-                System.out.println("c_idx" + su_vo.getC_idx());
-                System.out.println("Su_date" + su_vo.getSu_date());
-                System.out.println("s_idx" + su_vo.getS_idx());
+                // System.out.println("c_idx" + su_vo.getC_idx());
+                // System.out.println("Su_date" + su_vo.getSu_date());
+                // System.out.println("s_idx" + su_vo.getS_idx());
 
                 String s_idx = su_vo.getS_idx();
-                System.out.println(s_idx);
+                // System.out.println(s_idx);
 
                 // SwriteVO swvo = service.getBusiness(s_idx);
 
@@ -257,8 +257,8 @@ public class EdongsikController {
                 su_vo.setSvo(svo);
                 su_vo.setMvo(mvo);
 
-                System.out.println(mvo.getM_idx());
-                System.out.println(svo.getS_type());
+                // System.out.println(mvo.getM_idx());
+                // System.out.println(svo.getS_type());
             }
 
         }
@@ -315,7 +315,7 @@ public class EdongsikController {
                 // System.out.println("s_idx" + su_vo.getS_idx());
 
                 String s_idx = su_vo.getS_idx();
-                System.out.println(s_idx);
+                // System.out.println(s_idx);
 
                 // SwriteVO swvo = service.getBusiness(s_idx);
 
@@ -327,8 +327,8 @@ public class EdongsikController {
                 su_vo.setSvo(svo);
                 su_vo.setMvo(mvo);
 
-                System.out.println(mvo.getM_idx());
-                System.out.println(svo.getS_type());
+                // System.out.println(mvo.getM_idx());
+                // System.out.println(svo.getS_type());
             }
 
             // }
@@ -421,6 +421,14 @@ public class EdongsikController {
 
         return mv;
 
+    }
+
+    @RequestMapping("/review/")
+    public ModelAndView review(String su_idx, String review, String selectedValue) {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("edongsik/edongsik");
+        return mv;
     }
 
 }
