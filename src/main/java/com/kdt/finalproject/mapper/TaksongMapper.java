@@ -18,6 +18,8 @@ public interface TaksongMapper {
 
  SwriteVO selectSWVO(String s_idx);
 
+ List<SwriteVO> selectSWVOar(String m_idx);
+
  MemVO mvo(String m_idx);
 
  ServiceVO svo(String s_idx);
