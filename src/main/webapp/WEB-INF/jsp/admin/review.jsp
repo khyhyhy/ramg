@@ -17,8 +17,35 @@ pageEncoding="UTF-8"%>
 <main>
     <div class="container" style="margin-top: 100px;">
 
-        <h2></h2>
+        <h2>리뷰관리</h2>
 
+        <table class="table table-hover">
+            <colgroup>
+                <col width="*">
+            </colgroup>
+            <thead>
+                <tr class="table-warning">
+                    <th>대상</th>
+                    <th>별점</th>
+                    <th>작성자</th>
+                    <th>작성일</th>
+                    <th>음</th>
+                </tr>
+            </thead>
+            <tbody>
+                <c:if test="${ar == null}">
+                    <tr>
+                        <td colspan="5">검색 결과가 없습니다.</td>
+                    </tr>
+                </c:if>
+                <c:forEach var="vo" items="${ar}" varStatus="st">
+                    <tr>
+                        <td>${totalRecord - ((nowPage-1)*blockList+st.index) }</td>
+                        <td>내용</td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
         
     </div>
 </main>

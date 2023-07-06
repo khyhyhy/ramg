@@ -7,6 +7,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <link href="../../../css/admin.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
@@ -32,13 +33,24 @@
             <c:if test="${sessionScope.mvo == null}">
               <a href="/admin/login">로그인</a>
             </c:if>
-           </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/admin/member" style="font-size: 30px;">회원 관리</a>
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/admin/home" style="font-size: 30px;">홈</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="/admin/member" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 30px;">
+                  회원 관리
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/admin/member" style="font-size: 30px;">전체</a></li>
+                  <li><a class="dropdown-item" href="/admin/member?searchType=0&searchValue=&m_class=0" style="font-size: 30px;">일반 회원</a></li>
+                  <li><a class="dropdown-item" href="/admin/member?searchType=0&searchValue=&m_class=1" style="font-size: 30px;">사업자 회원</a></li>
+                  <li><a class="dropdown-item" href="/admin/member?searchType=0&searchValue=&m_class=2" style="font-size: 30px;">관리자</a></li>
+                </ul>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="/admin/notice" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-size: 30px;">
@@ -46,13 +58,16 @@
                 </a>
                 <ul class="dropdown-menu">
                   <li><a class="dropdown-item" href="/admin/notice" style="font-size: 30px;">전체</a></li>
-                  <li><a class="dropdown-item" href="/admin/notice?category=0" style="font-size: 30px;">일반 공지</a></li>
-                  <li><a class="dropdown-item" href="/admin/notice?category=1" style="font-size: 30px;">사업자 공지</a></li>
-                  <li><a class="dropdown-item" href="/admin/notice?category=2" style="font-size: 30px;">FAQ</a></li>
+                  <li><a class="dropdown-item" href="/admin/notice?searchType=0&searchValue=&category=0" style="font-size: 30px;">일반 공지</a></li>
+                  <li><a class="dropdown-item" href="/admin/notice?searchType=0&searchValue=&category=1" style="font-size: 30px;">사업자 공지</a></li>
+                  <li><a class="dropdown-item" href="/admin/notice?searchType=0&searchValue=&category=2" style="font-size: 30px;">FAQ</a></li>
                 </ul>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/admin/qna" style="font-size: 30px;">문의 관리</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/admin/review" style="font-size: 30px;">리뷰 관리</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/admin/car" style="font-size: 30px;">서비스 관리</a>

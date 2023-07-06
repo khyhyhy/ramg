@@ -1,0 +1,43 @@
+ol.paging {
+    list-style: none;
+}
+
+ol.paging li {
+    float: left;
+    margin-right: 8px;
+}
+
+ol.paging li a {
+    display: block;
+    padding: 3px 7px;
+    border: 1px solid #FFE19B;
+    color: #2f313e;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+ol.paging li a:hover {
+    background: #FFE19B;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.disable {
+    padding: 3px 7px;
+    border: 1px solid silver;
+    color: silver;
+}
+
+.now {
+    padding: 3px 7px;
+    border: 1px solid #FFE19B;
+    background: #FFE19B;
+    color: white;
+    font-weight: bold;
+}
+
+.empty {
+    height: 50px;
+    color: #ababab;
+}

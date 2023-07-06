@@ -176,4 +176,13 @@ public class AdminService {
     public MemVO admin_login(MemVO vo) {
         return mapper.admin_login(vo);
     }
+
+    public MemVO[] home_mem_count() {
+        MemVO[] ar = null;
+        List<MemVO> list = mapper.home_mem_count();
+        ar = new MemVO[list.size()];
+        list.toArray(ar);
+
+        return ar;
+    }
 }

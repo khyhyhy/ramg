@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 글 보기</title>
+<link href="../../../css/admin.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -16,8 +17,6 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-        <br>
-        <br>
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
@@ -73,14 +72,14 @@ pageEncoding="UTF-8"%>
             </form>
 
             <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button>
-                <button type="button"  class="btn btn-outline-info" onclick="javascript:changeStatus()" id="btn">
+                <button type="button" class="btn btn-outline-warning" onclick="javascript:sub()">목록</button>
+                <button type="button"  class="btn btn-outline-warning" onclick="javascript:changeStatus()" id="btn">
                     <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
                     <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
                 </button>
                 <span style="float: right;">
-                    <input type="button" class="btn btn-outline-info" value="수정" onclick="edit()">
-                    <input type="button" class="btn btn-outline-info" value="삭제" onclick="notice_del()">
+                    <input type="button" class="btn btn-outline-warning" value="수정" onclick="edit()">
+                    <input type="button" class="btn btn-outline-warning" value="삭제" onclick="notice_del()">
                 </span>
             </div>
 

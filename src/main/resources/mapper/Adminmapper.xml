@@ -237,6 +237,7 @@ SELECT * FROM (
   <id property="b_idx" column="b_idx"/>
   <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="qna_log1" column="b_idx"/>
   <collection property="c_list" ofType="com.kdt.finalproject.vo.BbsVO" select="qna_comm_count" column="b_idx"/>
+  <collection property="c_list" ofType="com.kdt.finalproject.vo.BbsVO" select="qna_comm_count" column="b_idx"/>
 </resultMap>
 
 <select id="qna_log1" parameterType="String" resultMap="qna_map2">
@@ -351,6 +352,14 @@ WHERE b_status = 0 AND b_type = 2 AND b_idx IN(select b_idx from bbslog where bl
 SELECT * FROM charging.member_t
 WHERE m_email = #{m_email} AND m_pw = #{m_pw} AND m_class = 2
 </select>
+
+
+<select id="home_mem_count" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_status = 0
+</select>
+
+
 
 <!-- insert -->
 

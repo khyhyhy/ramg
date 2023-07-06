@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
+<link href="../../../css/admin.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -17,14 +18,22 @@ pageEncoding="UTF-8"%>
     <form action="/admin/login" method="post">
         <div style="margin: 0 auto; width: 300px;">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-            <input type="email" name="m_email" class="form-control">
+            <input type="email" name="m_email" class="form-control" value="admin@ramg.com">
             <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-            <input type="password" name="m_pw"class="form-control" >
-            <button type="submit" class="btn btn-outline-info" style="margin-top: 30px; width: 300px;">로그인</button>
+            <input type="password" name="m_pw"class="form-control" value="1111">
+            <button type="submit" class="btn btn-outline-warning" style="margin-top: 30px; width: 300px;">로그인</button>
         </div>
     </form>
     
     </div>
 </main>
 </body>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        if ('${msg}' != "") {
+            alert('${msg}');
+        }
+    })
+</script>
 </html>

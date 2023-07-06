@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 회원 상세보기</title>
+<link href="../../../css/admin.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -16,8 +17,6 @@
 
 <main>
 <div class="container" style="margin-top: 100px;">
-    <br>
-    <br>
     <article>
         <table class="table table-bordered">
             <thead>
@@ -69,9 +68,9 @@
                 </tr>
             </table>
 
-        <button type="button" class="btn btn-outline-info" onclick="sub()"">목록</button>
+        <button type="button" class="btn btn-outline-warning" onclick="sub()"">목록</button>
         <c:if test="${vo.m_status == 0}">
-            <button type="button" class="btn btn-outline-info" onclick="member_out()" id="b_out">강제탈퇴</button>
+            <button type="button" class="btn btn-outline-warning" onclick="member_out()" id="b_out">강제탈퇴</button>
         </c:if>
     </article>
 

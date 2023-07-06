@@ -1,0 +1,32 @@
+
+a{
+    color: rgb(150, 146, 109) !important;
+    text-decoration-line: none !important;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+label{
+    font-size: 20px;
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body{
+    font-family: 'GmarketSansMedium' !important;
+}
+table tr, table td, table th{
+    padding: 13px !important;
+}
+table{
+    margin: 10px 0 50px 0 !important;
+    table-layout:fixed;
+}
+td {
+    text-overflow:ellipsis; 
+    overflow:hidden; 
+    white-space:nowrap;}

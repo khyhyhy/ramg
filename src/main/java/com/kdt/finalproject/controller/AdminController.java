@@ -1,6 +1,11 @@
 package com.kdt.finalproject.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -99,6 +104,9 @@ public class AdminController {
     public ModelAndView notice(String cPage, String searchType, String searchValue, String category) { // 공지사항 표시
         ModelAndView mv = new ModelAndView();
 
+        if (category != null && category.trim().length() == 0)
+            category = null;
+
         // ---------------------paging------------------------------
         int nowPage = 1;
         int totalRecord = service.notice_count(searchType, searchValue, category);
@@ -127,7 +135,8 @@ public class AdminController {
 
     // 공지사항 상세보기
     @RequestMapping("/admin/notice_view")
-    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue) {
+    public ModelAndView notice_view(String b_idx, String cPage, String searchType, String searchValue,
+            String category) {
         ModelAndView mv = new ModelAndView();
 
         BbsVO vo = service.notice_view(b_idx);
@@ -467,9 +476,10 @@ public class AdminController {
         MemVO mvo = service.admin_login(vo);
         if (mvo != null) {
             session.setAttribute("mvo", mvo);
-            path = "redirect:/admin/notice";
+            path = "redirect:/admin/home";
         } else {
             path = "/admin/login";
+            mv.addObject("msg", "아이디와 비밀번호를 확인해주세요");
         }
 
         mv.setViewName(path);
@@ -490,6 +500,55 @@ public class AdminController {
 
         mv.setViewName("/admin/car");
 
+        return mv;
+    }
+
+    @RequestMapping("/admin/home")
+    public ModelAndView home() {
+        ModelAndView mv = new ModelAndView();
+
+        MemVO[] mem_count = service.home_mem_count();
+        BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
+        BbsVO[] q_ar = service.qna(1, 5, null, null);
+
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        int pr = 0;
+        int bz = 0;
+        int ad = 0;
+        int tod = 0;
+
+        for (int i = 0; i < mem_count.length; i++) {
+            if (mem_count[i].getM_class().equals("0")) {
+                pr++;
+            } else if (mem_count[i].getM_class().equals("1")) {
+                bz++;
+            } else if (mem_count[i].getM_class().equals("2")) {
+                ad++;
+            }
+
+            if (mem_count[i].getM_date().substring(0, 10).equals(today)) {
+                tod++;
+            }
+
+        }
+        mv.addObject("b_ar", b_ar);
+        mv.addObject("q_ar", q_ar);
+        mv.addObject("pr", pr);
+        mv.addObject("bz", bz);
+        mv.addObject("ad", ad);
+        mv.addObject("tod", tod);
+
+        mv.setViewName("/admin/home");
+        return mv;
+    }
+
+    // 리뷰
+    @RequestMapping("/admin/review")
+    public ModelAndView review() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("/admin/review");
         return mv;
     }
 }

@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 공지 수정</title>
+<link href="../../../css/admin.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -19,8 +20,6 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-        <br>
-        <br>
         <form action="/admin/notice_edit_ok" method="post" enctype="multipart/form-data">
         <table class="table table-bordered">
             <colgroup>
@@ -73,8 +72,8 @@ pageEncoding="UTF-8"%>
                 </tr>
             </table>
             <div style="height: 80px;" >
-                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-info" onclick="javascript:sendData()">수정하기</button>
-                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+                <button type="button" style="display: inline-block; float: right;" class="btn btn-outline-warning" onclick="javascript:sendData()">수정하기</button>
+                <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
             </div>
                 
             <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}">

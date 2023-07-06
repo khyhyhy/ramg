@@ -7,6 +7,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 문의 보기</title>
+<link href="../../../css/admin.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
@@ -19,8 +20,6 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-        <br>
-        <br>
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
@@ -42,7 +41,7 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>작성자</th>
-                    <td>${vo.bbslog.mvo.m_name}</td>
+                    <td><a href="/admin/member_view?m_idx=${vo.bbslog.mvo.m_idx}&cPage=1">${vo.bbslog.mvo.m_name}</a></td>
                 </tr>
                 <tr>
                     <th>첨부파일</th>
@@ -60,19 +59,19 @@ pageEncoding="UTF-8"%>
             </table>
             <div style="height: 80px;" >
                 <input type="hidden" id="b_val1" value="${vo.b_val1}"/>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:qna_change()" id="btn">
+                <button type="button" class="btn btn-outline-warning" onclick="javascript:back();">목록</button>
+                <button type="button" class="btn btn-outline-warning" onclick="javascript:qna_change()" id="btn">
                     <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
                     <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
                 </button>
-                <span style="float: right;"><button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button></span>
+                <span style="float: right;"><button type="button" class="btn btn-outline-warning" onclick="javascript:qna_del()">삭제</button></span>
             </div>
             
             <table class="table table-bordered" style="margin: 0;" id="comm_table">
                 <c:forEach items="${car}" var="vo">
                 <tr>
                     <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
-                        <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span></th>
+                        <span style="float: right;"><input type="button" class="btn btn-outline-warning" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span></th>
                 </tr>
                 <tr> 
                     <td style="height: 200px;" name="b_content">${vo.b_content}</th>
@@ -86,8 +85,8 @@ pageEncoding="UTF-8"%>
             <textarea name="b_content" id="b_content"></textarea>
 
             <div style="height: 80px; margin-top: 10px;">
-                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+                <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
+                <button type="button" class="btn btn-outline-warning" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
             </div>
 
             

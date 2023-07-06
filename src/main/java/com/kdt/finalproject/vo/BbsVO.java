@@ -18,6 +18,7 @@ public class BbsVO {
             b_status, b_to, b_hit, b_ip, b_oriname, b_filename, b_val1, b_val2, b_val3, b_val4, b_val5;
 
     private BbslogVO bbslog;
+    private List<BbslogVO> b_list;
 
     private MultipartFile file;
     private List<BbsVO> c_list;
