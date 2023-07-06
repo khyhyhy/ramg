@@ -4,16 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kdt.finalproject.mapper.EdongsikMapper">
 
-<!-- select -->
-<select id="init" resultType="com.kdt.finalproject.vo.MemVO">
-SELECT * FROM charging.member_t
-WHERE m_idx = '1'
-</select>
-
-<!-- <select id="getSw" parameterType="String" resultType="com.kdt.finalproject.vo.CwriteVO">
-  SELECT * FROM charging.car_write
-  WHERE m_idx = #{m_idx}
-</select> -->
+<!-- result -->
 
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="map1">
   	<result column="c_idx" property="c_idx"/>
@@ -30,15 +21,11 @@ WHERE m_idx = '1'
   WHERE c_idx = #{c_idx}
 </select>
 
-
-
  
 <select id="getEdongsik" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
   SELECT * FROM charging.service_t
   WHERE s_type = 1 AND s_state = #{state}
 </select>
-
-
 
 
 <resultMap id="map2" type="com.kdt.finalproject.vo.SwriteVO">
@@ -77,21 +64,6 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
   WHERE su_idx = #{su_idx}
 </select>
 
-<!-- <resultMap type="com.kdt.finalproject.vo.SwriteVO" id="map3">
-  	<id column="m_idx" property="m_idx"/>
-  	<collection property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="getBusiness2" column="m_idx"/>
-</resultMap>
-
-<select id="getBusiness" resultMap="map3" parameterType="String">
-  SELECT * FROM charging.service_write
-  WHERE s_idx = #{s_idx}
-</select>
-
-<select id="getBusiness2" resultType="com.kdt.finalproject.vo.MemVO" parameterType="String">
-	SELECT * FROM charging.member_t
-  WHERE m_idx = #{m_idx}
-</select> -->
-
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="map4">
   	<id column="c_idx" property="c_idx"/>
   	<collection property="suvo" ofType="com.kdt.finalproject.vo.SuseVO" select="getOrderList2" column="c_idx"/>
@@ -114,7 +86,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 	SELECT * FROM charging.service_use
 	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
 	  WHERE m_idx = #{m_idx} and cw_type = 0)
-      ORDER BY su_idx ASC
+      ORDER BY su_idx DESC
 	) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
@@ -122,17 +94,6 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 <!-- 총 게시물의 수를 반환하는 SELECT -->
   <select id="totalCount" resultType="int">
   	SELECT COUNT(*) FROM service_use
-  </select>
-
-  <!-- 원글들을 가져오는 SELECT -->
-  <select id="suseList" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="Map">
-  	SELECT * FROM(
-		SELECT @RN:=@RN+1 AS rnum,a.* FROM(
-			SELECT * FROM service_use
-			WHERE status = 0 AND bname='BBS'
-			ORDER BY b_idx DESC
-		) a, (SELECT @RN:=0) b
-	) c WHERE c.rnum BETWEEN #{begin} AND #{end}
   </select>
 
   <select id="totalCountByM_idx" resultType="int" parameterType="String">

@@ -139,7 +139,7 @@
                         </div>
                     </c:if>
 
-
+                    <c:if test="${suvo.su_status != 8}">
                     <c:choose>
                         <c:when test="${suvo.su_status == 0}">
                             <div class="col">
@@ -252,7 +252,7 @@
                             </div>
                         </c:otherwise>
                     </c:choose>
-                    
+                    </c:if>
                     </div>
             
             </c:if>
@@ -274,7 +274,7 @@
            </colgroup>
            
                <thead>
-                   <tr>
+                   <tr class="table-info">
                        <th style="text-align: center;">서비스 정보</th>
                        <th style="text-align: center;">업체정보</th>
                        <th style="text-align: center;">주문일자</th>

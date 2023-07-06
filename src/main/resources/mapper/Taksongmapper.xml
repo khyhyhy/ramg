@@ -39,6 +39,9 @@ SELECT * FROM charging.service_t WHERE s_state = #{si}
 <select id="selectSWVO" parameterType="String" resultMap="rm1">
 SELECT * FROM charging.service_write WHERE s_idx = #{param}
 </select>
+<select id="selectSWVOar" parameterType="String" resultMap="rm1">
+SELECT * FROM charging.service_write WHERE m_idx = #{param}
+</select>
 
 
 <select id="mvo" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">

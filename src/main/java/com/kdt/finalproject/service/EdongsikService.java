@@ -21,12 +21,6 @@ public class EdongsikService {
     @Autowired
     EdongsikMapper mapper;
 
-    public MemVO init() {
-        MemVO vo = mapper.init();
-
-        return vo;
-    }
-
     public List<CwriteVO> carList(String m_idx) {
         List<CwriteVO> vo = mapper.carList(m_idx);
 
@@ -57,26 +51,9 @@ public class EdongsikService {
         return vo;
     }
 
-    // public SwriteVO getBusiness(String s_idx) {
-    // SwriteVO vo = mapper.getBusiness(s_idx);
-
-    // return vo;
-    // }
-
     public List<CwriteVO> getOrderList(String m_idx) {
         List<CwriteVO> ar = mapper.getOrderList(m_idx);
 
-        return ar;
-    }
-
-    public SuseVO[] getAll(int begin, int end) {
-        SuseVO[] ar = null;
-
-        List<SuseVO> list = mapper.suseList(begin, end);
-        if (list != null && list.size() > 0) {
-            ar = new SuseVO[list.size()];
-            list.toArray(ar);
-        }
         return ar;
     }
 
