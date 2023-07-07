@@ -13,6 +13,7 @@
   <!--추가-->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
+
   <!--head 끝나기전에 style태그 넣는다-->
   <style>
 
@@ -59,6 +60,7 @@
       margin-bottom: 20px;
       font-size: 15px; 
       font-family: "Arial", sans-serif; 
+
     }
 
     .divider {
@@ -95,11 +97,17 @@
   .btn-secondary:focus {
     outline: none;
     box-shadow: 0 0 0 0.3rem rgba(20, 203, 216, 0.87);
+
+  }
+  .btn-secondary{
+    text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+    border: 4px solid #dddddd;
+    border-radius: 4px;
   }
 
   .btn-primary:focus {
     outline: none;
-    box-shadow: 0 0 0 0.4rem rgba(20, 203, 216, 0.87);
+    box-shadow: 0 0 0 0.6rem rgba(20, 203, 216, 0.7);
   }
 
   #email-message{
@@ -261,8 +269,6 @@
              $('#m_class_hidden').val(mClassValue);
 
              //핸드폰 중복확인
-             //함수 추가해봄
-
              let phoneNumberPart1 = $('#m_phone_part1').val();
              let phoneNumberPart2 = $('#m_phone_part2').val();
              let phoneNumberPart3 = $('#m_phone_part3').val();
@@ -272,8 +278,7 @@
              let phoneNumberPattern = /^\d+$/; // 숫자만 포함하는 정규표현식
 
                
-               //let id = $("#rg_id").val();
-               
+              //정규표현식               
                let check1 = /^[a-z0-9]{5,}$/;
                let check2 = /^(?=.*[a-z])(?=.*\d).{8,}$/;
                let check3 = /^[가-힣]{2,20}$/;
@@ -346,6 +351,11 @@
               return;
             }
 
+              if ($('#phoneCheckBtn').css('background-color') != 'rgb(177, 177, 177)') {
+                alert("연락처 중복체크를 완료해주세요");
+                return;
+              }
+
                
                if(!$("#agree").is(":checked")){
                    alert("약관동의를 해주세요");
@@ -353,10 +363,11 @@
                    return;
                }
                
+               //회원가입 메세지가 뜨게 하기 위해 비동기통신 이용
                $.ajax({
                  url: 'join',
                  type: 'POST',
-                 data: $(form).serialize(), // Serialize the form data
+                 data: $(form).serialize(), 
 
                  success: function(response) {
                    if (response.success) {
@@ -378,6 +389,8 @@
 
               //핸드폰 번호 중복체크 기능
               $('#phoneCheckBtn').click(function(){
+
+                //연락처 값을 가져온다.
                 var phoneNumberPart1 = $('#m_phone_part1').val();
                 var phoneNumberPart2 = $('#m_phone_part2').val();
                 var phoneNumberPart3 = $('#m_phone_part3').val();
@@ -422,8 +435,14 @@
                         //요청 성공시
                             if (response.str.includes("사용 가능한 번호입니다")) {
                               alert("사용 가능한 번호입니다.");
+
+                              // 중복체크 버튼 색상 변경(연한 회색)
+                              $('#phoneCheckBtn').css('background-color', '#B1B1B1');
+
+
                             } else {
                               alert("이미 등록된 번호입니다.");
+                              $('#phoneCheckBtn').css('background-color', ''); //원래대로 버튼색깔 돌리기
                             }
                       },
                       error: function() {
