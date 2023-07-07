@@ -174,11 +174,13 @@ public class KakaoController {
                     // p_img,nickName,email
                     mvo.setM_name(nickName);
                     mvo.setM_email(email);
-                    mvo.setM_pw("0000");
+                    // mvo.setM_pw("0000");
+                    mvo.setM_atoken(access_Token);
+                    mvo.setM_rtoken(refresh_Token);
 
                     MemVO vo = ls.search_email(email);
                     if (vo == null) { // 가입여부 확인
-                        ls.add_mem(mvo);// 회원가입 - 최초 접근시 한번만 수행!!
+                        ls.add_kakao(mvo);// 회원가입 - 최초 접근시 한번만 수행!!
                         // mv.setViewName("mypage/car_mt");
                         vo = mvo;
                     }

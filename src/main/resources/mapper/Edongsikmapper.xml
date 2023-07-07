@@ -102,8 +102,23 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 	  WHERE m_idx = #{m_idx} and cw_type = 0)
   </select>
 
+  <select id="getBidx" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">
+  	SELECT * FROM charging.bbs_t
+    WHERE b_val2 = #{su_idx} AND b_type = 1 AND b_status = 0
+  </select>
+
 <!-- insert -->
+  <insert id="addReview" parameterType="Map">
+    INSERT INTO charging.bbs_t(b_content, b_score, b_type, b_status, b_val2)
+    VALUES(#{reviewContent}, #{selectedValue}, 1, 0, #{su_idx})
+  </insert>
+
+  <insert id="addReviewLog" parameterType="Map">
+    INSERT INTO charging.bbslog(b_idx, m_idx, bl_date, bl_type)
+    VALUES(#{b_idx}, #{m_idx}, now(), 0)
+  </insert>
 
 
+    
 <!-- update -->
 </mapper>

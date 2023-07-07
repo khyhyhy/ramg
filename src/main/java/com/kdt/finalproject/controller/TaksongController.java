@@ -46,8 +46,6 @@ public class TaksongController {
  String mp = "자치";
  int lo;
 
- 
-
  @RequestMapping("/taksong/")
  public ModelAndView index() {
   ModelAndView mv = new ModelAndView();
@@ -308,7 +306,7 @@ public class TaksongController {
   boolean chk = service.suseVOin(suvo);
   System.out.println(chk);
 
-  mv.setViewName("edongsik/e_orderList");
+  mv.setViewName("redirect:/e_orderList/");
   return mv;
  }
 }

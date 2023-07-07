@@ -17,6 +17,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -33,22 +34,35 @@ public class FmapController {
 
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
 
+    // 위치 설정할 jsp로 이동시킴
+    @RequestMapping("/fmap2/")
+    public String login() {
+        return "/fmap/loading";
+    }
+
+    // 위치를 받아와서 맵에 뿌려줄 충전송api
     @RequestMapping("/fmap/")
-    public ModelAndView searchCharger() throws Exception {
+    public ModelAndView searchCharger2(String city) throws Exception {
         System.out.println("////////////////////////////111");
         ModelAndView mv = new ModelAndView();
-        Map<String, Integer> cpStatCounts = new HashMap<>();
         // 한전공공api :
         // http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?serviceKey=bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D&pageNo=1&numOfRows=10&addr=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
         // 한전 에너지센터 : https://bigdata.kepco.co.kr/openapi/v1/EVcharge.do
-
-        String city = "서울특별시";
+        System.out.println(city);
+        String two = city.substring(0, 2);
+        if (two.equals("충남") || two.equals("충북")) {
+            two = "충청";
+        } else if (two.equals("전남") || two.equals("전북")) {
+            two = "전라";
+        } else if (two.equals("경남") || two.equals("경북")) {
+            two = "경상";
+        }
         StringBuffer sb = new StringBuffer();
         sb.append("http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList");
         sb.append("?serviceKey=" + key);
         sb.append("&pageNo=1");
-        sb.append("&numOfRows=380");
-        sb.append("&addr=" + URLEncoder.encode(city, "UTF-8"));
+        sb.append("&numOfRows=800");
+        sb.append("&addr=" + URLEncoder.encode(two, "UTF-8"));
 
         URL url = new URL(sb.toString());
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -106,14 +120,14 @@ public class FmapController {
                 }
             }
         }
-
         mv.addObject("ar", ar);
         mv.addObject("len", ar.length);
-        System.out.println(ar.length);
         mv.setViewName("/fmap/fmap");
+
         return mv;
     }
 
+    // 목록을 클릭 했을때 길찾기 표시를 비동기식 전송방식으로 받음
     @PostMapping("/here")
     @ResponseBody
     public Map<String, Object> searchFestival2(String lati3, String lon3, String lati2, String lon2) throws Exception {

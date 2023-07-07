@@ -142,7 +142,7 @@
 
       <!--부트스트랩 추가-->
       <div class="d-flex justify-content-center"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
-        <div class="card shadow p-4 mb-3 bg-body rounded" style="width: 30rem;" >
+        <div class="card shadow p-4 mb-3 mt-2 bg-body rounded" style="width: 30rem;" >
             <div class="card-body">
       <!--부트스트랩 추가-->
 
@@ -372,7 +372,7 @@
                  success: function(response) {
                    if (response.success) {
                      alert("회원가입을 축하합니다. 로그인 해주세요.");
-                     window.location.href = "/login"; // 
+                     window.location.href = "/login"; 
                   
                    } else {
                      alert("회원가입에 실패했습니다. 다시 시도해주세요.");
