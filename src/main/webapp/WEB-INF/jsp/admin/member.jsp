@@ -84,9 +84,16 @@ pageEncoding="UTF-8"%>
         </form>
 
         <table class="table table-hover">
+            <colgroup>
+                <col width="100px">
+                <col width="250px">
+                <col width="400px">
+                <col width="*">
+                <col width="200px">
+            </colgroup>
             <thead>
                 <tr class="table-warning">
-                    <th style="width: 130px;">회원 번호</th>
+                    <th>회원 번호</th>
                     <th>이름</th>
                     <th>이메일</th>
                     <th>회원 구분</th>

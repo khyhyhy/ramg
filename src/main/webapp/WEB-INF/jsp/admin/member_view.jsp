@@ -19,6 +19,15 @@
 <div class="container" style="margin-top: 100px;">
     <article>
         <table class="table table-bordered">
+            <colgroup>
+                <col width="100px">
+                <col width="150px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="*">
+            </colgroup>
             <thead>
                 <tr>
                     <th>회원 번호</th>

@@ -237,7 +237,6 @@ SELECT * FROM (
   <id property="b_idx" column="b_idx"/>
   <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="qna_log1" column="b_idx"/>
   <collection property="c_list" ofType="com.kdt.finalproject.vo.BbsVO" select="qna_comm_count" column="b_idx"/>
-  <collection property="c_list" ofType="com.kdt.finalproject.vo.BbsVO" select="qna_comm_count" column="b_idx"/>
 </resultMap>
 
 <select id="qna_log1" parameterType="String" resultMap="qna_map2">
@@ -358,6 +357,82 @@ WHERE m_email = #{m_email} AND m_pw = #{m_pw} AND m_class = 2
 SELECT * FROM charging.member_t
 WHERE m_status = 0
 </select>
+
+
+<!--리뷰 리스트-->
+<select id="review" parameterType="Map" resultMap="review_map">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+    SELECT * FROM charging.bbs_t 
+    WHERE (b_status = 0 AND b_type = 1)
+          <if test="searchType != null and searchValue != null">
+            <choose>
+              <when test="searchType == 0">
+                  AND b_title LIKE concat('%',#{searchValue},'%')
+              </when>
+              <when test="searchType == 1">
+                  AND b_content LIKE concat('%',#{searchValue},'%')
+              </when>
+              <when test="searchType == 2">
+                AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+              </when>
+              <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
+            </choose>
+          </if>
+    ORDER BY b_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.BbsVO" id="review_map">
+  <id property="b_idx" column="b_idx"/>
+  <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO" select="review_log1" column="b_idx"/>
+</resultMap>
+
+<select id="review_log1" parameterType="String" resultMap="review_map2">
+SELECT * FROM charging.bbslog
+WHERE b_idx = #{b_idx} AND bl_type = 0
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.BbslogVO" id="review_map2">
+  <id property="m_idx" column="m_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="review_log2" column="m_idx"/>
+</resultMap>
+
+<select id="review_log2" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = #{m_idx}
+</select>
+
+<select id="review_count" resultType="int">
+SELECT COUNT(*) FROM charging.bbs_t 
+  WHERE (b_status = 0 AND b_type = 1)
+    <if test="searchType != null and searchValue != null">
+      <choose>
+        <when test="searchType == 0">
+            AND b_title LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 1">
+            AND b_content LIKE concat('%',#{searchValue},'%')
+        </when>
+        <when test="searchType == 2">
+              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+          </when>
+          <when test="searchType == 3">
+                AND b_idx IN(
+                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+                )
+              </when>
+      </choose>
+    </if>
+</select>
+<!--리뷰 리스트-->
 
 
 

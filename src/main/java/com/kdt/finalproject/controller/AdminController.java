@@ -26,6 +26,7 @@ import com.kdt.finalproject.service.AdminService;
 import com.kdt.finalproject.util.Admin_member_paging;
 import com.kdt.finalproject.util.Admin_notice_paging;
 import com.kdt.finalproject.util.Admin_qna_paging;
+import com.kdt.finalproject.util.Admin_review_paging;
 import com.kdt.finalproject.util.FileRenameUtil;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
@@ -510,6 +511,7 @@ public class AdminController {
         MemVO[] mem_count = service.home_mem_count();
         BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
         BbsVO[] q_ar = service.qna(1, 5, null, null);
+        BbsVO[] r_ar = service.review(1, 5, null, null);
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -534,6 +536,7 @@ public class AdminController {
         }
         mv.addObject("b_ar", b_ar);
         mv.addObject("q_ar", q_ar);
+        mv.addObject("r_ar", r_ar);
         mv.addObject("pr", pr);
         mv.addObject("bz", bz);
         mv.addObject("ad", ad);
@@ -545,8 +548,25 @@ public class AdminController {
 
     // 리뷰
     @RequestMapping("/admin/review")
-    public ModelAndView review() {
+    public ModelAndView review(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
+        int nowPage = 1;
+        int totalRecord = service.review_count(searchType, searchValue);
+
+        if (cPage != null)
+            nowPage = Integer.parseInt(cPage);
+
+        Admin_review_paging page = new Admin_review_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        BbsVO[] ar = service.review(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
 
         mv.setViewName("/admin/review");
         return mv;

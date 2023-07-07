@@ -65,4 +65,7 @@ public interface AdminMapper {
 
     List<MemVO> home_mem_count();
 
+    List<BbsVO> review(int begin, int end, String searchType, String searchValue);
+
+    int review_count(String searchType, String searchValue);
 }

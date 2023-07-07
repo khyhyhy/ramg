@@ -58,16 +58,9 @@ pageEncoding="UTF-8"%>
                 <div class="col">
                 <label for="notice"><a href="/admin/notice">최근 공지</a></label>
                 <table id="notice" class="table table-bordered table-hover" style="table-layout:fixed">
-                    <colgroup>
-                        <col width="*">
-                        <col width="80px">
-                        <col width="210px">
-                    </colgroup>
                     <thead>
                         <tr class="table-warning">
                             <th>제목</th>
-                            <th>조회수</th>
-                            <th>등록일</th>
                         </tr>
                     </thead>
                         <c:forEach var="bvo" items="${b_ar}">
@@ -76,13 +69,14 @@ pageEncoding="UTF-8"%>
                                 <c:if test="${bvo.b_val1 == 1}">
                                     <img src="../images/lock.png" style="width: 15px;">
                                 </c:if>
-                                <a href="/admin/notice_view?b_idx=${bvo.b_idx}&cPage=1">${bvo.b_title}</a>
+                                <a href="/admin/notice_view?b_idx=${bvo.b_idx}&cPage=1">
+                                    <c:if test="${bvo.b_to == 1}">
+                                    <span style="font-size: small; color: rgb(179, 179, 179);">[사업자]</span>
+                                    </c:if>${bvo.b_title}</a>
                                 <c:if test="${bvo.b_filename != null}">
                                     <img src="../images/link.png" style="width: 14px;">
                                 </c:if>
                             </td>
-                            <td>${bvo.b_hit}</td>
-                            <td>${bvo.bbslog.bl_date}</td>
                         </tr>
                     </c:forEach>
                 </table>
@@ -93,14 +87,12 @@ pageEncoding="UTF-8"%>
                 <table id="qna" class="table table-bordered table-hover">
                     <colgroup>
                         <col width="*">
-                        <col width="80px">
-                        <col width="210px">
+                        <col width="130px">
                     </colgroup>
                     <thead>
                     <tr class="table-warning">
                         <th>제목</th>
                         <th>작성자</th>
-                        <th>등록일</th>
                     </tr>
                     </thead>
                     <c:forEach var="qvo" items="${q_ar}">
@@ -118,7 +110,6 @@ pageEncoding="UTF-8"%>
                             </c:if>
                         </td>
                         <td><a href="/admin/member_view?m_idx=${qvo.bbslog.m_idx}&cPage=1">${qvo.bbslog.mvo.m_name}</a></td>
-                        <td>${qvo.bbslog.bl_date}</td>
                     </tr>
                     </c:forEach>
                 </table>
@@ -131,16 +122,41 @@ pageEncoding="UTF-8"%>
               <div class="col">
                 <label for="service"><a href="/admin/review">최근 리뷰</a></label>
                 <table id="service" class="table table-bordered table-hover">
+                    <colgroup>
+                        <col width="*"> 
+                        <col width="150px"> 
+                    </colgroup>
                     <thead>
                     <tr class="table-warning">
-                        <th>제목</th>
-                        <th>등록일</th>
+                        <th>내용</th>
+                        <th>별점</th>
                     </tr>
                     </thead>
+                    <c:forEach items="${r_ar}" var="rvo">
                     <tr>
-                        <td>ㅇㅇㅇ</td>
-                        <td>ㅇㅇㅇ</td>
+                        <td>${rvo.b_content}</td>
+                        <td>
+                            <c:if test="${rvo.b_score == 0}">
+                            ☆☆☆☆☆
+                        </c:if>
+                        <c:if test="${rvo.b_score == 1}">
+                            ★☆☆☆☆
+                        </c:if>
+                        <c:if test="${rvo.b_score == 2}">
+                            ★★☆☆☆
+                        </c:if>
+                        <c:if test="${rvo.b_score == 3}">
+                            ★★★☆☆
+                        </c:if>
+                        <c:if test="${rvo.b_score == 4}">
+                            ★★★★☆
+                        </c:if>
+                        <c:if test="${rvo.b_score == 5}">
+                            ★★★★★
+                        </c:if>
+                        </td>
                     </tr>
+                    </c:forEach>
                 </table>
               </div>
               <div class="col">

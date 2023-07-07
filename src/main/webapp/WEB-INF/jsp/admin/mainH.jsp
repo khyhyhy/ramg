@@ -27,7 +27,7 @@
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
             <c:if test="${sessionScope.mvo != null}">
-              ${sessionScope.mvo.m_name}님 환영합니다.<br>
+              <b>${sessionScope.mvo.m_name}</b>님 환영합니다.<br>
               <a href="/admin/logout">로그아웃</a>
             </c:if>
             <c:if test="${sessionScope.mvo == null}">
