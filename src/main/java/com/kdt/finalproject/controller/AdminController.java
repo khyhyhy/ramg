@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.AdminService;
+import com.kdt.finalproject.util.Admin_car_paging;
 import com.kdt.finalproject.util.Admin_member_paging;
 import com.kdt.finalproject.util.Admin_notice_paging;
 import com.kdt.finalproject.util.Admin_qna_paging;
@@ -32,6 +33,7 @@ import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.ImgVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.SuseVO;
 
 @Controller
 public class AdminController {
@@ -496,9 +498,26 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/car")
-    public ModelAndView car() {
+    public ModelAndView car(String cPage, String searchType, String searchValue) {
         ModelAndView mv = new ModelAndView();
 
+        int nowPage = 1;
+        int totalRecord = service.car_count(searchType, searchValue);
+
+        if (cPage != null)
+            nowPage = Integer.parseInt(cPage);
+
+        Admin_car_paging page = new Admin_car_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        SuseVO[] ar = service.car(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
         mv.setViewName("/admin/car");
 
         return mv;

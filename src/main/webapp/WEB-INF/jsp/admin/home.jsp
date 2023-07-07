@@ -134,7 +134,23 @@ pageEncoding="UTF-8"%>
                     </thead>
                     <c:forEach items="${r_ar}" var="rvo">
                     <tr>
-                        <td>${rvo.b_content}</td>
+                        <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
+                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${rvo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${rvo.b_idx}">
+                                    <c:if test="${rvo.b_content.length() >= 30}">
+                                        ${rvo.b_content.substring(0,30)}&nbsp;&nbsp;···
+                                    </c:if>
+                                    <c:if test="${rvo.b_content.length() < 30}">
+                                        ${rvo.b_content}
+                                    </c:if>
+                                  </button>
+                                </h2>
+                                <div id="flush-collapse${rvo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${rvo.b_idx}" data-bs-parent="#accordionFlushExample">
+                                  <div class="accordion-body"><br>${rvo.b_content}</div>
+                                </div>
+                              </div>
+                        </td>
                         <td>
                             <c:if test="${rvo.b_score == 0}">
                             ☆☆☆☆☆

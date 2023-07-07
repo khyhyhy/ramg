@@ -9,6 +9,7 @@ import com.kdt.finalproject.mapper.AdminMapper;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.SuseVO;
 
 @Service
 public class AdminService {
@@ -200,5 +201,21 @@ public class AdminService {
 
     public int review_count(String searchType, String searchValue) {
         return mapper.review_count(searchType, searchValue);
+    }
+
+    // 서비스
+    public SuseVO[] car(int begin, int end, String searchType, String searchValue) {
+        SuseVO[] ar = null;
+
+        List<SuseVO> list = mapper.car(begin, end, searchType, searchValue);
+        if (list != null && list.size() > 0) {
+            ar = new SuseVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    public int car_count(String searchType, String searchValue) {
+        return mapper.car_count(searchType, searchValue);
     }
 }

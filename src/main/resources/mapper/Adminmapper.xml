@@ -436,6 +436,70 @@ SELECT COUNT(*) FROM charging.bbs_t
 
 
 
+<!--서비스 리스트-->
+<select id="car" parameterType="Map" resultMap="car_map">
+SELECT * FROM (
+  SELECT @RN:=@RN+1 as r_num,a.* FROM(
+    SELECT * FROM charging.service_use
+    WHERE su_type = 0          
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 0">
+              AND su_date LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              AND su_date LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+    ORDER BY s_idx DESC
+  ) a, (SELECT @RN:=0) as r
+) a WHERE a.r_num BETWEEN #{begin} AND #{end}
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.SuseVO" id="car_map">
+  <id property="su_idx" column="su_idx"/>
+  <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="car_log1" column="s_idx"/>
+  <association property="cwvo" javaType="com.kdt.finalproject.vo.CwriteVO" select="car_log2" column="c_idx"/>
+</resultMap>
+
+<select id="car_log1" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+SELECT * FROM charging.service_t
+WHERE s_idx = #{s_idx}
+</select>
+
+<select id="car_log2" parameterType="String" resultMap="car_map3">
+SELECT * FROM charging.car_write
+WHERE c_idx = #{c_idx}
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.CwriteVO" id="car_map3">
+  <id property="cw_idx" column="cw_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="car_log3" column="m_idx"/>
+</resultMap>
+
+<select id="car_log3" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+SELECT * FROM charging.member_t
+WHERE m_idx = #{m_idx}
+</select>
+
+
+<select id="car_count" resultType="int">
+SELECT COUNT(*) FROM charging.service_use
+  WHERE su_type = 0 
+    <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 0">
+              AND su_date LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              AND su_date LIKE concat('%',#{searchValue},'%')
+          </when>
+        </choose>
+      </if>
+</select>
+<!--서비스 리스트-->
+
 <!-- insert -->
 
 <!-- 공지 작성 -->

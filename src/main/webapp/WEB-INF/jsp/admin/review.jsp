@@ -66,10 +66,7 @@ pageEncoding="UTF-8"%>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
-                        <td style="word-break: break-all;
-                        text-overflow:unset; 
-                        overflow:unset; 
-                        white-space:unset;">
+                        <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
                                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">

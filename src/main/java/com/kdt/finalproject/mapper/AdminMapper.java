@@ -5,6 +5,7 @@ import java.util.List;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.SuseVO;
 
 public interface AdminMapper {
     List<MemVO> member(int begin, int end, String searchType, String searchValue, String m_class);
@@ -68,4 +69,8 @@ public interface AdminMapper {
     List<BbsVO> review(int begin, int end, String searchType, String searchValue);
 
     int review_count(String searchType, String searchValue);
+
+    List<SuseVO> car(int begin, int end, String searchType, String searchValue);
+
+    int car_count(String searchType, String searchValue);
 }
