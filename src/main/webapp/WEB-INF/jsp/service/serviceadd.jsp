@@ -29,10 +29,12 @@
      <p>"${mvo.m_idx}"</p>
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
      <!-- Button trigger modal -->
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taksongadd">
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taksongadd"
+      onclick="map1init()">
       탁송 서비스 등록
      </button>
-     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edongsikadd">
+     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edongsikadd"
+      onclick="map2init()">
       이동식 서비스 등록
      </button>
      <br />
@@ -197,7 +199,8 @@
              <div id="map2" style="width:100%;height:350px;"></div>
             </div>
            </div>
-           <input class="btn btn-outline-secondary" type="text" id="e_addr" name="e_addr" readonly onclick="esearch()">
+           <input class="btn btn-outline-secondary" type="text" id="e_addr" name="e_addr" readonly
+            onclick="esearch(this)">
            <div class="input-group mb-3">
             <span class="input-group-text" id="e_radius">서비스 가능 범위</span>
             <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
@@ -213,6 +216,10 @@
              <option value="5000">5.000원</option>
              <option value="4000">4.000원</option>
             </select>
+            <input type="text" id="e_state">
+            <input type="text" id="e_city">
+            <input type="text" id="e_lat">
+            <input type="text" id="e_lng">
            </div>
           </div>
           <!-- 정보영역끝 -->
@@ -245,71 +252,144 @@
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8f974dd2f43fefe94e70a9ce228e40e&libraries=services"></script>
    <script>
+    let map1;
+    let geocoder;
+    let geocoder2;
 
     function exe() {
      let addr = $("#e_car").find("option:selected").data('addr');
-     console.log(addr);
-     document.getElementById("map2col").click();
+     console.log("addr:" + addr);
      document.getElementById("e_addr").value = addr;
+     document.getElementById("map2col").click();
      document.getElementById("e_addr").click();
     }
 
-    var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
-     mapOption = {
-      center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
-      level: 3 // 지도의 확대 레벨
-     };
 
-    var map1 = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    var markerPosition = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
+    function map1init() {
+     var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
+      mapOption = {
+       center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
+       level: 3 // 지도의 확대 레벨
+      };
 
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: markerPosition
+     map1 = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+     geocoder = new kakao.maps.services.Geocoder();
+     var markerPosition = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
+
+     // 마커를 생성합니다
+     var marker = new kakao.maps.Marker({
+      position: markerPosition
+
+     });
 
 
-    });
+
+     // 마커가 지도 위에 표시되도록 설정합니다
+     marker.setMap(map1)
 
 
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map1)
+     // tilesloaded 
+     /*
+     kakao.maps.event.addListener(map1, 'tilesloaded', function () {
+      console.log("map1 타일로드됨~");
+      var latlng = map1.getCenter();
+      marker.setPosition(latlng)
+      document.getElementById("t_lat").value = latlng.getLat();
+      document.getElementById("t_lng").value = latlng.getLng();
+      var message = '현재 지도 중심 위도는 ' + latlng.getLat() + ' , ';
+      message += '경도는 ' + latlng.getLng() + ' 임';
 
-    // tilesloaded
-    kakao.maps.event.addListener(map1, 'tilesloaded', function () {
+      //var resultDiv = document.getElementById('result');
+      //resultDiv.innerHTML = message;
 
-     var latlng = map1.getCenter();
-     marker.setPosition(latlng)
-     document.getElementById("t_lat").value = latlng.getLat();
-     document.getElementById("t_lng").value = latlng.getLng();
-     var message = '현재 지도 중심 위도는 ' + latlng.getLat() + ' , ';
-     message += '경도는 ' + latlng.getLng() + ' 임';
+      //map1.setCenter(markerPosition);
 
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
+      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
 
-     //map1.setCenter(markerPosition);
+     });*/
 
-     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+     kakao.maps.event.addListener(map1, 'click', function (mouseEvent) {
+      console.log("map1 클릭됨~");
+      // 클릭한 위도, 경도 정보를 가져옵니다 
+      var latlng = mouseEvent.latLng;
 
-    });
+      var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+      message += '경도는 ' + latlng.getLng() + ' 입니다';
 
-    // idle
-    kakao.maps.event.addListener(map1, 'idle', function () {
+      //var resultDiv = document.getElementById('result');
+      //resultDiv.innerHTML = message;
 
-     var latlng = map1.getCenter();
-     marker.setPosition(latlng)
-     document.getElementById("t_lat").value = latlng.getLat();
-     document.getElementById("t_lng").value = latlng.getLng();
-     var message = '변경된 지도 중심 위도는 ' + latlng.getLat() + ' , ';
-     message += '경도는 ' + latlng.getLng() + ' 임';
+      markerPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
 
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
+      marker
 
-     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
 
-    });
+      //map1.setCenter(markerPosition);
+
+
+     });
+
+     // idle
+     kakao.maps.event.addListener(map1, 'idle', function () {
+
+      var latlng = map1.getCenter();
+      marker.setPosition(latlng)
+      document.getElementById("t_lat").value = latlng.getLat();
+      document.getElementById("t_lng").value = latlng.getLng();
+      var message = '변경된 지도 중심 위도는 ' + latlng.getLat() + ' , ';
+      message += '경도는 ' + latlng.getLng() + ' 임';
+
+      //var resultDiv = document.getElementById('result');
+      //resultDiv.innerHTML = message;
+      var callback = function (result, status) {
+       if (status === kakao.maps.services.Status.OK) {
+
+        console.log(kakao.maps.services.Status.OK)
+        console.log(result);
+        console.log('전체 지역 명은' + result[0].address_name + '입니다');
+        console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
+        console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
+        document.getElementById("t_state").value = result[0].region_1depth_name;
+        console.log('행정구역 코드 : ' + result[0].code);
+
+
+
+        const regex = /(\S+[시군])/;
+        const resultt = regex.exec(result[0].address_name);
+
+        const city = result[0].region_2depth_name;
+        document.getElementById("t_city").value = city
+       }
+
+      };
+
+      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+
+      var callback = function (result, status) {
+       if (status === kakao.maps.services.Status.OK) {
+
+        console.log(kakao.maps.services.Status.OK)
+        console.log(result);
+        console.log('전체 지역 명은' + result[0].address_name + '입니다');
+        console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
+        console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
+        document.getElementById("t_state").value = result[0].region_1depth_name;
+        console.log('행정구역 코드 : ' + result[0].code);
+
+
+
+        const regex = /(\S+[시군])/;
+        const resultt = regex.exec(result[0].address_name);
+
+        const city = result[0].region_2depth_name;
+        document.getElementById("t_city").value = city
+       }
+
+      };
+      map1reload();
+
+     });
+    }
 
 
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -342,133 +422,117 @@
 
        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
        map1.setCenter(markerPosition);
-       map1.relayout;
-
+       map1reload();
       }
      });
     }
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-    kakao.maps.event.addListener(map1, 'click', function (mouseEvent) {
 
-     // 클릭한 위도, 경도 정보를 가져옵니다 
-     var latlng = mouseEvent.latLng;
-
-     var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
-     message += '경도는 ' + latlng.getLng() + ' 입니다';
-
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
-
-     markerPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
-
-     marker
-
-
-     map1.setCenter(markerPosition);
-
-
-    });
 
 
 
 
     function map1reload() {
+     console.log("map1 리로드됨~");
      map1.relayout();
     }
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    var callback = function (result, status) {
-     if (status === kakao.maps.services.Status.OK) {
-
-      console.log(kakao.maps.services.Status.OK)
-      console.log(result);
-      console.log('전체 지역 명은' + result[0].address_name + '입니다');
-      console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
-      console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
-      document.getElementById("t_state").value = result[0].region_1depth_name;
-      console.log('행정구역 코드 : ' + result[0].code);
 
 
-
-      const regex = /(\S+[시군])/;
-      const resultt = regex.exec(result[0].address_name);
-
-      const city = result[0].region_2depth_name;
-      document.getElementById("t_city").value = city
-     }
-
-    };
+    let map2;
 
 
     // -------------맵222222222222222222222
+    function map2init() {
+     var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
+      mapOption2 = {
+       center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
+       level: 3 // 지도의 확대 레벨
+      };
 
-    var mapContainer = document.getElementById('map2'), // 지도를 표시할 div 
-     mapOption = {
-      center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
-      level: 3 // 지도의 확대 레벨
-     };
+     map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
+     geocoder2 = new kakao.maps.services.Geocoder();
+     var markerPosition2 = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
 
-    var map2 = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-    var geocoder = new kakao.maps.services.Geocoder();
-    var markerPosition = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
-
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({
-     position: markerPosition
-
-
-    });
+     // 마커를 생성합니다
+     var marker = new kakao.maps.Marker({
+      position: markerPosition2
 
 
-    // 마커가 지도 위에 표시되도록 설정합니다
-    marker.setMap(map2)
+     });
 
-    // tilesloaded
-    kakao.maps.event.addListener(map2, 'tilesloaded', function () {
 
-     var latlng = map2.getCenter();
-     marker.setPosition(latlng)
-     //document.getElementById("t_lat").value = latlng.getLat();
-     //document.getElementById("t_lng").value = latlng.getLng();
-     var message = '현재 지도 중심 위도는 ' + latlng.getLat() + ' , ';
-     message += '경도는 ' + latlng.getLng() + ' 임';
+     // 마커가 지도 위에 표시되도록 설정합니다
+     marker.setMap(map2)
 
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
 
-     //map1.setCenter(markerPosition);
+     kakao.maps.event.addListener(map2, 'click', function () {
+      console.log("map2 클릭로드됨~");
+      var latlng2 = map2.getCenter();
+      marker2.setPosition(latlng2)
+      document.getElementById("e_lat").value = latlng2.getLat();
+      document.getElementById("e_lng").value = latlng2.getLng();
+      var message = '현재 지도 중심 위도는 ' + latlng2.getLat() + ' , ';
+      message += '경도는 ' + latlng2.getLng() + ' 임';
 
-     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+      //var resultDiv = document.getElementById('result');
+      //resultDiv.innerHTML = message;
 
-    });
+      //map1.setCenter(markerPosition);
 
-    // idle
-    kakao.maps.event.addListener(map2, 'idle', function () {
+      geocoder2.coord2RegionCode(latlng2.getLng(), latlng2.getLat(), callback);
 
-     var latlng = map2.getCenter();
-     marker.setPosition(latlng)
-     //document.getElementById("t_lat").value = latlng.getLat();
-     //document.getElementById("t_lng").value = latlng.getLng();
-     var message = '변경된 지도 중심 위도는 ' + latlng.getLat() + ' , ';
-     message += '경도는 ' + latlng.getLng() + ' 임';
+     });
 
-     //var resultDiv = document.getElementById('result');
-     //resultDiv.innerHTML = message;
+     // idle
+     kakao.maps.event.addListener(map2, 'idle', function () {
 
-     geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
+      var latlng2 = map2.getCenter();
+      marker.setPosition(latlng2)
+      //document.getElementById("t_lat").value = latlng.getLat();
+      //document.getElementById("t_lng").value = latlng.getLng();
+      var message = '변경된 지도 중심 위도는 ' + latlng2.getLat() + ' , ';
+      message += '경도는 ' + latlng2.getLng() + ' 임';
 
-    });
+      //var resultDiv = document.getElementById('result');
+      //resultDiv.innerHTML = message;
 
+      geocoder2.coord2RegionCode(latlng2.getLng(), latlng2.getLat(), callback);
+
+      var callback = function (result, status) {
+       if (status === kakao.maps.services.Status.OK) {
+
+        /*console.log(kakao.maps.services.Status.OK)
+        console.log(result);
+        console.log('전체 지역 명은' + result[0].address_name + '입니다');
+        console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
+        console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');*/
+        document.getElementById("e_state").value = result[0].region_1depth_name;
+        //console.log('행정구역 코드 : ' + result[0].code);
+
+
+
+        const regex2 = /(\S+[시군])/;
+        const resultt2 = regex2.exec(result[0].address_name);
+
+        const city2 = result[0].region_2depth_name;
+        document.getElementById("e_city").value = city2
+       }
+
+      };
+     });
+    }
 
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
-    function esearch() {
+    function esearch(e) {
      console.log("esearch진입");
-     var e_addr = document.getElementById("e_addr").value;
+     var e_addr = e.value;
+     console.log("esearch:::" + e_addr);
 
-     geocoder.addressSearch(e_addr, function (result, status) {
 
-
+     geocoder2.addressSearch(e_addr, function (result, status) {
       console.log("1");
       // 정상적으로 검색이 완료됐으면 
       if (status === kakao.maps.services.Status.OK) {
@@ -477,21 +541,20 @@
        console.log(result[0].x);
 
 
-       var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+       var coords2 = new kakao.maps.LatLng(result[0].y, result[0].x);
 
        // 결과값으로 받은 위치를 마커로 표시합니다
-       var marker = new kakao.maps.Marker({
+       var marker2 = new kakao.maps.Marker({
         map2: map2,
-        position: coords
+        position: coords2
        });
 
-       markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+       markerPosition2 = new kakao.maps.LatLng(result[0].y, result[0].x);
 
 
        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-       map2.relayout();
-       map2.setCenter(markerPosition);
-
+       map2.setCenter(markerPosition2);
+       map2reload();
       }
      });
     }
@@ -500,30 +563,11 @@
 
 
     function map2reload() {
+     console.log("map2리로드됨")
      map2.relayout();
     }
     // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-    var callback = function (result, status) {
-     if (status === kakao.maps.services.Status.OK) {
 
-      console.log(kakao.maps.services.Status.OK)
-      console.log(result);
-      console.log('전체 지역 명은' + result[0].address_name + '입니다');
-      console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
-      console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
-      document.getElementById("t_state").value = result[0].region_1depth_name;
-      console.log('행정구역 코드 : ' + result[0].code);
-
-
-
-      const regex = /(\S+[시군])/;
-      const resultt = regex.exec(result[0].address_name);
-
-      const city = result[0].region_2depth_name;
-      document.getElementById("t_city").value = city
-     }
-
-    };
 
    </script>
   </body>
