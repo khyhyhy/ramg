@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,23 +20,10 @@ pageEncoding="UTF-8"%>
     <div class="container" style="margin-top: 100px;">
        <h1>서비스 내역</h1>
 
-        <form action="/admin/car" method="post">
+        <form action="/admin/car" method="get">
             <div style="height: 60px; float: right;">
-                <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
-                    <c:if test="${param.searchType == 1}">
-                        <option value="1" selected>내용</option>
-                        <option value="3">작성자</option>
-                    </c:if>
-                    <c:if test="${param.searchType == 3}">
-                        <option value="1">내용</option>
-                        <option value="3" selected>작성자</option>
-                    </c:if>
-                    <c:if test="${param.searchValue == null}">
-                        <option value="1">내용</option>
-                        <option value="3">작성자</option>
-                    </c:if>
-                </select>
-                <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
+                <input type="hidden" name="searchType" value="1">
+                <input type="text" name="searchValue" value="${param.searchValue}" placeholder="사용자 이름 검색" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-warning">검색</button>
             </div>
         </form>
@@ -43,14 +31,15 @@ pageEncoding="UTF-8"%>
        <table class="table table-hover">
         <colgroup>
             <col width="250px">
-            <col width="150px">
+            <col width="250px">
+            <col width="200px">
+            <col width="250px">
             <col width="*">
-            <col width="300px">
-            <col width="300px">
         </colgroup>
         <thead>
             <tr class="table-warning">
                 <th>신청일</th>
+                <th>서비스</th>
                 <th>사용자</th>
                 <th>진행상황</th>
                 <th>위치</th>
@@ -60,13 +49,23 @@ pageEncoding="UTF-8"%>
         <tbody>
             <c:if test="${ar == null}">
                 <tr>
-                    <td colspan="5">검색 결과가 없습니다.</td>
+                    <td colspan="6">검색 결과가 없습니다.</td>
                 </tr>
             </c:if>
             <c:forEach var="vo" items="${ar}" varStatus="st">
                <tr>
                     <td>${vo.su_date}</td>
-                    <td>${vo.cwvo.mvo.m_name}</td>
+                    <td>
+                    <c:choose>
+                        <c:when test="${vo.svo.s_type == 0}">
+                            탁송 서비스
+                        </c:when>    
+                        <c:when test="${vo.svo.s_type == 1}">
+                            이동식 충전 서비스
+                        </c:when>    
+                    </c:choose>
+                    </td>
+                    <td><a href="/admin/member_view?m_idx=${vo.cwvo.mvo.m_idx}&cPage=1">${vo.cwvo.mvo.m_name}</a></td>
                     <td>
                     <c:choose>
                         <c:when test="${vo.su_status == 0}">
@@ -96,9 +95,23 @@ pageEncoding="UTF-8"%>
                     </c:choose>
                     </td>
                     <td>${vo.svo.s_city}</td>
-                    <td>${vo.su_cprice}</td>
+                    <td><fmt:formatNumber pattern="#,###" value="${vo.su_cprice + vo.su_sprice}"/>원</td>
                </tr>
             </c:forEach>
+        </tbody>
+    </table>
+       <table class="table table-hover">
+        <thead>
+            <tr class="table-warning">
+                <th>오늘 매출</th>
+                <th>누적 매출</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><fmt:formatNumber pattern="#,###" value="${today}"/>원</td>
+                <td><fmt:formatNumber pattern="#,###" value="${total}"/>원</td>
+            </tr>
         </tbody>
     </table>
        

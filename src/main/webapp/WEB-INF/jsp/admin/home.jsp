@@ -17,11 +17,11 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-        <h1>람쥐썬더 관리자 페이지</h1>
+        <h1>람쥐썬더 관리자 페이지</h1><br><br>
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <label for="member"><a href="/admin/member">회원 현황</a></label>
+                    <label for="member"><a href="/admin/member">회원 현황 > </a></label>
                     <table id="member" class="table table-bordered">
                         <colgroup>
                             <col width="300px">
@@ -56,7 +56,7 @@ pageEncoding="UTF-8"%>
                 </div>
             <div class="row">
                 <div class="col">
-                <label for="notice"><a href="/admin/notice">최근 공지</a></label>
+                <label for="notice"><a href="/admin/notice">최근 공지 > </a></label>
                 <table id="notice" class="table table-bordered table-hover" style="table-layout:fixed">
                     <thead>
                         <tr class="table-warning">
@@ -83,7 +83,7 @@ pageEncoding="UTF-8"%>
               </div>
 
               <div class="col">
-                <label for="qna"><a href="/admin/qna">최근 문의</a></label>
+                <label for="qna"><a href="/admin/qna">최근 문의 > </a></label>
                 <table id="qna" class="table table-bordered table-hover">
                     <colgroup>
                         <col width="*">
@@ -120,11 +120,11 @@ pageEncoding="UTF-8"%>
             <div class="row">
                 
               <div class="col">
-                <label for="service"><a href="/admin/review">최근 리뷰</a></label>
+                <label for="service"><a href="/admin/review">최근 리뷰 > </a></label>
                 <table id="service" class="table table-bordered table-hover">
                     <colgroup>
                         <col width="*"> 
-                        <col width="150px"> 
+                        <col width="130px"> 
                     </colgroup>
                     <thead>
                     <tr class="table-warning">
@@ -138,10 +138,10 @@ pageEncoding="UTF-8"%>
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
                                   <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${rvo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${rvo.b_idx}">
-                                    <c:if test="${rvo.b_content.length() >= 30}">
-                                        ${rvo.b_content.substring(0,30)}&nbsp;&nbsp;···
+                                    <c:if test="${rvo.b_content.length() >= 35}">
+                                        ${rvo.b_content.substring(0,35)}&nbsp;&nbsp;···
                                     </c:if>
-                                    <c:if test="${rvo.b_content.length() < 30}">
+                                    <c:if test="${rvo.b_content.length() < 35}">
                                         ${rvo.b_content}
                                     </c:if>
                                   </button>
@@ -176,18 +176,63 @@ pageEncoding="UTF-8"%>
                 </table>
               </div>
               <div class="col">
-                <label for="service"><a href="/admin/service">서비스</a></label>
+                <label for="service"><a href="/admin/car">서비스 > </a></label>
                 <table id="service" class="table table-bordered table-hover">
                     <thead>
+                    <colgroup>
+                        <col width="130px">
+                        <col width="200px">
+                        <col width="*">
+                    </colgroup>
                     <tr class="table-warning">
-                        <th>제목</th>
-                        <th>등록일</th>
+                        <th>사용자</th>
+                        <th>이용 서비스</th>
+                        <th>진행상황</th>
                     </tr>
                     </thead>
-                    <tr>
-                        <td>ㅇㅇㅇ</td>
-                        <td>ㅇㅇㅇ</td>
-                    </tr>
+                    <c:forEach items="${su_ar}" var="suvo">
+                        <tr>
+                            <td><a href="/admin/member_view?m_idx=${suvo.cwvo.mvo.m_idx}&cPage=1">${suvo.cwvo.mvo.m_name}</a></td>
+                            <td>
+                            <c:choose>
+                                <c:when test="${suvo.svo.s_type == 0}">
+                                    탁송 서비스
+                                </c:when>    
+                                <c:when test="${suvo.svo.s_type == 1}">
+                                    이동식 충전 서비스
+                                </c:when>    
+                            </c:choose>
+                            </td>
+                            <td>
+                            <c:choose>
+                                <c:when test="${suvo.su_status == 0}">
+                                    주문 대기 중
+                                </c:when>
+                                <c:when test="${suvo.su_status == 1}">
+                                    주문 접수
+                                </c:when>
+                                <c:when test="${suvo.su_status == 2}">
+                                    탁송기사 이동 중
+                                </c:when>
+                                <c:when test="${suvo.su_status == 3}">
+                                    차량 픽업
+                                </c:when>
+                                <c:when test="${suvo.su_status == 4}">
+                                    충전소 이동 중
+                                </c:when>
+                                <c:when test="${suvo.su_status == 5}">
+                                    충전 중
+                                </c:when>
+                                <c:when test="${suvo.su_status == 6}">
+                                    도착지 이동 중
+                                </c:when>
+                                <c:when test="${suvo.su_status == 7}">
+                                    도착 완료
+                                </c:when>
+                            </c:choose>
+                            </td>
+                        </tr>
+                    </c:forEach>
                 </table>
               </div>
             </div>

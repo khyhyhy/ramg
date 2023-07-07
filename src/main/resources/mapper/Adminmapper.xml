@@ -441,18 +441,15 @@ SELECT COUNT(*) FROM charging.bbs_t
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.service_use
-    WHERE su_type = 0          
+    WHERE su_type = 0
       <if test="searchType != null and searchValue != null">
-        <choose>
-          <when test="searchType == 0">
-              AND su_date LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              AND su_date LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
+          AND c_idx IN(
+            select c_idx from car_write WHERE m_idx IN(
+              SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')
+          ) 
+        )
       </if>
-    ORDER BY s_idx DESC
+    ORDER BY su_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
 </select>
@@ -488,14 +485,11 @@ WHERE m_idx = #{m_idx}
 SELECT COUNT(*) FROM charging.service_use
   WHERE su_type = 0 
     <if test="searchType != null and searchValue != null">
-        <choose>
-          <when test="searchType == 0">
-              AND su_date LIKE concat('%',#{searchValue},'%')
-          </when>
-          <when test="searchType == 1">
-              AND su_date LIKE concat('%',#{searchValue},'%')
-          </when>
-        </choose>
+          AND c_idx IN(
+            select c_idx from car_write WHERE m_idx IN(
+              SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')
+          ) 
+        )
       </if>
 </select>
 <!--서비스 리스트-->

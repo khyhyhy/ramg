@@ -512,6 +512,22 @@ public class AdminController {
 
         SuseVO[] ar = service.car(page.getBegin(), page.getEnd(), searchType, searchValue);
 
+        int total = 0;
+        int today = 0;
+        String today_date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        for (int i = 0; i < ar.length; i++) {
+            total += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
+
+            if (ar[i].getSu_date().substring(0, 10).equals(today_date)) {
+                today += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
+            }
+        }
+        System.out.println(total);
+        System.out.println(today);
+
+        mv.addObject("total", total);
+        mv.addObject("today", today);
         mv.addObject("ar", ar);
         mv.addObject("page", page);
         mv.addObject("pageCode", pageCode);
@@ -531,6 +547,7 @@ public class AdminController {
         BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
         BbsVO[] q_ar = service.qna(1, 5, null, null);
         BbsVO[] r_ar = service.review(1, 5, null, null);
+        SuseVO[] su_ar = service.car(1, 5, null, null);
 
         String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
@@ -556,6 +573,7 @@ public class AdminController {
         mv.addObject("b_ar", b_ar);
         mv.addObject("q_ar", q_ar);
         mv.addObject("r_ar", r_ar);
+        mv.addObject("su_ar", su_ar);
         mv.addObject("pr", pr);
         mv.addObject("bz", bz);
         mv.addObject("ad", ad);
