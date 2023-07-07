@@ -13,6 +13,8 @@ import com.kdt.finalproject.service.TaksongService;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ServiceVO;
+import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 @Controller
@@ -40,12 +42,49 @@ public class ServiceController {
  }
 
  @RequestMapping("/mypage/serviceadd/insert")
- public ModelAndView serviceinsert(String m_idx, String lat, String lng, String s_radius, String s_val1, String c_idx) {
+ public ModelAndView serviceinsert(String m_idx, String lat, String lng, String s_radius, String s_val1, String c_idx,
+   String s_city, String s_state) {
   ModelAndView mv = new ModelAndView();
   if (c_idx != null) {
+   System.out.println("리동식등록으로 왔시치~");
    CarVO cvo = service.carList(c_idx);
    System.out.println(cvo.getC_name() + "/" + cvo.getC_city());
+   System.out.println("m_idx::" + m_idx);
+   System.out.println("lng::" + lng);
+   System.out.println("lat::" + lat);
+   System.out.println("s_val1::" + s_val1);
+   System.out.println("s_radius::" + s_radius);
+   System.out.println("s_state::" + s_state);
+   System.out.println("s_city::" + s_city);
+   ServiceVO svo = new ServiceVO();
+   svo.setS_type("1");
+   svo.setS_radius(s_radius);
+   svo.setS_status("0");
+   svo.setS_mapx(lat);
+   svo.setS_mapy(s_state);
+   svo.setS_state(s_state);
+   svo.setS_city(s_city);
+   svo.setS_val1(s_val1);
+  } else {
+   System.out.println("탁송등록이지롱");
+   System.out.println("m_idx::" + m_idx);
+   System.out.println("lng::" + lng);
+   System.out.println("lat::" + lat);
+   System.out.println("s_val1::" + s_val1);
+   System.out.println("s_radius::" + s_radius);
+   System.out.println("s_state::" + s_state);
+   System.out.println("s_city::" + s_city);
+   ServiceVO svo = new ServiceVO();
+   svo.setS_type("0");
+   svo.setS_radius(s_radius);
+   svo.setS_status("0");
+   svo.setS_mapx(lat);
+   svo.setS_mapy(s_state);
+   svo.setS_state(s_state);
+   svo.setS_city(s_city);
+   svo.setS_val1(s_val1);
   }
+  mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;
  }
 }
