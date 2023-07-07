@@ -36,4 +36,10 @@ public interface EdongsikMapper {
 
     int totalCountByM_idx(String m_idx);
 
+    int addReview(Map<String, Object> map);
+
+    int addReviewLog(Map<String, Object> map);
+
+    BbsVO getBidx(String su_idx);
+
 }

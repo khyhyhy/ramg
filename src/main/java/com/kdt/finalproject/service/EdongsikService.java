@@ -81,4 +81,39 @@ public class EdongsikService {
         return cnt;
     }
 
+    public boolean addReview(String su_idx, String reviewContent, String selectedValue) {
+        boolean chk = false;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("su_idx", su_idx);
+        map.put("reviewContent", reviewContent);
+        map.put("selectedValue", selectedValue);
+
+        int cnt = mapper.addReview(map);
+        if (cnt == 1) {
+            chk = !chk;
+        }
+        return chk;
+    }
+
+    public boolean addReviewLog(String m_idx, String b_idx) {
+        boolean chk = false;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("m_idx", m_idx);
+        map.put("b_idx", b_idx);
+
+        int cnt = mapper.addReviewLog(map);
+        if (cnt == 1) {
+            chk = !chk;
+        }
+        return chk;
+    }
+
+    public BbsVO getBidx(String su_idx) {
+        BbsVO vo = mapper.getBidx(su_idx);
+
+        return vo;
+    }
+
 }

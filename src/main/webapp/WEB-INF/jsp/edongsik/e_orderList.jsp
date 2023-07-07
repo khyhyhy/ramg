@@ -132,9 +132,20 @@
                                 </c:when>
                                 <c:when test="${suar.su_status == 5}">
                                     <td style="text-align: center; vertical-align: middle;">충전완료</td>
-                                    <td style="text-align: center; vertical-align: middle;">
-                                        <button type="button">후기 작성</button>
-                                    </td>
+                                        <c:if test="${suar.bvo.b_content == null}">
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(this)">후기 작성
+                                                    <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
+                                                </button>
+                                            </td>
+                                        </c:if>
+                                        <c:if test="${suar.bvo.b_content != null}">
+                                            <td style="text-align: center; vertical-align: middle;">
+                                                <button type="button" onclick="location.href='/my_review'">작성후기 확인
+                                                    
+                                                </button>
+                                            </td>
+                                        </c:if>
                                 </c:when>
                             </c:choose>
                         </c:if>
@@ -164,11 +175,20 @@
                                     </c:when>
                                     <c:when test="${suar.su_status == 7}">
                                         <td style="text-align: center; vertical-align: middle;">도착완료</td>
+                                        <c:if test="${suar.bvo.b_content == null}">
                                         <td style="text-align: center; vertical-align: middle;">
                                             <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(this)">후기 작성
                                                 <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
                                             </button>
                                         </td>
+                                        </c:if>
+                                        <c:if test="${suar.bvo.b_content != null}">
+                                        <td style="text-align: center; vertical-align: middle;">
+                                            <button type="button" onclick="location.href='/my_review'">작성후기 확인
+                                                
+                                            </button>
+                                        </td>
+                                        </c:if>
                                     </c:when>
                                     <c:when test="${suar.su_status == 8}">
                                         <td colspan="2" style="text-align: center; vertical-align: middle;">문제발생</td>
@@ -242,14 +262,14 @@
                     
                     <div class="mb-3">
                         <br/>
-                        <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+                        <label for="exampleFormControlTextarea1" class="form-label"> 내용</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
             </div>
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="addReview(this.form)">선택 확인</button>
+              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="addReviewContent(this.form)">선택 확인</button>
             </div>
           </div>
         </div>
@@ -267,7 +287,7 @@
    <!--////////// Foter end //////////////-->
    <script>
 
-    function addReview(form){
+    function addReviewContent(form){
         // 폼 요소를 가져옵니다.
         var form = document.getElementById("myform");
         
@@ -286,21 +306,21 @@
         }
         }
         var su_idx = document.getElementById("modalSuIdx").value;
-        var review = document.getElementById("exampleFormControlTextarea1").value;
+        var reviewContent = document.getElementById("exampleFormControlTextarea1").value;
 
         // 선택된 값을 출력합니다.
        
-        alert("su_idx :"+su_idx);
-        alert("review :"+review);
-        alert("selectedValue :"+selectedValue);
+        <!-- alert("su_idx :"+su_idx);
+        alert("reviewContent :"+reviewContent);
+        alert("selectedValue :"+selectedValue); -->
 		
     
     if (selectedValue === "") {
       alert("별점을 선택해주세요.");
-    } else if(review === ""){
+    } else if(reviewContent === ""){
       alert("내용을 입력해주세요.");
     }else{  
-      location.href="/review/?su_idx="+su_idx+"&review="+review+"&selectedValue="+selectedValue;
+      location.href="/review/?su_idx="+su_idx+"&reviewContent="+reviewContent+"&selectedValue="+selectedValue;
     }
 	};
 

@@ -50,9 +50,11 @@ public class EdongsikController {
     public ModelAndView edongsik() {
         ModelAndView mv = new ModelAndView();
 
-        MemVO mvo1 = (MemVO) session.getAttribute("mvo");
-        if (mvo1 != null) {
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO mvo1 = (MemVO) obj;
             String m_idx = mvo1.getM_idx();
+
             System.out.println("진짜 세션: " + m_idx);
 
             List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
@@ -210,11 +212,14 @@ public class EdongsikController {
         mv.addObject("suvo", suvo);
 
         SwriteVO swvo = service.radiusInfo(s_idx);
+        BbsVO bvo = service.getBidx(su_idx);
+
         MemVO mvo = swvo.getMvo();
         ServiceVO svo = swvo.getSvo();
 
         mv.addObject("mvo", mvo);
         mv.addObject("svo", svo);
+        mv.addObject("bvo", bvo);
 
         mv.setViewName("edongsik/e_order");
         return mv;
@@ -224,46 +229,48 @@ public class EdongsikController {
     public ModelAndView e_nowOrder() {
         ModelAndView mv = new ModelAndView();
 
-        MemVO mvo1 = (MemVO) session.getAttribute("mvo");
-        String m_idx = mvo1.getM_idx();
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO mvo1 = (MemVO) obj;
+            String m_idx = mvo1.getM_idx();
 
-        // System.out.println("세션" + m_idx);
+            // System.out.println("세션" + m_idx);
 
-        List<CwriteVO> cwList = new ArrayList<CwriteVO>();
-        cwList = service.getOrderList(m_idx);
+            List<CwriteVO> cwList = new ArrayList<CwriteVO>();
+            cwList = service.getOrderList(m_idx);
 
-        List<SuseVO> suar = new ArrayList<SuseVO>();
+            List<SuseVO> suar = new ArrayList<SuseVO>();
 
-        for (CwriteVO cwvo : cwList) {
-            List<SuseVO> su_list = cwvo.getSuvo();
+            for (CwriteVO cwvo : cwList) {
+                List<SuseVO> su_list = cwvo.getSuvo();
 
-            for (SuseVO su_vo : su_list) {
-                su_vo.setCwvo(cwvo);
-                suar.add(su_vo);
-                // System.out.println("c_idx" + su_vo.getC_idx());
-                // System.out.println("Su_date" + su_vo.getSu_date());
-                // System.out.println("s_idx" + su_vo.getS_idx());
+                for (SuseVO su_vo : su_list) {
+                    su_vo.setCwvo(cwvo);
+                    suar.add(su_vo);
+                    // System.out.println("c_idx" + su_vo.getC_idx());
+                    // System.out.println("Su_date" + su_vo.getSu_date());
+                    // System.out.println("s_idx" + su_vo.getS_idx());
 
-                String s_idx = su_vo.getS_idx();
-                // System.out.println(s_idx);
+                    String s_idx = su_vo.getS_idx();
+                    // System.out.println(s_idx);
 
-                // SwriteVO swvo = service.getBusiness(s_idx);
+                    // SwriteVO swvo = service.getBusiness(s_idx);
 
-                SwriteVO swvo = service.radiusInfo(s_idx);
+                    SwriteVO swvo = service.radiusInfo(s_idx);
 
-                MemVO mvo = swvo.getMvo();
-                ServiceVO svo = swvo.getSvo();
+                    MemVO mvo = swvo.getMvo();
+                    ServiceVO svo = swvo.getSvo();
 
-                su_vo.setSvo(svo);
-                su_vo.setMvo(mvo);
+                    su_vo.setSvo(svo);
+                    su_vo.setMvo(mvo);
 
-                // System.out.println(mvo.getM_idx());
-                // System.out.println(svo.getS_type());
+                    // System.out.println(mvo.getM_idx());
+                    // System.out.println(svo.getS_type());
+                }
+
             }
-
+            mv.addObject("suar", suar);
         }
-
-        mv.addObject("suar", suar);
 
         mv.setViewName("edongsik/e_nowOrder");
         return mv;
@@ -300,9 +307,9 @@ public class EdongsikController {
 
             // System.out.println("세션" + m_idx);
 
-            List<CwriteVO> cwList = service.getOrderList(m_idx);
+            // List<CwriteVO> cwList = service.getOrderList(m_idx);
 
-            List<SuseVO> suar = new ArrayList<SuseVO>();
+            // List<SuseVO> suar = new ArrayList<SuseVO>();
 
             // for (CwriteVO cwvo : cwList) {
             // List<SuseVO> su_list = cwvo.getSuvo();
@@ -313,6 +320,9 @@ public class EdongsikController {
                 // System.out.println("c_idx" + su_vo.getC_idx());
                 // System.out.println("Su_date" + su_vo.getSu_date());
                 // System.out.println("s_idx" + su_vo.getS_idx());
+                String su_idx = su_vo.getSu_idx();
+                BbsVO bvo = service.getBidx(su_idx);
+                su_vo.setBvo(bvo);
 
                 String s_idx = su_vo.getS_idx();
                 // System.out.println(s_idx);
@@ -424,10 +434,23 @@ public class EdongsikController {
     }
 
     @RequestMapping("/review/")
-    public ModelAndView review(String su_idx, String review, String selectedValue) {
+    public ModelAndView review(String su_idx, String reviewContent, String selectedValue) {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("edongsik/edongsik");
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO mvo1 = (MemVO) obj;
+            String m_idx = mvo1.getM_idx();
+
+            service.addReview(su_idx, reviewContent, selectedValue);
+
+            BbsVO bvo = service.getBidx(su_idx);
+            String b_idx = bvo.getB_idx();
+
+            service.addReviewLog(m_idx, b_idx);
+
+        }
+        mv.setViewName("redirect:/edongsik/");
         return mv;
     }
 
