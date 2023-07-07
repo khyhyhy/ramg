@@ -112,11 +112,11 @@
                                     <input type="hidden" value="0" name="m_class" id="m_class1"/>
                                     
                                     <!-- Email input -->
+
                                     <div class="form-outline  mb-3 form-floating mb-3">
                                         <!-- <label class="form-label" for="m_email">Email</label> -->
                                         <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email"/>
                                         <label for="m_email" class="form-label text-secondary fs-6">Email</label>
-
                                     </div>
 
                                     <!-- Password input -->
