@@ -86,7 +86,7 @@
 
                                 <!--부트스트랩 추가-->
                                 <div class="d-flex justify-content-center"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
-                                <div class="card shadow p-4 mb-3 bg-body rounded" style="width: 25rem;" >
+                                <div class="card shadow p-4 mb-3 mt-3 bg-body rounded" style="width: 25rem;" >
                                     <div class="card-body">
 
 

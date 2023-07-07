@@ -14,6 +14,9 @@ public interface LoginMapper {
     // 회원가입
     int add_mem(MemVO vo);
 
+    // 카카오
+    int add_kakao(MemVO vo);
+
     // MemVO check_id(String id);
     MemVO search_email(String m_email);
 
