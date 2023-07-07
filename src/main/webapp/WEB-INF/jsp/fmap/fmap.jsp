@@ -24,15 +24,18 @@
         .box {
             width: 120px;
             height: 80px;
-
             padding: 10px;
             display: inline-block;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            background-color: azure;
+            background-color: #81F7F3;
         }
-        
+        .fff{
+            font-family: 'GoryeongStrawberry';
+            color: #333333;
+            
+        }
     </style>
 </head>
 <body>
@@ -44,38 +47,48 @@
         <main>
             <div class="container-fluid text-center">
                 <div class="row">
-                    <div class="col-2" style="padding-right: 2px;">
+                    <div class="col-2" style="padding-right: 0;">
                         <ul class="list-group">
                             <li class="list-group-item">내 주변 가까운 충전소</li>
                         </ul>
-                        <ul class="list-group" id="list1" style="border: 3px solid black;height: 840px; overflow-y: scroll;"></ul> 
                     </div>
-                    <div class="col" style="padding-left: 0;">
-                        <div class="col">
-                            <div class="d-flex justify-content-between" >
-                                <div class="col" >
-                                    <ul class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
-                                        <div class="box">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" aria-current="page" href="#"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</a>
-                                            </li>
-                                        </div>
-                                        <div class="box" style="border-left: none;">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</a>
-                                            </li>
-                                        </div>
-                                        <div class="box" style="border-left: none;">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</a> 
-                                            </li>
-                                        </div>
-                                    </ul>
+                    <div class="col-10" style="padding-left: 0;">
+                        <ul class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
+                            <div style="border-radius: 20px; background-color: #81F7F3;">
+                                <div class="box">
+                                    <li class="nav-item">
+                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</p>
+                                    </li>
+                                </div>
+                                <div class="box" style="border-left: none;">
+                                    <li class="nav-item">
+                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</p>
+                                    </li>
+                                </div>
+                                <div class="box" style="border-left: none;">
+                                    <li class="nav-item">
+                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</p> 
+                                    </li>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col">
-                            <div id="map" style="width: 100%; height: 800px;"></div>
+                        </ul>
+                    </div>
+                    
+                    <!-- <div class="col-10" style="padding-left: 0;">
+                        <div id="map" style="width: 100%; height: 800px;"></div>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-2" style="padding-right: 0;">
+                                <ul class="list-group" id="list1" style="border: 3px solid black;height: 800px; overflow-y: scroll;">
+                                    <!-- ajax로 받아온 html문서 적용 -->
+                                </ul>
+                            </div>
+                            <div class="col-10" style="padding-left: 0;">
+                                <div id="map" style="width: 100%; height: 800px;"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -117,7 +130,9 @@
                 navigator.geolocation.getCurrentPosition(function(position) {
                     //위도경도를 불러온다.
                     var lati = position.coords.latitude, // 위도
-                        lon = position.coords.longitude; // 경도
+                        lon = position.coords.longitude; // 경도 -->
+                    //var lati = 35.1801639, // 위도
+                    //    lon = 129.074660; // 경도 -->
                     //console.log(lati);
                     //console.log(lon);
 
@@ -136,8 +151,11 @@
                         let callback = function(result, status) {
 
                             if (status === kakao.maps.services.Status.OK) {
-
                                 //console.log(result[0].address.address_name);
+                                var city = result[0].address.address_name;
+
+                                //var city = "부산광역시 연제구 중앙대로 1001";
+                                //console.log(city+"/////////////////////////////");
 
                                 geocoder.addressSearch(result[0].address.address_name, function(result, status) {
                                       
@@ -225,30 +243,28 @@
                                             });
 
                                             overlays.push(overlay);
-                                            
                                             </c:forEach>
                                             
-
+                                            
 
 
                                         for(i=0; i<markers.length; i++){
-                                            
+                                            //console.log(markers[i]);
                                             var c1 = locPosition;
                                             var c2 = markers[i].getPosition();
-                                            
+                                            //console.log(c2);
                                             var poly = new daum.maps.Polyline({
                                                 // map: map, 을 하지 않아도 거리는 구할 수 있다.
                                                 path: [c1, c2]
                                             });
-                                            
+                                            //console.log(poly);
                                             var dist = poly.getLength(); // m 단위로 리턴
-                                            
+                                            //console.log(dist);
                                             if (dist < radius) {
                                                 markers[i].setMap(map);
                                                 overlays2.push(overlays[i]);
                                                 markers2.push(markers[i]);
-                                                console.log('markers-' + i, markers[i]);
-                                                
+                                                //console.log('markers-' + i, markers[i]);
                                             } else {
                                                 markers[i].setMap(null);
                                             }
@@ -355,6 +371,7 @@
                                         });
                                     }
                                 });
+                                
                             }
                         }
                             geocoder2.coord2Address(coord.getLng(), coord.getLat(), callback);
