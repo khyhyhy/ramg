@@ -20,6 +20,23 @@ pageEncoding="UTF-8"%>
     <div class="container" style="margin-top: 100px;">
        <h1>서비스 내역</h1>
 
+       <table class="table table-hover">
+        <thead>
+            <tr class="table-warning">
+                <th>오늘</th>
+                <th>이번달</th>
+                <th>누적</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${today_count} 건 / <fmt:formatNumber pattern="#,###" value="${today}"/>원</td>
+                <td>${month_count} 건 / <fmt:formatNumber pattern="#,###" value="${month}"/>원</td>
+                <td>${total_count} 건 / <fmt:formatNumber pattern="#,###" value="${total}"/>원</td>
+            </tr>
+        </tbody>
+    </table>
+
         <form action="/admin/car" method="get">
             <div style="height: 60px; float: right;">
                 <input type="hidden" name="searchType" value="1">
@@ -100,24 +117,12 @@ pageEncoding="UTF-8"%>
             </c:forEach>
         </tbody>
     </table>
-       <table class="table table-hover">
-        <thead>
-            <tr class="table-warning">
-                <th>오늘 매출</th>
-                <th>누적 매출</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><fmt:formatNumber pattern="#,###" value="${today}"/>원</td>
-                <td><fmt:formatNumber pattern="#,###" value="${total}"/>원</td>
-            </tr>
-        </tbody>
-    </table>
-       
+
     <div style="height: 80px;" >
         ${pageCode}
     </div>
+
+       
         
     </div>
 </main>

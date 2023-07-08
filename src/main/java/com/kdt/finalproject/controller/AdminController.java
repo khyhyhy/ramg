@@ -513,21 +513,37 @@ public class AdminController {
         SuseVO[] ar = service.car(page.getBegin(), page.getEnd(), searchType, searchValue);
 
         int total = 0;
+        int total_count = 0;
         int today = 0;
+        int today_count = 0;
+        int month = 0;
+        int month_count = 0;
+
         String today_date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        String today_month = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
 
         for (int i = 0; i < ar.length; i++) {
             total += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
+            total_count++;
 
             if (ar[i].getSu_date().substring(0, 10).equals(today_date)) {
                 today += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
+                today_count++;
             }
+
+            if (ar[i].getSu_date().substring(0, 7).equals(today_month)) {
+                month += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
+                month_count++;
+            }
+
         }
-        System.out.println(total);
-        System.out.println(today);
 
         mv.addObject("total", total);
+        mv.addObject("month", month);
         mv.addObject("today", today);
+        mv.addObject("total_count", total_count);
+        mv.addObject("today_count", today_count);
+        mv.addObject("month_count", month_count);
         mv.addObject("ar", ar);
         mv.addObject("page", page);
         mv.addObject("pageCode", pageCode);
