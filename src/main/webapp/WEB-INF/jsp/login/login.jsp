@@ -62,6 +62,8 @@
         border-top: 1.7px solid #757571;
         margin: 10px;
         width: 300px;
+
+
   
   
     }
@@ -141,7 +143,7 @@
                                     
                                     <div class="text-center">        
                                     <p>
-                                        <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=85f3b2dbb6fdbca1b25d54627251ef3b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
+                                        <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=45360f73f863670b5f6cfb33bf1fa775&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
                                             <img src="../images/kakao_login_large.png" style="width: 190px; height: 45px;" />
                                         </a>
                                     </p>
@@ -175,7 +177,6 @@
                             <!-- Login button -->
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary btn-block mb-4 text-center"  id="login-button" onclick="exe(this.form)">로그인</button>         
-                                <!-- <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button> -->
 
                             <hr class="divider">
 
@@ -217,7 +218,7 @@
                                 //        $( "#message" ).dialog();
                                 //     }
                                 // });
-
+                                
 
 
                                 function exe(frm) {
@@ -258,14 +259,17 @@
                                     //개인로그인 탭 눌려졌을때
                                     $("#tab-personal").on("click", function() { 
 
-                                        $(this).addClass("active"); // 개인 로그인 탭을 활성화 상태로 설정
-                                        $("#tab-business").removeClass("active"); // 사업자 로그인 탭의 활성화 상태 제거
-                                        $("#pills-personal").addClass("show active"); // 개인 로그인 내용을 보여줌
-                                        $("#pills-business").removeClass("show active"); // 사업자 로그인 내용을 숨김
+                                    $(this).addClass("active"); // 개인 로그인 탭을 활성화 상태로 설정
+                                    $("#tab-business").removeClass("active"); // 사업자 로그인 탭의 활성화 상태 제거
+                                    $("#pills-personal").addClass("show active"); // 개인 로그인 내용을 보여줌
+                                    $("#pills-business").removeClass("show active"); // 사업자 로그인 내용을 숨김
 
                                     $("#m_class1").val("0"); // 개인 로그인 선택 시 m_class 값을 0으로 설정
                                     $("#kakao-login").show();
                                     $("#naver-login").show();
+
+                                      // 엔터키 쳤을때 로그인 되게 하는 함수 추가
+                                      handlePersonalLogin();
 
                                     });
 
@@ -281,17 +285,34 @@
                                     $("#kakao-login").hide();
                                     $("#naver-login").hide();
 
+                                      // 엔터키 쳤을때 로그인 되게 하는 함수 추가
+                                      handleBusinessLogin();
+
                                     });
                             });
 
+                            // 엔터키 쳤을때 - 개인 로그인
+                                function handlePersonalLogin() {
+                                    $(this).addClass("active");
+                                    $("#tab-business").removeClass("active");
+                                    $("#pills-personal").addClass("show active");
+                                    $("#pills-business").removeClass("show active");
+                                    $("#m_class1").val("0");
+                                    $("#kakao-login").show();
+                                    $("#naver-login").show();
+                                }
 
+                                // 엔터키 쳤을때 - 사업자 로그인
+                                function handleBusinessLogin() {
+                                    $(this).addClass("active");
+                                    $("#tab-personal").removeClass("active");
+                                    $("#pills-business").addClass("show active");
+                                    $("#pills-personal").removeClass("show active");
+                                    $("#m_class2").val("1");
+                                    $("#kakao-login").hide();
+                                    $("#naver-login").hide();
+                                }
 
-                                //아래는 라디오버튼을 이용한 코드임.
-                                // $(document).ready(function(){
-                                //     $("input[name='loginType']").change(function(){
-                                //         $("#m_class").val($(this).val()); // 선택된 라디오 버튼의 값을 설정합니다.
-                                //     });
-                                // });
                             </script>
                 </article>
             </div>

@@ -57,10 +57,18 @@
     }
   
     .radio-btn {
-      margin-bottom: 20px;
-      font-size: 15px; 
+      margin-bottom: 1px;
+      margin-top : 3px;
+      font-size: 16px; 
+      font-weight: bold;
+      color: #5f676b;
       font-family: "Arial", sans-serif; 
 
+    }
+
+    input[type="radio"] {
+      width: 16px;  /* 원하는 가로 크기 */
+      height: 16px; /* 원하는 세로 크기 */
     }
 
     .divider {
@@ -149,16 +157,20 @@
 
           <form action="join" style="padding: 15px;" source="email" name="form" method="post" class="needs-validation">
               <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
-                
-              <div class="radio-btn">
-                  <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;           
+            
+            <!--추가-->
+            <div class="form-outline custom-shadow form-control" style="width:300px; border-radius: 13px;">
+              <div class="radio-btn" >
+                  <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;&nbsp;&nbsp;&nbsp;              
                   <input type="radio" name="m_class" value="1"> 사업자
               </div>
+            </div>
+            <!--추가 끝-->
 
-              <hr class="divider">
+              <!-- <hr class="divider"> -->
 
                   <div class="form-outline mb-4">
-                      <label for="m_email" style="display: block; margin-bottom: 5px;">이메일</label>
+                      <label for="m_email" style="display: block; margin-bottom: 5px; margin-top: 22px;">이메일</label>
                       <input type="email"  onkeyup="checkEmail(this.value)" placeholder="ramsi@ramsithunder.com" class="form-control form-outline custom-shadow"  id="m_email" name="m_email" style="width: 300px;" required>
                       <div id="email-message" style="color: red;"></div>
                       <span id="box"></span>

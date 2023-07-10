@@ -16,6 +16,7 @@
         font-weight: normal;
         font-style: normal;
     }
+
     </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -71,14 +72,15 @@
      </div>
      <c:if test="${sessionScope.mvo eq null}">
       <div class="col-md-2 text-end">
-       <button style="font-family: 'GoryeongStrawberry';" type="button" class="btn btn-outline-primary me-2"><a href="/login">Login</a></button>
+       <button id="loginButton" style="font-family: 'GoryeongStrawberry';" type="button" class="btn btn-primary bg-gradient"><a href="/login" style="color: white; text-decoration: none;">Login</a></button>
       </div>
      </c:if>
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
-       <button style="font-family: 'GoryeongStrawberry';" type="button" class="btn btn-outline-primary me-2"><a href="/logout">Logout</a></button>
+       <button id="logoutButton" style="font-family: 'GoryeongStrawberry';" type="button" class="btn btn-primary bg-gradient"><a href="/logout" style="color: white; text-decoration: none;">Logout</a></button>
       </div>
      </c:if>
+
     </header>
    </div>
    <!--////////// Header end ////////////-->

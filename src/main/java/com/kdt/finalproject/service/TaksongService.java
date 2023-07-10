@@ -96,4 +96,21 @@ public class TaksongService {
   ServiceVO svo = mapper.svo(s_idx);
   return svo;
  }
+
+ public int servicevoin(ServiceVO svo, SwriteVO swvo) {
+  int cnt;
+  cnt = mapper.servicevoin(svo);
+  if (cnt == 1) {
+   String s_idx = svo.getS_idx();
+   System.out.println("s_idx회수 성공" + s_idx);
+
+   swvo.setS_idx(s_idx);
+   int cnt2 = mapper.swritevoin(swvo);
+   if (cnt2 == 1) {
+    System.out.println("서비스 등록 성공");
+   }
+  }
+
+  return cnt;
+ }
 }

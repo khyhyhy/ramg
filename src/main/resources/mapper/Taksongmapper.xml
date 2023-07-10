@@ -74,5 +74,16 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param}
  		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice})
 </insert>
 
+<insert id="servicevoin" parameterType="com.kdt.finalproject.vo.ServiceVO" useGeneratedKeys="true" keyProperty="s_idx">
+ INSERT INTO charging.service_t(s_type,s_radius,s_status,s_mapx,s_mapy,s_state,s_city,s_val1) 
+ 		VALUES(#{s_type},#{s_radius},#{s_status},#{s_mapx},#{s_mapy},#{s_state},#{s_city},#{s_val1})
+</insert>
+
+<insert id="swritevoin" parameterType="com.kdt.finalproject.vo.SwriteVO">
+ INSERT INTO charging.service_write(m_idx,s_idx,c_idx,sw_date,sw_status,sw_type,sw_val4) 
+ 		VALUES(#{m_idx},#{s_idx},#{c_idx},now(),0,0,0)
+</insert>
+
+
 <!-- update -->
 </mapper>

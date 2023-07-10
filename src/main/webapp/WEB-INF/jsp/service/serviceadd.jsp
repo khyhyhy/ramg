@@ -51,6 +51,9 @@
        서비스 구역
       </div>
       <div class="col">
+       서비스 차량
+      </div>
+      <div class="col">
        서비스 범위
       </div>
       <div class="col">
@@ -69,7 +72,10 @@
         </c:choose>
        </div>
        <div class="col">
-        ${vo.svo.s_state}&nbsp;${vo.svo.s_city}
+        ${vo.svo.s_state}&nbsp;${vo.svo.s_city}&nbsp;
+       </div>
+       <div class="col">
+        ${vo.cvo.c_name}
        </div>
        <div class="col">
         ${vo.svo.s_radius} M

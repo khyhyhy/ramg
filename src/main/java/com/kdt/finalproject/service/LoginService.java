@@ -81,17 +81,13 @@ public class LoginService {
         MemVO vo = new MemVO();
         vo.setM_email(mvo.getM_email());
         vo.setM_name(mvo.getM_name());
+        vo.setM_pw(mvo.getM_pw());
         vo.setM_class(mvo.getM_class());
         vo.setM_atoken(mvo.getM_atoken());
         vo.setM_rtoken(mvo.getM_rtoken());
 
         return l_Mapper.add_kakao(vo);
     }
-
-    // 어차피 이메일로 가입할거라 id체크 굳이 필요없음
-    // public MemVO check_id(String id){
-    // return m_Mapper.check_id(id);
-    // }
 
     public MemVO search_email(String m_email) {
         return l_Mapper.search_email(m_email);

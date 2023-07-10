@@ -169,6 +169,8 @@ public class NaverController {
                     mvo.setM_name(nickname);
                     mvo.setM_email(email);
                     mvo.setM_pw("0000");
+                    mvo.setM_atoken(access_Token);
+                    mvo.setM_rtoken(refresh_Token);
 
                     MemVO vo = ls.search_email(email);
                     if (vo == null) { // 가입여부 확인
@@ -189,7 +191,7 @@ public class NaverController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/main/");
 
         return mv;
     }

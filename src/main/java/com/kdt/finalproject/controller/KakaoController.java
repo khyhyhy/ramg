@@ -37,6 +37,8 @@ public class KakaoController {
         // 이제는 인증코드를 가지고 토큰을 받기 위해 다시 카카오서버를 호출해야 한다.
         // 호출한 후 받아야하는것은 refresh 토큰이다.
 
+        // System.out.println(code + "CODE");
+
         String access_Token = "";
         String refresh_Token = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -59,7 +61,7 @@ public class KakaoController {
             // 파라미터 4개를 만들어서 스트림을 통해 보내면 된다.
             StringBuffer sb = new StringBuffer();
             sb.append("grant_type=authorization_code");
-            sb.append("&client_id=45360f73f863670b5f6cfb33bf1fa775"); // 수정
+            sb.append("&client_id=45360f73f863670b5f6cfb33bf1fa775");
             sb.append("&redirect_uri=http://localhost:8080/kakao/login");
             sb.append("&code=" + code);
 
@@ -71,7 +73,10 @@ public class KakaoController {
             bw.flush();
 
             int res_code = conn.getResponseCode();
-            // System.out.println("RES_CODE"+res_code);
+
+            System.out.println("RES_CODE" + res_code);
+            // System.out.println("access token" + access_Token);
+            // System.out.println("Refresh token" + refresh_Token);
 
             if (res_code == 200) {
                 // 요청을 통해 얻은 JSON 타입의 결과메세지를 읽어온다.
@@ -106,9 +111,10 @@ public class KakaoController {
                  * ,"refresh_token_expires_in":5183999}
                  */
                 access_Token = (String) json.get("access_token");
+
                 refresh_Token = (String) json.get("refresh_token");
 
-                // System.out.println("access_token:"+access_Token);
+                // System.out.println("access_token:" + access_Token);
                 // System.out.println("refresh_token:" + refresh_Token);
 
                 // 마지막 3번째 호출은 사용자 정보를 가져오기 위한 호출이다.
@@ -126,13 +132,16 @@ public class KakaoController {
                 conn2.setRequestProperty("Authorization", header);
 
                 res_code = conn2.getResponseCode();
-                // System.out.println("RES_CODE: "+res_code);
+
+                // System.out.println("RES_CODE: " + res_code);
 
                 // res_code가 200일때 카카오API 서버로부터 JSON 자원을 읽어서
                 // kakao_account.profile, kakao_account.name, kakao_account.email
                 // 위 3개의 값을 파싱하여 얻어내어 출력하기
 
                 if (res_code == HttpURLConnection.HTTP_OK) { // if(res_code == 200){
+
+                    System.out.println("RES_CODE_두번째 " + res_code);
                     // 요청에 성공한 경우!!!!
 
                     // 카카오 서버쪽에서 사용자의 정보를 보냈다. 이것을 읽어와서
@@ -147,7 +156,7 @@ public class KakaoController {
                         res.append(str);// 한줄씩 읽어온 JSON자원을 누적!!
 
                     // 카카오 서버에서 전달되는 모든 JSON값들을 res에 누적 시켰다.
-                    // System.out.println("RES:"+res.toString());
+                    // System.out.println("RES:" + res.toString());
 
                     // 받은 값을 JSON객체로 변환한다.
                     obj = jsonParser.parse(res.toString()); // 자바 Object로 변환!
@@ -174,7 +183,7 @@ public class KakaoController {
                     // p_img,nickName,email
                     mvo.setM_name(nickName);
                     mvo.setM_email(email);
-                    // mvo.setM_pw("0000");
+                    mvo.setM_pw("0000");
                     mvo.setM_atoken(access_Token);
                     mvo.setM_rtoken(refresh_Token);
 
