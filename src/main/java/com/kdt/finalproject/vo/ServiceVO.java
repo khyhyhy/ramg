@@ -16,6 +16,6 @@ public class ServiceVO {
       s_code, s_state, s_city, s_addr1, s_val1, s_val2, s_val3, s_val4, s_val5;
 
   private List<SuseVO> su_list;
-
+  private SuseVO suvo;
   private SwriteVO swvo;
 }

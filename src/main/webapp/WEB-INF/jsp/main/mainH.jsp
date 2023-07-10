@@ -71,7 +71,7 @@
       </ul>
      </div>
      <c:if test="${sessionScope.mvo eq null}">
-      <div class="col-md-2 text-end">
+      <div class="col-md-3 text-end">
        <button id="loginButton" style="font-family: 'GoryeongStrawberry';" type="button" class="btn btn-primary bg-gradient"><a href="/login" style="color: white; text-decoration: none;">Login</a></button>
       </div>
      </c:if>
