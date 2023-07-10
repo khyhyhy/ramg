@@ -61,10 +61,14 @@ public class ServiceController {
    svo.setS_radius(s_radius);
    svo.setS_status("0");
    svo.setS_mapx(lat);
-   svo.setS_mapy(s_state);
+   svo.setS_mapy(lng);
    svo.setS_state(s_state);
    svo.setS_city(s_city);
    svo.setS_val1(s_val1);
+   SwriteVO swvo = new SwriteVO();
+   swvo.setC_idx(c_idx);
+   swvo.setM_idx(m_idx);
+   service.servicevoin(svo, swvo);
   } else {
    System.out.println("탁송등록이지롱");
    System.out.println("m_idx::" + m_idx);
@@ -79,10 +83,13 @@ public class ServiceController {
    svo.setS_radius(s_radius);
    svo.setS_status("0");
    svo.setS_mapx(lat);
-   svo.setS_mapy(s_state);
+   svo.setS_mapy(lng);
    svo.setS_state(s_state);
    svo.setS_city(s_city);
    svo.setS_val1(s_val1);
+   SwriteVO swvo = new SwriteVO();
+   swvo.setM_idx(m_idx);
+   service.servicevoin(svo, swvo);
   }
   mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;

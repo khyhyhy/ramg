@@ -33,4 +33,8 @@ public interface TaksongMapper {
  ServiceVO[] getService(String state);
 
  int susein(SuseVO suvo);
+
+ int servicevoin(ServiceVO svo);
+
+ int swritevoin(SwriteVO swvo);
 }
