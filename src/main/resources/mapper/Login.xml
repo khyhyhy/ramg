@@ -33,8 +33,8 @@
 
 	<!--카카오-->
 	<insert id="add_kakao" parameterType="com.kdt.finalproject.vo.MemVO">
-	INSERT INTO member_t(m_email, m_name, m_atoken, m_rtoken, m_date, m_status, m_class)
-	VALUES(#{m_email}, #{m_name}, #{m_atoken}, #{m_atoken}, NOW(), 0, #{m_class})
+	INSERT INTO member_t(m_email, m_pw, m_name, m_atoken, m_rtoken, m_date, m_status, m_class)
+	VALUES(#{m_email}, #{m_pw}, #{m_name}, #{m_atoken}, #{m_atoken}, NOW(), 0, 0)
 	</insert>
 
   	<insert id="add_mem" parameterType="com.kdt.finalproject.vo.MemVO">

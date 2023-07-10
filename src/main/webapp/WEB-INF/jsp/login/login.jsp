@@ -141,7 +141,7 @@
                                     
                                     <div class="text-center">        
                                     <p>
-                                        <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=85f3b2dbb6fdbca1b25d54627251ef3b&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
+                                        <a id="kakao-login" href="https://kauth.kakao.com/oauth/authorize?client_id=45360f73f863670b5f6cfb33bf1fa775&redirect_uri=http://localhost:8080/kakao/login&response_type=code">
                                             <img src="../images/kakao_login_large.png" style="width: 190px; height: 45px;" />
                                         </a>
                                     </p>

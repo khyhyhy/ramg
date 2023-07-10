@@ -81,6 +81,7 @@ public class LoginService {
         MemVO vo = new MemVO();
         vo.setM_email(mvo.getM_email());
         vo.setM_name(mvo.getM_name());
+        vo.setM_pw(mvo.getM_pw());
         vo.setM_class(mvo.getM_class());
         vo.setM_atoken(mvo.getM_atoken());
         vo.setM_rtoken(mvo.getM_rtoken());
