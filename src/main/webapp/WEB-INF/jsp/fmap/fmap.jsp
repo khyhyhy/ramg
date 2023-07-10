@@ -10,33 +10,109 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
+<style>
+    #wrap {border-radius: 5px; position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; line-height: 1.5; background: #888;}
+    #title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    #close {position: absolute;top: 10px;right: 10px;color: #000;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    #close:hover {cursor: pointer;}
+    #body {position: relative;overflow: hidden;}
+    #desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    #ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; color: azure;}
+    #jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    #img {border: 0px; position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 0px solid #ddd;color: #888;overflow: hidden;}
+.box {
+    width: 120px;
+    height: 80px;
+    padding: 10px;
+    display: inline-block;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: #81F7F3;
+}
+.fff{
+    font-family: 'GoryeongStrawberry';
+    color: #333333;
+}
 
-    <style>
-        #wrap {border-radius: 5px; position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; line-height: 1.5; background: #888;}
-        #title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-        #close {position: absolute;top: 10px;right: 10px;color: #000;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-        #close:hover {cursor: pointer;}
-        #body {position: relative;overflow: hidden;}
-        #desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-        #ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; color: azure;}
-        #jibun {font-size: 11px;color: #888;margin-top: -2px;}
-        #img {border: 0px; position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 0px solid #ddd;color: #888;overflow: hidden;}
-        .box {
-            width: 120px;
-            height: 80px;
-            padding: 10px;
-            display: inline-block;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background-color: #81F7F3;
-        }
-        .fff{
-            font-family: 'GoryeongStrawberry';
-            color: #333333;
-            
-        }
-    </style>
+.custom-btn {
+    width: 50px;
+    height: 40px;
+    padding: 10px 25px;
+    border: 2px solid #000;
+    font-family: 'Lato', sans-serif;
+    font-weight: 500;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+  }
+/* 3 */
+.btn-3 {
+    line-height: 39px;
+    padding: 0;
+  }
+  .btn-3:hover{
+    background: transparent;
+    color: #000;
+  }
+  .btn-3 span {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .btn-3:before,
+  .btn-3:after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 0;
+    background: #000;
+    transition: all 0.3s ease;
+  }
+  .btn-3:before {
+    height: 0%;
+    width: 2px;
+  }
+  .btn-3:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-3:hover:before {
+    height: 100%;
+  }
+  .btn-3:hover:after {
+    width: 100%;
+  }
+  .btn-3 span:before,
+  .btn-3 span:after {
+    position: absolute;
+    content: "";
+    right: 0;
+    bottom: 0;
+    background: #000;
+    transition: all 0.3s ease;
+  }
+  .btn-3 span:before {
+    width: 2px;
+    height: 0%;
+  }
+  .btn-3 span:after {
+    width: 0%;
+    height: 2px;
+  }
+  .btn-3 span:hover:before {
+    height: 100%;
+  }
+  .btn-3 span:hover:after {
+    width: 100%;
+  }
+  
+</style>
 </head>
 <body>
         <!--////////// Header Start ////////////-->
@@ -50,28 +126,36 @@
                     <div class="col-2" style="padding-right: 0;">
                         <ul class="list-group">
                             <li class="list-group-item">내 주변 가까운 충전소</li>
-                        </ul>
+                        </ul>   
+                        <button class="custom-btn btn-3" onclick="changeRadius(1000)"><span>1km</span></button>
+                        <button class="custom-btn btn-3" onclick="changeRadius(2000)"><span>2km</span></button>
+                        <button class="custom-btn btn-3" onclick="changeRadius(3000)"><span>3km</span></button>
+                        <button class="custom-btn btn-3" onclick="changeRadius(4000)"><span>4km</span></button>
+                        <button class="custom-btn btn-3" onclick="changeRadius(5000)"><span>5km</span></button>
                     </div>
-                    <div class="col-10" style="padding-left: 0;">
-                        <ul class="nav col-12 col-md-auto mb-2 justify-content-end mb-md-0">
-                            <div style="border-radius: 20px; background-color: #81F7F3;">
+                    <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
+                         
+                    </div>
+                    <div class="col-4" style="padding-left: 0;">    
+                        
+                            <div style="background-color: #81F7F3;">
                                 <div class="box">
-                                    <li class="nav-item">
+                                    
                                         <p class="fff"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</p>
-                                    </li>
+                                    
                                 </div>
                                 <div class="box" style="border-left: none;">
-                                    <li class="nav-item">
+                                    
                                         <p class="fff"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</p>
-                                    </li>
+                                    
                                 </div>
                                 <div class="box" style="border-left: none;">
-                                    <li class="nav-item">
+                                    
                                         <p class="fff"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</p> 
-                                    </li>
+                                    
                                 </div>
                             </div>
-                        </ul>
+                        
                     </div>
                     
                     <!-- <div class="col-10" style="padding-left: 0;">
@@ -122,7 +206,10 @@
             var geocoder = new kakao.maps.services.Geocoder();
             // 원(Circle)의 옵션으로 넣어준 반지름
             var radius = 5000;
-
+            function changeRadius(newRadius) {
+                radius = newRadius;
+                console.log(radius);
+            }
              // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
              if (navigator.geolocation) {
             
@@ -244,7 +331,11 @@
 
                                             overlays.push(overlay);
                                             </c:forEach>
-                                            
+
+                                            //화면상단에 자신의 위치 표시
+                                            let str2 ="";
+                                            str2 += city;
+                                            $("#myposition").html(str2);
                                             
 
 
@@ -260,6 +351,7 @@
                                             //console.log(poly);
                                             var dist = poly.getLength(); // m 단위로 리턴
                                             //console.log(dist);
+                                            console.log(dist);
                                             if (dist < radius) {
                                                 markers[i].setMap(map);
                                                 overlays2.push(overlays[i]);
