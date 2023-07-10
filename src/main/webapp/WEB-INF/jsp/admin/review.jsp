@@ -43,6 +43,7 @@ pageEncoding="UTF-8"%>
         <table class="table table-hover">
             <colgroup>
                 <col width="100px">
+                <col width="100px">
                 <col width="*">
                 <col width="150px">
                 <col width="120px">
@@ -51,6 +52,7 @@ pageEncoding="UTF-8"%>
             <thead>
                 <tr class="table-warning">
                     <th>번호</th>
+                    <th>대상</th>
                     <th>리뷰</th>
                     <th>별점</th>
                     <th>작성자</th>
@@ -60,12 +62,13 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="5">검색 결과가 없습니다.</td>
+                        <td colspan="6">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
+                        <td>${vo.suvo.svo.swvo.mvo.m_name}</td>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">

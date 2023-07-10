@@ -30,7 +30,7 @@ pageEncoding="UTF-8"%>
                 <input type="text" id="m_date" name="search_date" placeholder="날짜 검색" value="${param.search_date}" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-warning">조회</button>
             </div>
-
+<style height: indn;></style>
             <div style="height: 60px; float: right;">
                 <input type="hidden" name="searchType" value="1">
                 <input type="text" name="searchValue" value="${param.searchValue}" placeholder="사용자 이름 검색" class="form-control" style="width: 200px; display: inline-block;">
