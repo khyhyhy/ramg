@@ -94,4 +94,21 @@ public class ServiceController {
   mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;
  }
+
+ @RequestMapping("mypage/serviceadd/infoupdate")
+ public ModelAndView serviceinfoma(String sw_idx) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println(sw_idx);
+  SwriteVO swvo = service.seSwriteVO(sw_idx);
+  if (swvo.getSvo().getS_type().equals("1")) {
+   CarVO carvo = service.carList(swvo.getC_idx());
+   mv.addObject("carvo", carvo);
+   MemVO mvo = (MemVO) session.getAttribute("mvo");
+   CwriteVO[] cwar = service.cwselect(mvo.getM_idx());
+   mv.addObject("cwar", cwar);
+  }
+  mv.addObject("swvo", swvo);
+  mv.setViewName("service/serviceinfoupdate");
+  return mv;
+ }
 }

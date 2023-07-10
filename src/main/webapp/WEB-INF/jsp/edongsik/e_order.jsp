@@ -55,7 +55,7 @@
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
-      <button type="button" onclick="location.href='??'">충전하기</button>
+      <button type="button" onclick="location.href=''">충전하기</button>
       <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
       <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
      </div>
@@ -319,7 +319,7 @@
                      <tr style="height: 150px; margin-bottom: 100px;">
 
                          <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
-                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name} ${mvo.m_phone}</td>   
+                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name}<br>${mvo.m_phone}</td>   
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
@@ -373,7 +373,7 @@
                      <tr style="height: 150px; margin-bottom: 100px;">
 
                          <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
-                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name} ${mvo.m_phone}</td>   
+                         <td style="text-align: center; vertical-align: middle;">${mvo.m_name}<br>${mvo.m_phone}</td>   
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>

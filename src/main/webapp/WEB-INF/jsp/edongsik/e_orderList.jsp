@@ -55,7 +55,7 @@
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
-      <button type="button" onclick="location.href='??'">충전하기</button>
+      <button type="button" onclick="location.href='??'">버튼</button>
       <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
       <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
      </div>
@@ -65,12 +65,13 @@
         <table summary="이용내역" class="table table-hover">
 					
             <colgroup>
+               <col width="70px">
                <col width="250px">
                <col width="130px">
                <col width="130px">
                <col width="130px">
-               <col width="130px">
-               <col width="130px">
+               <!-- <col width="130px">
+               <col width="130px"> -->
                
                <col width="120px">
                <col width="120px">
@@ -78,11 +79,12 @@
            
                <thead>
                    <tr class="table-info">
+                       <th style="text-align: center;">번호</th>
                        <th style="text-align: center;">서비스 정보</th>
                        <th style="text-align: center;">업체정보</th>
                        <th style="text-align: center;">주문일자</th>
-                       <th style="text-align: center;">서비스 금액</th>
-                       <th style="text-align: center;">충전 금액</th>
+                       <!-- <th style="text-align: center;">서비스 금액</th>
+                       <th style="text-align: center;">충전 금액</th> -->
                        <th style="text-align: center;">총 결제금액</th>
                        <th colspan="2" style="text-align: center;">서비스 상태</th>
                    </tr>
@@ -90,21 +92,22 @@
                
                
                <tbody>
-                   <c:forEach items="${suar}" var="suar">
+                   <c:forEach items="${suar}" var="suar" varStatus="st">
+                    
                        <tr style="height: 150px; margin-bottom: 100px;">
-
-                        <td style="text-align: left; vertical-align: middle;" >
+                        <td style="text-align: center; vertical-align: middle;">${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
+                        <td style="text-align: center; vertical-align: middle;" >
                             <c:if test="${suar.svo.s_type == 1}">
-                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}">이동식 충전 서비스</a>
+                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}" style="color: black;">이동식 충전 서비스</a>
                             </c:if>
                             <c:if test="${suar.svo.s_type == 0}">
-                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}">탁송 충전 서비스</a>
+                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}" style="color: black;">탁송 충전 서비스</a>
                             </c:if>
                         </td>
-                           <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name} ${suar.mvo.m_phone}</td>   
+                           <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
                            <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
-                           <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
-                           <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
+                           <!-- <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
+                           <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td> -->
 
                             <c:set var="num1" value="${suar.su_sprice}" />
                             <c:set var="num2" value="${suar.su_cprice}" />
