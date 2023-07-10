@@ -434,14 +434,15 @@ SELECT COUNT(*) FROM charging.bbs_t
 </select>
 <!--리뷰 리스트-->
 
-
-
 <!--서비스 리스트-->
 <select id="car" parameterType="Map" resultMap="car_map">
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.service_use
-    WHERE su_type = 0
+    WHERE su_type = 0 
+      <if test="search_date != null">
+      AND su_date LIKE CONCAT (#{search_date},'%')
+      </if>
       <if test="searchType != null and searchValue != null">
           AND c_idx IN(
             select c_idx from car_write WHERE m_idx IN(
@@ -481,9 +482,12 @@ WHERE m_idx = #{m_idx}
 </select>
 
 
-<select id="car_count" resultType="int">
+<select id="car_count" resultType="int" parameterType="Map">
 SELECT COUNT(*) FROM charging.service_use
   WHERE su_type = 0 
+    <if test="search_date != null">
+      AND su_date LIKE CONCAT (#{search_date},'%')
+    </if>
     <if test="searchType != null and searchValue != null">
           AND c_idx IN(
             select c_idx from car_write WHERE m_idx IN(
@@ -493,6 +497,24 @@ SELECT COUNT(*) FROM charging.service_use
       </if>
 </select>
 <!--서비스 리스트-->
+
+
+<!--매출-->
+<select id="service_sales" parameterType="String" resultMap="sales_map">
+SELECT * FROM charging.service_use
+WHERE su_date LIKE CONCAT (#{search_date},'%')
+</select>
+
+<resultMap type="com.kdt.finalproject.vo.SuseVO" id="sales_map">
+  <id property="su_idx" column="su_idx"/>
+  <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="sales_log" column="s_idx"/>
+</resultMap>
+
+<select id="sales_log" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+SELECT * FROM charging.service_t
+WHERE s_idx = #{s_idx}
+</select>
+
 
 <!-- insert -->
 

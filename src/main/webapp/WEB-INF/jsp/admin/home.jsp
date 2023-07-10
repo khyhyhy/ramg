@@ -2,6 +2,7 @@
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,12 +22,39 @@ pageEncoding="UTF-8"%>
         <div class="container">
             <div class="row">
                 <div class="col">
+                    <label for="service"><a href="/admin/sales">매출 > </a></label>
+                    <table id="service" class="table table-bordered">
+                        <thead>
+                            <tr class="table-warning">
+                                <th>오늘</th>
+                                <th>이번달</tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <c:set var="today_total" value="0" />
+                                <c:forEach items="${today_sales}" var="today">
+                                    <c:set var="today_total" value="${today_total + today.su_sprice + today.su_cprice}" />
+                                </c:forEach>
+                                <td>
+                                    ${fn:length(today_sales) } 건 / <fmt:formatNumber pattern="#,###" value="${today_total}"/>원</td>
+                                <c:set var="month_total" value="0" />
+                                <c:forEach items="${month_sales}" var="month">
+                                    <c:set var="month_total" value="${month_total + month.su_sprice + month.su_cprice}" />
+                                </c:forEach>
+                                <td>
+                                    ${fn:length(month_sales) } 건 / <fmt:formatNumber pattern="#,###" value="${month_total}"/>원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="col">
                     <label for="member"><a href="/admin/member">회원 현황 > </a></label>
                     <table id="member" class="table table-bordered">
                         <colgroup>
-                            <col width="300px">
-                            <col width="300px">
-                            <col width="300px">
+                            <col width="150px">
+                            <col width="150px">
+                            <col width="150px">
                             <col width="*">
                         </colgroup>
                         <thead>
@@ -49,11 +77,14 @@ pageEncoding="UTF-8"%>
                                 <c:if test="${tod == 0}">
                                 ( - )
                                 </c:if>
-                                </a></td>
+                                </a>
+                            </td>
                         </tr>
                     </table>
-                  </div>
                 </div>
+                
+            </div>
+            
             <div class="row">
                 <div class="col">
                 <label for="notice"><a href="/admin/notice">최근 공지 > </a></label>
@@ -137,13 +168,10 @@ pageEncoding="UTF-8"%>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${rvo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${rvo.b_idx}">
-                                    <c:if test="${rvo.b_content.length() >= 35}">
-                                        ${rvo.b_content.substring(0,35)}&nbsp;&nbsp;···
-                                    </c:if>
-                                    <c:if test="${rvo.b_content.length() < 35}">
-                                        ${rvo.b_content}
-                                    </c:if>
+                                  <button class="accordion-button collapsed"  style="overflow: hidden;
+                                  text-overflow: ellipsis;
+                                  white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${rvo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${rvo.b_idx}">
+                                    ${rvo.b_content}
                                   </button>
                                 </h2>
                                 <div id="flush-collapse${rvo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${rvo.b_idx}" data-bs-parent="#accordionFlushExample">

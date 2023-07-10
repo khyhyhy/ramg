@@ -70,7 +70,9 @@ public interface AdminMapper {
 
     int review_count(String searchType, String searchValue);
 
-    List<SuseVO> car(int begin, int end, String searchType, String searchValue);
+    List<SuseVO> car(int begin, int end, String searchType, String searchValue, String search_date);
 
-    int car_count(String searchType, String searchValue);
+    int car_count(String searchType, String searchValue, String search_date);
+
+    List<SuseVO> service_sales(String search_date);
 }

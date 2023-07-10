@@ -69,13 +69,10 @@ pageEncoding="UTF-8"%>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
-                                    <c:if test="${vo.b_content.length() >= 50}">
-                                        ${vo.b_content.substring(0,50)}&nbsp;&nbsp;···
-                                    </c:if>
-                                    <c:if test="${vo.b_content.length() < 50}">
-                                        ${vo.b_content}
-                                    </c:if>
+                                  <button class="accordion-button collapsed" style="overflow: hidden;
+                                  text-overflow: ellipsis;
+                                  white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
+                                    ${vo.b_content}
                                   </button>
                                 </h2>
                                 <div id="flush-collapse${vo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${vo.b_idx}" data-bs-parent="#accordionFlushExample">
