@@ -305,54 +305,51 @@ public class EdongsikController {
 
             // ---------paging------------
 
-            // System.out.println("세션" + m_idx);
+            if (ar == null) {
+                mv.setViewName("redirect:/ex/");
 
-            // List<CwriteVO> cwList = service.getOrderList(m_idx);
+            } else if (ar != null) {
 
-            // List<SuseVO> suar = new ArrayList<SuseVO>();
+                for (SuseVO su_vo : ar) {// for (SuseVO su_vo : su_list) {
 
-            // for (CwriteVO cwvo : cwList) {
-            // List<SuseVO> su_list = cwvo.getSuvo();
+                    // su_vo.setCwvo(cwvo);
+                    // suar.add(su_vo);
+                    // System.out.println("c_idx" + su_vo.getC_idx());
+                    // System.out.println("Su_date" + su_vo.getSu_date());
+                    // System.out.println("s_idx" + su_vo.getS_idx());
+                    String su_idx = su_vo.getSu_idx();
+                    BbsVO bvo = service.getBidx(su_idx);
+                    su_vo.setBvo(bvo);
 
-            for (SuseVO su_vo : ar) {// for (SuseVO su_vo : su_list) {
-                // su_vo.setCwvo(cwvo);
-                // suar.add(su_vo);
-                // System.out.println("c_idx" + su_vo.getC_idx());
-                // System.out.println("Su_date" + su_vo.getSu_date());
-                // System.out.println("s_idx" + su_vo.getS_idx());
-                String su_idx = su_vo.getSu_idx();
-                BbsVO bvo = service.getBidx(su_idx);
-                su_vo.setBvo(bvo);
+                    String s_idx = su_vo.getS_idx();
+                    // System.out.println(s_idx);
 
-                String s_idx = su_vo.getS_idx();
-                // System.out.println(s_idx);
+                    // SwriteVO swvo = service.getBusiness(s_idx);
 
-                // SwriteVO swvo = service.getBusiness(s_idx);
+                    SwriteVO swvo = service.radiusInfo(s_idx);
 
-                SwriteVO swvo = service.radiusInfo(s_idx);
+                    MemVO mvo = swvo.getMvo();
+                    ServiceVO svo = swvo.getSvo();
 
-                MemVO mvo = swvo.getMvo();
-                ServiceVO svo = swvo.getSvo();
+                    su_vo.setSvo(svo);
+                    su_vo.setMvo(mvo);
 
-                su_vo.setSvo(svo);
-                su_vo.setMvo(mvo);
+                    // System.out.println(mvo.getM_idx());
+                    // System.out.println(svo.getS_type());
+                    mv.setViewName("edongsik/e_orderList");
 
-                // System.out.println(mvo.getM_idx());
-                // System.out.println(svo.getS_type());
+                }
+
+                // mv.addObject("suar", suar);
+                mv.addObject("suar", ar);
+                // mv.addObject("ar", ar);
+                mv.addObject("page", page);
+                mv.addObject("totalRecord", totalRecord);
+                mv.addObject("nowPage", nowPage);
+                mv.addObject("blockList", page.getNumPerPage());
             }
 
-            // }
-
-            // mv.addObject("suar", suar);
-            mv.addObject("suar", ar);
-            // mv.addObject("ar", ar);
-            mv.addObject("page", page);
-            mv.addObject("totalRecord", totalRecord);
-            mv.addObject("nowPage", nowPage);
-            mv.addObject("blockList", page.getNumPerPage());
-
         }
-        mv.setViewName("edongsik/e_orderList");
         return mv;
     }
 
@@ -454,4 +451,11 @@ public class EdongsikController {
         return mv;
     }
 
+    @RequestMapping("/ex/")
+    public ModelAndView ex() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("edongsik/ex");
+        return mv;
+    }
 }
