@@ -57,10 +57,17 @@
     }
   
     .radio-btn {
-      margin-bottom: 20px;
-      font-size: 15px; 
+      margin-bottom: 15px;
+      font-size: 16px; 
+      font-weight: bold;
+      color: #5f676b;
       font-family: "Arial", sans-serif; 
 
+    }
+
+    input[type="radio"] {
+      width: 16px;  /* 원하는 가로 크기 */
+      height: 16px; /* 원하는 세로 크기 */
     }
 
     .divider {
@@ -151,7 +158,7 @@
               <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
                 
               <div class="radio-btn">
-                  <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;           
+                  <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;&nbsp;           
                   <input type="radio" name="m_class" value="1"> 사업자
               </div>
 

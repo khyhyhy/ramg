@@ -62,6 +62,8 @@
         border-top: 1.7px solid #757571;
         margin: 10px;
         width: 300px;
+
+
   
   
     }
@@ -175,7 +177,6 @@
                             <!-- Login button -->
                             <div class="text-center">
                                 <button type="button" class="btn btn-primary btn-block mb-4 text-center"  id="login-button" onclick="exe(this.form)">로그인</button>         
-                                <!-- <button type="button" class="btn btn-primary btn-block mb-4 text-center" onclick="location.href='join'" >회원가입</button> -->
 
                             <hr class="divider">
 
@@ -217,7 +218,7 @@
                                 //        $( "#message" ).dialog();
                                 //     }
                                 // });
-
+                                
 
 
                                 function exe(frm) {

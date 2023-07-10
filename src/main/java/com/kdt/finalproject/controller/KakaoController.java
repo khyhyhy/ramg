@@ -194,7 +194,7 @@ public class KakaoController {
                         vo = mvo;
                     }
 
-                    session.setAttribute("mvo", mvo);
+                    session.setAttribute("mvo", vo);
 
                 } // if문의 끝
 

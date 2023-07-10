@@ -89,11 +89,6 @@ public class LoginService {
         return l_Mapper.add_kakao(vo);
     }
 
-    // 어차피 이메일로 가입할거라 id체크 굳이 필요없음
-    // public MemVO check_id(String id){
-    // return m_Mapper.check_id(id);
-    // }
-
     public MemVO search_email(String m_email) {
         return l_Mapper.search_email(m_email);
     }
