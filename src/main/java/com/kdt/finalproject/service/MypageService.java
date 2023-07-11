@@ -12,6 +12,7 @@ import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.SuseVO;
 
 @Service
@@ -85,5 +86,9 @@ public class MypageService {
 
     public int updateReviewlog(BbslogVO blvo) {
         return mapper.updateReviewlog(blvo);
+    }
+
+    public List<ModelVO> getModelList() {
+        return mapper.getModelList();
     }
 }
