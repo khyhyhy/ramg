@@ -90,12 +90,7 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
 
         MemVO vo = service.member_view(m_idx);
-        int qna_cnt = service.member_qna_count(m_idx);
 
-        int service_cnt = service.car_count("1", vo.getM_name(), null);
-
-        mv.addObject("service_cnt", service_cnt);
-        mv.addObject("qna_cnt", qna_cnt);
         mv.addObject("vo", vo);
         mv.addObject("cPage", cPage);
         mv.addObject("searchType", searchType);

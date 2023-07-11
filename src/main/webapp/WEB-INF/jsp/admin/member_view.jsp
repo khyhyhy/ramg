@@ -116,7 +116,9 @@
         
             <table class="table table-bordered">
                 <tr>
-                    <th><a href="/admin/car?searchType=1&searchValue=${vo.m_name}">서비스 이용 내역</a> [${service_cnt}] / <a href="javascript:qna()">작성한 문의</a> [${qna_cnt}] </th>
+                    <th><a href="javascript:car()">서비스 이용 내역</a> / 
+                        <a href="javascript:qna()">작성한 문의</a> / 
+                        <a href="javascript:review()">작성한 리뷰</a></th>
                 </tr>
             </table>
 
@@ -162,8 +164,22 @@
             return;
         }
     }
+    function car(){
+        document.frm.action = "/admin/car";
+        document.frm.searchType.value = "1";
+        document.frm.searchValue.value = '${vo.m_name}';
+        document.frm.submit();
+    }
+
     function qna(){
         document.frm.action = "/admin/qna";
+        document.frm.searchType.value = "3";
+        document.frm.searchValue.value = "${vo.m_name}";
+        document.frm.submit();
+    }
+
+    function review(){
+        document.frm.action = "/admin/review";
         document.frm.searchType.value = "3";
         document.frm.searchValue.value = "${vo.m_name}";
         document.frm.submit();
