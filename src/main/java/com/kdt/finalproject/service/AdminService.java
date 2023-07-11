@@ -234,4 +234,8 @@ public class AdminService {
     public SuseVO car_view(String su_idx) {
         return mapper.car_view(su_idx);
     }
+
+    public int car_status(String su_idx, String su_status) {
+        return mapper.car_status(su_idx, su_status);
+    }
 }

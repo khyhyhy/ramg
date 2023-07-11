@@ -37,7 +37,7 @@ pageEncoding="UTF-8"%>
                     <th>신청일</th>
                     <th>서비스</th>
                     <th>사용자</th>
-                    <th>진행상황</th>
+                    <th>상태</th>
                     <th>위치</th>
                     <th>충전비용</th>
                     <th>배달팁</th>
@@ -58,7 +58,7 @@ pageEncoding="UTF-8"%>
                         </c:choose>
                     </td>
                     <td><a href="/admin/member_view?m_idx=${vo.cwvo.mvo.m_idx}&cPage=1">${vo.cwvo.mvo.m_name}</a></td>
-                    <td>
+                    <td id="st">
                     <c:choose>
                         <c:when test="${vo.su_status == 0}">
                             주문 대기 중
@@ -113,10 +113,153 @@ pageEncoding="UTF-8"%>
                 </tr>
             </tbody>
         </table>
-        <button type="button" class="btn btn-outline-warning" >취소</button>
-        <button type="button" class="btn btn-outline-warning" >변경</button>
-        
+
+        <div style="height: 80px;">
+            <button type="button" class="btn btn-outline-warning" onclick="back()">목록</button>
+            <span style="float: right;">
+                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    상태변경
+                </button>
+                <!-- <button type="button" class="btn btn-outline-warning">서비스 취소</button> -->
+            </span>
+        </div>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                    <div class="modal-body">
+                        현재 상태 : 
+                        <c:if test="${vo.svo.s_type == 0}">
+                        <c:choose>
+                            <c:when test="${vo.su_status == 0}">
+                                주문 대기 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 1}">
+                                주문 접수
+                            </c:when>
+                            <c:when test="${vo.su_status == 2}">
+                                탁송기사 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 3}">
+                                차량 픽업
+                            </c:when>
+                            <c:when test="${vo.su_status == 4}">
+                                충전소 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 5}">
+                                충전 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 6}">
+                                도착지 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 7}">
+                                도착 완료
+                            </c:when>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${vo.svo.s_type == 1}">
+                        <c:choose>
+                            <c:when test="${vo.su_status == 0}">
+                                주문 대기 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 1}">
+                                주문 접수
+                            </c:when>
+                            <c:when test="${vo.su_status == 2}">
+                                충전지 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 3}">
+                                충전지 도착
+                            </c:when>
+                            <c:when test="${vo.su_status == 4}">
+                                충전 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 5}">
+                                충전 완료
+                            </c:when>
+                            <c:when test="${vo.su_status == 6}">
+                                이슈 발생
+                            </c:when>
+                        </c:choose>
+                    </c:if>
+
+
+                        <c:if test="${vo.svo.s_type == 0}">
+                            <select name="su_status" class="form-select" aria-label="Default select example" id="su_status">
+                                <option value="0">주문 대기 중</option>
+                                <option value="1">주문 접수</option>
+                                <option value="2">탁송기사 이동 중</option>
+                                <option value="3">차량 픽업</option>
+                                <option value="4">충전소 이동 중</option>
+                                <option value="5">충전 중</option>
+                                <option value="6">도착지 이동 중</option>
+                                <option value="7">도착 완료</option>
+                                <option value="8">이슈 발생</option>
+                            </select>
+                        </c:if>
+                        <c:if test="${vo.svo.s_type == 1}">
+                            <select name="su_status" class="form-select" aria-label="Default select example" id="su_status">
+                                <option value="0">주문 대기 중</option>
+                                <option value="1">주문 접수</option>
+                                <option value="2">충전지 이동 중</option>
+                                <option value="3">충전지 도착</option>
+                                <option value="4">충전 중</option>
+                                <option value="5">충전 완료</option>
+                                <option value="6">이슈 발생</option>
+                            </select>
+                        </c:if>
+                        
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" onclick="car_status()">변경</button>
+                <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">닫기</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <form method="post" name="frm">
+            <input type="hidden" name="su_idx" value="${vo.su_idx}" id="su_idx">
+            <input type="hidden" name="cPage" value="${param.cPage}">
+            <input type="hidden" name="searchType" value="${param.searchType}">
+            <input type="hidden" name="searchValue" value="${param.searchValue}">
+            <input type="hidden" name="search_date" value="${param.search_date}">
+        </form>
+
+
+
     </div>
 </main>
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <script>
+        function back(){
+            document.frm.action = "/admin/car";
+            document.frm.submit();
+        }
+        
+        function car_status(){
+
+            let su_idx = $("#su_idx").val();    
+            let su_status = $("#su_status").val();    
+            let st = $("#st").val();
+
+            $.ajax({
+                url: "/admin/car_status",
+                type: "post",
+                data: {"su_idx":su_idx, "su_status":su_status},
+                dataType:"json"
+            }).done(function(data){
+                if(data.res == 1){ //성공한 경우에만 수행
+                    location.reload();
+                }
+            });
+        }
+    </script>
 </html>

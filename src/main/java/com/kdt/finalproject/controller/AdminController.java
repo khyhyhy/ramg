@@ -55,6 +55,9 @@ public class AdminController {
     public ModelAndView member(String cPage, String searchType, String searchValue, String m_class) {
         ModelAndView mv = new ModelAndView();
 
+        if (m_class != null && m_class.trim().length() == 0)
+            m_class = null;
+
         // ---------paging------------
         int nowPage = 1;
         int totalRecord = service.member_count(searchType, searchValue, m_class);
@@ -83,7 +86,7 @@ public class AdminController {
 
     // 회원 정보 상세보기
     @RequestMapping("/admin/member_view")
-    public ModelAndView member_view(String m_idx, String cPage, String searchType, String searchValue) {
+    public ModelAndView member_view(String m_idx, String cPage, String searchType, String searchValue, String m_class) {
         ModelAndView mv = new ModelAndView();
 
         MemVO vo = service.member_view(m_idx);
@@ -524,7 +527,7 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/car_view")
-    public ModelAndView car_view(String su_idx) {
+    public ModelAndView car_view(String su_idx, String cPage, String searchType, String searhValue) {
         ModelAndView mv = new ModelAndView();
 
         SuseVO vo = service.car_view(su_idx);
@@ -637,4 +640,16 @@ public class AdminController {
 
         return mv;
     }
+
+    @RequestMapping("/admin/car_status")
+    @ResponseBody
+    public Map<String, Integer> car_status(String su_idx, String su_status) {
+        Map<String, Integer> map = new HashMap<>();
+
+        int cnt = service.car_status(su_idx, su_status);
+        map.put("res", cnt);
+
+        return map;
+    }
+
 }
