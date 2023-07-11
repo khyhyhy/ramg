@@ -83,11 +83,30 @@ SELECT COUNT(*) FROM charging.member_t
 <!--전체 회원 리스트-->
 
 <!--회원 정보 상세보기-->
-<select id="member_view" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+<select id="member_view" parameterType="String" resultMap="member_map">
 SELECT * FROM charging.member_t
 WHERE m_idx = #{m_idx}
 </select>
 
+<resultMap id="member_map" type="com.kdt.finalproject.vo.MemVO">
+  <id property="m_idx" column="m_idx"/>
+  <collection property="sw_list" ofType="com.kdt.finalproject.vo.SwriteVO" select="member_view2" column="m_idx"/>
+</resultMap>
+
+<select id="member_view2" parameterType="String" resultMap="member_map2">
+  SELECT * FROM charging.service_write
+  WHERE m_idx = #{m_idx}
+</select>
+
+<resultMap id="member_map2" type="com.kdt.finalproject.vo.SwriteVO">
+  <id property="sw_idx" column="sw_idx"/>
+  <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="member_view3" column="s_idx"/>
+</resultMap>
+
+<select id="member_view3" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+ SELECT * FROM charging.service_t
+ WHERE s_idx = #{s_idx}
+</select>
 
 
 <!--공지사항 리스트-->
@@ -417,6 +436,7 @@ WHERE su_idx = #{b_val2};
 
 <resultMap type="com.kdt.finalproject.vo.SuseVO" id="review_map3">
   <id property="su_idx" column="su_idx"/>
+  <association property="cwvo" javaType="com.kdt.finalproject.vo.CwriteVO" select="car_log2" column="c_idx"/>
   <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="review_log4" column="s_idx"/>
 </resultMap>
 
@@ -533,6 +553,13 @@ SELECT COUNT(*) FROM charging.service_use
       </if>
 </select>
 <!--서비스 리스트-->
+
+<!--서비스 상세보기-->
+<select id="car_view" parameterType="String" resultMap="review_map3">
+  SELECT * FROM charging.service_use
+  WHERE su_type = 0 AND su_idx = #{su_idx}
+</select>
+<!--서비스 상세보기-->
 
 
 <!--매출-->

@@ -221,7 +221,7 @@ pageEncoding="UTF-8"%>
                     <c:forEach items="${su_ar}" var="suvo">
                         <tr>
                             <td><a href="/admin/member_view?m_idx=${suvo.cwvo.mvo.m_idx}&cPage=1">${suvo.cwvo.mvo.m_name}</a></td>
-                            <td>
+                            <td><a href="/admin/car_view?su_idx=${suvo.su_idx}">
                             <c:choose>
                                 <c:when test="${suvo.svo.s_type == 0}">
                                     탁송 서비스
@@ -230,7 +230,7 @@ pageEncoding="UTF-8"%>
                                     이동식 충전 서비스
                                 </c:when>    
                             </c:choose>
-                            </td>
+                            </a></td>
                             <td>
                             <c:choose>
                                 <c:when test="${suvo.su_status == 0}">

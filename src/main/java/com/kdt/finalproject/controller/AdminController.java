@@ -89,6 +89,9 @@ public class AdminController {
         MemVO vo = service.member_view(m_idx);
         int qna_cnt = service.member_qna_count(m_idx);
 
+        int service_cnt = service.car_count("1", vo.getM_name(), null);
+
+        mv.addObject("service_cnt", service_cnt);
         mv.addObject("qna_cnt", qna_cnt);
         mv.addObject("vo", vo);
         mv.addObject("cPage", cPage);
@@ -516,6 +519,18 @@ public class AdminController {
         mv.addObject("nowPage", nowPage);
         mv.addObject("blockList", page.getNumPerPage());
         mv.setViewName("/admin/car");
+
+        return mv;
+    }
+
+    @RequestMapping("/admin/car_view")
+    public ModelAndView car_view(String su_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        SuseVO vo = service.car_view(su_idx);
+
+        mv.addObject("vo", vo);
+        mv.setViewName("/admin/car_view");
 
         return mv;
     }

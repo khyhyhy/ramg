@@ -230,4 +230,8 @@ public class AdminService {
         return ar;
 
     }
+
+    public SuseVO car_view(String su_idx) {
+        return mapper.car_view(su_idx);
+    }
 }

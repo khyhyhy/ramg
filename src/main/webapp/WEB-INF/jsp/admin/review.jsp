@@ -68,7 +68,7 @@ pageEncoding="UTF-8"%>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
-                        <td>${vo.suvo.svo.swvo.mvo.m_name}</td>
+                        <td><a href="/admin/member_view?m_idx=${vo.suvo.svo.swvo.mvo.m_idx}&cPage=1">${vo.suvo.svo.swvo.mvo.m_name}</a></td>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
