@@ -7,9 +7,11 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <link href="../../css/edongsik.css" rel="stylesheet">
+   <link href="../../css/page.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link href="../../css/page.css" rel="stylesheet">
+
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -55,9 +57,8 @@
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
-      <button type="button" onclick="location.href='??'">버튼</button>
-      <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-      <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+      <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-right: 50px; border-width: 2px;" class="btn btn-outline-info">현재상황</button>
+      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
      </div>
 
       
@@ -68,8 +69,8 @@
                <col width="70px">
                <col width="250px">
                <col width="130px">
-               <col width="130px">
-               <col width="130px">
+               <col width="180px">
+               <col width="100px">
                <!-- <col width="130px">
                <col width="130px"> -->
                
@@ -78,7 +79,7 @@
            </colgroup>
            
                <thead>
-                   <tr class="table-info">
+                   <tr class="table-info" >
                        <th style="text-align: center;">번호</th>
                        <th style="text-align: center;">서비스 정보</th>
                        <th style="text-align: center;">업체정보</th>
@@ -98,10 +99,10 @@
                         <td style="text-align: center; vertical-align: middle;">${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
                         <td style="text-align: center; vertical-align: middle;" >
                             <c:if test="${suar.svo.s_type == 1}">
-                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}" style="color: black;">이동식 충전 서비스</a>
+                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}">이동식 충전 서비스</a>
                             </c:if>
                             <c:if test="${suar.svo.s_type == 0}">
-                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}" style="color: black;">탁송 충전 서비스</a>
+                                <a href="/e_order/?s_idx=${suar.s_idx}&su_idx=${suar.su_idx}">탁송 충전 서비스</a>
                             </c:if>
                         </td>
                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
@@ -137,14 +138,14 @@
                                     <td style="text-align: center; vertical-align: middle;">충전완료</td>
                                         <c:if test="${suar.bvo.b_content == null}">
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(this)">후기 작성
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal(this)">후기 작성
                                                     <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
                                                 </button>
                                             </td>
                                         </c:if>
                                         <c:if test="${suar.bvo.b_content != null}">
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <button type="button" onclick="location.href='/my_review'">작성후기 확인
+                                                <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review'">작성후기 확인
                                                     
                                                 </button>
                                             </td>
@@ -180,14 +181,14 @@
                                         <td style="text-align: center; vertical-align: middle;">도착완료</td>
                                         <c:if test="${suar.bvo.b_content == null}">
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="openModal(this)">후기 작성
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal(this)">후기 작성
                                                 <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
                                             </button>
                                         </td>
                                         </c:if>
                                         <c:if test="${suar.bvo.b_content != null}">
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <button type="button" onclick="location.href='/my_review'">작성후기 확인
+                                            <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review'">작성후기 확인
                                                 
                                             </button>
                                         </td>
@@ -205,7 +206,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="7">
-                                <ol class="paging">
+                                <ol class="paging" style="display: flex; justify-content: center;">
                                     <c:if test="${page.startPage == 1 }">
                                             <li class="disable">&lt;</li>
                                     </c:if>

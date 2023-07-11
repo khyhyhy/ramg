@@ -109,8 +109,8 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 
 <!-- insert -->
   <insert id="addReview" parameterType="Map">
-    INSERT INTO charging.bbs_t(b_content, b_score, b_type, b_status, b_val2)
-    VALUES(#{reviewContent}, #{selectedValue}, 1, 0, #{su_idx})
+    INSERT INTO charging.bbs_t(b_content, b_score, b_type, b_status, b_val2, b_val1)
+    VALUES(#{reviewContent}, #{selectedValue}, 1, 0, #{su_idx}, 0)
   </insert>
 
   <insert id="addReviewLog" parameterType="Map">
