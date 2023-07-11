@@ -77,4 +77,6 @@ public interface AdminMapper {
     List<SuseVO> service_sales(String search_date);
 
     SuseVO car_view(String su_idx);
+
+    int car_status(String su_idx, String su_status);
 }

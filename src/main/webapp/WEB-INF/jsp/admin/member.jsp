@@ -144,6 +144,7 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="m_class" value="${param.m_class}">
     </form>
 </main>
 

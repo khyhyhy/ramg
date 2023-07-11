@@ -701,4 +701,11 @@ WHERE b_idx = #{b_idx}
 INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
 VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
 </insert>
+
+<!-- 서비스 상태 변경 -->
+<update id="car_status" parameterType="Map">
+UPDATE charging.service_use
+SET su_status = #{su_status}
+WHERE su_idx = #{su_idx}
+</update>
 </mapper>

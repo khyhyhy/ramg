@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
                 <th>신청일</th>
                 <th>서비스</th>
                 <th>사용자</th>
-                <th>진행상황</th>
+                <th>상태</th>
                 <th>위치</th>
                 <th>충전비용</th>
                 <th>배달팁</th>
@@ -82,32 +82,60 @@ pageEncoding="UTF-8"%>
                     </a></td>
                     <td><a href="/admin/member_view?m_idx=${vo.cwvo.mvo.m_idx}&cPage=1">${vo.cwvo.mvo.m_name}</a></td>
                     <td>
-                    <c:choose>
-                        <c:when test="${vo.su_status == 0}">
-                            주문 대기 중
-                        </c:when>
-                        <c:when test="${vo.su_status == 1}">
-                            주문 접수
-                        </c:when>
-                        <c:when test="${vo.su_status == 2}">
-                            탁송기사 이동 중
-                        </c:when>
-                        <c:when test="${vo.su_status == 3}">
-                            차량 픽업
-                        </c:when>
-                        <c:when test="${vo.su_status == 4}">
-                            충전소 이동 중
-                        </c:when>
-                        <c:when test="${vo.su_status == 5}">
-                            충전 중
-                        </c:when>
-                        <c:when test="${vo.su_status == 6}">
-                            도착지 이동 중
-                        </c:when>
-                        <c:when test="${vo.su_status == 7}">
-                            도착 완료
-                        </c:when>
-                    </c:choose>
+                    <c:if test="${vo.svo.s_type == 0}">
+                        <c:choose>
+                            <c:when test="${vo.su_status == 0}">
+                                주문 대기 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 1}">
+                                주문 접수
+                            </c:when>
+                            <c:when test="${vo.su_status == 2}">
+                                탁송기사 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 3}">
+                                차량 픽업
+                            </c:when>
+                            <c:when test="${vo.su_status == 4}">
+                                충전소 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 5}">
+                                충전 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 6}">
+                                도착지 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 7}">
+                                도착 완료
+                            </c:when>
+                        </c:choose>
+                    </c:if>
+                    <c:if test="${vo.svo.s_type == 1}">
+                        <c:choose>
+                            <c:when test="${vo.su_status == 0}">
+                                주문 대기 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 1}">
+                                주문 접수
+                            </c:when>
+                            <c:when test="${vo.su_status == 2}">
+                                충전지 이동 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 3}">
+                                충전지 도착
+                            </c:when>
+                            <c:when test="${vo.su_status == 4}">
+                                충전 중
+                            </c:when>
+                            <c:when test="${vo.su_status == 5}">
+                                충전 완료
+                            </c:when>
+                            <c:when test="${vo.su_status == 6}">
+                                이슈 발생
+                            </c:when>
+                        </c:choose>
+                    </c:if>
+
                     </td>
                     <td>${vo.svo.s_city}</td>
                     <td><fmt:formatNumber pattern="#,###" value="${vo.su_cprice}"/>원</td>
@@ -129,6 +157,7 @@ pageEncoding="UTF-8"%>
         <input type="hidden" name="cPage" value="${nowPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="search_date" value="${param.search_date}">
     </form>
        
     </div>

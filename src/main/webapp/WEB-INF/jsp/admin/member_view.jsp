@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,22 +72,20 @@
             </tbody>
         </table>
 
-        <c:if test="${vo.m_class != 0}">
+        <c:if test="${vo.m_class != 0 && vo.sw_list.size() != 0}">
         <table class="table table-bordered">
             <colgroup>
                 <col width="100px">
-                <col width="150px">
-                <col width="200px">
-                <col width="200px">
+                <col width="100px">
                 <col width="200px">
                 <col width="200px">
                 <col width="*">
+                <col width="150px">
             </colgroup>
             <thead>
                 <tr class="table-warning">
                     <th>종류</th>
                     <th>범위</th>
-                    <th>상태</th>
                     <th>s_mapx</th>
                     <th>s_mapy</th>
                     <th>주소</th>
@@ -96,13 +95,19 @@
             <c:forEach items="${vo.sw_list}" var="sw">
             <tbody>
                 <tr>
-                    <td>${sw.svo.s_type}</td>
-                    <td>${sw.svo.s_radius}</td>
-                    <td>${sw.svo.s_status}</td>
+                    <td>
+                        <c:if test="${sw.svo.s_type == 0}">
+                           탁송
+                        </c:if>
+                        <c:if test="${sw.svo.s_type == 1}">
+                           이동식
+                        </c:if>
+                    </td>
+                    <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_radius}"/>m</td>
                     <td>${sw.svo.s_mapx}</td>
                     <td>${sw.svo.s_mapy}</td>
-                    <td>${sw.svo.s_state} / ${sw.svo.s_city} / ${sw.svo.s_addr1}</td>
-                    <td>${sw.svo.s_val1}</td>
+                    <td>${sw.svo.s_state} ${sw.svo.s_city} ${sw.svo.s_addr1}</td>
+                    <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_val1}"/>원</td>
                 </tr>
             </tbody>
             </c:forEach>
@@ -115,9 +120,9 @@
                 </tr>
             </table>
 
-        <button type="button" class="btn btn-outline-warning" onclick="sub()"">목록</button>
+        <button type="button" class="btn btn-outline-warning" onclick="sub()">목록</button>
         <c:if test="${vo.m_status == 0}">
-            <button type="button" class="btn btn-outline-warning" onclick="member_out()" id="b_out">강제탈퇴</button>
+            <span style="float: right;"><button type="button" class="btn btn-outline-warning" onclick="member_out()" id="b_out">강제탈퇴</span></button>
         </c:if>
     </article>
 
@@ -126,6 +131,7 @@
         <input type="hidden" name="cPage" value="${param.cPage}">
         <input type="hidden" name="searchType" value="${param.searchType}">
         <input type="hidden" name="searchValue" value="${param.searchValue}">
+        <input type="hidden" name="m_class" value="${param.m_class}">
         <input type="hidden" name="m_status" value="${vo.m_status}" id="m_status">
     </form>
 
