@@ -6,20 +6,20 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert title here</title>
-<link href="../../../css/admin.css" rel="stylesheet">
-<link href="../../../css/admin_page.css" rel="stylesheet">
+<title>리뷰</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 </head>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<link href="../../../css/page.css" rel="stylesheet">
 <body>
-<jsp:include page="mainH.jsp"></jsp:include>
+<jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
-    <div class="container" style="margin-top: 100px;">
+    <div class="container">
 
-        <h2>리뷰관리</h2>
-        <form action="/admin/review" method="post">
+        <h1>리뷰</h1>
+
+        <form action="/support/review" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
                     <c:if test="${param.searchType == 1}">
@@ -36,11 +36,11 @@ pageEncoding="UTF-8"%>
                     </c:if>
                 </select>
                 <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
-                <button type="submit" class="btn btn-outline-warning">검색</button>
+                <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
 
-        <table class="table table-hover">
+        <table class="table table-hover" style="table-layout:fixed;">
             <colgroup>
                 <col width="80px">
                 <col width="150px">
@@ -50,7 +50,7 @@ pageEncoding="UTF-8"%>
                 <col width="210px">
             </colgroup>
             <thead>
-                <tr class="table-warning">
+                <tr class="table-info">
                     <th>번호</th>
                     <th>이용 서비스</th>
                     <th>리뷰</th>
@@ -69,11 +69,9 @@ pageEncoding="UTF-8"%>
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
                         <td>
-                            <a href="/admin/car_view?su_idx=${vo.suvo.su_idx}&cPage=1">
-                                <c:if test="${vo.suvo.svo.s_type == 0}">탁송</c:if>
-                                <c:if test="${vo.suvo.svo.s_type == 1}">이동식</c:if>
-                            </a> 
-                            ( <a href="/admin/member_view?m_idx=${vo.suvo.svo.swvo.mvo.m_idx}&cPage=1">${vo.suvo.svo.swvo.mvo.m_name}</a> )
+                            <c:if test="${vo.suvo.svo.s_type == 0}">탁송</c:if>
+                            <c:if test="${vo.suvo.svo.s_type == 1}">이동식</c:if>
+                            ( ${vo.suvo.svo.swvo.mvo.m_name}</a> )
                         </td>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
@@ -109,7 +107,7 @@ pageEncoding="UTF-8"%>
                                 ★★★★★
                             </c:if>
                         </td>
-                        <td><a href="/admin/member_view?m_idx=${vo.bbslog.m_idx}&cPage=1">${vo.bbslog.mvo.m_name}</a></td>
+                        <td>${vo.bbslog.mvo.m_name}</td>
                         <td>${vo.bbslog.bl_date}</td>
                     </tr>
                 </c:forEach>
@@ -119,8 +117,10 @@ pageEncoding="UTF-8"%>
         <div style="height: 80px;" >
             ${pageCode}
         </div>
-
+        
     </div>
 </main>
+<jsp:include page="../main/mainF.jsp"></jsp:include>
+
 </body>
 </html>

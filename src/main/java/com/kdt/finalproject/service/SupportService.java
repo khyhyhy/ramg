@@ -145,4 +145,20 @@ public class SupportService {
     public int qna_del2(BbslogVO vo) {
         return mapper.qna_del2(vo);
     }
+
+    // 리뷰
+    public BbsVO[] review(int begin, int end, String searchType, String searchValue) {
+        BbsVO[] ar = null;
+
+        List<BbsVO> list = mapper.review(begin, end, searchType, searchValue);
+        if (list != null && list.size() > 0) {
+            ar = new BbsVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
+
+    public int review_count(String searchType, String searchValue) {
+        return mapper.review_count(searchType, searchValue);
+    }
 }

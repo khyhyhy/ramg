@@ -50,4 +50,8 @@ public interface SupportMapper {
     int qna_del(String b_idx);
 
     int qna_del2(BbslogVO vo);
+
+    List<BbsVO> review(int begin, int end, String searchType, String searchValue);
+
+    int review_count(String searchType, String searchValue);
 }

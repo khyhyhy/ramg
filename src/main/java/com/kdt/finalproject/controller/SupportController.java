@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kdt.finalproject.service.SupportService;
+import com.kdt.finalproject.util.Admin_review_paging;
 import com.kdt.finalproject.util.FileRenameUtil;
 import com.kdt.finalproject.util.Support_noitce_paging;
 import com.kdt.finalproject.util.Support_qna_paging;
@@ -339,6 +340,32 @@ public class SupportController {
         service.qna_del2(lvo);
 
         mv.setViewName("redirect:/support/qna");
+        return mv;
+    }
+
+    // 리뷰
+    @RequestMapping("/support/review")
+    public ModelAndView review(String cPage, String searchType, String searchValue) {
+        ModelAndView mv = new ModelAndView();
+        int nowPage = 1;
+        int totalRecord = service.review_count(searchType, searchValue);
+
+        if (cPage != null)
+            nowPage = Integer.parseInt(cPage);
+
+        Admin_review_paging page = new Admin_review_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
+        String pageCode = page.getSb().toString();
+
+        BbsVO[] ar = service.review(page.getBegin(), page.getEnd(), searchType, searchValue);
+
+        mv.addObject("ar", ar);
+        mv.addObject("page", page);
+        mv.addObject("pageCode", pageCode);
+        mv.addObject("totalRecord", totalRecord);
+        mv.addObject("nowPage", nowPage);
+        mv.addObject("blockList", page.getNumPerPage());
+
+        mv.setViewName("/support/review");
         return mv;
     }
 }
