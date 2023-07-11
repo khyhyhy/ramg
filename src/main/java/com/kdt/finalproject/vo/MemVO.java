@@ -21,4 +21,6 @@ public class MemVO {
     private List<CwriteVO> cw_list;
 
     private List<BbslogVO> bl_list;
+
+    private List<SwriteVO> sw_list;
 }

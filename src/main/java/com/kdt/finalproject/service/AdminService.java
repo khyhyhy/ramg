@@ -204,10 +204,10 @@ public class AdminService {
     }
 
     // 서비스
-    public SuseVO[] car(int begin, int end, String searchType, String searchValue) {
+    public SuseVO[] car(int begin, int end, String searchType, String searchValue, String search_date) {
         SuseVO[] ar = null;
 
-        List<SuseVO> list = mapper.car(begin, end, searchType, searchValue);
+        List<SuseVO> list = mapper.car(begin, end, searchType, searchValue, search_date);
         if (list != null && list.size() > 0) {
             ar = new SuseVO[list.size()];
             list.toArray(ar);
@@ -215,7 +215,23 @@ public class AdminService {
         return ar;
     }
 
-    public int car_count(String searchType, String searchValue) {
-        return mapper.car_count(searchType, searchValue);
+    public int car_count(String searchType, String searchValue, String search_date) {
+        return mapper.car_count(searchType, searchValue, search_date);
+    }
+
+    public SuseVO[] service_sales(String search_date) {
+        SuseVO[] ar = null;
+
+        List<SuseVO> list = mapper.service_sales(search_date);
+        if (list != null && list.size() > 0) {
+            ar = new SuseVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+
+    }
+
+    public SuseVO car_view(String su_idx) {
+        return mapper.car_view(su_idx);
     }
 }

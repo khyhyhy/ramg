@@ -43,6 +43,7 @@ pageEncoding="UTF-8"%>
         <table class="table table-hover">
             <colgroup>
                 <col width="100px">
+                <col width="100px">
                 <col width="*">
                 <col width="150px">
                 <col width="120px">
@@ -51,6 +52,7 @@ pageEncoding="UTF-8"%>
             <thead>
                 <tr class="table-warning">
                     <th>번호</th>
+                    <th>대상</th>
                     <th>리뷰</th>
                     <th>별점</th>
                     <th>작성자</th>
@@ -60,22 +62,20 @@ pageEncoding="UTF-8"%>
             <tbody>
                 <c:if test="${ar == null}">
                     <tr>
-                        <td colspan="5">검색 결과가 없습니다.</td>
+                        <td colspan="6">검색 결과가 없습니다.</td>
                     </tr>
                 </c:if>
                 <c:forEach var="vo" items="${ar}" varStatus="st">
                     <tr>
                         <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td>
+                        <td><a href="/admin/member_view?m_idx=${vo.suvo.svo.swvo.mvo.m_idx}&cPage=1">${vo.suvo.svo.swvo.mvo.m_name}</a></td>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
-                                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
-                                    <c:if test="${vo.b_content.length() >= 50}">
-                                        ${vo.b_content.substring(0,50)}&nbsp;&nbsp;···
-                                    </c:if>
-                                    <c:if test="${vo.b_content.length() < 50}">
-                                        ${vo.b_content}
-                                    </c:if>
+                                  <button class="accordion-button collapsed" style="overflow: hidden;
+                                  text-overflow: ellipsis;
+                                  white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
+                                    ${vo.b_content}
                                   </button>
                                 </h2>
                                 <div id="flush-collapse${vo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${vo.b_idx}" data-bs-parent="#accordionFlushExample">

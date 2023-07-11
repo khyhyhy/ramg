@@ -92,6 +92,12 @@ public class TaksongService {
   return swar;
  }
 
+ public SwriteVO seSwriteVO(String sw_idx) {
+  SwriteVO swvo = null;
+  swvo = mapper.seSwriteVO(sw_idx);
+  return swvo;
+ }
+
  public ServiceVO svosel(String s_idx) {
   ServiceVO svo = mapper.svo(s_idx);
   return svo;

@@ -22,4 +22,6 @@ public class BbsVO {
 
     private MultipartFile file;
     private List<BbsVO> c_list;
+
+    private SuseVO suvo;
 }

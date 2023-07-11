@@ -34,7 +34,7 @@
 
      
     <c:forEach items="${suar}" var="suar">
-
+    
      <!-- 이동식 사진-->
          <c:if test="${suar.svo.s_type == 1}">
              <c:if test="${suar.su_status ne 5}">
@@ -166,7 +166,7 @@
                     <tbody>
                         <tr style="height: 150px; margin-bottom: 100px;">
                             <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name} ${suar.mvo.m_phone}</td>   
+                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
@@ -380,7 +380,7 @@
                         <tr style="height: 150px; margin-bottom: 100px;">
 
                             <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name} ${suar.mvo.m_phone}</td>   
+                            <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>

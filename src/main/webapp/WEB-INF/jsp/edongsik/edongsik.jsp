@@ -44,7 +44,9 @@
         </c:if>
 
         <c:if test="${sessionScope.mvo ne null}">
-          <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+          <c:if test="${sessionScope.mvo ne null}">
+            <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+          </c:if>
         </c:if>
 
         <c:if test="${sessionScope.mvo eq null}">

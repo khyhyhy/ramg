@@ -29,7 +29,7 @@
                 <col width="*">
             </colgroup>
             <thead>
-                <tr>
+                <tr class="table-warning">
                     <th>회원 번호</th>
                     <th>이름</th>
                     <th>이메일</th>
@@ -70,10 +70,48 @@
                 </tr>
             </tbody>
         </table>
+
+        <c:if test="${vo.m_class != 0}">
+        <table class="table table-bordered">
+            <colgroup>
+                <col width="100px">
+                <col width="150px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="*">
+            </colgroup>
+            <thead>
+                <tr class="table-warning">
+                    <th>종류</th>
+                    <th>범위</th>
+                    <th>상태</th>
+                    <th>s_mapx</th>
+                    <th>s_mapy</th>
+                    <th>주소</th>
+                    <th>서비스 금액</th>
+                </tr>
+            </thead>
+            <c:forEach items="${vo.sw_list}" var="sw">
+            <tbody>
+                <tr>
+                    <td>${sw.svo.s_type}</td>
+                    <td>${sw.svo.s_radius}</td>
+                    <td>${sw.svo.s_status}</td>
+                    <td>${sw.svo.s_mapx}</td>
+                    <td>${sw.svo.s_mapy}</td>
+                    <td>${sw.svo.s_state} / ${sw.svo.s_city} / ${sw.svo.s_addr1}</td>
+                    <td>${sw.svo.s_val1}</td>
+                </tr>
+            </tbody>
+            </c:forEach>
+        </table>
+        </c:if>
         
             <table class="table table-bordered">
                 <tr>
-                    <th><a href="#">서비스 이용 내역</a> / <a href="javascript:qna()">작성한 문의</a> [${qna_cnt}] </th>
+                    <th><a href="/admin/car?searchType=1&searchValue=${vo.m_name}">서비스 이용 내역</a> [${service_cnt}] / <a href="javascript:qna()">작성한 문의</a> [${qna_cnt}] </th>
                 </tr>
             </table>
 

@@ -1,11 +1,8 @@
 package com.kdt.finalproject.controller;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,6 +89,9 @@ public class AdminController {
         MemVO vo = service.member_view(m_idx);
         int qna_cnt = service.member_qna_count(m_idx);
 
+        int service_cnt = service.car_count("1", vo.getM_name(), null);
+
+        mv.addObject("service_cnt", service_cnt);
         mv.addObject("qna_cnt", qna_cnt);
         mv.addObject("vo", vo);
         mv.addObject("cPage", cPage);
@@ -498,11 +498,11 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/car")
-    public ModelAndView car(String cPage, String searchType, String searchValue) {
+    public ModelAndView car(String cPage, String searchType, String searchValue, String search_date) {
         ModelAndView mv = new ModelAndView();
 
         int nowPage = 1;
-        int totalRecord = service.car_count(searchType, searchValue);
+        int totalRecord = service.car_count(searchType, searchValue, search_date);
 
         if (cPage != null)
             nowPage = Integer.parseInt(cPage);
@@ -510,40 +510,8 @@ public class AdminController {
         Admin_car_paging page = new Admin_car_paging(nowPage, totalRecord, 10, 5, searchType, searchValue);
         String pageCode = page.getSb().toString();
 
-        SuseVO[] ar = service.car(page.getBegin(), page.getEnd(), searchType, searchValue);
+        SuseVO[] ar = service.car(page.getBegin(), page.getEnd(), searchType, searchValue, search_date);
 
-        int total = 0;
-        int total_count = 0;
-        int today = 0;
-        int today_count = 0;
-        int month = 0;
-        int month_count = 0;
-
-        String today_date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String today_month = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
-
-        for (int i = 0; i < ar.length; i++) {
-            total += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
-            total_count++;
-
-            if (ar[i].getSu_date().substring(0, 10).equals(today_date)) {
-                today += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
-                today_count++;
-            }
-
-            if (ar[i].getSu_date().substring(0, 7).equals(today_month)) {
-                month += Integer.parseInt(ar[i].getSu_cprice()) + Integer.parseInt(ar[i].getSu_sprice());
-                month_count++;
-            }
-
-        }
-
-        mv.addObject("total", total);
-        mv.addObject("month", month);
-        mv.addObject("today", today);
-        mv.addObject("total_count", total_count);
-        mv.addObject("today_count", today_count);
-        mv.addObject("month_count", month_count);
         mv.addObject("ar", ar);
         mv.addObject("page", page);
         mv.addObject("pageCode", pageCode);
@@ -555,17 +523,29 @@ public class AdminController {
         return mv;
     }
 
+    @RequestMapping("/admin/car_view")
+    public ModelAndView car_view(String su_idx) {
+        ModelAndView mv = new ModelAndView();
+
+        SuseVO vo = service.car_view(su_idx);
+
+        mv.addObject("vo", vo);
+        mv.setViewName("/admin/car_view");
+
+        return mv;
+    }
+
     @RequestMapping("/admin/home")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView();
+
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         MemVO[] mem_count = service.home_mem_count();
         BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
         BbsVO[] q_ar = service.qna(1, 5, null, null);
         BbsVO[] r_ar = service.review(1, 5, null, null);
-        SuseVO[] su_ar = service.car(1, 5, null, null);
-
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        SuseVO[] su_ar = service.car(1, 5, null, null, null);
 
         int pr = 0;
         int bz = 0;
@@ -580,12 +560,17 @@ public class AdminController {
             } else if (mem_count[i].getM_class().equals("2")) {
                 ad++;
             }
-
             if (mem_count[i].getM_date().substring(0, 10).equals(today)) {
                 tod++;
             }
-
         }
+
+        SuseVO[] today_sales = service.service_sales(today);
+        SuseVO[] month_sales = service.service_sales(today.substring(0, 7));
+
+        mv.addObject("today_sales", today_sales);
+        mv.addObject("month_sales", month_sales);
+        mv.addObject("today", today);
         mv.addObject("b_ar", b_ar);
         mv.addObject("q_ar", q_ar);
         mv.addObject("r_ar", r_ar);
@@ -622,6 +607,34 @@ public class AdminController {
         mv.addObject("blockList", page.getNumPerPage());
 
         mv.setViewName("/admin/review");
+        return mv;
+    }
+
+    @RequestMapping("/admin/sales")
+    public ModelAndView sales(String search_date) {
+        ModelAndView mv = new ModelAndView();
+
+        SuseVO[] search_sales = null;
+        SuseVO[] search_month_sales = null;
+
+        String today_date = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        SuseVO[] total_sales = service.service_sales("");
+
+        if (search_date != null) {
+            search_sales = service.service_sales(search_date);
+            search_month_sales = service.service_sales(search_date.substring(0, 7));
+        } else {
+            search_sales = service.service_sales(today_date);
+            search_month_sales = service.service_sales(today_date.substring(0, 7));
+        }
+
+        mv.addObject("today_date", today_date);
+        mv.addObject("total_sales", total_sales);
+        mv.addObject("search_sales", search_sales);
+        mv.addObject("search_month_sales", search_month_sales);
+        mv.setViewName("/admin/sales");
+
         return mv;
     }
 }
