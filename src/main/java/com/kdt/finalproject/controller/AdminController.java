@@ -647,4 +647,15 @@ public class AdminController {
         return map;
     }
 
+    @RequestMapping("/admin/review_change")
+    @ResponseBody
+    public Map<String, Integer> review_change(String b_idx, String b_val1) {
+        Map<String, Integer> map = new HashMap<>();
+
+        int cnt = service.review_change(b_idx, b_val1);
+        map.put("res", cnt);
+
+        return map;
+    }
+
 }

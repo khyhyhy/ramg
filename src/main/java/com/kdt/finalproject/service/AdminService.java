@@ -238,4 +238,8 @@ public class AdminService {
     public int car_status(String su_idx, String su_status) {
         return mapper.car_status(su_idx, su_status);
     }
+
+    public int review_change(String b_idx, String b_val1) {
+        return mapper.review_change(b_idx, b_val1);
+    }
 }

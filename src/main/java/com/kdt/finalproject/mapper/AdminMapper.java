@@ -79,4 +79,6 @@ public interface AdminMapper {
     SuseVO car_view(String su_idx);
 
     int car_status(String su_idx, String su_status);
+
+    int review_change(String b_idx, String b_val1);
 }
