@@ -36,7 +36,7 @@ pageEncoding="UTF-8"%>
                     </c:if>
                 </select>
                 <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
-                <button type="submit" class="btn btn-outline-warning">검색</button>
+                <button type="submit" class="btn btn-outline-info">검색</button>
             </div>
         </form>
 
