@@ -129,11 +129,11 @@
                             <li class="list-group-item">내 주변 가까운 충전소</li>
                         </ul>
                         <div class="container max-width">
-                            <button class="custom-btn btn-3" onclick="changeRadius(1000)"><span>1km</span></button>
-                            <button class="custom-btn btn-3" onclick="changeRadius(2000)"><span>2km</span></button>
-                            <button class="custom-btn btn-3" onclick="changeRadius(3000)"><span>3km</span></button>
-                            <button class="custom-btn btn-3" onclick="changeRadius(4000)"><span>4km</span></button>
-                            <button class="custom-btn btn-3" onclick="changeRadius(5000)"><span>5km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>1km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>2km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>3km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>4km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>5km</span></button>
                         </div>   
                     </div>
                     <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
@@ -189,8 +189,7 @@
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
-            
-            
+                            
             var markers =[];//마커 배열
             var markers2 =[];//내 주변 마커 배열
             var overlays = [];//커스텀오버레이 배열
@@ -338,68 +337,82 @@
                                             str2 += city;
                                             $("#myposition").html(str2);
                                             
-                                            //범위지정되어 마커를 맵에 뿌림
-                                            for(i=0; i<markers.length; i++){
-                                                //console.log(markers[i]);
-                                                var c1 = locPosition;
-                                                var c2 = markers[i].getPosition();
-                                                //console.log(c2);
-                                                var poly = new daum.maps.Polyline({
-                                                    // map: map, 을 하지 않아도 거리는 구할 수 있다.
-                                                    path: [c1, c2]
-                                                });
-                                                //console.log(poly);
-                                                var dist = poly.getLength(); // m 단위로 리턴
-                                                //console.log(dist);
-                                               //console.log(dist);
-                                                if (dist < radius) {
-                                                    markers[i].setMap(map);
-                                                    overlays2.push(overlays[i]);
-                                                    markers2.push(markers[i]);
-                                                    //console.log('markers-' + i, markers[i]);
-                                                } else {
-                                                    markers[i].setMap(null);
+                                            //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
+                                        overlays2.sort(function(a, b) {
+                                            var c1 = locPosition;
+                                            var c2a = a.getPosition();
+                                            var c2b = b.getPosition();
+    
+                                            var polyA = new daum.maps.Polyline({
+                                                path: [c1, c2a]
+                                            });
+                                            var polyB = new daum.maps.Polyline({
+                                                path: [c1, c2b]
+                                            });
+    
+                                            var distA = polyA.getLength();
+                                            var distB = polyB.getLength();
+    
+                                            return distA - distB;
+    
+                                            });
+                                         
+                                            function displayList() {
+                                                var str = "";
+                                                var d = 1;
+                                                
+                                                for (var a = 0; a < overlays2.length; a++) {
+                                                    var overlay = overlays2[a];
+                                                    var content = overlay.getContent();
+                                                    var address = $(content).find("#ellipsis").text();
+                                                    var type = $(content).find("#desc > .fff").text();
+                                                    
+                                                    str += '<li class="list-group-item">';
+                                                    str += '<a style="text-decoration: none;" class="tag-link" href="#" data-index="' + a + '">';
+                                                    str += d + '. ' + address + '<br/>' + type;
+                                                    str += '</a>';
+                                                    str += '</li>';
+                                                    
+                                                    d++;
                                                 }
+                                                
+                                                $("#list1").html(str);
+                                            }
+                                            // 목록 초기화 함수
+                                            function clearList() {
+                                                overlays2 = [];
+                                                markers2 = [];
+                                                displayList();
                                             }
 
+                                            $('.custom-btn').click(function() {
+                                                var buttonText = $(this).text(); // 버튼의 텍스트 가져오기
+                                                var radius = parseInt(buttonText.replace(/[^0-9]/g, '')); // 버튼 텍스트에서 숫자 부분 추출하여 반경 범위로 설정
+                                                clearList(); // 목록 초기화
+                                                // 버튼 텍스트에 따라서 처리 로직 작성
+                                                for (var i = 0; i < markers.length; i++) {
+                                                    var c1 = locPosition;
+                                                    var c2 = markers[i].getPosition();
+                                                    //console.log(c2);
+                                                    var poly = new daum.maps.Polyline({
+                                                        // map: map, 을 하지 않아도 거리는 구할 수 있다.
+                                                        path: [c1, c2]
+                                                    });
+                                                    var dist = poly.getLength();
+                                              
+                                                  if (dist <= radius * 1000) { // 반경 범위 내에 있는 마커인지 확인 (반경 범위를 미터 단위로 계산하기 위해 1000을 곱함)
+                                                    console.log(radius* 1000);
+                                                    overlays2.push(overlays[i]);
+                                                    markers2.push(markers[i]);
+                                                    markers[i].setMap(map); // 반경 범위 내에 있는 마커는 지도에 표시
+                                                  } else {
+                                                    markers[i].setMap(null); // 반경 범위를 벗어나는 마커는 지도에서 숨김
+                                                  }
+                                                }
+                                                displayList();
+                                              });
                                             
-                                        //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
-                                        overlays2.sort(function(a, b) {
-                                        var c1 = locPosition;
-                                        var c2a = a.getPosition();
-                                        var c2b = b.getPosition();
-
-                                        var polyA = new daum.maps.Polyline({
-                                            path: [c1, c2a]
-                                        });
-                                        var polyB = new daum.maps.Polyline({
-                                            path: [c1, c2b]
-                                        });
-
-                                        var distA = polyA.getLength();
-                                        var distB = polyB.getLength();
-
-                                        return distA - distB;
-
-                                        });
                                         
-                                        //console.log(overlays2[0].cc.innerText);
-                                        
-                                        //console.log(markers2[0].getPosition().Ma);
-                                        //console.log(markers2[0].getPosition().La);
-                                        
-                                        let str ="";
-                                        //화면왼쪽에 목록 표출
-                                        var d = 1;
-                                        for(a=0; a<overlays2.length; a++){
-                                            str +='<li class="list-group-item">';
-                                            str +='<a style="text-decoration: none;" class="tag-link" href="#" data-index="'+a+'">';
-                                            str += d+'.' + overlays2[a].cc.innerText;
-                                            str +='</a>';
-                                            str +='</li>';
-                                            d++;
-                                        }
-                                        $("#list1").html(str);
                                         //마커 클릭시 오버레이 커스텀 나타남
                                         for(i=0; i<markers.length; i++){
                                             kakao.maps.event.addListener(markers[i], 'click', function(){
@@ -408,9 +421,9 @@
                                         }
                                         var polyline, startMarker;
                                         //비동기식 전송으로 경로를 불러옴
-                                        $('.tag-link').click(function(event) {
+                                        $(document).on("click", ".tag-link", function(event) {
                                             // 몇 번째 항목인지 가져옵니다.
-                                            
+                                            console.log("여기요");
                                             if (startMarker) {
                                                 startMarker.setMap(null); // 마커 숨기기
                                                 startMarker = null; // 변수 초기화
