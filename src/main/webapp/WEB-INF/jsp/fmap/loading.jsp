@@ -63,7 +63,7 @@
 
                     if (status === kakao.maps.services.Status.OK) {
 
-                        console.log(result);
+                        //console.log(result);
                         var city = result[0].address.address_name;
                         //console.log(result[0].road_address.address_name);
                         //console.log(city+"/1번");
@@ -84,6 +84,7 @@
                                 cityInput.setAttribute('value', city);
 
                                 form.appendChild(cityInput);
+
                                 document.body.appendChild(form);
                                 form.submit();
                             }

@@ -37,14 +37,16 @@ public class FmapController {
     // 위치 설정할 jsp로 이동시킴
     @RequestMapping("/fmap2/")
     public String login() {
+
         return "/fmap/loading";
     }
 
-    // 위치를 받아와서 맵에 뿌려줄 충전송api
+    // 위치를 받아와서 맵에 뿌려줄 충전소api
     @RequestMapping("/fmap/")
     public ModelAndView searchCharger2(String city) throws Exception {
         System.out.println("////////////////////////////111");
         ModelAndView mv = new ModelAndView();
+
         // 한전공공api :
         // http://openapi.kepco.co.kr/service/EvInfoServiceV2/getEvSearchList?serviceKey=bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D&pageNo=1&numOfRows=10&addr=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C
         // 한전 에너지센터 : https://bigdata.kepco.co.kr/openapi/v1/EVcharge.do
@@ -120,6 +122,7 @@ public class FmapController {
                 }
             }
         }
+
         mv.addObject("ar", ar);
         mv.addObject("len", ar.length);
         mv.setViewName("/fmap/fmap");

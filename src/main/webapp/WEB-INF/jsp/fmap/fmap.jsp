@@ -38,11 +38,12 @@
 }
 
 .custom-btn {
-    width: 50px;
+    width: 40px;
     height: 40px;
     padding: 10px 25px;
     border: 2px solid #000;
     font-family: 'Lato', sans-serif;
+    font-size: 15px;
     font-weight: 500;
     background: transparent;
     cursor: pointer;
@@ -126,17 +127,19 @@
                     <div class="col-2" style="padding-right: 0;">
                         <ul class="list-group">
                             <li class="list-group-item">내 주변 가까운 충전소</li>
-                        </ul>   
-                        <button class="custom-btn btn-3" onclick="changeRadius(1000)"><span>1km</span></button>
-                        <button class="custom-btn btn-3" onclick="changeRadius(2000)"><span>2km</span></button>
-                        <button class="custom-btn btn-3" onclick="changeRadius(3000)"><span>3km</span></button>
-                        <button class="custom-btn btn-3" onclick="changeRadius(4000)"><span>4km</span></button>
-                        <button class="custom-btn btn-3" onclick="changeRadius(5000)"><span>5km</span></button>
+                        </ul>
+                        <div class="container max-width">
+                            <button class="custom-btn btn-3" onclick="changeRadius(1000)"><span>1km</span></button>
+                            <button class="custom-btn btn-3" onclick="changeRadius(2000)"><span>2km</span></button>
+                            <button class="custom-btn btn-3" onclick="changeRadius(3000)"><span>3km</span></button>
+                            <button class="custom-btn btn-3" onclick="changeRadius(4000)"><span>4km</span></button>
+                            <button class="custom-btn btn-3" onclick="changeRadius(5000)"><span>5km</span></button>
+                        </div>   
                     </div>
                     <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
                          
                     </div>
-                    <div class="col-4" style="padding-left: 0;">    
+                    <div class="col-4" style="padding-left: 0; background-color: #81F7F3;">    
                         
                             <div style="background-color: #81F7F3;">
                                 <div class="box">
@@ -201,15 +204,13 @@
                 center: new kakao.maps.LatLng(37.483782, 126.9003409),
                 level: 7
             };
+            var radius = 5000;
+
             
             var map = new kakao.maps.Map(container, options);
             var geocoder = new kakao.maps.services.Geocoder();
             // 원(Circle)의 옵션으로 넣어준 반지름
-            var radius = 5000;
-            function changeRadius(newRadius) {
-                radius = newRadius;
-                console.log(radius);
-            }
+            
              // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
              if (navigator.geolocation) {
             
@@ -337,30 +338,31 @@
                                             str2 += city;
                                             $("#myposition").html(str2);
                                             
-
-
-                                        for(i=0; i<markers.length; i++){
-                                            //console.log(markers[i]);
-                                            var c1 = locPosition;
-                                            var c2 = markers[i].getPosition();
-                                            //console.log(c2);
-                                            var poly = new daum.maps.Polyline({
-                                                // map: map, 을 하지 않아도 거리는 구할 수 있다.
-                                                path: [c1, c2]
-                                            });
-                                            //console.log(poly);
-                                            var dist = poly.getLength(); // m 단위로 리턴
-                                            //console.log(dist);
-                                            console.log(dist);
-                                            if (dist < radius) {
-                                                markers[i].setMap(map);
-                                                overlays2.push(overlays[i]);
-                                                markers2.push(markers[i]);
-                                                //console.log('markers-' + i, markers[i]);
-                                            } else {
-                                                markers[i].setMap(null);
+                                            //범위지정되어 마커를 맵에 뿌림
+                                            for(i=0; i<markers.length; i++){
+                                                //console.log(markers[i]);
+                                                var c1 = locPosition;
+                                                var c2 = markers[i].getPosition();
+                                                //console.log(c2);
+                                                var poly = new daum.maps.Polyline({
+                                                    // map: map, 을 하지 않아도 거리는 구할 수 있다.
+                                                    path: [c1, c2]
+                                                });
+                                                //console.log(poly);
+                                                var dist = poly.getLength(); // m 단위로 리턴
+                                                //console.log(dist);
+                                               //console.log(dist);
+                                                if (dist < radius) {
+                                                    markers[i].setMap(map);
+                                                    overlays2.push(overlays[i]);
+                                                    markers2.push(markers[i]);
+                                                    //console.log('markers-' + i, markers[i]);
+                                                } else {
+                                                    markers[i].setMap(null);
+                                                }
                                             }
-                                        }
+
+                                            
                                         //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
                                         overlays2.sort(function(a, b) {
                                         var c1 = locPosition;
@@ -502,7 +504,16 @@
             // 커스텀 오버레이를 닫기 위해 호출되는 함수입니다 
             function removeOverlay(overlayid) {
                 $('.'+overlayid).css('display', 'none');
-            }    
+            }
+
+            // 지도 위에 표시되고 있는 마커를 모두 제거합니다
+            function removeMarker() {
+                for ( var i = 0; i < markers.length; i++ ) {
+                    markers[i].setMap(null);
+                }   
+                markers = [];
+            }
+
         </script>
 </body>
 </html>

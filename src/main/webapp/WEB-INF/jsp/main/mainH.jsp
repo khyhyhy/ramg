@@ -41,7 +41,7 @@
        <li>
         <a href="#" style="font-family: 'GoryeongStrawberry';" class="nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">충전 서비스</a>
         <ul class="dropdown-menu">
-         <li><a class="dropdown-item" href="#">서비스 소개</a></li>
+         <li><a class="dropdown-item" href="/infoma/">서비스 소개</a></li>
          <li><a class="dropdown-item" href="/taksong/">탁송 서비스</a></li>
          <li><a class="dropdown-item" href="/edongsik/">이동식 충전 서비스</a></li>
          <li><a class="dropdown-item" href="/support/review">리뷰</a></li>

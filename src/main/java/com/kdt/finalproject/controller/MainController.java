@@ -11,4 +11,10 @@ public class MainController {
 
         return "/main/test";
     }
+
+    @RequestMapping("/infoma/")
+    public String intro() {
+
+        return "/main/infoma";
+    }
 }
