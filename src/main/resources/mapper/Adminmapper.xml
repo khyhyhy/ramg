@@ -708,4 +708,11 @@ UPDATE charging.service_use
 SET su_status = #{su_status}
 WHERE su_idx = #{su_idx}
 </update>
+
+<!-- 리뷰 공개 비공개 변경 -->
+<update id="review_change" parameterType="Map">
+UPDATE charging.bbs_t
+SET b_val1 = #{b_val1}
+WHERE b_idx = #{b_idx}
+</update>
 </mapper>

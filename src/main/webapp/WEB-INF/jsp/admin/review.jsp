@@ -81,11 +81,18 @@ pageEncoding="UTF-8"%>
                                   <button class="accordion-button collapsed" style="overflow: hidden;
                                   text-overflow: ellipsis;
                                   white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
-                                    ${vo.b_content}
+                                    <c:if test="${vo.b_val1 == 1}">
+                                        <img src="../images/lock.png" style="width: 15px;">&nbsp;
+                                    </c:if>
+                                  ${vo.b_content}
                                   </button>
                                 </h2>
                                 <div id="flush-collapse${vo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${vo.b_idx}" data-bs-parent="#accordionFlushExample">
-                                  <div class="accordion-body"><br>${vo.b_content}</div>
+                                    <div class="accordion-body"><br>${vo.b_content}</div>
+                                    <button id="btn" class="btn btn-outline-warning" onclick="change('${vo.b_idx}','${vo.b_val1}')">
+                                        <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
+                                        <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
+                                    </button>
                                 </div>
                               </div>
                         </td>
@@ -116,11 +123,40 @@ pageEncoding="UTF-8"%>
             </tbody>
         </table>
         
+        <form name="frm">
+            
+        </form>
+
         <div style="height: 80px;" >
             ${pageCode}
         </div>
-
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+<script>
+    function change(b_idx, b_val1){
+
+        let msg = "";
+
+        if(b_val1 == '0'){
+            b_val1 = '1';
+            msg = "해당 글을 비공개로 변경하시겠습니까?";
+        }else{
+            b_val1 = '0';
+            msg = "해당 글을 공개로 변경하시겠습니까?";
+        }
+
+        $.ajax({
+            url: "/admin/review_change",
+            type: "post",
+            data: {"b_idx":b_idx, "b_val1":b_val1},
+            dataType:"json"
+        }).done(function(data){
+            if(data.res == 1){
+                location.reload();
+            }
+        });
+    }
+</script>
 </body>
 </html>

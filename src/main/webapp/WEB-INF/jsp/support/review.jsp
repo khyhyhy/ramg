@@ -76,11 +76,11 @@ pageEncoding="UTF-8"%>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
-                                  <button class="accordion-button collapsed" style="overflow: hidden;
-                                  text-overflow: ellipsis;
-                                  white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
-                                    ${vo.b_content}
-                                  </button>
+                                    <button class="accordion-button collapsed" style="overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
+                                        ${vo.b_content}
+                                    </button>
                                 </h2>
                                 <div id="flush-collapse${vo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${vo.b_idx}" data-bs-parent="#accordionFlushExample">
                                   <div class="accordion-body"><br>${vo.b_content}</div>
