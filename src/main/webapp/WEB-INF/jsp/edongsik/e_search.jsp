@@ -36,8 +36,9 @@
    </div>
 
    <p id="result"></p>
-   <form action="/e_search/select/">
+   <form action="/select/">
     <button type="submit">다음 화면</button>
+    
     <input type="hidden" id="lat1" name="nowlat" />
     <input type="hidden" id="lng1" name="nowlng" />
     <input type="hidden" id="state" name="nowstate" />

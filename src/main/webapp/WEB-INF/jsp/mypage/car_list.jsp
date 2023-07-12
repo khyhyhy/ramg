@@ -6,6 +6,7 @@
 
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>차량 관리</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <style>
@@ -15,12 +16,26 @@
             border: 1px solid black;
             border-collapse: collapse;
             text-align: center;
+            /* background-color: aqua; */
         }
         table th, table td{
-            border: 1px solid black;
+           /* border: 1px solid black; */
+            font-family: 'GoryeongStrawberry';
         }
+
+        
         h2{
             text-align: center;
+            font-family: 'GoryeongStrawberry';
+        }
+
+        .container{
+            margin-top: 2cm;
+            margin-bottom: 2cm;
+        }
+
+        article{
+            margin-bottom: 1cm;
         }
         
    </style>
@@ -30,52 +45,66 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
    
-
-   <h2> 차량목록</h2>
-   <table id="car_list">
-    <colgroup>
-        <col width="150px"/>
-        <col width="150px"/>
-        <col width="100px"/>
-        <col width="150px"/>
-        <col width="150px"/>
-        <col width="150px"/>
-        <col width="150px"/>
-        <col width="150px"/>
-        <col width="*"/>
-    </colgroup>
-    <thead>
-        <tr><td colspan="9"><a href="/addCar">차량 추가</a></td></tr>
-        <tr>
-            <th>차량번호</th>
-            <th>모델명</th>
-            <th>유형</th>
-            <th>충전방식</th>
-            <th>광역자치단체</th>
-            <th>기초자치단체</th>
-            <th>행정구역</th>
-            <th>수정</th>
-            <th>삭제</th>
-            
-        </tr>
-    </thead>
-    <tbody>
-        <c:forEach var="cwvo" items="${car}">
-            <tr onmouseover="regRowNum(this)">
-                <td>${cwvo.cvo.c_num}</td>
-                <td>${cwvo.cvo.c_name}</td>
-                <td>${cwvo.cvo.c_type}</td>
-                <td>${cwvo.cvo.c_chargetype}</td>
-                <td>${cwvo.cvo.c_state}</td>
-                <td>${cwvo.cvo.c_city}</td>
-                <td>${cwvo.cvo.c_addr1}</td>
-                <td><a href="/updateCar?c_idx=${cwvo.cvo.c_idx}">수정</a></td>
-                <td><a href="javascript:sub('${cwvo.cvo.c_idx}','${cwvo.m_idx}')" id="sub">삭제</a></td>
+  <div class="align-items-center">
+    <header>
+        <h2> 차량목록</h2>
+    </header>
+   <div class="container-sm">
+    <table id="car_list" class="table table-striped table-hover">
+        <colgroup>
+            <col width="90px"/>
+            <col width="150px"/>
+            <col width="120px"/>
+            <col width="150px"/>
+            <col width="150px"/>
+            <col width="100px"/>
+            <col width="150px"/>
+            <col width="150px"/>
+            <col width="150px"/>
+            <col width="70px"/>
+            <col width="70px"/>
+        </colgroup>
+        <thead>
+            <tr>
+                <td colspan="11">
+                    <button type="button" class="btn btn-danger" onclick="javascript:location.href='/addCar'">차량 추가</button>
+                </td>
             </tr>
-        </c:forEach>
-    </tbody>
-   </table>
-
+            <tr>
+                <th>차량번호</th>
+                <th>모델명</th>
+                <th>광역자치단체</th>
+                <th>기초자치단체</th>
+                <th>행정구역</th>
+                <th>배터리 용량</th>
+                <th>차종 제조사</th>
+                <th>완속 충전잭 타입</th>
+                <th>급속 충전잭 타입</th>
+                <th>수정</th>
+                <th>삭제</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <c:forEach var="cwvo" items="${car}">
+                <tr onmouseover="regRowNum(this)">
+                    <td>${cwvo.cvo.c_num}</td>
+                    <td>${cwvo.cvo.c_name}</td>
+                    <td>${cwvo.cvo.c_state}</td>
+                    <td>${cwvo.cvo.c_city}</td>
+                    <td>${cwvo.cvo.c_addr1}</td>
+                    <td>${cwvo.cvo.c_val3}</td>
+                    <td>${cwvo.cvo.c_type}</td>
+                    <td>${cwvo.cvo.c_chargetype_ac}</td>
+                    <td>${cwvo.cvo.c_chargetype_dc}</td>
+                    <td><button type="button" class="btn btn-danger" onclick="javascript:location.href='/updateCar?c_idx=${cwvo.cvo.c_idx}'">수정</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="javascript:sub('${cwvo.cvo.c_idx}','${cwvo.m_idx}')">삭제</button></td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    </div>
+   </div>
    <jsp:include page="../main/mainF.jsp"></jsp:include>
     
 

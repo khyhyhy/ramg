@@ -32,13 +32,36 @@
       <button type="button" onclick="location.href=''" class="btn btn-outline-info" style="border-width: 2px; margin-right: 50px;">현재상황</button>
       <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
      </div>
+     <!-- 이용중인 서비스가 없을때 -->
+     <c:set var="list" value="${suar}" /> 
+    <c:set var="count" value="0" />
+    <c:forEach items="${list}" var="item">
+        <c:set var="count" value="${count + 1}" />
+    </c:forEach>
 
-     
-    <c:forEach items="${suar}" var="suar">
+
+
+    <c:set var="list2" value="${suar}" /> <!-- yourList는 넘어온 리스트 변수 -->
+    <c:set var="count2" value="0" />
+    <c:forEach items="${list2}" var="item2">
+        <c:if test="${item2.su_status == 7}">
+            <c:set var="count2" value="${count2 + 1}" />
+        </c:if>
+    </c:forEach>
     
+    <c:if test="${count == count2}">
+        <div style="margin-top: 50px;">
+            <p style="text-align: center;">이용중인 서비스가 없습니다.</p>
+        </div>
+    </c:if>
+    <!-- 이용중인 서비스가 없을때 --> 
+
+
+    <c:forEach items="${suar}" var="suar">
+     
      <!-- 이동식 사진-->
          <c:if test="${suar.svo.s_type == 1}">
-             <c:if test="${suar.su_status ne 5}">
+             <c:if test="${suar.su_status ne 7}">
                 <div class="text-center">
 
                 <div class="row" style="margin-top: 60px;">
@@ -114,7 +137,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suar.su_status == 5}">
+                    <c:when test="${suar.su_status == 7}">
                         <div class="col">
                             <img src="/images/su_status55.png" />
                             <label style="display: flex; justify-content: center;">충전완료</label>
@@ -134,7 +157,7 @@
 
         <!-- 이동식 정보-->
         <c:if test="${suar.svo.s_type == 1}">
-        <c:if test="${suar.su_status ne 5}">
+        <c:if test="${suar.su_status ne 7}">
 
             <div class="row" style="margin-top: 100px; margin-bottom: 100px;">
                  <table summary="게시판 목록" class="table table-hover">
@@ -194,7 +217,7 @@
                                 <c:when test="${suar.su_status == 4}">
                                     <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
                                 </c:when>
-                                <c:when test="${suar.su_status == 5}">
+                                <c:when test="${suar.su_status == 7}">
                                     <td style="text-align: center; vertical-align: middle;">충전완료</td>
                                     <td style="text-align: center; vertical-align: middle;">
                                         <button type="button">후기 작성</button>

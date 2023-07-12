@@ -95,14 +95,16 @@
 		    WHERE m_idx = #{m_idx} AND cw_type = 0) and s_idx = #{s_idx}
   </select>
 
-
+  <select id="getModelList" resultType="com.kdt.finalproject.vo.ModelVO">
+      SELECT * FROM charging.model_t
+  </select>
 
 
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_num, c_name, c_type, c_chargetype, c_state, c_city, c_addr1) 
-      values (#{c_num}, #{c_name}, #{c_type}, #{c_chargetype}, #{c_state}, #{c_city}, #{c_addr1}) 
+      insert into car_t (c_num, c_name, c_state, c_city, c_addr1, c_val3, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx) 
+      values (#{c_num}, #{c_name}, #{c_state}, #{c_city}, #{c_addr1}, #{c_val3}, #{c_type}, #{c_chargetype_ac}, #{c_chargetype_dc}, #{mo_idx}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
@@ -115,11 +117,14 @@
       UPDATE car_t
       SET c_num = #{c_num}, 
         c_name = #{c_name}, 
-        c_type = #{c_type}, 
-        c_chargetype = #{c_chargetype}, 
         c_state = #{c_state}, 
         c_city = #{c_city}, 
-        c_addr1 = #{c_addr1}
+        c_addr1 = #{c_addr1},
+        c_val3 = #{c_val3},
+        c_type = #{c_type},
+        c_chargetype_ac = #{c_chargetype_ac},
+        c_chargetype_dc = #{c_chargetype_dc},
+        mo_idx = #{mo_idx}
       WHERE c_idx = #{c_idx}
     </update>
 

@@ -20,7 +20,7 @@
    </style>
   </head>
 
-  <body>
+  <body onload="onbody()">
    <!--////////// Header Start ////////////-->
    <jsp:include page="../main/mainH.jsp"></jsp:include>
    <!--////////// Header end ////////////-->
@@ -37,7 +37,7 @@
        <div class="accordion accordion-flush" id="accordionFlushExample">
         <div class="accordion-item">
          <h2 class="accordion-header" id="flush-headingOne">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+          <button id="onbody" class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"
            onclick="map1init()">
            현재위치 검색
@@ -47,7 +47,7 @@
           data-bs-parent="#accordionFlushExample">
           <div class="accordion-body">
            <div class="input-group input-group-sm mb-3">
-            <input class="form-control" type="text" id="t_addr" name="t_addr" placeholder="ex)  세종대로 110 " />
+            <input class="form-control" type="text" id="t_addr" name="t_addr" placeholder="ex)  세종대로 110 " readonly />
             <button class="btn btn-outline-secondary" type="button" onclick="tsearch()">주소 검색</button>
             <div id="map1" style="width:100%;height:350px;"></div>
            </div>
@@ -58,23 +58,25 @@
        <!-- 지도영역 -->
        <!-- 정보영역 -->
        <br />
-       <form method="post" action="/mypage/serviceadd/insert" novalidate>
+       <form method="post" action="/mypage/serviceadd/update" novalidate>
         <input type="hidden" value="${sessionScope.mvo.m_idx}" name="m_idx">
         <div class="input-group input-group-sm mb-3">
-         <input class="form-control" type="text" id="t_state" name="s_state" readonly>
-         <input class="form-control" type="text" id="t_city" name="s_city" readonly>
-         <input type="hidden" id="t_lat" name="lat">
-         <input type="hidden" id="t_lng" name="lng">
+         <input class="form-control" type="text" id="t_state" name="s_state" readonly value="${swvo.svo.s_state}">
+         <input class="form-control" type="text" id="t_city" name="s_city" readonly value="${swvo.svo.s_city}">
+         <input type="hidden" id="t_lat" name="lat" value="${swvo.svo.s_mapy}">
+         <input type="hidden" id="t_lng" name="lng" value="${swvo.svo.s_mapx}">
         </div>
         <br />
         <div class="input-group mb-3">
          <span class="input-group-text" id="t_radius">서비스 가능 범위</span>
-         <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m"
-          value="${swvo.svo.s_radius}">
+         <input type="text" id="t_radius2" name="s_radius" class="form-control" placeholder="m단위 ex)1000m"
+          value="${swvo.svo.s_radius}" readonly>
         </div>
         <div class="input-group mb-3">
          <span class="input-group-text" id="t_price">서비스 비용 설정</span>
-         <select class="form-select form-select-sm" id="t_price" name="s_val1" disabled>
+         <select class="form-select form-select-sm" id="t_price2" name="s_val1" disabled>
+          <option selected value="${swvo.svo.s_val1}">
+           ${swvo.svo.s_val1}원</option>
           <option value="7000">7.000원</option>
           <option value="6000">6.000원</option>
           <option value="5000">5.000원</option>
@@ -83,7 +85,15 @@
           <option value="2000">2.000원</option>
          </select>
         </div>
-
+        <input type="hidden" name="sw_idx" value="${swvo.sw_idx}">
+        <input type="hidden" name="s_idx" value="${swvo.svo.s_idx}">
+        <div>
+         <button type="button" id="sujung1" class="btn btn-primary" onclick="sujung()">수정하기</button>
+         <button type="submit" id="sujung2" style="display: none;" class="btn btn-primary">수정완료</button>
+         <button type="button" id="cancel1" class="btn btn-secondary">뒤로가기</button>
+         <button type="button" id="cancel2" style="display: none;" class="btn btn-secondary"
+          onclick="sujungcan()">취소</button>
+        </div>
         <!-- 정보영역끝 -->
        </form>
       </div>
@@ -96,13 +106,13 @@
      <c:if test="${swvo.svo.s_type eq 1}">
       <div>
        <!-- 정보영역 -->
-       <form method="post" action="/mypage/serviceadd/insert" novalidate>
+       <form method="post" action="/mypage/serviceadd/update" novalidate>
         <input type="hidden" value="${sessionScope.mvo.m_idx}" name="m_idx">
         <div class="input-group input-group-sm mb-3">
          <div class="input-group mb-3">
           <span class="input-group-text">서비스 차량</span>
           <select class="form-select form-select-sm" id="e_car" name="c_idx" onselect="exe()" onchange="exe()" disabled>
-           <option selected value="carvo.c_idx" data-addr="${carvo.c_state} ${carvo.c_city} ${carvo.c_addr1}">
+           <option selected value="${carvo.c_idx}" data-addr="${carvo.c_state} ${carvo.c_city} ${carvo.c_addr1}">
             ${carvo.c_name}</option>
            <c:forEach items="${cwar}" var="vo">
             <option value=" ${vo.cvo.c_idx}" data-addr="${vo.cvo.c_state} ${vo.cvo.c_city} ${vo.cvo.c_addr1}">
@@ -145,6 +155,15 @@
           <input type="hidden" id="e_lng" name="lng">
          </div>
         </div>
+        <input type="hidden" name="sw_idx" value="${swvo.sw_idx}">
+        <input type="hidden" name="s_idx" value="${swvo.svo.s_idx}">
+        <div>
+         <button type="button" id="esujung1" class="btn btn-primary" onclick="esujung()">수정하기</button>
+         <button type="submit" id="esujung2" style="display: none;" class="btn btn-primary">수정완료</button>
+         <button type="button" id="ecancel1" class="btn btn-secondary">뒤로가기</button>
+         <button type="button" id="ecancel2" style="display: none;" class="btn btn-secondary"
+          onclick="esujungcan()">취소</button>
+        </div>
        </form>
       </div>
      </c:if>
@@ -165,6 +184,44 @@
     let geocoder;
     let geocoder2;
 
+    function esujung() {
+     document.getElementById("esujung2").style.display = "inline";
+     document.getElementById("esujung1").style.display = "none";
+     document.getElementById("ecancel2").style.display = "inline";
+     document.getElementById("ecancel1").style.display = "none";
+     $("#e_radius").attr('readonly', false);
+     $("#e_addr").attr('readonly', false);
+     $("#e_price").removeAttr('disabled');
+     $("#e_car").removeAttr('disabled');
+    }
+    function esujungcan() {
+     location.reload();
+    }
+
+
+
+
+    function sujung() {
+     document.getElementById("sujung2").style.display = "inline";
+     document.getElementById("sujung1").style.display = "none";
+     document.getElementById("cancel2").style.display = "inline";
+     document.getElementById("cancel1").style.display = "none";
+     $("#t_radius2").attr('readonly', false);
+     $("#t_addr").attr('readonly', false);
+     $("#t_price2").removeAttr('disabled');
+     map1.setDraggable(true);
+     map1.setZoomable(true);
+    }
+    function sujungcan() {
+     location.reload();
+    }
+
+    function onbody() {
+     document.getElementById("onbody").click();
+     map1.setDraggable(false);
+     map1.setZoomable(false);
+    }
+
     function exe() {
      let addr = $("#e_car").find("option:selected").data('addr');
      console.log("addr:" + addr);
@@ -177,13 +234,13 @@
     function map1init() {
      var mapContainer = document.getElementById('map1'), // 지도를 표시할 div 
       mapOption = {
-       center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
+       center: new kakao.maps.LatLng("${ swvo.svo.s_mapy }", " ${ swvo.svo.s_mapx }"), // 지도의 중심좌표
        level: 3 // 지도의 확대 레벨
       };
 
      map1 = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
      geocoder = new kakao.maps.services.Geocoder();
-     var markerPosition = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
+     var markerPosition = new kakao.maps.LatLng("${ swvo.svo.s_mapy }", "${ swvo.svo.s_mapx }");
 
      // 마커를 생성합니다
      var marker = new kakao.maps.Marker({
@@ -338,13 +395,13 @@
     function map2init() {
      var mapContainer2 = document.getElementById('map2'), // 지도를 표시할 div 
       mapOption2 = {
-       center: new kakao.maps.LatLng(37.48489405082669, 126.90278513630275), // 지도의 중심좌표
+       center: new kakao.maps.LatLng("${ swvo.svo.s_mapy }", "${ swvo.svo.s_mapx }"), // 지도의 중심좌표
        level: 3 // 지도의 확대 레벨
       };
 
      map2 = new kakao.maps.Map(mapContainer2, mapOption2); // 지도를 생성합니다
      geocoder2 = new kakao.maps.services.Geocoder();
-     var markerPosition2 = new kakao.maps.LatLng(37.48489405082669, 126.90278513630275);
+     var markerPosition2 = new kakao.maps.LatLng("${ swvo.svo.s_mapy }", "${ swvo.svo.s_mapx }");
      map2.setDraggable(false);
      map2.setZoomable(false);
      // 마커를 생성합니다

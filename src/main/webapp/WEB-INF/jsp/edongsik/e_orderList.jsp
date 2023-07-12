@@ -134,7 +134,7 @@
                                 <c:when test="${suar.su_status == 4}">
                                     <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
                                 </c:when>
-                                <c:when test="${suar.su_status == 5}">
+                                <c:when test="${suar.su_status == 7}">
                                     <td style="text-align: center; vertical-align: middle;">충전완료</td>
                                         <c:if test="${suar.bvo.b_content == null}">
                                             <td style="text-align: center; vertical-align: middle;">

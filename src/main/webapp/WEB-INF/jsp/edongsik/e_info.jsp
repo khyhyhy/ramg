@@ -7,6 +7,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <link href="../../css/edongsik.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
@@ -28,10 +29,9 @@
     <main>
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
-     <div style="display: flex; justify-content: center; margin-top: 50px;">
-      <button type="button" onclick="location.href='??'">충전하기</button>
-      <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-      <button type="button" onclick="location.href='/e_orderList/'">이용내역</button>
+     <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 50px;">
+      <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info" style="margin-right: 50px; border-width: 2px;">현재상황</button>
+      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
      </div>
 
 
@@ -40,7 +40,7 @@
      <div class="text-center">
       <div class="row">
        <div class="col">
-        상단영역
+        
        </div>
       </div>
       <form action="/taksong/serviceok" method="post">
