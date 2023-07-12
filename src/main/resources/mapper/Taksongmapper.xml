@@ -53,9 +53,9 @@ SELECT * FROM charging.service_write WHERE sw_idx = #{sw_idx}
 SELECT * FROM charging.member_t WHERE m_idx = #{param}
 </select>
 
-<!-- <select id="svo" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+<select id="svo" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
 SELECT * FROM charging.service_t WHERE s_idx = #{param}
-</select> -->
+</select>
 
 <select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
 SELECT * FROM charging.car_t WHERE c_idx = #{param}
@@ -118,7 +118,7 @@ WHERE s_idx = #{s_idx}
 </update>
 
 <!--영석-->
-<resultMap id="rm4" type="com.kdt.finalproject.vo.ServiceVO">
+<!-- <resultMap id="rm4" type="com.kdt.finalproject.vo.ServiceVO">
   <result column="s_idx" property="s_idx"/>
   <association property="suvo" column="s_idx" javaType="com.kdt.finalproject.vo.SuseVO" select="suvo"></association>
 </resultMap>
@@ -129,5 +129,15 @@ WHERE s_idx = #{s_idx}
 
 <select id="svo" parameterType="String" resultMap="rm4">
   SELECT * FROM charging.service_t WHERE s_idx = #{param}
+</select> -->
+
+<select id="getSuse" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="String">
+    SELECT * FROM charging.service_use 
+    WHERE s_idx IN(SELECT s_idx FROM charging.service_t
+    WHERE s_idx IN (
+      SELECT s_idx
+      FROM charging.service_write
+      WHERE m_idx = #{param} AND sw_val4 = 0
+    ));
 </select>
 </mapper>

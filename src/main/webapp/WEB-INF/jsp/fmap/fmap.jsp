@@ -385,11 +385,15 @@
                                                 displayList();
                                             }
 
+                                            function clearPath() {
+                                                polyline.setMap(null);
+                                            }
                                             $('.custom-btn').click(function() {
                                                 var buttonText = $(this).text(); // 버튼의 텍스트 가져오기
                                                 var radius = parseInt(buttonText.replace(/[^0-9]/g, '')); // 버튼 텍스트에서 숫자 부분 추출하여 반경 범위로 설정
                                                 clearList(); // 목록 초기화
                                                 // 버튼 텍스트에 따라서 처리 로직 작성
+                                                
                                                 for (var i = 0; i < markers.length; i++) {
                                                     var c1 = locPosition;
                                                     var c2 = markers[i].getPosition();
@@ -410,6 +414,7 @@
                                                   }
                                                 }
                                                 displayList();
+                                                clearPath();
                                               });
                                             
                                         
