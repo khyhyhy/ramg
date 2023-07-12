@@ -115,17 +115,47 @@ public class ServiceController {
  }
 
  @PostMapping("/mypage/serviceadd/update")
- public ModelAndView serviceupdatesucc(String m_idx, String lat, String lng, String s_radius, String s_val1,
-   String c_idx, String s_city, String s_state) {
+ public ModelAndView serviceupdatesucc(String m_idx, String s_idx, String sw_idx, String lat, String lng,
+   String s_radius, String s_val1, String c_idx, String s_city, String s_state) {
   ModelAndView mv = new ModelAndView();
-  System.out.println(m_idx);
-  System.out.println(lat);
-  System.out.println(lng);
-  System.out.println(s_radius);
-  System.out.println(s_val1);
-  System.out.println(s_city);
-  System.out.println(s_state);
-  System.out.println(c_idx);
+  if (c_idx == null) {
+   ServiceVO svo = new ServiceVO();
+   svo.setS_idx(s_idx);
+   svo.setS_type("0");
+   svo.setS_radius(s_radius);
+   svo.setS_status("0");
+   svo.setS_mapx(lng);
+   svo.setS_mapy(lat);
+   svo.setS_state(s_state);
+   svo.setS_city(s_city);
+   svo.setS_val1(s_val1);
+   SwriteVO swvo = new SwriteVO();
+   swvo = service.seSwriteVO(sw_idx);
+   System.out.println("sw_idx1::" + sw_idx);
+   int cnt = service.serviceupdate(svo, swvo, sw_idx);
+   if (cnt == 1) {
+    System.out.println("갱신완료");
+   }
+  } else {
+   ServiceVO svo = new ServiceVO();
+   svo.setS_idx(s_idx);
+   svo.setS_type("1");
+   svo.setS_radius(s_radius);
+   svo.setS_status("0");
+   svo.setS_mapx(lng);
+   svo.setS_mapy(lat);
+   svo.setS_state(s_state);
+   svo.setS_city(s_city);
+   svo.setS_val1(s_val1);
+   SwriteVO swvo = new SwriteVO();
+   swvo = service.seSwriteVO(sw_idx);
+   swvo.setC_idx(c_idx);
+   System.out.println("sw_idx1::" + sw_idx);
+   int cnt = service.serviceupdate(svo, swvo, sw_idx);
+   if (cnt == 1) {
+    System.out.println("갱신완료");
+   }
+  }
 
   mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;

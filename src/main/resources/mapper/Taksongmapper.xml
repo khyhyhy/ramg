@@ -41,7 +41,7 @@ SELECT * FROM charging.service_write WHERE s_idx = #{param}
 </select>
 
 <select id="selectSWVOar" parameterType="String" resultMap="rm1">
-SELECT * FROM charging.service_write WHERE m_idx = #{param}
+SELECT * FROM charging.service_write WHERE m_idx = #{param} AND sw_val4 = 0
 </select>
 
 <select id="seSwriteVO" parameterType="String" resultMap="rm1">
@@ -89,8 +89,33 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param}
  		VALUES(#{m_idx},#{s_idx},#{c_idx},now(),0,0,0)
 </insert>
 
+<insert id="swritevoup" parameterType="com.kdt.finalproject.vo.SwriteVO">
+ INSERT INTO charging.service_write(m_idx,s_idx,c_idx,sw_date,sw_status,sw_type,sw_val4) 
+ 		VALUES(#{m_idx},#{s_idx},#{c_idx},now(),0,1,0)
+</insert>
+
 
 <!-- update -->
+<update id="swriteupdate" parameterType="String">
+UPDATE charging.service_write
+SET sw_val4 = 1
+WHERE sw_idx = #{sw_idx}
+</update>
+
+
+<update id="serviceupdate" parameterType="com.kdt.finalproject.vo.ServiceVO">
+UPDATE charging.service_t
+<trim prefix="SET" suffixOverrides=",">
+    s_radius = #{s_radius},
+    s_status = #{s_status},	
+    s_mapx = #{s_mapx},	
+    s_mapy = #{s_mapy},	
+    s_state = #{s_state},	
+    s_city = #{s_city},	
+    s_val1 = #{s_val1},
+  </trim>
+WHERE s_idx = #{s_idx}
+</update>
 
 <!--영석-->
 <resultMap id="rm4" type="com.kdt.finalproject.vo.ServiceVO">

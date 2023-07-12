@@ -63,8 +63,8 @@
         <div class="input-group input-group-sm mb-3">
          <input class="form-control" type="text" id="t_state" name="s_state" readonly value="${swvo.svo.s_state}">
          <input class="form-control" type="text" id="t_city" name="s_city" readonly value="${swvo.svo.s_city}">
-         <input type="hidden" id="t_lat" name="lat">
-         <input type="hidden" id="t_lng" name="lng">
+         <input type="hidden" id="t_lat" name="lat" value="${swvo.svo.s_mapy}">
+         <input type="hidden" id="t_lng" name="lng" value="${swvo.svo.s_mapx}">
         </div>
         <br />
         <div class="input-group mb-3">
@@ -75,6 +75,8 @@
         <div class="input-group mb-3">
          <span class="input-group-text" id="t_price">서비스 비용 설정</span>
          <select class="form-select form-select-sm" id="t_price2" name="s_val1" disabled>
+          <option selected value="${swvo.svo.s_val1}">
+           ${swvo.svo.s_val1}원</option>
           <option value="7000">7.000원</option>
           <option value="6000">6.000원</option>
           <option value="5000">5.000원</option>
@@ -83,6 +85,8 @@
           <option value="2000">2.000원</option>
          </select>
         </div>
+        <input type="hidden" name="sw_idx" value="${swvo.sw_idx}">
+        <input type="hidden" name="s_idx" value="${swvo.svo.s_idx}">
         <div>
          <button type="button" id="sujung1" class="btn btn-primary" onclick="sujung()">수정하기</button>
          <button type="submit" id="sujung2" style="display: none;" class="btn btn-primary">수정완료</button>
@@ -102,13 +106,13 @@
      <c:if test="${swvo.svo.s_type eq 1}">
       <div>
        <!-- 정보영역 -->
-       <form method="post" action="/mypage/serviceadd/insert" novalidate>
+       <form method="post" action="/mypage/serviceadd/update" novalidate>
         <input type="hidden" value="${sessionScope.mvo.m_idx}" name="m_idx">
         <div class="input-group input-group-sm mb-3">
          <div class="input-group mb-3">
           <span class="input-group-text">서비스 차량</span>
           <select class="form-select form-select-sm" id="e_car" name="c_idx" onselect="exe()" onchange="exe()" disabled>
-           <option selected value="carvo.c_idx" data-addr="${carvo.c_state} ${carvo.c_city} ${carvo.c_addr1}">
+           <option selected value="${carvo.c_idx}" data-addr="${carvo.c_state} ${carvo.c_city} ${carvo.c_addr1}">
             ${carvo.c_name}</option>
            <c:forEach items="${cwar}" var="vo">
             <option value=" ${vo.cvo.c_idx}" data-addr="${vo.cvo.c_state} ${vo.cvo.c_city} ${vo.cvo.c_addr1}">
@@ -151,6 +155,15 @@
           <input type="hidden" id="e_lng" name="lng">
          </div>
         </div>
+        <input type="hidden" name="sw_idx" value="${swvo.sw_idx}">
+        <input type="hidden" name="s_idx" value="${swvo.svo.s_idx}">
+        <div>
+         <button type="button" id="esujung1" class="btn btn-primary" onclick="esujung()">수정하기</button>
+         <button type="submit" id="esujung2" style="display: none;" class="btn btn-primary">수정완료</button>
+         <button type="button" id="ecancel1" class="btn btn-secondary">뒤로가기</button>
+         <button type="button" id="ecancel2" style="display: none;" class="btn btn-secondary"
+          onclick="esujungcan()">취소</button>
+        </div>
        </form>
       </div>
      </c:if>
@@ -170,6 +183,23 @@
     let map1;
     let geocoder;
     let geocoder2;
+
+    function esujung() {
+     document.getElementById("esujung2").style.display = "inline";
+     document.getElementById("esujung1").style.display = "none";
+     document.getElementById("ecancel2").style.display = "inline";
+     document.getElementById("ecancel1").style.display = "none";
+     $("#e_radius").attr('readonly', false);
+     $("#e_addr").attr('readonly', false);
+     $("#e_price").removeAttr('disabled');
+     $("#e_car").removeAttr('disabled');
+    }
+    function esujungcan() {
+     location.reload();
+    }
+
+
+
 
     function sujung() {
      document.getElementById("sujung2").style.display = "inline";

@@ -119,4 +119,21 @@ public class TaksongService {
 
   return cnt;
  }
+
+ public int serviceupdate(ServiceVO svo, SwriteVO SwriteVO, String sw_idx) {
+  int cnt = 0;
+  cnt = mapper.serviceupdate(svo);
+  if (cnt == 1) {
+   mapper.swritevoup(SwriteVO);
+   swriteupdate(sw_idx);
+  }
+  return cnt;
+ }
+
+ public int swriteupdate(String sw_idx) {
+  int cnt = 0;
+  System.out.println("sw_idx3:" + sw_idx);
+  cnt = mapper.swriteupdate(sw_idx);
+  return cnt;
+ }
 }
