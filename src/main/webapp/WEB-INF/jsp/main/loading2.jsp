@@ -75,7 +75,7 @@
                                 // 강제 전송 코드
                                 var form = document.createElement('form');
                                 form.setAttribute('method', 'post');
-                                form.setAttribute('action', '/fmap/');
+                                form.setAttribute('action', '/main2/');
                                 form.style.display = 'none';
 
                                 var cityInput = document.createElement('input');
