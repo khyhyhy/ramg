@@ -75,7 +75,7 @@
             <td><select id="c_val3" name="c_val3">
               <option disabled selected value="">배터리용량 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_bet}">${model.mo_name}/${model.mo_bet}</option>
+                <option value="${model.mo_bet}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_bet}</option>
               </c:forEach>
             </select></td>
         </tr>
@@ -84,7 +84,7 @@
             <td><select id="c_type" name="c_type">
               <option disabled selected value="">차종 제조사 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_type}">${model.mo_name}/${model.mo_type}</option>
+                <option value="${model.mo_type}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_type}</option>
               </c:forEach>
             </select></td>
         </tr>
@@ -93,7 +93,7 @@
             <td><select id="c_chargetype_ac" name="c_chargetype_ac">
               <option disabled selected value="">완속 충전잭 타입 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_chargetype_ac}">${model.mo_name}/${model.mo_chargetype_ac}</option>
+                <option value="${model.mo_chargetype_ac}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_chargetype_ac}</option>
               </c:forEach>
             </select></td>
         </tr>
@@ -102,7 +102,7 @@
             <td><select id="c_chargetype_dc" name="c_chargetype_dc">
               <option disabled selected value="">급속 충전잭 타입 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_chargetype_dc}">${model.mo_name}/${model.mo_chargetype_dc}</option>
+                <option value="${model.mo_chargetype_dc}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_chargetype_dc}</option>
               </c:forEach>
             </select></td>
         </tr>
