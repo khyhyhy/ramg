@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -61,8 +62,8 @@ public class ServiceController {
    svo.setS_type("1");
    svo.setS_radius(s_radius);
    svo.setS_status("0");
-   svo.setS_mapx(lat);
-   svo.setS_mapy(lng);
+   svo.setS_mapx(lng);
+   svo.setS_mapy(lat);
    svo.setS_state(s_state);
    svo.setS_city(s_city);
    svo.setS_val1(s_val1);
@@ -83,8 +84,8 @@ public class ServiceController {
    svo.setS_type("0");
    svo.setS_radius(s_radius);
    svo.setS_status("0");
-   svo.setS_mapx(lat);
-   svo.setS_mapy(lng);
+   svo.setS_mapx(lng);
+   svo.setS_mapy(lat);
    svo.setS_state(s_state);
    svo.setS_city(s_city);
    svo.setS_val1(s_val1);
@@ -110,6 +111,23 @@ public class ServiceController {
   }
   mv.addObject("swvo", swvo);
   mv.setViewName("service/serviceinfoupdate");
+  return mv;
+ }
+
+ @PostMapping("/mypage/serviceadd/update")
+ public ModelAndView serviceupdatesucc(String m_idx, String lat, String lng, String s_radius, String s_val1,
+   String c_idx, String s_city, String s_state) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println(m_idx);
+  System.out.println(lat);
+  System.out.println(lng);
+  System.out.println(s_radius);
+  System.out.println(s_val1);
+  System.out.println(s_city);
+  System.out.println(s_state);
+  System.out.println(c_idx);
+
+  mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;
  }
 
