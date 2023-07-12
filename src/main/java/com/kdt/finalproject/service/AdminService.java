@@ -242,4 +242,15 @@ public class AdminService {
     public int review_change(String b_idx, String b_val1) {
         return mapper.review_change(b_idx, b_val1);
     }
+
+    public BbsVO[] member_review(String m_idx) {
+        BbsVO[] ar = null;
+
+        List<BbsVO> list = mapper.member_review(m_idx);
+        if (list != null && list.size() > 0) {
+            ar = new BbsVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
+    }
 }

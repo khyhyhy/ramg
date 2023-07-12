@@ -45,14 +45,19 @@ pageEncoding="UTF-8"%>
                         <option value="2">제목+내용</option>
                         <option value="3" selected>작성자</option>
                     </c:if>
-                    <c:if test="${param.searchValue == null}">
+                    <c:if test="${param.searchType == 9 || param.searchValue == null}">
                         <option value="0">제목</option>
                         <option value="1">내용</option>
                         <option value="2">제목+내용</option>
                         <option value="3">작성자</option>
                     </c:if>
                 </select>
-                <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
+                <c:if test="${param.searchType == 9}">
+                    <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                </c:if>
+                <c:if test="${param.searchType != 9}">
+                    <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
+                </c:if>
                 <button type="submit" class="btn btn-outline-warning">검색</button>
             </div>
         </form>

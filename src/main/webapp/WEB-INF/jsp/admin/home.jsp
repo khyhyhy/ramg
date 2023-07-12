@@ -171,7 +171,9 @@ pageEncoding="UTF-8"%>
                                   <button class="accordion-button collapsed"  style="overflow: hidden;
                                   text-overflow: ellipsis;
                                   white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${rvo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${rvo.b_idx}">
-                                    ${rvo.b_content}
+                                  <c:if test="${rvo.b_val1 == 1}">
+                                    <img src="../images/lock.png" style="width: 15px;">
+                                </c:if>&nbsp;${rvo.b_content}
                                   </button>
                                 </h2>
                                 <div id="flush-collapse${rvo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${rvo.b_idx}" data-bs-parent="#accordionFlushExample">

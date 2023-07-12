@@ -57,6 +57,8 @@ public class AdminController {
 
         if (m_class != null && m_class.trim().length() == 0)
             m_class = null;
+        if (searchType != null && searchType.trim().length() == 0)
+            searchType = null;
 
         // ---------paging------------
         int nowPage = 1;
@@ -73,6 +75,8 @@ public class AdminController {
 
         MemVO[] ar = service.member(page.getBegin(), page.getEnd(), searchType, searchValue, m_class);
 
+        mv.addObject("m_class", m_class);
+        mv.addObject("searchType", searchType);
         mv.addObject("ar", ar);
         mv.addObject("page", page);
         mv.addObject("pageCode", pageCode);
@@ -90,8 +94,29 @@ public class AdminController {
         ModelAndView mv = new ModelAndView();
 
         MemVO vo = service.member_view(m_idx);
+        BbsVO[] bz_r_ar = service.review(0, 10000, "9", m_idx);
+        BbsVO[] r_ar = service.review(0, 10000, "8", m_idx);
+        BbsVO[] q_ar = service.qna(0, 10000, "9", m_idx);
+        SuseVO[] su_ar = service.car(1, 10000, "8", m_idx, null);
+        SuseVO[] bz_su_ar = service.car(1, 10000, "9", m_idx, null);
+
+        int service_price = 0;
+        int charge_price = 0;
+        if (bz_su_ar != null) {
+            for (int i = 0; i < bz_su_ar.length; i++) {
+                service_price += Integer.parseInt(bz_su_ar[i].getSu_sprice());
+                charge_price += Integer.parseInt(bz_su_ar[i].getSu_cprice());
+            }
+        }
 
         mv.addObject("vo", vo);
+        mv.addObject("bz_r_ar", bz_r_ar);
+        mv.addObject("r_ar", r_ar);
+        mv.addObject("q_ar", q_ar);
+        mv.addObject("su_ar", su_ar);
+        mv.addObject("bz_su_ar", bz_su_ar);
+        mv.addObject("service_price", service_price);
+        mv.addObject("charge_price", charge_price);
         mv.addObject("cPage", cPage);
         mv.addObject("searchType", searchType);
         mv.addObject("searchValue", searchValue);
@@ -107,6 +132,8 @@ public class AdminController {
 
         if (category != null && category.trim().length() == 0)
             category = null;
+        if (searchType != null && searchType.trim().length() == 0)
+            searchType = null;
 
         // ---------------------paging------------------------------
         int nowPage = 1;
@@ -123,6 +150,8 @@ public class AdminController {
 
         BbsVO[] ar = service.notice_all(page.getBegin(), page.getEnd(), searchType, searchValue, category);
 
+        mv.addObject("category", category);
+        mv.addObject("searchType", searchType);
         mv.addObject("ar", ar);
         mv.addObject("page", page);
         mv.addObject("pageCode", pageCode);

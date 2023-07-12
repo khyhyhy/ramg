@@ -228,25 +228,30 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     WHERE (b_status = 0 AND b_type = 2)
-          <if test="searchType != null and searchValue != null">
-            <choose>
-              <when test="searchType == 0">
-                  AND b_title LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 1">
-                  AND b_content LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 2">
-                AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
-              </when>
-              <when test="searchType == 3">
-                AND b_idx IN(
-                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
-                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
-                )
-              </when>
-            </choose>
-          </if>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 0">
+              AND b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+            AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+          </when>
+          <when test="searchType == 3">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+            )
+          </when>
+          <when test="searchType == 9">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx= #{searchValue}
+            )
+          </when>
+        </choose>
+      </if>
     ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -283,24 +288,29 @@ WHERE m_idx = #{m_idx}
 SELECT COUNT(*) FROM charging.bbs_t 
   WHERE (b_status = 0 AND b_type = 2)
     <if test="searchType != null and searchValue != null">
-      <choose>
-        <when test="searchType == 0">
-            AND b_title LIKE concat('%',#{searchValue},'%')
-        </when>
-        <when test="searchType == 1">
-            AND b_content LIKE concat('%',#{searchValue},'%')
-        </when>
-        <when test="searchType == 2">
-              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+        <choose>
+          <when test="searchType == 0">
+              AND b_title LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 1">
+              AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+            AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
           </when>
           <when test="searchType == 3">
-                AND b_idx IN(
-                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
-                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
-                )
-              </when>
-      </choose>
-    </if>
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+            )
+          </when>
+          <when test="searchType == 9">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx= #{searchValue}
+            )
+          </when>
+        </choose>
+      </if>
 </select>
 <!--문의 리스트-->
 
@@ -384,25 +394,38 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     WHERE (b_status = 0 AND b_type = 1)
-          <if test="searchType != null and searchValue != null">
-            <choose>
-              <when test="searchType == 0">
-                  AND b_title LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 1">
-                  AND b_content LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 2">
-                AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
-              </when>
-              <when test="searchType == 3">
-                AND b_idx IN(
-                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
-                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
-                )
-              </when>
-            </choose>
-          </if>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 1">
+              AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+            AND b_val2 IN
+            (SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx IN 
+                  (SELECT m_idx FROM member_t WHERE m_name LIKE concat('%',#{searchValue},'%')))))
+          </when>
+          <when test="searchType == 3">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+            )
+          </when>
+          <when test="searchType == 8">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx = #{searchValue}
+            )
+            </when>
+          <when test="searchType == 9">
+            AND b_val2 IN
+            (SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx IN 
+                  (SELECT m_idx FROM member_t WHERE m_idx = #{searchValue}))))
+            </when>
+        </choose>
+      </if>
     ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -469,24 +492,37 @@ WHERE m_idx = #{m_idx}
 SELECT COUNT(*) FROM charging.bbs_t 
   WHERE (b_status = 0 AND b_type = 1)
     <if test="searchType != null and searchValue != null">
-      <choose>
-        <when test="searchType == 0">
-            AND b_title LIKE concat('%',#{searchValue},'%')
-        </when>
-        <when test="searchType == 1">
-            AND b_content LIKE concat('%',#{searchValue},'%')
-        </when>
-        <when test="searchType == 2">
-              AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
+        <choose>
+          <when test="searchType == 1">
+              AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+            AND b_val2 IN
+            (SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx IN 
+                  (SELECT m_idx FROM member_t WHERE m_name LIKE concat('%',#{searchValue},'%')))))
           </when>
           <when test="searchType == 3">
-                AND b_idx IN(
-                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
-                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
-                )
-              </when>
-      </choose>
-    </if>
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+            )
+          </when>
+          <when test="searchType == 8">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx = #{searchValue}
+            )
+            </when>
+          <when test="searchType == 9">
+            AND b_val2 IN
+            (SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx IN 
+                  (SELECT m_idx FROM member_t WHERE m_idx = #{searchValue}))))
+            </when>
+        </choose>
+      </if>
 </select>
 <!--리뷰 리스트-->
 
@@ -497,14 +533,25 @@ SELECT * FROM (
     SELECT * FROM charging.service_use
     WHERE su_type = 0 
       <if test="search_date != null">
-      AND su_date LIKE CONCAT (#{search_date},'%')
+        AND su_date LIKE CONCAT (#{search_date},'%')
       </if>
       <if test="searchType != null and searchValue != null">
-          AND c_idx IN(
-            select c_idx from car_write WHERE m_idx IN(
-              SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')
-          ) 
-        )
+        <choose>
+          <when test="searchType == 1">
+            AND c_idx IN(
+              select c_idx from car_write WHERE m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')))
+          </when>
+          <when test="searchType == 8">
+            AND c_idx IN(
+              select c_idx from car_write WHERE m_idx = #{searchValue})
+          </when>
+          <when test="searchType == 9">
+            AND s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx = ${searchValue}))
+          </when>
+        </choose>
       </if>
     ORDER BY su_idx DESC
   ) a, (SELECT @RN:=0) as r
@@ -542,14 +589,25 @@ WHERE m_idx = #{m_idx}
 SELECT COUNT(*) FROM charging.service_use
   WHERE su_type = 0 
     <if test="search_date != null">
-      AND su_date LIKE CONCAT (#{search_date},'%')
-    </if>
-    <if test="searchType != null and searchValue != null">
-          AND c_idx IN(
-            select c_idx from car_write WHERE m_idx IN(
-              SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')
-          ) 
-        )
+        AND su_date LIKE CONCAT (#{search_date},'%')
+      </if>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 1">
+            AND c_idx IN(
+              select c_idx from car_write WHERE m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%')))
+          </when>
+          <when test="searchType == 8">
+            AND c_idx IN(
+              select c_idx from car_write WHERE m_idx = #{searchValue})
+          </when>
+          <when test="searchType == 9">
+            AND s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx = ${searchValue}))
+          </when>
+        </choose>
       </if>
 </select>
 <!--서비스 리스트-->
@@ -578,6 +636,15 @@ SELECT * FROM charging.service_t
 WHERE s_idx = #{s_idx}
 </select>
 
+
+<!--회원 상세 리뷰-->
+<!-- <select id="member_review" parameterType="String" resultType="com.kdt.finalproject.vo.BbsVO">
+SELECT * FROM charging.bbs_t WHERE b_val2 IN
+	(SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+		(SELECT s_idx FROM service_t WHERE s_idx IN 
+			(SELECT s_idx FROM service_write WHERE m_idx IN 
+				(SELECT m_idx FROM member_t WHERE m_idx = #{m_idx}))));
+</select> -->
 
 <!-- insert -->
 

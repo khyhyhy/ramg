@@ -57,35 +57,36 @@ pageEncoding="UTF-8"%>
                     <th style="height: 400px;">내용</th>
                     <td>${vo.b_content}</td>
                 </tr>
-            </table>
+            </tbody>
+        </table>
 
-            <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
-                <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
-                    <span style="float: right;" >
-                        <button type="button" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
-                        <button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button>
-                    </span>
-                </c:if>
-            </div>
+        <div style="height: 80px;">
+            <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
+            <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
+                <span style="float: right;" >
+                    <button type="button" class="btn btn-outline-info" onclick="javascript:edit()">수정</button>
+                    <button type="button" class="btn btn-outline-info" onclick="javascript:qna_del()">삭제</button>
+                </span>
+            </c:if>
+        </div>
             
-            <table class="table table-bordered" id="comm_table">
-                <c:forEach items="${ar}" var="vo">
-                    <tr>
-                        <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
-                            <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
-                                <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span>
-                            </c:if>
-                        </th>
-                    </tr>
-                    <tr> 
-                        <td style="height: 200px;" name="b_content">${vo.b_content}</th>
-                    </tr>
-                    <tr style="border: none;"> 
-                        <td colspan="4" style="height: 50px; border: none;"></th>
-                    </tr>
-                </c:forEach>
-            </table>
+        <table class="table table-bordered" id="comm_table">
+            <c:forEach items="${ar}" var="vo">
+                <tr>
+                    <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
+                        <c:if test="${vo.bbslog.m_idx == sessionScope.mvo.m_idx}">
+                            <span style="float: right;"><input type="button" class="btn btn-outline-info" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span>
+                        </c:if>
+                    </th>
+                </tr>
+                <tr> 
+                    <td style="height: 200px;" name="b_content">${vo.b_content}</td>
+                </tr>
+                <tr style="border: none;"> 
+                    <td style="height: 50px; border: none;"></td>
+                </tr>
+            </c:forEach>
+        </table>
 
             
             <textarea name="b_content" id="b_content"></textarea>

@@ -30,24 +30,27 @@ pageEncoding="UTF-8"%>
                 <input type="text" id="m_date" name="search_date" placeholder="날짜 검색" value="${param.search_date}" class="form-control" style="width: 200px; display: inline-block;">
                 <button type="submit" class="btn btn-outline-warning">조회</button>
             </div>
-<style height: indn;></style>
+
             <div style="height: 60px; float: right;">
-                <input type="hidden" name="searchType" value="1">
-                <input type="text" name="searchValue" value="${param.searchValue}" placeholder="사용자 이름 검색" class="form-control" style="width: 200px; display: inline-block;">
+                <c:if test="${param.searchType == 9 || param.searchType == 8}">
+                    <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;" placeholder="사용자 이름 검색">
+                </c:if>
+                <c:if test="${param.searchType != 9 && param.searchType != 8}">
+                    <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;" placeholder="사용자 이름 검색">
+                </c:if>
                 <button type="submit" class="btn btn-outline-warning">검색</button>
             </div>
+            <input type="hidden" name="searchType" value="1">
         </form>
 
        <table class="table table-hover">
         <colgroup>
             <col width="250px">
             <col width="200px">
-            <col width="100px">
+            <col width="150px">
             <col width="200px">
             <col width="*">
-            <col width="*">
-            <col width="*">
-            <col width="150px">
+            <col width="200px">
         </colgroup>
         <thead>
             <tr class="table-warning">
@@ -56,15 +59,13 @@ pageEncoding="UTF-8"%>
                 <th>사용자</th>
                 <th>상태</th>
                 <th>위치</th>
-                <th>충전비용</th>
-                <th>배달팁</th>
                 <th>결제금액</th>
             </tr>
         </thead>
         <tbody>
             <c:if test="${ar == null}">
                 <tr>
-                    <td colspan="8">검색 결과가 없습니다.</td>
+                    <td colspan="6">검색 결과가 없습니다.</td>
                 </tr>
             </c:if>
             <c:forEach var="vo" items="${ar}" varStatus="st">
@@ -108,6 +109,9 @@ pageEncoding="UTF-8"%>
                             <c:when test="${vo.su_status == 7}">
                                 도착 완료
                             </c:when>
+                            <c:when test="${vo.su_status == 8}">
+                                이슈 발생
+                            </c:when>
                         </c:choose>
                     </c:if>
                     <c:if test="${vo.svo.s_type == 1}">
@@ -127,19 +131,17 @@ pageEncoding="UTF-8"%>
                             <c:when test="${vo.su_status == 4}">
                                 충전 중
                             </c:when>
-                            <c:when test="${vo.su_status == 5}">
+                            <c:when test="${vo.su_status == 7}">
                                 충전 완료
                             </c:when>
-                            <c:when test="${vo.su_status == 6}">
+                            <c:when test="${vo.su_status == 8}">
                                 이슈 발생
                             </c:when>
                         </c:choose>
                     </c:if>
 
                     </td>
-                    <td>${vo.svo.s_city}</td>
-                    <td><fmt:formatNumber pattern="#,###" value="${vo.su_cprice}"/>원</td>
-                    <td><fmt:formatNumber pattern="#,###" value="${vo.su_sprice}"/>원</td>
+                    <td>${vo.svo.s_state} ${vo.svo.s_city}</td>
                     <td>
                         <fmt:formatNumber pattern="#,###" value="${vo.su_cprice + vo.su_sprice}"/>원
                     </td>

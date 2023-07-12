@@ -56,50 +56,52 @@ pageEncoding="UTF-8"%>
                     <th style="height: 400px;">내용</th>
                     <td>${vo.b_content}</td>
                 </tr>
-            </table>
-            <div style="height: 80px;" >
-                <input type="hidden" id="b_val1" value="${vo.b_val1}"/>
-                <button type="button" class="btn btn-outline-warning" onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-warning" onclick="javascript:qna_change()" id="btn">
-                    <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
-                    <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
-                </button>
-                <span style="float: right;"><button type="button" class="btn btn-outline-warning" onclick="javascript:qna_del()">삭제</button></span>
-            </div>
-            
-            <table class="table table-bordered" style="margin: 0;" id="comm_table">
-                <c:forEach items="${car}" var="vo">
-                <tr>
-                    <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
-                        <span style="float: right;"><input type="button" class="btn btn-outline-warning" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span></th>
-                </tr>
-                <tr> 
-                    <td style="height: 200px;" name="b_content">${vo.b_content}</th>
-                </tr>
-                <tr style="border: none;"> 
-                    <td colspan="4" style="height: 50px; border: none;"></th>
-                </tr>
-                </c:forEach>
-            </table>
-            
-            <textarea name="b_content" id="b_content"></textarea>
+            </tbody>
+        </table>
 
-            <div style="height: 80px; margin-top: 10px;">
-                <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
-                <button type="button" class="btn btn-outline-warning" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
-            </div>
+        <div style="height: 80px;" >
+            <input type="hidden" id="b_val1" value="${vo.b_val1}"/>
+            <button type="button" class="btn btn-outline-warning" onclick="javascript:back();">목록</button>
+            <button type="button" class="btn btn-outline-warning" onclick="javascript:qna_change()" id="btn">
+                <c:if test="${vo.b_val1 == 0}">비공개로 변경하기</c:if>
+                <c:if test="${vo.b_val1 == 1}">공개로 변경하기</c:if>
+            </button>
+            <span style="float: right;"><button type="button" class="btn btn-outline-warning" onclick="javascript:qna_del()">삭제</button></span>
+        </div>
+
+        <table class="table table-bordered">
+            <c:forEach items="${car}" var="vo">
+            <tr>
+                <th>${vo.bbslog.mvo.m_name}  /  ${vo.bbslog.bl_date} 
+                    <span style="float: right;"><input type="button" class="btn btn-outline-warning" value="삭제" onclick="qna_comm_del('${vo.b_idx}')"></span>
+                </th>
+            </tr>
+            <tr> 
+                <td style="height: 200px;" name="b_content">${vo.b_content}</td>
+            </tr>
+            <tr style="border: none;"> 
+                <td style="height: 50px; border: none;"></td>
+            </tr>
+            </c:forEach>
+        </table>
+            
+        <textarea name="b_content" id="b_content"></textarea>
+        <div style="height: 80px; margin-top: 10px;">
+            <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
+            <button type="button" class="btn btn-outline-warning" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>
+        </div>
 
             
-            <form name="frm" method="post">
-                <input type="hidden" name="b_idx" value="${vo.b_idx}">
-                <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
-                <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
-                <input type="hidden" name="target" value="${vo.b_idx}" id="target">
-                <input type="hidden" name="fname">
-                <input type="hidden" name="cPage" value="${param.cPage}">
-                <input type="hidden" name="searchType" value="${param.searchType}">
-                <input type="hidden" name="searchValue" value="${param.searchValue}">
-            </form>
+        <form name="frm" method="post">
+            <input type="hidden" name="b_idx" value="${vo.b_idx}">
+            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
+            <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
+            <input type="hidden" name="target" value="${vo.b_idx}" id="target">
+            <input type="hidden" name="fname">
+            <input type="hidden" name="cPage" value="${param.cPage}">
+            <input type="hidden" name="searchType" value="${param.searchType}">
+            <input type="hidden" name="searchValue" value="${param.searchValue}">
+        </form>
 
     </body>
 </div>

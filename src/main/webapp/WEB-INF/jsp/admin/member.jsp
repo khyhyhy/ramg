@@ -23,31 +23,31 @@ pageEncoding="UTF-8"%>
             <div style="height: 60px; float: right;">
                 
                 <select name="m_class" class="form-select" aria-label="Default select example" style="width: 140px; display: inline-block;">
-                    <c:if test="${param.searchType == 0}">
+                    <c:if test="${m_class == 0}">
                         <option value="3">전체</option>
                         <option value="0" selected>개인 회원</option>
                         <option value="1">사업자 회원</option>
                         <option value="2">관리자</option>
                     </c:if>
-                    <c:if test="${param.searchType == 1}">
+                    <c:if test="${m_class == 1}">
                         <option value="3">전체</option>
                         <option value="0">개인 회원</option>
                         <option value="1" selected>사업자 회원</option>
                         <option value="2">관리자</option>
                     </c:if>
-                    <c:if test="${param.searchType == 2}">
+                    <c:if test="${m_class == 2}">
                         <option value="3">전체</option>
                         <option value="0">개인 회원</option>
                         <option value="1">사업자 회원</option>
                         <option value="2" selected>관리자</option>
                     </c:if>
-                    <c:if test="${param.searchType == 3}">
+                    <c:if test="${m_class == 3}">
                         <option value="3" selected>전체</option>
                         <option value="0">개인 회원</option>
                         <option value="1">사업자 회원</option>
                         <option value="2">관리자</option>
                     </c:if>
-                    <c:if test="${param.searchType == null}">
+                    <c:if test="${m_class == null}">
                         <option value="3">전체</option>
                         <option value="0">개인 회원</option>
                         <option value="1">사업자 회원</option>
@@ -56,22 +56,22 @@ pageEncoding="UTF-8"%>
                 </select>
 
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
-                <c:if test="${param.searchType == 0}">
+                <c:if test="${searchType == 0}">
                     <option value="0" selected>이름</option>
                     <option value="1">이메일</option>
                     <option value="2">전화번호</option>
                 </c:if>
-                <c:if test="${param.searchType == 1}">
+                <c:if test="${searchType == 1}">
                     <option value="0">이름</option>
                     <option value="1" selected>이메일</option>
                     <option value="2">전화번호</option>
                 </c:if>
-                <c:if test="${param.searchType == 2}">
+                <c:if test="${searchType == 2}">
                     <option value="0">이름</option>
                     <option value="1">이메일</option>
                     <option value="2" selected>전화번호</option>
                 </c:if>
-                <c:if test="${param.searchValue == null}">
+                <c:if test="${searchType == null}">
                     <option value="0">이름</option>
                     <option value="1">이메일</option>
                     <option value="2">전화번호</option>

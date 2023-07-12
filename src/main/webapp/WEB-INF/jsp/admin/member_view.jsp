@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,21 +77,21 @@
         <c:if test="${vo.m_class != 0 && vo.sw_list.size() != 0}">
         <table class="table table-bordered">
             <colgroup>
-                <col width="100px">
-                <col width="100px">
                 <col width="200px">
                 <col width="200px">
                 <col width="*">
-                <col width="150px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
             </colgroup>
             <thead>
                 <tr class="table-warning">
                     <th>종류</th>
                     <th>범위</th>
-                    <th>s_mapx</th>
-                    <th>s_mapy</th>
                     <th>주소</th>
                     <th>서비스 금액</th>
+                    <th>평점</th>
+                    <th>누적 매출</th>
                 </tr>
             </thead>
             <c:forEach items="${vo.sw_list}" var="sw">
@@ -104,23 +106,47 @@
                         </c:if>
                     </td>
                     <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_radius}"/>m</td>
-                    <td>${sw.svo.s_mapx}</td>
-                    <td>${sw.svo.s_mapy}</td>
                     <td>${sw.svo.s_state} ${sw.svo.s_city} ${sw.svo.s_addr1}</td>
                     <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_val1}"/>원</td>
+                    <td>
+                        <c:if test="${bz_r_ar != null}">
+                            <c:set var="avg" value="0"/>
+                            <c:forEach items="${bz_r_ar}" var="vo">
+                                <c:set var="avg" value="${avg+vo.b_score}"/>
+                            </c:forEach>
+                            <c:set var="avg" value="${avg/fn:length(bz_r_ar)}"/>
+                            <a href="javascript:review_bz()">${avg} [${fn:length(bz_r_ar)}]</a>
+                        </c:if>
+                        <c:if test="${bz_r_ar == null}">
+                            등록된 리뷰가 없습니다.
+                        </c:if>
+                    </td>
+                    <td>
+                        <fmt:formatNumber pattern="#,###" value="${service_price + charge_price}"/>원
+                    </td>
                 </tr>
             </tbody>
             </c:forEach>
         </table>
         </c:if>
         
-            <table class="table table-bordered">
-                <tr>
-                    <th><a href="javascript:car()">서비스 이용 내역</a> / 
-                        <a href="javascript:qna()">작성한 문의</a> / 
-                        <a href="javascript:review()">작성한 리뷰</a></th>
-                </tr>
-            </table>
+        <c:if test="${vo.m_class != 2}">
+        <label for="my">바로가기</label>
+        <table class="table table-bordered" id="my">
+            <tr>
+                <th>
+                    <a href="javascript:qna()">작성한 문의 [${fn:length(q_ar)}]</a>&nbsp;&nbsp;/
+                    <c:if test="${vo.m_class == 0}">
+                        <a href="javascript:car()">서비스 이용 내역 [${fn:length(su_ar)}]</a>&nbsp;&nbsp;/
+                        <a href="javascript:review()">작성한 리뷰 [${fn:length(r_ar)}]</a>&nbsp;&nbsp;
+                    </c:if>
+                    <c:if test="${vo.m_class != 0}">
+                        <a href="javascript:car_bz()">판매한 서비스 목록 [${fn:length(bz_su_ar)}]</a>&nbsp;&nbsp;
+                    </c:if>
+                </th>
+            </tr>
+        </table>
+        </c:if>
 
         <button type="button" class="btn btn-outline-warning" onclick="sub()">목록</button>
         <c:if test="${vo.m_status == 0}">
@@ -166,22 +192,36 @@
     }
     function car(){
         document.frm.action = "/admin/car";
-        document.frm.searchType.value = "1";
-        document.frm.searchValue.value = '${vo.m_name}';
+        document.frm.searchType.value = "8";
+        document.frm.searchValue.value = '${vo.m_idx}';
         document.frm.submit();
     }
 
     function qna(){
         document.frm.action = "/admin/qna";
-        document.frm.searchType.value = "3";
-        document.frm.searchValue.value = "${vo.m_name}";
+        document.frm.searchType.value = "9";
+        document.frm.searchValue.value = "${vo.m_idx}";
         document.frm.submit();
     }
 
     function review(){
         document.frm.action = "/admin/review";
-        document.frm.searchType.value = "3";
-        document.frm.searchValue.value = "${vo.m_name}";
+        document.frm.searchType.value = "8";
+        document.frm.searchValue.value = "${vo.m_idx}";
+        document.frm.submit();
+    }
+
+    function review_bz(){
+        document.frm.action = "/admin/review";
+        document.frm.searchType.value = "9";
+        document.frm.searchValue.value = "${vo.m_idx}";
+        document.frm.submit();
+    }
+
+    function car_bz(){
+        document.frm.action = "/admin/car";
+        document.frm.searchType.value = "9";
+        document.frm.searchValue.value = "${vo.m_idx}";
         document.frm.submit();
     }
 </script>

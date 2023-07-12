@@ -24,18 +24,32 @@ pageEncoding="UTF-8"%>
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">
                     <c:if test="${param.searchType == 1}">
                         <option value="1" selected>내용</option>
+                        <option value="2">사업자명</option>
+                        <option value="3">작성자</option>
+                    </c:if>
+                    <c:if test="${param.searchType == 2}">
+                        <option value="1">내용</option>
+                        <option value="2"selected>사업자명</option>
                         <option value="3">작성자</option>
                     </c:if>
                     <c:if test="${param.searchType == 3}">
                         <option value="1">내용</option>
+                        <option value="2">사업자명</option>
                         <option value="3" selected>작성자</option>
                     </c:if>
-                    <c:if test="${param.searchValue == null}">
+                    <c:if test="${param.searchType == 9 || param.searchType == 8 || param.searchValue == null}">
                         <option value="1">내용</option>
+                        <option value="2">사업자명</option>
                         <option value="3">작성자</option>
                     </c:if>
                 </select>
-                <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
+
+                <c:if test="${param.searchType == 9 || param.searchType == 8}">
+                    <input type="text" name="searchValue" class="form-control" style="width: 200px; display: inline-block;">
+                </c:if>
+                <c:if test="${param.searchType != 9 && param.searchType != 8}">
+                    <input type="text" name="searchValue" value="${param.searchValue}" class="form-control" style="width: 200px; display: inline-block;">
+                </c:if>
                 <button type="submit" class="btn btn-outline-warning">검색</button>
             </div>
         </form>

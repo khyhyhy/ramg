@@ -43,7 +43,11 @@ pageEncoding="UTF-8"%>
                 </tr>
                 <tr>
                     <th>제목</th>
-                    <td>${vo.b_title}</td>
+                    <td>
+                        <c:if test="${vo.b_val1 == 1}">
+                            <img src="../images/lock.png" style="width: 15px;">
+                        </c:if>${vo.b_title}
+                    </td>
                 </tr>
                 <tr> 
                     <th style="height: 400px;">내용</th>

@@ -312,25 +312,26 @@ SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.bbs_t 
     WHERE (b_status = 0 AND b_type = 1 AND b_val1 = 0)
-          <if test="searchType != null and searchValue != null">
-            <choose>
-              <when test="searchType == 0">
-                  AND b_title LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 1">
-                  AND b_content LIKE concat('%',#{searchValue},'%')
-              </when>
-              <when test="searchType == 2">
-                AND (b_content LIKE concat('%',#{searchValue},'%') OR b_title LIKE concat('%',#{searchValue},'%'))
-              </when>
-              <when test="searchType == 3">
-                AND b_idx IN(
-                  select b_idx from bbslog where bl_type = 0 and m_idx IN(
-                    SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
-                )
-              </when>
-            </choose>
-          </if>
+      <if test="searchType != null and searchValue != null">
+        <choose>
+          <when test="searchType == 1">
+              AND b_content LIKE concat('%',#{searchValue},'%')
+          </when>
+          <when test="searchType == 2">
+            AND b_val2 IN
+            (SELECT su_idx FROM charging.service_use WHERE s_idx IN 
+              (SELECT s_idx FROM service_t WHERE s_idx IN 
+                (SELECT s_idx FROM service_write WHERE m_idx IN 
+                  (SELECT m_idx FROM member_t WHERE m_name LIKE concat('%',#{searchValue},'%')))))
+          </when>
+          <when test="searchType == 3">
+            AND b_idx IN(
+              select b_idx from bbslog where bl_type = 0 and m_idx IN(
+                SELECT m_idx from member_t where m_name LIKE concat('%',#{searchValue},'%'))
+            )
+          </when>
+        </choose>
+      </if>
     ORDER BY b_idx DESC
   ) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -410,7 +411,7 @@ WHERE m_idx = #{m_idx}
 
 <select id="review_count" resultType="int">
 SELECT COUNT(*) FROM charging.bbs_t 
-  WHERE (b_status = 0 AND b_type = 1)
+  WHERE (b_status = 0 AND b_type = 1 AND b_val1 = 0)
     <if test="searchType != null and searchValue != null">
       <choose>
         <when test="searchType == 0">
