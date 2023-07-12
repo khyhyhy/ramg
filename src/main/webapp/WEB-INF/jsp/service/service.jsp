@@ -46,17 +46,17 @@
           </tr>
         </thead>
         <tbody class="table-group-divider">          
-          <c:forEach items="${swar}" var="vo" varStatus="status">
+          <c:forEach items="${suar}" var="vo" varStatus="status">
             <tr>
                 <th scope="row">${status.index + 1}목록</th>
-                <td>${vo.svo.s_type}</td>
-                <td>${vo.cvo.c_idx}</td>
-                <td>${vo.svo.suvo.su_percent}</td>
-                <td>${vo.svo.suvo.su_payment}</td>
-                <td>${vo.svo.suvo.su_payinfo}</td>
-                <td>${vo.svo.suvo.su_date}</td>
-                <td>${vo.svo.suvo.su_sprice}</td>
-                <td>${vo.svo.suvo.su_cprice}</td>
+                <td></td>
+                <td></td>
+                <td>${vo.su_percent}</td>
+                <td>${vo.su_payment}</td>
+                <td>${vo.su_payinfo}</td>
+                <td>${vo.su_date}</td>
+                <td>${vo.su_sprice}</td>
+                <td>${vo.su_cprice}</td>
             </tr>
             </c:forEach>
           </tbody>

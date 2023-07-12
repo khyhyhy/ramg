@@ -7,6 +7,7 @@ import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.SuseVO;
 
 public interface MypageMapper {
@@ -43,5 +44,7 @@ public interface MypageMapper {
     int updateReview(BbsVO vo);
 
     int updateReviewlog(BbslogVO blvo);
+
+    List<ModelVO> getModelList();
 
 }

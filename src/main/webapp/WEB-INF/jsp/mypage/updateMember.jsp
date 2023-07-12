@@ -6,20 +6,33 @@
 
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <style>
     h1{
         text-align: center;
+        font-family: 'GoryeongStrawberry';
     }
 
     h2{
         text-align: center;
+        font-family: 'GoryeongStrawberry';
     }
 
     table{
         text-align: center;
         margin: auto;
+    }
+    th{
+        font-family: 'GoryeongStrawberry';
+    }
+    .container{
+        margin-top: 2cm;
+        margin-bottom: 2cm;
+    }
+    article{
+        margin-bottom: 1cm;
     }
    </style>
   </head>
@@ -27,12 +40,13 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
-   <article>
-    <h1>정보 관리</h1>
-   </article>
 
+    <div class="container text-center">
+
+    <article>
    <h2>회원 정보</h2>
-   <table>
+   </article>
+   <table class="table table-striped table-hover">
     <tbody>
         <tr>
             <th><label for="m_email">이메일</label></th>
@@ -44,7 +58,7 @@
         </tr>
         <tr>
             <th><label for="m_phone">연락처</label></th>
-            <td><input type="text" id="m_phone" name="m_phone" value="${mvo.m_phone}"/></td>
+            <td><input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}"/></td>
         </tr>
         <tr>
             <th><label for="m_address">주소</label></th>
@@ -57,12 +71,14 @@
         <tr>
             
             <td colspan="2">
-                <input type="button" id="btn" value="변경하기"/>
-                <input type="button" id="btn2" value="돌아가기" onclick="javascript:location.href='mypage'"/>
+                <button type="button" id="btn" class="btn btn-success">변경하기</button>
+                <button type="button" class="btn btn-success" onclick="javascript:location.href='mypage'">돌아가기</button>
             </td>
         </tr>
     </tbody>
    </table>
+
+   </div>
 
    <jsp:include page="../main/mainF.jsp"></jsp:include>
     
