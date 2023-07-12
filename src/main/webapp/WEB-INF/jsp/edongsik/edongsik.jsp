@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="../../css/edongsik.css" rel="stylesheet">
-   <link href="../../css/page.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
 
@@ -29,7 +28,7 @@
   <!--////////// Header end ////////////-->
 
   <!--////////// Main start //////////////-->
-  <main></main>
+  <main>
     
     
     <!-- <P>"${sessionScope.mvo1.m_idx}"</P> -->
@@ -48,7 +47,7 @@
         </c:if>
 
         <c:if test="${sessionScope.mvo eq null}">
-          <button type="button " style="margin-left: 20px; margin-right: 10px;" data-bs-container="body"
+          <button type="button " style="margin-left: 20px; margin-right: 10px; border-width: 2px;" data-bs-container="body"
             data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="로그인이 필요합니다" class="btn btn-outline-info">현재상황</button>
         </c:if>
 
@@ -72,17 +71,23 @@
             <div class="card-body">
               <h5 class="card-title">현재 위치 검색</h5>
               <p class="card-text"></p>
-    
+              
               <c:if test="${sessionScope.mvo ne null}">
-                <button class="btn btn-info" onclick="conf()" style="color: white;"\>검색</button>
+                <c:if test="${carVo eq null}">
+                  <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+                  data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+                  data-bs-content="차량 등록이 필요합니다.">검색</button>
+                </c:if>
+                <c:if test="${carVo ne null}">
+                  <button class="btn btn-info" onclick="conf()" style="color: white;"\>검색</button>
+                </c:if>
               </c:if>
-    
+
               <c:if test="${sessionScope.mvo eq null}">
               <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
               data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
-              data-bs-content="로그인이 필요합니다">검색</button>
+              data-bs-content="로그인이 필요합니다.">검색</button>
              </c:if>
-              
     
             </div>
           </div>
@@ -95,15 +100,23 @@
               <p class="card-text"></p>
     
             <c:if test="${sessionScope.mvo ne null}">
-            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
-             style="color: white;">검색</button>
+                <c:if test="${carVo eq null}">
+                  <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+                  data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+                  data-bs-content="차량 등록이 필요합니다.">검색</button>
+                </c:if>
+                <c:if test="${carVo ne null}">
+                  <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                  style="color: white;">검색</button>
+                </c:if>
            </c:if>
     
            <c:if test="${sessionScope.mvo eq null}">
             <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
              data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
-             data-bs-content="로그인이 필요합니다">검색</button>
+             data-bs-content="로그인이 필요합니다.">검색</button>
            </c:if>
+           
               </div>
             </div>
             
@@ -115,8 +128,6 @@
       </div>
       </div>
     
- 
-      
 
       <!-- Modal -->
       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -60,12 +60,17 @@ public class EdongsikController {
             List<CwriteVO> cw_ar = new ArrayList<CwriteVO>();
             cw_ar = service.carList(m_idx);
             List<CarVO> carVo = new ArrayList<CarVO>();
+
             for (CwriteVO kkk : cw_ar) {
                 CarVO kkk2 = kkk.getCvo();
 
-                carVo.add(kkk2);
+                if (kkk2 == null) {
+                    mv.addObject("carVo", null);
+                } else {
+                    carVo.add(kkk2);
+                    mv.addObject("carVo", carVo);
+                }
             }
-            mv.addObject("carVo", carVo);
         }
         mv.setViewName("edongsik/edongsik");
 
@@ -361,7 +366,7 @@ public class EdongsikController {
         return mv;
     }
 
-    @RequestMapping("/e_search/select/")
+    @RequestMapping("/select/")
     public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
             @Param("nowstate") String nowstate, @Param("nowcity") String nowcity) {
         ModelAndView mv = new ModelAndView();

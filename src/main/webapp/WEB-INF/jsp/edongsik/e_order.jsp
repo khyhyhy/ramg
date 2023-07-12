@@ -138,7 +138,7 @@
                     </c:otherwise>
                 </c:choose>
                 <c:choose>
-                    <c:when test="${suvo.su_status == 5}">
+                    <c:when test="${suvo.su_status == 7}">
                         <div class="col">
                             <img src="/images/su_status55.png" />
                             <label style="display: flex; justify-content: center;">충전완료</label>
@@ -347,7 +347,7 @@
                              <c:when test="${suvo.su_status == 4}">
                                  <td colspan="2" style="text-align: center; vertical-align: middle;">충전중</td>
                              </c:when>
-                             <c:when test="${suvo.su_status == 5}">
+                             <c:when test="${suvo.su_status == 7}">
                                  <td style="text-align: center; vertical-align: middle;">충전완료</td>
                                  <c:if test="${bvo.b_content == null}">
                                             <td style="text-align: center; vertical-align: middle;">
