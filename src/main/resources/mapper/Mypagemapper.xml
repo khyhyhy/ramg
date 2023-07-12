@@ -103,8 +103,8 @@
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_num, c_name, c_state, c_city, c_addr1, c_val3, c_type, c_chargetype_ac, c_chargetype_dc) 
-      values (#{c_num}, #{c_name}, #{c_state}, #{c_city}, #{c_addr1}, #{c_val3}, #{c_type}, #{c_chargetype_ac}, #{c_chargetype_dc}) 
+      insert into car_t (c_num, c_name, c_state, c_city, c_addr1, c_val3, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx) 
+      values (#{c_num}, #{c_name}, #{c_state}, #{c_city}, #{c_addr1}, #{c_val3}, #{c_type}, #{c_chargetype_ac}, #{c_chargetype_dc}, #{mo_idx}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">

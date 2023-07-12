@@ -13,13 +13,10 @@
       table{
           margin: 0 auto;
           width: 80%;
-          border: 1px solid black;
           border-collapse: collapse;
           text-align: center;
-          background-color: aqua;
       }
       table th, table td{
-          border: 1px solid black;
           font-family: 'GoryeongStrawberry';
       }
       h1{
@@ -47,14 +44,14 @@
        <article>
         <h1>나의 리뷰</h1>
        </article>
-      <table id="bl_list">
+      <table id="bl_list" class="table table-striped table-hover">
          <colgroup>
-             <col width="150px"/>
-             <col width="150px"/>
+             <col width="50px"/>
+             <col width="300px"/>
              <col width="100px"/>
-             <col width="150px"/>
-             <col width="150px"/>
-             <col width="*"/>
+             <col width="50px"/>
+             <col width="100px"/>
+             <col width="100px"/>
          </colgroup>
          <thead>
              
@@ -77,8 +74,8 @@
                      <td>${bvo.b_content}</td>
                      <td>${bvo.b_hit}</td>
                      <td>${bvo.b_score}</td>
-                     <td><a href="/updateReview?b_idx=${bvo.b_idx}">수정</a></td>
-                     <td><a href="javascript:sub('${bvo.b_idx}')" id="sub">삭제</a></td>
+                     <td><button type="button" class="btn btn-danger" onclick="javascript:location.href='/updateReview?b_idx=${bvo.b_idx}'">수정</button></td>
+                    <td><button type="button" class="btn btn-danger" onclick="javascript:sub('${bvo.b_idx}')">삭제</button></td>
                  </tr>
              </c:forEach>
          </tbody>

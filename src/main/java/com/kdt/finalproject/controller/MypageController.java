@@ -26,7 +26,6 @@ import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
-import com.kdt.finalproject.vo.JusoVO;
 import com.kdt.finalproject.vo.MemVO;
 import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.ServiceVO;
@@ -97,72 +96,76 @@ public class MypageController {
 
     private String key = "devU01TX0FVVEgyMDIzMDcwNjExNDQzMzExMzkwNjY=";
 
-    @RequestMapping("juso") // 브라우저에서 smog라고 호출하면 무조건 현재 메서드 호출하여 수행한다.
-    public ModelAndView juso(String city) throws Exception {
-        // String str =
-        // "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=서울&pageNo=1&numOfRows=100&returnType=xml&serviceKey=FDp2a3vCnN%2BVvgfwp%2BneIQPvN3zTM7aLpEznSGbkyDN47qXAmtPene0L3A8mgUsbO%2F7pzLR3EX7rdD0%2B6wZe3Q%3D%3D&ver=1.0";
-        StringBuffer sb = new StringBuffer();
-        ModelAndView mv = new ModelAndView();
-        sb.append("http://business.juso.go.kr/addrlink/addrLinkApi.do?");
-        // sb.append("sidoName=%EC%84%9C%EC%9A%B8&");
-        sb.append("keyword=" + URLEncoder.encode(city, "utf-8"));
-        sb.append("&currentPage=1");
-        sb.append("&countPerPage=10");
-        sb.append("&returnType=xml");
-        sb.append("&confmKey=" + key);
-
-        // 웹상의 경로를 객체화 시킨다.
-        URL url = new URL(sb.toString());
-
-        // 웹상의 경로(URL)와 연결하는 객체
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.connect(); // 연결!!!! (요청을 보냈다.)
-
-        // 요청(연결)한 곳으로부터 응답을 받아 처리하는 부분
-        // 응답이 xml로 받게 되어 있으므로 JDOM을 통해 파싱을 해야 함!
-        SAXBuilder builder = new SAXBuilder();
-
-        // SAXBuilder를 통해 응답인 XML을 문서객체(Document)로 얻어낸다.
-        Document doc = builder.build(conn.getInputStream());
-
-        // 문서객체의 루트요소(Element)를 알아내야 한다.
-        Element root = doc.getRootElement(); // <response> ... </response>
-        // System.out.println(root.getName());
-        // 루트요소 안에 있는 body요소를 얻어내자
-        Element body = root.getChild("body"); // <body> ... </body>
-
-        // body안에 있는 items요소 얻어내자!
-        Element items = body.getChild("items");
-
-        // items안에 있는 모든 item들을 얻어내야 한다. 이때
-        // 여러 개가 있다면 반드시 List로 받아야 한다.
-        List<Element> item_list = items.getChildren("item");
-
-        // System.out.println("item_list.size():"+item_list.size()); // 40
-        // List가 넘어온 것을 확인했으니
-        // JSP에서 표현하기 위해 보다 편하게 List에 있는 Element들을
-        // VO의 배열로 변환하자!
-
-        JusoVO[] ar = new JusoVO[item_list.size()];
-        int i = 0;
-        for (Element item : item_list) {
-            // 필요한 항목들을 모두 가져온다.
-            String siNm = item.getChildText("siNm"); // 시도
-            String sggNm = item.getChildText("sggNm"); // 시군구
-            String rn = item.getChildText("rn"); // 도로명
-            String roadAddr = item.getChildText("roadAddr"); // 전체 도로명 주소
-            String roadAddrPart1 = item.getChildText("roadAddrPart1"); // 도로명 주소(참고항목제외)
-            String roadAddrPart2 = item.getChildText("roadAddrPart2"); // 도로명 주소 참고항목
-
-            JusoVO vo = new JusoVO(siNm, sggNm, rn, roadAddr, roadAddrPart1, roadAddrPart2);
-            ar[i++] = vo;
-            // ++i;
-        }
-        mv.addObject("ar", ar);
-        mv.setViewName("/mypage/addCar");
-
-        return mv;
-    }
+    /*
+     * @RequestMapping("juso") // 브라우저에서 smog라고 호출하면 무조건 현재 메서드 호출하여 수행한다.
+     * public ModelAndView juso(String city) throws Exception {
+     * // String str =
+     * //
+     * "http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=서울&pageNo=1&numOfRows=100&returnType=xml&serviceKey=FDp2a3vCnN%2BVvgfwp%2BneIQPvN3zTM7aLpEznSGbkyDN47qXAmtPene0L3A8mgUsbO%2F7pzLR3EX7rdD0%2B6wZe3Q%3D%3D&ver=1.0";
+     * StringBuffer sb = new StringBuffer();
+     * ModelAndView mv = new ModelAndView();
+     * sb.append("http://business.juso.go.kr/addrlink/addrLinkApi.do?");
+     * // sb.append("sidoName=%EC%84%9C%EC%9A%B8&");
+     * sb.append("keyword=" + URLEncoder.encode(city, "utf-8"));
+     * sb.append("&currentPage=1");
+     * sb.append("&countPerPage=10");
+     * sb.append("&returnType=xml");
+     * sb.append("&confmKey=" + key);
+     * 
+     * // 웹상의 경로를 객체화 시킨다.
+     * URL url = new URL(sb.toString());
+     * 
+     * // 웹상의 경로(URL)와 연결하는 객체
+     * HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+     * conn.connect(); // 연결!!!! (요청을 보냈다.)
+     * 
+     * // 요청(연결)한 곳으로부터 응답을 받아 처리하는 부분
+     * // 응답이 xml로 받게 되어 있으므로 JDOM을 통해 파싱을 해야 함!
+     * SAXBuilder builder = new SAXBuilder();
+     * 
+     * // SAXBuilder를 통해 응답인 XML을 문서객체(Document)로 얻어낸다.
+     * Document doc = builder.build(conn.getInputStream());
+     * 
+     * // 문서객체의 루트요소(Element)를 알아내야 한다.
+     * Element root = doc.getRootElement(); // <response> ... </response>
+     * System.out.println(root.getName());
+     * // 루트요소 안에 있는 body요소를 얻어내자
+     * Element body = root.getChild("body"); // <body> ... </body>
+     * 
+     * // body안에 있는 items요소 얻어내자!
+     * Element items = body.getChild("items");
+     * 
+     * // items안에 있는 모든 item들을 얻어내야 한다. 이때
+     * // 여러 개가 있다면 반드시 List로 받아야 한다.
+     * List<Element> item_list = items.getChildren("item");
+     * 
+     * // System.out.println("item_list.size():"+item_list.size()); // 40
+     * // List가 넘어온 것을 확인했으니
+     * // JSP에서 표현하기 위해 보다 편하게 List에 있는 Element들을
+     * // VO의 배열로 변환하자!
+     * 
+     * JusoVO[] ar = new JusoVO[item_list.size()];
+     * int i = 0;
+     * for (Element item : item_list) {
+     * // 필요한 항목들을 모두 가져온다.
+     * String siNm = item.getChildText("siNm"); // 시도
+     * String sggNm = item.getChildText("sggNm"); // 시군구
+     * String rn = item.getChildText("rn"); // 도로명
+     * String roadAddr = item.getChildText("roadAddr"); // 전체 도로명 주소
+     * String roadAddrPart1 = item.getChildText("roadAddrPart1"); // 도로명 주소(참고항목제외)
+     * String roadAddrPart2 = item.getChildText("roadAddrPart2"); // 도로명 주소 참고항목
+     * 
+     * JusoVO vo = new JusoVO(siNm, sggNm, rn, roadAddr, roadAddrPart1,
+     * roadAddrPart2);
+     * ar[i++] = vo;
+     * // ++i;
+     * }
+     * mv.addObject("ar", ar);
+     * mv.setViewName("/mypage/addCar");
+     * 
+     * return mv;
+     * }
+     */
 
     @GetMapping("addCar")
     public String addCar(Model model) {

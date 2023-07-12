@@ -41,11 +41,11 @@
     <article>
    <h2>리뷰수정</h2>
    </article>
-   <table>
+   <table class="table table-striped table-hover">
     <tbody>
         <tr>
             <th><label for="b_idx">번호</label></th>
-            <td><input type="text" id="b_idx" name="b_idx" value="${bvo.b_idx}" disabled/></td>
+            <td><input type="text" id="b_idx"  name="b_idx" value="${bvo.b_idx}" disabled/></td>
         </tr>
         <tr>
             <th><label for="b_title">제목</label></th>
@@ -53,7 +53,7 @@
         </tr>
         <tr>
             <th><label for="bl_date">내용</label></th>
-            <td><textarea id="b_content" name="b_content">${bvo.b_content}</textarea></td>
+            <td><textarea id="b_content"   name="b_content">${bvo.b_content}</textarea></td>
         </tr>
         <tr>
             <th><label for="b_hit">조회수</label></th>
@@ -61,13 +61,13 @@
         </tr>
         <tr>
             <th><label for="b_score">별점</label></th>
-            <td><input type="text" id="b_score" name="b_score" value="${bvo.b_score}"/></td>
+            <td><input type="text" id="b_score"  name="b_score" value="${bvo.b_score}"/></td>
         </tr>
         <tr>
             
             <td colspan="2">
-                <input type="button" id="btn" value="변경하기"/>
-                <input type="button" id="btn2" value="돌아가기" onclick="javascript:location.href='my_review'"/>
+                <button type="button" id="btn" class="btn btn-success">변경하기</button>
+                <button type="button" class="btn btn-success" onclick="javascript:location.href='my_review'">돌아가기</button>
             </td>
         </tr>
     </tbody>

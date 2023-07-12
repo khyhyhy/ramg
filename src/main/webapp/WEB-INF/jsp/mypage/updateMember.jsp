@@ -46,7 +46,7 @@
     <article>
    <h2>회원 정보</h2>
    </article>
-   <table>
+   <table class="table table-striped table-hover">
     <tbody>
         <tr>
             <th><label for="m_email">이메일</label></th>
@@ -58,7 +58,7 @@
         </tr>
         <tr>
             <th><label for="m_phone">연락처</label></th>
-            <td><input type="text" id="m_phone" name="m_phone" value="${mvo.m_phone}"/></td>
+            <td><input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}"/></td>
         </tr>
         <tr>
             <th><label for="m_address">주소</label></th>
@@ -71,8 +71,8 @@
         <tr>
             
             <td colspan="2">
-                <input type="button" id="btn" value="변경하기"/>
-                <input type="button" id="btn2" value="돌아가기" onclick="javascript:location.href='mypage'"/>
+                <button type="button" id="btn" class="btn btn-success">변경하기</button>
+                <button type="button" class="btn btn-success" onclick="javascript:location.href='mypage'">돌아가기</button>
             </td>
         </tr>
     </tbody>

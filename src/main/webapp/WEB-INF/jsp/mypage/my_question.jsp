@@ -14,13 +14,10 @@
     table{
         margin: 0 auto;
         width: 80%;
-        border: 1px solid black;
         border-collapse: collapse;
         text-align: center;
-        background-color: aqua;
     }
     table th, table td{
-        border: 1px solid black;
         font-family: 'GoryeongStrawberry';
     }
     h1{
@@ -49,9 +46,9 @@
        <article>
         <h1>나의 문의</h1>
        </article>
-    <table id="bl_list">
+    <table id="bl_list" class="table table-striped table-hover">
         <colgroup>
-            <col width="150px"/>
+            <col width="50px"/>
             <col width="150px"/>
             <col width="100px"/>
             <col width="150px"/>
