@@ -255,7 +255,7 @@
           }
 
           function changeMoIdx(model_sel){
-            //console.log($("#mo_idx").val()+"/"+$("#mo_idx option:selected").text());
+            console.log($("#mo_idx").val()+"/"+$("#mo_idx option:selected").text());
             $("#c_name").val($("#mo_idx option:selected").text());
           }
           </script>
