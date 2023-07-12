@@ -50,11 +50,11 @@
             <td><input type="text" id="c_num" name="c_num" value="${cvo.c_num}" /></td>
         </tr>
         <tr>
-            <th><label for="c_name">모델명</label></th>
-            <td><select id="c_name" name="c_name">
+            <th><label for="mo_idx">모델명</label></th>
+            <td><select id="mo_idx" name="mo_idx">
               <option disabled selected value="">차량 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_name}">${model.mo_name}</option>
+                <option value="${model.mo_idx}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}</option>
               </c:forEach>
             </select></td>
         </tr>
@@ -131,7 +131,8 @@
 $("#btn").bind("click", function(){
       let c_idx = '${cvo.c_idx}';
       let c_num = $("#c_num").val();
-      let c_name = $("#c_name").val();
+      let mo_idx = $("#mo_idx").val();
+      let c_name = $("#mo_idx option:selected").text();
       let c_state = $("#c_state").val();
       let c_city = $("#c_city").val();
       let c_addr1 = $("#c_addr1").val();
@@ -149,13 +150,14 @@ $("#btn").bind("click", function(){
       }else
                 param += "c_num="+encodeURIComponent(c_num);
 
-      if(c_name.trim().length == 0){
+      if(mo_idx.trim().length == 0){
         alert("모델명을 입력하세요");
-        $("#c_name").focus();
+        $("#mo_idx").focus();
         return;
-      }else
-                param += "&c_name="+encodeURIComponent(c_name);
-
+      }else{
+          param += "&mo_idx="+encodeURIComponent(mo_idx);
+          param += "&c_name="+encodeURIComponent(c_name);
+      }
 
       if(c_state.trim().length == 0){
         alert("광역자치단체를 입력하세요");

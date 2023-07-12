@@ -123,7 +123,8 @@
         c_val3 = #{c_val3},
         c_type = #{c_type},
         c_chargetype_ac = #{c_chargetype_ac},
-        c_chargetype_dc = #{c_chargetype_dc}
+        c_chargetype_dc = #{c_chargetype_dc},
+        mo_idx = #{mo_idx}
       WHERE c_idx = #{c_idx}
     </update>
 
