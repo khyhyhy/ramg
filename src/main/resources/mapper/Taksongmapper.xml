@@ -23,6 +23,12 @@
 <association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
 </resultMap>
 
+
+<resultMap id="rm4" type="com.kdt.finalproject.vo.CarVO">
+<result column="mo_idx" property="mo_idx"/>
+<association property="movo" column="mo_idx" javaType="com.kdt.finalproject.vo.ModelVO" select="movo"></association>
+</resultMap>
+
 <!-- select -->
 <select id="selectmem" resultMap="rm2" parameterType="String">
 SELECT * FROM charging.member_t WHERE m_idx = #{param}
@@ -57,12 +63,17 @@ SELECT * FROM charging.member_t WHERE m_idx = #{param}
 SELECT * FROM charging.service_t WHERE s_idx = #{param}
 </select>
 
-<select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
+<select id="cvo" parameterType="String" resultMap="rm4">
 SELECT * FROM charging.car_t WHERE c_idx = #{param}
 </select>
 
+<select id="movo" parameterType="String" resultType="com.kdt.finalproject.vo.ModelVO">
+SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
+</select>
+
+
 <select id="cwselect" parameterType="String" resultMap="rm3">
-SELECT * FROM charging.car_write WHERE m_idx = #{param}
+SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 </select>
 <select id="carList" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
 	SELECT * FROM charging.car_t

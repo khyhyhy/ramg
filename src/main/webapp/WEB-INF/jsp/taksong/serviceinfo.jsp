@@ -65,9 +65,9 @@
           <div class="list-group" onclick="carinfo(this)">
            <input type="radio" class="btn-check" name="car" id='car' autocomplete="off" />
            <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-            for="car">${sessionScope.mvo.m_idx}/${cvo.c_name}/${cvo.c_type}</label>
+            for="car">${sessionScope.mvo.m_idx}/${cvo.c_name}/${cvo.movo.mo_name}</label>
            <input type="hidden" name="c_idx" value=${cvo.c_idx} />
-           <input type="hidden" id="tank" name="c_val3" value=${cvo.c_val3} />
+           <input type="hidden" id="tank" name="c_val3" value=${cvo.movo.mo_bet} />
           </div>
          </c:if>
 
