@@ -58,7 +58,8 @@
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
       <button type="button" onclick="location.href='/e_nowOrder/'" style="margin-right: 50px; border-width: 2px;" class="btn btn-outline-info">현재상황</button>
-      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
+      <button type="button" onclick="location.href='/e_orderList/'" 
+      class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0; color: black;">이용내역</button>
      </div>
 
       
@@ -114,7 +115,7 @@
                             <c:set var="num2" value="${suar.su_cprice}" />
                             <c:set var="sum" value="${(num1 + num2)}" />
 
-                           <td style="text-align: center; vertical-align: middle;">${sum}</td>
+                           <td style="text-align: center; vertical-align: middle;">${sum}원</td>
 
                    
                         <c:if test="${suar.svo.s_type == 1}">
