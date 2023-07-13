@@ -180,4 +180,41 @@ public class ServiceController {
   mv.setViewName("service/service");
   return mv;
  }
+
+ @PostMapping("/mypage/serviceadd/updatesu")
+ public ModelAndView suseupdate(String su_status, String su_idx, String m_idx) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println("m_idx" + m_idx);
+  System.out.println("su_status" + su_status);
+  System.out.println("su_idx" + su_idx);
+  SuseVO oldsuvo = service.suvo2(su_idx);
+  SuseVO newsuvo = new SuseVO();
+  newsuvo.setS_idx(oldsuvo.getS_idx());
+  newsuvo.setC_idx(oldsuvo.getC_idx());
+  newsuvo.setSu_status(su_status);
+  newsuvo.setSu_type("1");
+  newsuvo.setSu_percent(oldsuvo.getSu_percent());
+  newsuvo.setSu_payment(oldsuvo.getSu_payment());
+  newsuvo.setSu_payinfo(oldsuvo.getSu_payinfo());
+  newsuvo.setSu_sprice(oldsuvo.getSu_sprice());
+  newsuvo.setSu_cprice(oldsuvo.getSu_cprice());
+  newsuvo.setSu_val1(m_idx);
+  newsuvo.setSu_val2("0");
+  newsuvo.setSu_val3(oldsuvo.getSu_val3());
+  newsuvo.setSu_val4(oldsuvo.getSu_val4());
+  newsuvo.setSu_val5(oldsuvo.getSu_val5());
+  service.suseupdatein(newsuvo, su_idx);
+  mv.setViewName("redirect:/mypage/serviceadd/");
+  return mv;
+ }
+
+ @PostMapping("/mypage/serviceadd/servicewan")
+ public ModelAndView susewan(String su_status, String su_idx, String m_idx) {
+  ModelAndView mv = new ModelAndView();
+  SuseVO oldsuvo = service.suvo2(su_idx);
+  String s_idx = oldsuvo.getS_idx();
+  int cnt = service.serviceexit(s_idx);
+  mv.setViewName("redirect:/mypage/serviceadd/");
+  return mv;
+ }
 }

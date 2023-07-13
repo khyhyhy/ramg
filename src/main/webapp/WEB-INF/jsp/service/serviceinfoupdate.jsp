@@ -23,6 +23,10 @@
 
    <body onload="onbody()">
   </c:if>
+
+
+
+
   <c:if test="${swvo eq null && suvo ne null}">
 
    <body onload="onbody2()">
@@ -60,13 +64,19 @@
       <!-- 지도영역 -->
       <!-- 정보영역 -->
       <br />
-      <form method="post" action="/mypage/serviceadd/update" novalidate>
+      <form method="post" action="/mypage/serviceadd/updatesu" novalidate>
        <input type="hidden" value="${sessionScope.mvo.m_idx}" name="m_idx">
-
+       <input type="hidden" value="${suvo.su_idx}" name="su_idx">
+       <input type="hidden" value="${suvo.su_val5}" name="su_val5">
+       <div>
+        <p>신청인 정보 : 연락처 :${suvo.mvo.m_name}</p>
+        <p>서비스 정보 : 충전량 : ${suvo.su_percent}</p>
+        <p>신청 차량정보 : ${suvo.cvo.movo.mo_name}</p>
+       </div>
        <div class="input-group mb-3">
-        <span class="input-group-text" id="su_status"></span>
-        <select class="form-select form-select-sm" id="su_status" name="su_status">
-         <option selected value="${susuvo.su_status}">
+        <span class="input-group-text" id="su_status">주문 상태</span>
+        <select class="form-select form-select-sm" id="su_status" name="su_status" onchange="susebutton()">
+         <option selected value="${suvo.su_status}" disabled> 현재 상태:
           <c:choose>
            <c:when test="${suvo.su_status == 0}">
             주문 대기 중
@@ -103,15 +113,16 @@
          <option value="6">도착지 이동 중</option>
          <option value="7">도착 완료</option>
         </select>
+        <button type="submit" id="susubmit" class="btn btn-primary" disabled>(으)로 변경</button>
        </div>
-       <input type="hidden" name="sw_idx" value="${swvo.sw_idx}">
-       <input type="hidden" name="s_idx" value="${swvo.svo.s_idx}">
        <div>
-        <button type="button" id="sujung1" class="btn btn-primary" onclick="sujung()">수정하기</button>
-        <button type="submit" id="sujung2" style="display: none;" class="btn btn-primary">수정완료</button>
-        <button type="button" id="cancel1" class="btn btn-secondary">뒤로가기</button>
-        <button type="button" id="cancel2" style="display: none;" class="btn btn-secondary"
-         onclick="sujungcan()">취소</button>
+        <c:if test="${suvo.su_status ne 7}">
+         <button type="button" id="allclear" class="btn btn-primary" disabled>서비스 진행중</button>
+        </c:if>
+        <c:if test="${suvo.su_status eq 7}">
+         <button type="button" id="allclear" class="btn btn-primary" onclick="servicewan(this.form)">서비스 완료</button>
+        </c:if>
+        <button type="button" id="allclear" class="btn btn-secondary">뒤로가기</button>
        </div>
        <!-- 정보영역끝 -->
       </form>
@@ -279,6 +290,12 @@
    let geocoder;
    let geocoder2;
 
+   function servicewan(form) {
+    form.action = "/mypage/serviceadd/servicewan"
+    form.submit();
+   }
+
+
    function esujung() {
     document.getElementById("esujung2").style.display = "inline";
     document.getElementById("esujung1").style.display = "none";
@@ -293,7 +310,9 @@
     location.reload();
    }
 
-
+   function susebutton() {
+    $("#susubmit").removeAttr('disabled');
+   }
 
 
    function sujung() {

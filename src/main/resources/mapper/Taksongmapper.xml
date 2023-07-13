@@ -75,12 +75,16 @@ SELECT * FROM charging.member_t WHERE m_idx = #{param}
 SELECT * FROM charging.service_t WHERE s_idx = #{param}
 </select>
 
-<select id="suvo" parameterType="String" resultMap="rm6">
-SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_status != 8
+<select id="suvo" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_val2=0
+</select>
+
+<select id="suvo2" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8
 </select>
 
 
-<select id="suvoselect" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+<select id="suvoselect" parameterType="String"  resultMap="rm6">
 SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8
 </select>
 
@@ -111,6 +115,11 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
  		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice},#{su_val1},#{su_val2},#{su_val3},#{su_val4},#{su_val5})
 </insert>
 
+<insert id="suseupdatein" parameterType="com.kdt.finalproject.vo.SuseVO">
+ INSERT INTO charging.service_use(s_idx,c_idx,su_date,su_status,su_type,su_percent,su_payment,su_payinfo,su_sprice,su_cprice,su_val1,su_val2,su_val3,su_val4,su_val5) 
+ 		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice},#{su_val1},#{su_val2},#{su_val3},#{su_val4},#{su_val5})
+</insert>
+
 <insert id="servicevoin" parameterType="com.kdt.finalproject.vo.ServiceVO" useGeneratedKeys="true" keyProperty="s_idx">
  INSERT INTO charging.service_t(s_type,s_radius,s_status,s_mapx,s_mapy,s_state,s_city,s_val1) 
  		VALUES(#{s_type},#{s_radius},#{s_status},#{s_mapx},#{s_mapy},#{s_state},#{s_city},#{s_val1})
@@ -132,6 +141,12 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 UPDATE charging.service_write
 SET sw_val4 = 1
 WHERE sw_idx = #{sw_idx}
+</update>
+
+<update id="suseupdate" parameterType="String">
+UPDATE charging.service_use
+SET su_val2 = 1
+WHERE su_idx = #{su_idx}
 </update>
 
 <update id="serviceinyong" parameterType="String">

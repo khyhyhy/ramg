@@ -108,6 +108,16 @@ public class TaksongService {
   return suvo;
  }
 
+ public SuseVO suvo(String s_idx) {
+  SuseVO suvo = mapper.suvo(s_idx);
+  return suvo;
+ }
+
+ public SuseVO suvo2(String su_idx) {
+  SuseVO suvo = mapper.suvo2(su_idx);
+  return suvo;
+ }
+
  public int servicevoin(ServiceVO svo, SwriteVO swvo) {
   int cnt;
   cnt = mapper.servicevoin(svo);
@@ -122,6 +132,15 @@ public class TaksongService {
    }
   }
 
+  return cnt;
+ }
+
+ public int suseupdatein(SuseVO suvo, String su_idx) {
+  int cnt = 0;
+  cnt = mapper.suseupdatein(suvo);
+  if (cnt == 1) {
+   mapper.suseupdate(su_idx);
+  }
   return cnt;
  }
 

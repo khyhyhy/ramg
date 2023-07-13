@@ -33,6 +33,8 @@ public interface TaksongMapper {
 
  SuseVO suvo(String s_idx);
 
+ SuseVO suvo2(String su_idx);
+
  SuseVO suvoselect(String su_idx);
 
  List<CwriteVO> cwselect(String m_idx);
@@ -42,6 +44,8 @@ public interface TaksongMapper {
  ServiceVO[] getService(String state);
 
  int susein(SuseVO suvo);
+
+ int suseupdatein(SuseVO suvo);
 
  int servicevoin(ServiceVO svo);
 
@@ -56,6 +60,8 @@ public interface TaksongMapper {
  int serviceinyong(String s_idx);
 
  int serviceexit(String s_idx);
+
+ int suseupdate(String su_idx);
 
  List<SuseVO> getSuse(String m_idx);
 }
