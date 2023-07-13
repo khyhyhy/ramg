@@ -140,4 +140,11 @@ WHERE s_idx = #{s_idx}
       WHERE m_idx = #{param} AND sw_val4 = 0
     ));
 </select>
+
+<select id="sType" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
+  select s_type from service_t
+  where s_idx in(
+  SELECT s_idx FROM charging.service_write WHERE m_idx = #{param} AND sw_val4 = 0);
+</select>
+
 </mapper>

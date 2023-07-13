@@ -3,6 +3,8 @@ package com.kdt.finalproject.controller;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -17,18 +19,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.finalproject.service.AdminService;
 import com.kdt.finalproject.service.SupportService;
 import com.kdt.finalproject.util.Support_noitce_paging;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.ChargeVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.SuseVO;
 
 @Controller
 public class MainController {
+
     @Autowired
-    SupportService service;
-    @Autowired
-    HttpSession session;
+    AdminService service;
+
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
 
     // loading2에서 접속한 사람의 위치를 구하기 위해서
@@ -125,7 +129,13 @@ public class MainController {
                 }
             }
         }
+        // 공지사항
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
+        BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
+
+        mv.addObject("today", today);
+        mv.addObject("b_ar", b_ar);
         mv.addObject("ar", ar);
         mv.addObject("len", ar.length);
         mv.setViewName("/main/test");

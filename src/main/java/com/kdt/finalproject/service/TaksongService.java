@@ -137,6 +137,7 @@ public class TaksongService {
         return cnt;
     }
 
+    ////////////// 영석///////////////////
     public SuseVO[] getSuse(String m_idx) {
         SuseVO[] suar = null;
         List<SuseVO> list = mapper.getSuse(m_idx);
@@ -145,5 +146,15 @@ public class TaksongService {
             list.toArray(suar);
         }
         return suar;
+    }
+
+    public ServiceVO[] sType(String m_idx) {
+        ServiceVO[] sar = null;
+        List<ServiceVO> list = mapper.sType(m_idx);
+        if (list != null && list.size() > 0) {
+            sar = new ServiceVO[list.size()];
+            list.toArray(sar);
+        }
+        return sar;
     }
 }

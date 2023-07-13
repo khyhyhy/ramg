@@ -46,5 +46,8 @@ public interface TaksongMapper {
 
     int swriteupdate(String sw_idx);
 
+    ////////////// 영석///////////////////
     List<SuseVO> getSuse(String m_idx);
+
+    List<ServiceVO> sType(String m_idx);
 }
