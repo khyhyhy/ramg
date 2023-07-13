@@ -26,7 +26,10 @@ pageEncoding="UTF-8"%>
         <table class="table table-hover">
             <colgroup>
                 <col width="150px">
+                <col width="150px">
+                <col width="150px">
                 <col width="*">
+                <col width="150px">
                 <col width="150px">
                 <col width="150px">
             </colgroup>
@@ -50,7 +53,7 @@ pageEncoding="UTF-8"%>
                     <td><fmt:formatNumber pattern="#,###" value="${ar[0].su_cprice}"/>원</td>
                     <td><fmt:formatNumber pattern="#,###" value="${ar[0].su_sprice}"/>원</td>
                     <td>
-                        <fmt:formatNumber pattern="#,###" value="${ar[0].su_cprice + vo.su_sprice}"/>원
+                        <fmt:formatNumber pattern="#,###" value="${ar[0].su_cprice + ar[0].su_sprice}"/>원
                     </td>
                 </tr>
             </tbody>
@@ -58,6 +61,7 @@ pageEncoding="UTF-8"%>
 
 
         <table class="table table-hover">
+            <thead>
             <tr class="table-warning">
                 <th>
                     <c:choose>
@@ -71,6 +75,7 @@ pageEncoding="UTF-8"%>
                 </th>
                 <th>${ar[0].svo.s_city} ${ar[0].svo.s_addr1}</th>
             </tr>
+            </thead>
             <c:forEach items="${ar}" var="vo">
             <tr>
                 <td>${vo.su_date}</td>
