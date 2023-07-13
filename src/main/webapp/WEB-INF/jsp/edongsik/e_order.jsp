@@ -322,14 +322,14 @@
                          <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
                          <td style="text-align: center; vertical-align: middle;">${mvo.m_name}<br>${mvo.m_phone}</td>   
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
+                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}원</td>
+                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}원</td>
 
                         <c:set var="num1" value="${suvo.su_sprice}" />
                         <c:set var="num2" value="${suvo.su_cprice}" />
                         <c:set var="sum" value="${(num1 + num2)}" />
 
-                         <td style="text-align: center; vertical-align: middle;">${sum}</td>
+                         <td style="text-align: center; vertical-align: middle;">${sum}원</td>
                      
                          <c:choose>
                          <c:when test="${suvo.su_status == 0}">
@@ -376,9 +376,14 @@
                          <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
                          <td style="text-align: center; vertical-align: middle;">${mvo.m_name}<br>${mvo.m_phone}</td>   
                          <td style="text-align: center; vertical-align: middle;">${suvo.su_date}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}</td>
-                         <td style="text-align: center; vertical-align: middle;">총 결제금액</td>
+                         <td style="text-align: center; vertical-align: middle;">${suvo.su_sprice}원</td>
+                         <td style="text-align: center; vertical-align: middle;">${suvo.su_cprice}원</td>
+
+                        <c:set var="num1" value="${suvo.su_sprice}" />
+                        <c:set var="num2" value="${suvo.su_cprice}" />
+                        <c:set var="sum" value="${(num1 + num2)}" />
+
+                         <td style="text-align: center; vertical-align: middle;">${sum}원</td>
                      
                          <c:choose>
                              <c:when test="${suvo.su_status == 0}">

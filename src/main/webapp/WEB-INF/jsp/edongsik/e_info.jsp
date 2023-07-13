@@ -71,160 +71,161 @@
             <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
              for="service${status.index}">${swar.svo.s_city}${swar.svo.s_radius}/${swar.mvo.m_name}/${swar.cvo.c_name}</label>
-            <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
-            <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
+            <input type="hidden" name="s_idx" value=${swar.svo.s_idx} />
+            <input type="hidden" name="s_price" value="${swar.svo.s_val1}">
            </fieldset>
            <br />
           </c:forEach>
          </ul>
         </div>
         <div class="col">
-         <label for="chargebar">충전량</label>
-         <input type="range" class="form-range custom-range" step="10" min="50" max="100" id="chargebar"
-          name="chargepersent" value="50" list="tickmarks" onchange="muckpho(this)">
-         <datalist id="tickmarks"></datalist>
-         <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
-         <p id="battery"></p>
-         <p id="muckpho"></p>
-        </div>
-       </div>
-       <div class="row">
-        <div class="col"></div>
-        <div class="col"></div>
-        <div class="col">
-         <p>결제정보</p>
-         <p id="sprice">서비스&nbsp;비용&nbsp;:&nbsp;원</p>
-         <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
-         <p id="fprice">총&nbsp;비용&nbsp;:&nbsp;원</p>
-        </div>
-       </div>
-       <div class="row">
-        <div class="col">
-         <div>
-          <input type="radio" class="btn-check" name="s_payment" id="payment1" autocomplete="off" onclick="sinyoung()"
-           value="신용카드">
-          <label class="btn btn-outline-primary" for="payment1">신용카드</label>
-          <input type="radio" class="btn-check" name="s_payment" id="payment2" autocomplete="off" onclick="tong()"
-           value="무통장거래">
-          <label class="btn btn-outline-primary" for="payment2">무통장거래</label>
-          <select class="form-select form-select-sm" style="display: none; width: 18%;" id="sinyong" name="s_payinfo">
-           <option value="gukmin">국민카드</option>
-           <option value="shinhan">신한카드</option>
-           <option value="bici">BC카드</option>
-           <option value="woori">우리카드</option>
-          </select>
-          <select class="form-select form-select-sm" style="display: none; width: 18%;" id="tongjang" name="s_payinfo">
-           <option value="gukmin">국민은행</option>
-           <option value="shinhan">신한은행</option>
-           <option value="giup">기업은행</option>
-           <option value="woori">우리은행</option>
-          </select>
-          <input type="text" id="tongtext" name="s_payinfo" class="form-control" style=" display: none ;width: 30%"
-           placeholder="계좌번호">
+          <label for="chargebar">충전량</label>
+          <input type="range" class="form-range custom-range" step="10" min="50" max="100" id="chargebar"
+           name="chargepersent" value="50" list="tickmarks" onchange="muckpho(this)">
+          <datalist id="tickmarks"></datalist>
+          <label for="mukpho">목표치&nbsp;&nbsp;:&nbsp;&nbsp;</label>
+          <p id="battery"></p>
+          <p id="muckpho"></p>
          </div>
         </div>
-       </div>
-       <div class="row"><br />
-       </div>
-       <div class="row">
-        <div class="col"><button type="submit" class="btn btn-primary btn-lg">서비스 신청하기</button></div>
-       </div>
-     </div>
-     <input type="hidden" id="s_c_idx" name="s_c_idx" />
-     <input type="hidden" id="s_s_idx" name="s_s_idx" />
-     <input type="hidden" id="s_sprice" name="s_sprice" />
-     <input type="hidden" id="s_cprice" name="s_cprice" />
-     </form>
-    </main>
-   </div>
-   <!--////////// Main end //////////////-->
-   <!--////////// Foter start //////////////-->
-   <jsp:include page="../main/mainF.jsp"></jsp:include>
-   <!--////////// Foter end //////////////-->
-   <script>
-
-    var btank;
-    var khw = 34.72;
-    let serviceprice;
-    let chargeprice;
-    var f_price;
-
-    function sinyoung() {
-     var sinyongSelect = document.getElementById("sinyong");
-     var tongjangSelect = document.getElementById("tongjang");
-     var tongtextInput = document.getElementById("tongtext");
-
-     sinyongSelect.style.display = "inline";
-     tongjangSelect.style.display = "none";
-     tongtextInput.style.display = "none";
-     sinyongSelect.disabled = false;
-     tongjangSelect.disabled = true;
-     tongtextInput.disabled = true;
-
-
-    }
-
-    function tong() {
-     var sinyongSelect = document.getElementById("sinyong");
-     var tongjangSelect = document.getElementById("tongjang");
-     var tongtextInput = document.getElementById("tongtext");
-     sinyongSelect.style.display = "none";
-     tongjangSelect.style.display = "inline";
-     tongtextInput.style.display = "inline";
-     sinyongSelect.disabled = true;
-     tongjangSelect.disabled = false;
-     tongtextInput.disabled = false;
-    }
-
-    function carinfo(f) {
-     console.log("c_idx==/" + f.querySelector('input[name="c_idx"]').value);
-     console.log("c_val3==" + f.querySelector('input[name="c_val3"]').value);
-     btank = f.querySelector('input[name="c_val3"]').value
-     document.getElementById("battery").innerText = btank + "kWh";
-     document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
-     if (chargeprice != null) {
-      chargeprice = null;
+        <div class="row">
+         <div class="col"></div>
+         <div class="col"></div>
+         <div class="col">
+          <p>결제정보</p>
+          <p id="sprice">서비스&nbsp;비용&nbsp;:&nbsp;원</p>
+          <p id="cprice">예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp;원</p>
+          <p id="fprice">총&nbsp;비용&nbsp;:&nbsp;원</p>
+         </div>
+        </div>
+        <div class="row">
+         <div class="col">
+          <div>
+           <input type="radio" class="btn-check" name="s_payment" id="payment1" autocomplete="off" onclick="sinyoung()"
+            value="신용카드">
+           <label class="btn btn-outline-primary" for="payment1">신용카드</label>
+           <input type="radio" class="btn-check" name="s_payment" id="payment2" autocomplete="off" onclick="tong()"
+            value="무통장거래">
+           <label class="btn btn-outline-primary" for="payment2">무통장거래</label>
+           <select class="form-select form-select-sm" style="display: none; width: 18%;" id="sinyong" name="s_payinfo">
+            <option value="gukmin">국민카드</option>
+            <option value="shinhan">신한카드</option>
+            <option value="bici">BC카드</option>
+            <option value="woori">우리카드</option>
+           </select>
+           <select class="form-select form-select-sm" style="display: none; width: 18%;" id="tongjang" name="s_payinfo">
+            <option value="gukmin">국민은행</option>
+            <option value="shinhan">신한은행</option>
+            <option value="giup">기업은행</option>
+            <option value="woori">우리은행</option>
+           </select>
+           <input type="text" id="tongtext" name="s_payinfo" class="form-control" style=" display: none ;width: 30%"
+            placeholder="계좌번호">
+          </div>
+         </div>
+        </div>
+        <div class="row"><br />
+        </div>
+        <div class="row">
+         <div class="col"><button type="submit" class="btn btn-primary btn-lg">서비스 신청하기</button></div>
+        </div>
+      </div>
+      <input type="hidden" id="s_c_idx" name="s_c_idx" />
+      <input type="hidden" id="s_s_idx" name="s_s_idx" />
+      <input type="hidden" id="s_sprice" name="s_sprice" />
+      <input type="hidden" id="s_cprice" name="s_cprice" />
+      <input type="hidden" id="s_cprice" name="s_type" value="0" />
+      </form>
+     </main>
+    </div>
+    <!--////////// Main end //////////////-->
+    <!--////////// Foter start //////////////-->
+    <jsp:include page="../main/mainF.jsp"></jsp:include>
+    <!--////////// Foter end //////////////-->
+    <script>
+ 
+     var btank;
+     var khw = 34.72;
+     let serviceprice;
+     let chargeprice;
+     var f_price;
+ 
+     function sinyoung() {
+      var sinyongSelect = document.getElementById("sinyong");
+      var tongjangSelect = document.getElementById("tongjang");
+      var tongtextInput = document.getElementById("tongtext");
+ 
+      sinyongSelect.style.display = "inline";
+      tongjangSelect.style.display = "none";
+      tongtextInput.style.display = "none";
+      sinyongSelect.disabled = false;
+      tongjangSelect.disabled = true;
+      tongtextInput.disabled = true;
+ 
+ 
      }
-     l_price();
-    }
-
-    function serviceinfo(f) {
-     serviceprice = f.querySelector('input[name="s_price"]').value;
-     console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
-     document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
-     document.getElementById("s_sprice").value = serviceprice;
-     var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-     document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
-
-     l_price()
-    }
-
-    function muckpho(e) {
-
-     document.getElementById("muckpho").innerText = e.value + "%"
-     chargeprice = (btank / 100 * e.value) * khw;
-     console.log(chargeprice);
-     console.log(btank);
-     chargeprice = Math.floor(chargeprice).toString();
-     document.getElementById("s_cprice").value = chargeprice;
-     var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-     document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
-     l_price()
-    }
-
-    function l_price() {
-     if (chargeprice != null && serviceprice != null) {
-      f_price = Number(chargeprice) + Number(serviceprice);
-
-      f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
+ 
+     function tong() {
+      var sinyongSelect = document.getElementById("sinyong");
+      var tongjangSelect = document.getElementById("tongjang");
+      var tongtextInput = document.getElementById("tongtext");
+      sinyongSelect.style.display = "none";
+      tongjangSelect.style.display = "inline";
+      tongtextInput.style.display = "inline";
+      sinyongSelect.disabled = true;
+      tongjangSelect.disabled = false;
+      tongtextInput.disabled = false;
      }
-     else {
-      document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
+ 
+     function carinfo(f) {
+      console.log("c_idx==/" + f.querySelector('input[name="c_idx"]').value);
+      console.log("c_val3==" + f.querySelector('input[name="c_val3"]').value);
+      btank = f.querySelector('input[name="c_val3"]').value
+      document.getElementById("battery").innerText = btank + "kWh";
+      document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
+      if (chargeprice != null) {
+       chargeprice = null;
+      }
+      l_price();
      }
-    }
-   </script>
-  </body>
-
-  </html>
+ 
+     function serviceinfo(f) {
+      serviceprice = f.querySelector('input[name="s_price"]').value;
+      console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
+      document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
+      document.getElementById("s_sprice").value = serviceprice;
+      var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
+ 
+      l_price()
+     }
+ 
+     function muckpho(e) {
+ 
+      document.getElementById("muckpho").innerText = e.value + "%"
+      chargeprice = (btank / 100 * e.value) * khw;
+      console.log(chargeprice);
+      console.log(btank);
+      chargeprice = Math.floor(chargeprice).toString();
+      document.getElementById("s_cprice").value = chargeprice;
+      var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+ 
+      document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
+      l_price()
+     }
+ 
+     function l_price() {
+      if (chargeprice != null && serviceprice != null) {
+       f_price = Number(chargeprice) + Number(serviceprice);
+ 
+       f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+       document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
+      }
+      else {
+       document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
+      }
+     }
+    </script>
+   </body>
+ 
+   </html>

@@ -29,7 +29,9 @@
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 40px;">
-      <button type="button" onclick="location.href=''" class="btn btn-outline-info" style="border-width: 2px; margin-right: 50px;">현재상황</button>
+      <button type="button" onclick="location.href=''" class="btn btn-primary" 
+      style="background-color: #0DCAF0; border-color: #0DCAF0; margin-right: 50px; color: black;">현재상황</button>
+
       <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
      </div>
      <!-- 이용중인 서비스가 없을때 -->
@@ -192,14 +194,14 @@
                             <td style="text-align: left; vertical-align: middle;">이동식 충전 서비스</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}원</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}원</td>
 
                             <c:set var="num1" value="${suar.su_sprice}" />
                             <c:set var="num2" value="${suar.su_cprice}" />
                             <c:set var="sum" value="${(num1 + num2)}" />
 
-                            <td style="text-align: center; vertical-align: middle;">${sum}</td>
+                            <td style="text-align: center; vertical-align: middle;">${sum}원</td>
                         
                             <c:choose>
                             <c:when test="${suar.su_status == 0}">
@@ -406,14 +408,14 @@
                             <td style="text-align: left; vertical-align: middle;">탁송 충전 서비스</td>
                             <td style="text-align: center; vertical-align: middle;">${suar.mvo.m_name}<br>${suar.mvo.m_phone}</td>   
                             <td style="text-align: center; vertical-align: middle;">${suar.su_date}</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}</td>
-                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_sprice}원</td>
+                            <td style="text-align: center; vertical-align: middle;">${suar.su_cprice}원</td>
 
                             <c:set var="num1" value="${suar.su_sprice}" />
                             <c:set var="num2" value="${suar.su_cprice}" />
                             <c:set var="sum" value="${(num1 + num2)}" />
 
-                            <td style="text-align: center; vertical-align: middle;">${sum}</td>
+                            <td style="text-align: center; vertical-align: middle;">${sum}원</td>
                         
                             <c:choose>
                                 <c:when test="${suar.su_status == 0}">

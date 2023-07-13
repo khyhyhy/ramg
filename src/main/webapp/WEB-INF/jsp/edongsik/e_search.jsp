@@ -7,6 +7,7 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <link href="../../css/edongsik.css" rel="stylesheet">
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   </head>
@@ -25,19 +26,24 @@
 
 
    <div>
-    <h1>현재위치끼얏호우</h1>
+    <h1>현재위치</h1>
    </div>
-   <div id="map" style="width:100%;height:350px;"></div>
-   <div>
-    <form method="post" action="/e_search/">
-        <input type="text" id="addr" name="addr" />
-        <button type="submit" style="margin-top: 10px;">주소 검색</button>
-    </form>
+   <div id="map" style="height:350px; width: 100%;"></div>
+   <div style="margin-top: 30px;">
+    <form method="post" action="/e_search/" class="row">
+        <div class="col-md-2" style="margin-left: 20px;">
+          <input type="text" id="addr" name="addr" class="form-control" style="width: 300px;" />
+        </div>
+        <div class="col-md-3">
+          <button type="submit" style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary">주소 검색</button>
+        </div>
+        <div class="col-md-7"></div>
+      </form>
    </div>
 
    <p id="result"></p>
    <form action="/select/">
-    <button type="submit">다음 화면</button>
+    <button type="submit" class="btn btn-outline-info" style="border-width: 2px; margin-left: 20px;">다음 화면</button>
     
     <input type="hidden" id="lat1" name="nowlat" />
     <input type="hidden" id="lng1" name="nowlng" />
