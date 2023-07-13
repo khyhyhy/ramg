@@ -35,11 +35,11 @@ SELECT * FROM charging.member_t WHERE m_idx = #{param}
 </select>
 
 <select id="guservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_city = #{gu}
+SELECT * FROM charging.service_t WHERE s_city = #{gu} AND s_type = 0
 </select>
 
 <select id="siservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_state = #{si}
+SELECT * FROM charging.service_t WHERE s_state = #{si} AND s_type = 0
 </select>
 
 <select id="selectSWVO" parameterType="String" resultMap="rm1">
@@ -75,7 +75,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
 <select id="cwselect" parameterType="String" resultMap="rm3">
 SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 </select>
-<select id="carList" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
+<select id="carList" resultMap="rm4" parameterType="String">
 	SELECT * FROM charging.car_t
   WHERE c_idx = #{c_idx}
 </select>

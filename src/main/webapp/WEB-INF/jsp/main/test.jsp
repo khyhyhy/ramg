@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Insert title here</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="../../../css/ramg.css" rel="stylesheet">
 <style>
   #wrap {border-radius: 5px; position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; line-height: 1.5; background: #888;}
     #title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
@@ -28,10 +29,7 @@
     text-align: center;
     background-color: #81F7F3;
 }
-.fff{
-    font-family: 'GoryeongStrawberry';
-    color: #333333;
-}
+
 
 .custom-btn {
     width: 40px;
@@ -57,10 +55,7 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
-  .fff{
-    font-family: 'GoryeongStrawberry';
-    color: #333333;
-}
+  
 </style>
   </head>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

@@ -63,7 +63,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
 </select>
 
-<select id="carList3" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
+<select id="carList3" resultMap="rm4" parameterType="String">
 	SELECT * FROM charging.car_t
   WHERE c_idx = #{c_idx}
 </select>

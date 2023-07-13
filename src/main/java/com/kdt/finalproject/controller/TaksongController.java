@@ -107,11 +107,18 @@ public class TaksongController {
 
   if (nowstate.contains(sp) || nowstate.contains(mp) || nowstate.contains(wp)) {
    System.out.println("현재 위치는 특별 혹은 광역 혹은 자치 시입니다.");
-   ServiceVO[] ar = service.siar(nowstate);
 
+   // 탁송서비스 거르기
+   List<ServiceVO> sar = new ArrayList<ServiceVO>();
+   ServiceVO[] ar = service.siar(nowstate);
+   for (ServiceVO svo : ar) {
+    if (svo.getS_type().equals("0")) {
+     sar.add(svo);
+    }
+   }
    int idx = 1;
 
-   for (ServiceVO vo : ar) {
+   for (ServiceVO vo : sar) {
     int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
       Double.parseDouble(vo.getS_mapy()), Double.parseDouble(vo.getS_mapx()));
 
@@ -131,11 +138,18 @@ public class TaksongController {
    }
 
   } else {
+   List<ServiceVO> sar = new ArrayList<ServiceVO>();
+
    ServiceVO[] ar = service.guar(nowcity);
+   for (ServiceVO svo : ar) {
+    if (svo.getS_type().equals("0")) {
+     sar.add(svo);
+    }
+   }
 
    int idx = 1;
 
-   for (ServiceVO vo : ar) {
+   for (ServiceVO vo : sar) {
     int radius = guri(Double.parseDouble(nowlat), Double.parseDouble(nowlng),
       Double.parseDouble(vo.getS_mapy()), Double.parseDouble(vo.getS_mapx()));
     System.out.println(vo.getS_city() + "의" + idx + "번째 서비스 구역의 커버범위는" + vo.getS_radius() + "m 입니다");
@@ -155,8 +169,8 @@ public class TaksongController {
   }
   MemVO mem = service.selectmem(m_idx);
   List<CwriteVO> cwvoar = mem.getCw_list();
-  for(CwriteVO vo : cwvoar){
-   System.out.println("탁송 차량이름"+vo.getCvo().getMovo().mo_name);
+  for (CwriteVO vo : cwvoar) {
+   System.out.println("탁송 차량이름" + vo.getCvo().getMovo().mo_name);
   }
   mv.addObject("mvo", mem);
 
@@ -173,6 +187,16 @@ public class TaksongController {
   mv.addObject("cvo", c_vo);
 
   String state = c_vo.getC_state();
+  if (c_vo.getC_state().startsWith("서울"))
+   state = "서울특별시";
+  else if (c_vo.getC_state().startsWith("부산") || c_vo.getC_state().startsWith("인천") ||
+    c_vo.getC_state().startsWith("대구") || c_vo.getC_state().startsWith("광주") || c_vo.getC_state().startsWith("대전")
+    || c_vo.getC_state().startsWith("울산"))
+   state = c_vo.getC_state() + "광역시";
+  else if (c_vo.getC_state().startsWith("세종"))
+   state = c_vo.getC_state() + "특별자치시";
+  else if (c_vo.getC_state().startsWith("제주") || c_vo.getC_state().startsWith("강원"))
+   state = c_vo.getC_state() + "특별자치도 ";
   String city = c_vo.getC_city();
   String addr1 = c_vo.getC_addr1();
 
@@ -234,8 +258,15 @@ public class TaksongController {
    // -------------------- 고객 위치 값 구하기 끝 ----------------------------
 
    // 충전 기사들의 위치값 가져오기
-   ServiceVO[] sar = service.getService(state);
-   System.out.println("sar length" + sar.length);
+   List<ServiceVO> sar = new ArrayList<ServiceVO>();
+   ServiceVO[] ar = service.getService(state);
+
+   for (ServiceVO svo : ar) {
+    if (svo.getS_type().equals("0")) {
+     sar.add(svo);
+    }
+   }
+   System.out.println("sar length" + sar.size());
    List<SwriteVO> swar = new ArrayList<SwriteVO>();
 
    for (ServiceVO value : sar) {
