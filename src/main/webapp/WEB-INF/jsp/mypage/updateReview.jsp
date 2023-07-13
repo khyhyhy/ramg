@@ -22,6 +22,27 @@
         article{
             margin-bottom: 1cm;
         }
+
+        .starR{
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            color: transparent;
+            text-shadow: 0 0 0 #ccc;
+            font-size: 1.8em;
+            box-sizing: border-box;
+            cursor: pointer;
+          }
+          
+          /* 별 이모지에 마우스 오버 시 */
+          .starR:hover {
+            text-shadow: 0 0 0 #ccc;
+          }
+          
+          /* 별 이모지를 클릭 후 class="on"이 되었을 경우 */
+          .starR.on{
+            text-shadow: 0 0 0 #ffbc00;
+          }
    </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -40,7 +61,45 @@
         </tr>
         <tr>
             <th><label for="b_score">별점</label></th>
-            <td><input type="text" id="b_score"  name="b_score" value="${bvo.b_score}"/></td>
+                
+            <td class="starRev">
+                <c:if test="${bvo.b_score eq 1}">
+                    <span class="starR on" value="1" >⭐</span>
+                    <span class="starR" value="2" >⭐</span>
+                    <span class="starR" value="3" >⭐</span>
+                    <span class="starR" value="4" >⭐</span>
+                    <span class="starR" value="5" >⭐</span>
+                </c:if>
+                <c:if test="${bvo.b_score eq 2}">
+                    <span class="starR on" value="1" >⭐</span>
+                    <span class="starR on" value="2" >⭐</span>
+                    <span class="starR" value="3" >⭐</span>
+                    <span class="starR" value="4" >⭐</span>
+                    <span class="starR" value="5" >⭐</span>
+                </c:if>
+                <c:if test="${bvo.b_score eq 3}">
+                    <span class="starR on" value="1" >⭐</span>
+                    <span class="starR on" value="2" >⭐</span>
+                    <span class="starR on" value="3" >⭐</span>
+                    <span class="starR" value="4" >⭐</span>
+                    <span class="starR" value="5" >⭐</span>
+                </c:if>
+                <c:if test="${bvo.b_score eq 4}">
+                    <span class="starR on" value="1" >⭐</span>
+                    <span class="starR on" value="2" >⭐</span>
+                    <span class="starR on" value="3" >⭐</span>
+                    <span class="starR on" value="4" >⭐</span>
+                    <span class="starR" value="5" >⭐</span>
+                </c:if>
+                <c:if test="${bvo.b_score eq 5}">
+                    <span class="starR on" value="1" >⭐</span>
+                    <span class="starR on" value="2" >⭐</span>
+                    <span class="starR on" value="3" >⭐</span>
+                    <span class="starR on" value="4" >⭐</span>
+                    <span class="starR on" value="5" >⭐</span>
+                </c:if>
+            </td>
+
         </tr>
         <tr>
             
@@ -60,6 +119,21 @@
 
     $(function(){
 
+        let b_score = '${bvo.b_score}';
+
+        $('.starRev span').click(function(){
+            $(this).parent().children('span').removeClass('on');
+            $(this).addClass('on').prevAll('span').addClass('on');
+
+            var value = $(this).attr('value');
+            //alert(value);
+            console.log(value);
+            b_score = value;
+            //alert(b_score);
+
+            return false;
+          });
+
 
         // 아이디가 btn인 버튼에게 클릭 이벤트를 부여하자!
         $("#btn").bind("click", function(){
@@ -69,11 +143,13 @@
             // 사용자가 입력한 값들 모두 가져오기
             let b_idx = '${bvo.b_idx}';
             let b_title = $("#b_title").val();
-            let b_score = $("#b_score").val();
+            
             let b_content = $("#b_content").val();
-
             let param = "";
 
+
+            alert("b_score: "+b_score);
+            
             //유효성검사(name,phone)
             if(b_title.trim().length == 0){
                 alert("제목을 입력하세요");
@@ -84,7 +160,7 @@
 
             if(b_score.trim().length == 0){
                 alert("별점을 입력하세요");
-                $("#b_score").focus();
+                //$("#b_score").focus();
                 return;
             }else
                 param += "&b_score="+encodeURIComponent(b_score);
@@ -94,6 +170,7 @@
                 $("#b_content").focus();
                 return;
             }else
+            alert("내용 있음");
                 param += "&b_content="+encodeURIComponent(b_content);
 
             param += "&b_idx="+encodeURIComponent(b_idx);

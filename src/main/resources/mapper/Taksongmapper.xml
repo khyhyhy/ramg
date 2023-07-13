@@ -29,17 +29,29 @@
 <association property="movo" column="mo_idx" javaType="com.kdt.finalproject.vo.ModelVO" select="movo"></association>
 </resultMap>
 
+<resultMap id="rm5" type="com.kdt.finalproject.vo.ServiceVO">
+<result column="s_idx" property="s_idx"/>
+<association property="suvo" column="s_idx" javaType="com.kdt.finalproject.vo.SuseVO" select="suvo"></association>
+</resultMap>
+
+<resultMap id="rm6" type="com.kdt.finalproject.vo.SuseVO">
+<result column="s_idx" property="s_idx"/>
+<result column="c_idx" property="c_idx"/>
+<association property="svo" column="s_idx" javaType="com.kdt.finalproject.vo.ServiceVO" select="svo"></association>
+<association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
+</resultMap>
+
 <!-- select -->
 <select id="selectmem" resultMap="rm2" parameterType="String">
 SELECT * FROM charging.member_t WHERE m_idx = #{param}
 </select>
 
 <select id="guservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_city = #{gu} AND s_type = 0
+SELECT * FROM charging.service_t WHERE s_city = #{gu} AND s_type = 0 AND s_status = 0
 </select>
 
 <select id="siservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_state = #{si} AND s_type = 0
+SELECT * FROM charging.service_t WHERE s_state = #{si} AND s_type = 0 AND s_status = 0
 </select>
 
 <select id="selectSWVO" parameterType="String" resultMap="rm1">
@@ -59,8 +71,21 @@ SELECT * FROM charging.service_write WHERE sw_idx = #{sw_idx}
 SELECT * FROM charging.member_t WHERE m_idx = #{param}
 </select>
 
-<select id="svo" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+<select id="svo" parameterType="String" resultMap="rm5">
 SELECT * FROM charging.service_t WHERE s_idx = #{param}
+</select>
+
+<select id="suvo" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_val2=0
+</select>
+
+<select id="suvo2" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8
+</select>
+
+
+<select id="suvoselect" parameterType="String"  resultMap="rm6">
+SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8
 </select>
 
 <select id="cvo" parameterType="String" resultMap="rm4">
@@ -86,8 +111,13 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 
 <!-- insert -->
 <insert id="susein" parameterType="com.kdt.finalproject.vo.SuseVO">
- INSERT INTO charging.service_use(s_idx,c_idx,su_date,su_status,su_type,su_percent,su_payment,su_payinfo,su_sprice,su_cprice) 
- 		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice})
+ INSERT INTO charging.service_use(s_idx,c_idx,su_date,su_status,su_type,su_percent,su_payment,su_payinfo,su_sprice,su_cprice,su_val1,su_val2,su_val3,su_val4,su_val5) 
+ 		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice},#{su_val1},#{su_val2},#{su_val3},#{su_val4},#{su_val5})
+</insert>
+
+<insert id="suseupdatein" parameterType="com.kdt.finalproject.vo.SuseVO">
+ INSERT INTO charging.service_use(s_idx,c_idx,su_date,su_status,su_type,su_percent,su_payment,su_payinfo,su_sprice,su_cprice,su_val1,su_val2,su_val3,su_val4,su_val5) 
+ 		VALUES(#{s_idx},#{c_idx},now(),#{su_status},#{su_type},#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice},#{su_val1},#{su_val2},#{su_val3},#{su_val4},#{su_val5})
 </insert>
 
 <insert id="servicevoin" parameterType="com.kdt.finalproject.vo.ServiceVO" useGeneratedKeys="true" keyProperty="s_idx">
@@ -111,6 +141,24 @@ SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 UPDATE charging.service_write
 SET sw_val4 = 1
 WHERE sw_idx = #{sw_idx}
+</update>
+
+<update id="suseupdate" parameterType="String">
+UPDATE charging.service_use
+SET su_val2 = 1
+WHERE su_idx = #{su_idx}
+</update>
+
+<update id="serviceinyong" parameterType="String">
+UPDATE charging.service_t
+SET s_status = 2
+WHERE s_idx = #{s_idx}
+</update>
+
+<update id="serviceexit" parameterType="String">
+UPDATE charging.service_t
+SET s_status = 0
+WHERE s_idx = #{s_idx}
 </update>
 
 

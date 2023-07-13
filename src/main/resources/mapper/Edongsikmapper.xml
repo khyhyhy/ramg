@@ -5,11 +5,6 @@
 <mapper namespace="com.kdt.finalproject.mapper.EdongsikMapper">
 
 <!-- result -->
-<resultMap id="rm4" type="com.kdt.finalproject.vo.CarVO">
-<result column="mo_idx" property="mo_idx"/>
-<association property="movo" column="mo_idx" javaType="com.kdt.finalproject.vo.ModelVO" select="movo"></association>
-</resultMap>
-
 
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="map1">
   	<result column="c_idx" property="c_idx"/>
@@ -18,7 +13,7 @@
 
 <select id="carList" resultMap="map1" parameterType="String">
   SELECT * FROM charging.car_write
-  WHERE m_idx = #{m_idx} AND cw_type = 0 AND cw_state = 0
+  WHERE m_idx = #{m_idx} AND cw_type = 0
 </select>
 
 <select id="carList2" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
@@ -55,7 +50,7 @@ SELECT * FROM charging.member_t WHERE m_idx = #{m_idx}
 SELECT * FROM charging.service_t WHERE s_idx = #{s_idx}
 </select>
 
-<select id="cvo" parameterType="String" resultMap="rm4">
+<select id="cvo" parameterType="String" resultType="com.kdt.finalproject.vo.CarVO">
 SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 </select>
 
@@ -63,7 +58,7 @@ SELECT * FROM charging.car_t WHERE c_idx = #{c_idx}
 SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
 </select>
 
-<select id="carList3" resultMap="rm4" parameterType="String">
+<select id="carList3" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
 	SELECT * FROM charging.car_t
   WHERE c_idx = #{c_idx}
 </select>
@@ -115,6 +110,13 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
   	SELECT * FROM charging.bbs_t
     WHERE b_val2 = #{su_idx} AND b_type = 1 AND b_status = 0
   </select>
+
+  <select id="getModel" resultType="com.kdt.finalproject.vo.ModelVO" parameterType="String">
+  	SELECT * FROM charging.model_t
+    WHERE mo_idx = #{mo_idx}
+  </select>
+
+
 
 <!-- insert -->
   <insert id="addReview" parameterType="Map">

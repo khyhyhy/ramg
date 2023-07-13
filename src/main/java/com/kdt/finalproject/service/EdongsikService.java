@@ -12,6 +12,7 @@ import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
@@ -112,6 +113,13 @@ public class EdongsikService {
 
     public BbsVO getBidx(String su_idx) {
         BbsVO vo = mapper.getBidx(su_idx);
+
+        return vo;
+    }
+
+    public ModelVO getModel(String mo_idx) {
+
+        ModelVO vo = mapper.getModel(mo_idx);
 
         return vo;
     }
