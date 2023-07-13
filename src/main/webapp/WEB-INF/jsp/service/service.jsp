@@ -15,11 +15,7 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-    <style>
-    table th,table td {
-      border-right: 1px #fff solid;
-    }
-  </style>
+    <link href="../../../css/ramg.css" rel="stylesheet">
   </head>
 
   <body>
@@ -30,13 +26,17 @@
    <!--////////// Main start //////////////-->
    <div class="container">
     <main>
-      <h1>서비스</h1>
-      <table class="table table-dark table-striped">
-        <thead>
+      <div>
+        <h2>고객 서비스 신청 현황</h2>
+       </div>
+       <br />
+       <br />
+       <div class="table-responsive">
+        <table class="table table-hover">
+         <thead>
           <tr>
             <th scope="col">#</th>
             <th scope="col">서비스유형</th>
-            <th scope="col">C_IDX</th>
             <th scope="col">목표충전값</th>
             <th scope="col">결제방식</th>
             <th scope="col">결제정보</th>
@@ -45,30 +45,45 @@
             <th scope="col">충전요금</th>
             <th scope="col">서비스 상태</th>
           </tr>
-        </thead>
-        <tbody class="table-group-divider">          
+         </thead>
+         <tbody>
           <c:forEach items="${suar}" var="vo" varStatus="status">
-            <tr>
-              <th scope="row">${status.index + 1}목록</th>
+            <th scope="row">${status.index + 1}</th>
               <td>
                 <c:choose>
-                    <c:when test="${vo.s_type eq 0}">탁송 서비스</c:when>
-                    <c:when test="${vo.s_type eq 1}">이동식 서비스</c:when>
+                  <c:when test="${vo.s_type eq 0}">탁송 서비스</c:when>
+                  <c:when test="${vo.s_type eq 1}">이동식 서비스</c:when>
+                </c:choose>
+              </td>
+                <td>${vo.su_percent}</td>
+                <td>${vo.su_payment}</td>
+                <td>${vo.su_payinfo}</td>
+                <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
+                  <script>
+                    var date = '${vo.su_date}'.substr(0, 10);
+                    var time = '${vo.su_date}'.substr(11);
+                    document.write(date+'<br/>');
+                    document.write(time);
+                  </script>
+                </td>
+                <td>${vo.su_sprice}</td>
+                <td>${vo.su_cprice}</td>
+                <td>
+                  <c:choose>
+                    <c:when test="${vo.su_status eq 0}">서비스 접수</c:when>
+                    <c:when test="${vo.su_status eq 1}">이동중</c:when>
+                    <c:when test="${vo.su_status eq 2}">픽업완료</c:when>
+                    <c:when test="${vo.su_status eq 3}">충전소 이동</c:when>
+                    <c:when test="${vo.su_status eq 4}">충전중</c:when>
+                    <c:when test="${vo.su_status eq 5}">반납지 이동</c:when>
+                    <c:when test="${vo.su_status eq 6}">서비스 완료</c:when>
                   </c:choose>
               </td>
-              <td>
-              </td>
-              <td>${vo.su_percent}</td>
-              <td>${vo.su_payment}</td>
-              <td>${vo.su_payinfo}</td>
-              <td>${vo.su_date}</td>
-              <td>${vo.su_sprice}</td>
-              <td>${vo.su_cprice}</td>
-              <td>${vo.su_status}</td>
               </tr>
-            </c:forEach>
-          </tbody>
+          </c:forEach>
+         </tbody>
         </table>
+       </div>
     </main>
    </div>
    <!--////////// Main end //////////////-->

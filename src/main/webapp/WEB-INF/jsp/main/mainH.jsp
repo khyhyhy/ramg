@@ -65,11 +65,13 @@
          <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
          <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
          <c:if test="${sessionScope.mvo.m_class eq 1}">
-          <li><a class="dropdown-item" href="/mypage/serviceadd/">서비스 등록</a></li>
-          <li><a class="dropdown-item" href="/mypage/service/">고객 서비스 신청 현황</a></li>
+            <li><a class="dropdown-item" href="/mypage/serviceadd/">서비스 등록</a></li>
+            <li><a class="dropdown-item" href="/mypage/service/">고객 서비스 신청 현황</a></li>
          </c:if>
-         <li><a class="dropdown-item" href="/e_orderList/">서비스 이용내역</a></li>
-         <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
+         <c:if test="${sessionScope.mvo.m_class eq 0}">
+            <li><a class="dropdown-item" href="/e_orderList/">서비스 이용내역</a></li>
+            <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
+         </c:if>
         </ul>
        </li>
       </ul>
