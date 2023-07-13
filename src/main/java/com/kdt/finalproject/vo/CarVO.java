@@ -12,9 +12,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarVO {
-    private String c_idx, c_num, c_name,
-            c_state, c_city, c_addr1,
-            c_val1, c_val2, c_val3, c_val4, c_val5, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx;
+ private String c_idx, c_num, c_name,
+   c_state, c_city, c_addr1,
+   c_val1, c_val2, c_val3, c_val4, c_val5, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx;
 
-    private List<SuseVO> su_list;
+ ModelVO movo;
+ private List<SuseVO> su_list;
 }
