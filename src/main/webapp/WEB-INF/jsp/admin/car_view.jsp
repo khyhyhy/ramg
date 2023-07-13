@@ -25,42 +25,56 @@ pageEncoding="UTF-8"%>
 
         <table class="table table-hover">
             <colgroup>
-                <col width="250px">
-                <col width="200px">
-                <col width="100px">
-                <col width="200px">
+                <col width="150px">
                 <col width="*">
-                <col width="*">
-                <col width="*">
+                <col width="150px">
                 <col width="150px">
             </colgroup>
             <thead>
                 <tr class="table-warning">
-                    <th>신청일</th>
-                    <th>서비스</th>
                     <th>사용자</th>
-                    <th>상태</th>
-                    <th>위치</th>
+                    <th>목표충전량</th>
                     <th>충전비용</th>
+                    <th>결제수단</th>
+                    <th>결제정보</th>
                     <th>배달팁</th>
                     <th>결제금액</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>${vo.su_date}</td>
+                    <td><a href="/admin/member_view?m_idx=${ar[0].cvo.cwvo.mvo.m_idx}&cPage=1">${ar[0].cvo.cwvo.mvo.m_name}</a></td>
+                    <td>${ar[0].su_percent} %</td>
+                    <td>${ar[0].su_payment}</td>
+                    <td>${ar[0].su_payinfo}</td>
+                    <td><fmt:formatNumber pattern="#,###" value="${ar[0].su_cprice}"/>원</td>
+                    <td><fmt:formatNumber pattern="#,###" value="${ar[0].su_sprice}"/>원</td>
                     <td>
-                        <c:choose>
-                            <c:when test="${vo.svo.s_type == 0}">
-                                탁송 서비스
-                            </c:when>    
-                            <c:when test="${vo.svo.s_type == 1}">
-                                이동식 충전 서비스
-                            </c:when>    
-                        </c:choose>
+                        <fmt:formatNumber pattern="#,###" value="${ar[0].su_cprice + vo.su_sprice}"/>원
                     </td>
-                    <td><a href="/admin/member_view?m_idx=${vo.cwvo.mvo.m_idx}&cPage=1">${vo.cwvo.mvo.m_name}</a></td>
-                    <td id="st">
+                </tr>
+            </tbody>
+        </table>
+
+
+        <table class="table table-hover">
+            <tr class="table-warning">
+                <th>
+                    <c:choose>
+                    <c:when test="${ar[0].svo.s_type == 0}">
+                        탁송 서비스
+                    </c:when>    
+                    <c:when test="${ar[0].svo.s_type == 1}">
+                        이동식 충전 서비스
+                    </c:when>    
+                    </c:choose>
+                </th>
+                <th>${ar[0].svo.s_city} ${ar[0].svo.s_addr1}</th>
+            </tr>
+            <c:forEach items="${ar}" var="vo">
+            <tr>
+                <td>${vo.su_date}</td>
+                <td>
                     <c:if test="${vo.svo.s_type == 0}">
                     <c:choose>
                         <c:when test="${vo.su_status == 0}">
@@ -114,33 +128,9 @@ pageEncoding="UTF-8"%>
                             </c:when>
                         </c:choose>
                     </c:if>
-                    </td>
-                    <td>${vo.svo.s_city} ${vo.svo.s_addr1}</td>
-                    <td><fmt:formatNumber pattern="#,###" value="${vo.su_cprice}"/>원</td>
-                    <td><fmt:formatNumber pattern="#,###" value="${vo.su_sprice}"/>원</td>
-                    <td>
-                        <fmt:formatNumber pattern="#,###" value="${vo.su_cprice + vo.su_sprice}"/>원
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table class="table table-hover">
-            <thead>
-                <tr class="table-warning">
-                    <th>사업자 정보</th>
-                    <th>목표충전량</th>
-                    <th>결제수단</th>
-                    <th>결제정보</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><a href="/admin/member_view?m_idx=${vo.svo.swvo.mvo.m_idx}">${vo.svo.swvo.mvo.m_name}</a></td>
-                    <td>${vo.su_percent} %</td>
-                    <td>${vo.su_payment}</td>
-                    <td>${vo.su_payinfo}</td>
-                </tr>
-            </tbody>
+                </td>
+            </tr>
+            </c:forEach>
         </table>
 
         <div style="height: 80px;">

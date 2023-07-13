@@ -231,8 +231,15 @@ public class AdminService {
 
     }
 
-    public SuseVO car_view(String su_idx) {
-        return mapper.car_view(su_idx);
+    public SuseVO[] car_view(String su_val5) {
+        SuseVO[] ar = null;
+
+        List<SuseVO> list = mapper.car_view(su_val5);
+        if (list != null && list.size() > 0) {
+            ar = new SuseVO[list.size()];
+            list.toArray(ar);
+        }
+        return ar;
     }
 
     public int car_status(String su_idx, String su_status) {
@@ -252,5 +259,9 @@ public class AdminService {
             list.toArray(ar);
         }
         return ar;
+    }
+
+    public SuseVO car_vo(String su_idx) {
+        return mapper.car_vo(su_idx);
     }
 }

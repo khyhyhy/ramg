@@ -76,11 +76,13 @@ public interface AdminMapper {
 
     List<SuseVO> service_sales(String search_date);
 
-    SuseVO car_view(String su_idx);
+    List<SuseVO> car_view(String su_val5);
 
     int car_status(String su_idx, String su_status);
 
     int review_change(String b_idx, String b_val1);
 
     List<BbsVO> member_review(String m_idx);
+
+    SuseVO car_vo(String su_idx);
 }
