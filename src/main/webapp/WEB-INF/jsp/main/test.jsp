@@ -127,18 +127,12 @@
                       </div>
                   </div>
                   <div class="col-8">
-                        <label for="notice" class="ml-auto"><a href="/support/notice">최근 공지>> </a></label>
+                        <label for="notice" class="ml-auto btn btn-sm" style="float: right;"><a href="/support/notice">공지 더보기</a></label>
                     <table class="table table-striped" style="table-layout:fixed;">
                         <colgroup>
                             <col width="*">
                             <col width="200px">
                         </colgroup>
-                        <thead>
-                            <tr>
-                                <th>제목</th>
-                                <th>날짜</th>
-                            </tr>
-                        </thead>
                         <tbody>
                             <c:forEach var="bvo" items="${b_ar}" varStatus="status">
                             <tr>
@@ -148,7 +142,7 @@
                                     <a href="/support/notice_view?b_idx=${bvo.b_idx}&cPage=1">
                                     ${bvo.b_title}</a>
                                 </td>
-                                <td>${bvo.bbslog.bl_date}</td>
+                                <td style="text-align: right;">${bvo.bbslog.bl_date}</td>
                             </tr>
                         </c:forEach>
                         </tbody>
