@@ -94,6 +94,18 @@ public class EdongsikController {
         mv.addObject("c_ar", c_ar);
 
         String state = c_vo.getC_state();
+        if (c_vo.getC_state().startsWith("서울"))
+            state = "서울특별시";
+        else if (c_vo.getC_state().startsWith("부산") || c_vo.getC_state().startsWith("인천") ||
+                c_vo.getC_state().startsWith("대구") || c_vo.getC_state().startsWith("광주")
+                || c_vo.getC_state().startsWith("대전")
+                || c_vo.getC_state().startsWith("울산"))
+            state = c_vo.getC_state() + "광역시";
+        else if (c_vo.getC_state().startsWith("세종"))
+            state = c_vo.getC_state() + "특별자치시";
+        else if (c_vo.getC_state().startsWith("제주") || c_vo.getC_state().startsWith("강원"))
+            state = c_vo.getC_state() + "특별자치도 ";
+
         String city = c_vo.getC_city();
         String addr1 = c_vo.getC_addr1();
 
