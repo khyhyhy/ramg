@@ -16,7 +16,7 @@ public class CarVO {
       c_state, c_city, c_addr1,
       c_val1, c_val2, c_val3, c_val4, c_val5, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx;
 
-  ModelVO movo;
+  private ModelVO movo;
   private List<SuseVO> su_list;
   private CwriteVO cwvo;
 }

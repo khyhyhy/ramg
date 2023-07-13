@@ -53,7 +53,7 @@
         </div>
 
         <div class="mb-3">
-         <label for="c_num" class="form-label">별칭</label>
+         <label for="c_name" class="form-label">별칭</label>
          <input type="text" class="form-control" id="c_name" placeholder="ex) 출퇴근차" name="c_name"
           value="${car.c_name}" />
         </div>
@@ -74,10 +74,10 @@
           onclick="sample6_execDaumPostcode()" placeholder="주소 입력"/>
 
          <label for="c_city" class="form-label"></label>
-         <input type="text" class="form-control" id="c_city" name="c_city" value="${car.c_city}" disabled/>
+         <input type="text" class="form-control" id="c_city" name="c_city" value="${car.c_city}" readonly/>
 
          <label for="c_addr1" class="form-label"></label>
-         <input type="text" class="form-control" id="c_addr1" name="c_addr1" value="${car.c_addr1}" disabled/>
+         <input type="text" class="form-control" id="c_addr1" name="c_addr1" value="${car.c_addr1}" readonly/>
         </div>
 
         <!-- <div class="mb-3">
