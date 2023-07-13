@@ -836,17 +836,33 @@ INSERT INTO charging.bbslog(m_idx, b_idx, bl_date, bl_type)
 VALUES(#{m_idx}, #{b_idx}, NOW(), 1)
 </insert>
 
-<!-- 서비스 상태 변경 -->
-<update id="car_status" parameterType="Map">
-UPDATE charging.service_use
-SET su_status = #{su_status}
-WHERE su_idx = #{su_idx}
-</update>
-
 <!-- 리뷰 공개 비공개 변경 -->
 <update id="review_change" parameterType="Map">
 UPDATE charging.bbs_t
 SET b_val1 = #{b_val1}
 WHERE b_idx = #{b_idx}
 </update>
+
+<!--서비스 상태 변경-->
+<update id="car_status1" parameterType="String">
+  UPDATE service_use
+  SET su_val2 = 1
+  WHERE su_val5 = #{su_val5} 
+</update>
+
+<insert id="car_status2" parameterType="Map">
+  INSERT INTO service_use(s_idx, c_idx, su_date, su_status, su_type, su_percent, su_payment, su_payinfo, su_sprice, su_cprice, su_val1, su_val2, su_val3, su_val4, su_val5)
+  VALUES(#{s_idx},#{c_idx},NOW(),#{su_status},1,#{su_percent},#{su_payment},#{su_payinfo},#{su_sprice},#{su_cprice},#{su_val1},0,#{su_val3},#{su_val4}, #{su_val5})
+</insert>
+
+<update id="car_status3" parameterType="String">
+UPDATE service_t
+SET
+  s_status = 0
+WHERE s_idx IN (SELECT a.s_idx FROM service_use su, (SELECT s_idx FROM service_t where s_idx = #{s_idx} and s_type = 0) a 
+		          WHERE su.s_idx = a.s_idx and su_status = 7)
+</update>
+<!--서비스 상태 변경-->
+
+
 </mapper>

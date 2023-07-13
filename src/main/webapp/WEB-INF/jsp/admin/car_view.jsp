@@ -154,67 +154,67 @@ pageEncoding="UTF-8"%>
             <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">상태 변경</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                     <div class="modal-body">
                         현재 상태 : 
-                        <c:if test="${vo.svo.s_type == 0}">
+                        <c:if test="${ar[0].svo.s_type == 0}">
                         <c:choose>
-                            <c:when test="${vo.su_status == 0}">
+                            <c:when test="${now == 0}">
                                 주문 대기 중
                             </c:when>
-                            <c:when test="${vo.su_status == 1}">
+                            <c:when test="${now == 1}">
                                 주문 접수
                             </c:when>
-                            <c:when test="${vo.su_status == 2}">
+                            <c:when test="${now == 2}">
                                 탁송기사 이동 중
                             </c:when>
-                            <c:when test="${vo.su_status == 3}">
+                            <c:when test="${now == 3}">
                                 차량 픽업
                             </c:when>
-                            <c:when test="${vo.su_status == 4}">
+                            <c:when test="${now == 4}">
                                 충전소 이동 중
                             </c:when>
-                            <c:when test="${vo.su_status == 5}">
+                            <c:when test="${now == 5}">
                                 충전 중
                             </c:when>
-                            <c:when test="${vo.su_status == 6}">
+                            <c:when test="${now == 6}">
                                 도착지 이동 중
                             </c:when>
-                            <c:when test="${vo.su_status == 7}">
+                            <c:when test="${now == 7}">
                                 도착 완료
                             </c:when>
                         </c:choose>
                     </c:if>
-                    <c:if test="${vo.svo.s_type == 1}">
+                    <c:if test="${ar[0].svo.s_type == 1}">
                         <c:choose>
-                            <c:when test="${vo.su_status == 0}">
+                            <c:when test="${now == 0}">
                                 주문 대기 중
                             </c:when>
-                            <c:when test="${vo.su_status == 1}">
+                            <c:when test="${now == 1}">
                                 주문 접수
                             </c:when>
-                            <c:when test="${vo.su_status == 2}">
+                            <c:when test="${now == 2}">
                                 충전지 이동 중
                             </c:when>
-                            <c:when test="${vo.su_status == 3}">
+                            <c:when test="${now == 3}">
                                 충전지 도착
                             </c:when>
-                            <c:when test="${vo.su_status == 4}">
+                            <c:when test="${now == 4}">
                                 충전 중
                             </c:when>
-                            <c:when test="${vo.su_status == 7}">
+                            <c:when test="${now == 7}">
                                 충전 완료
                             </c:when>
-                            <c:when test="${vo.su_status == 8}">
+                            <c:when test="${now == 8}">
                                 이슈 발생
                             </c:when>
                         </c:choose>
                     </c:if>
 
 
-                        <c:if test="${vo.svo.s_type == 0}">
+                        <c:if test="${ar[0].svo.s_type == 0}">
                             <select name="su_status" class="form-select" aria-label="Default select example" id="su_status">
                                 <option value="0">주문 대기 중</option>
                                 <option value="1">주문 접수</option>
@@ -227,7 +227,7 @@ pageEncoding="UTF-8"%>
                                 <option value="8">이슈 발생</option>
                             </select>
                         </c:if>
-                        <c:if test="${vo.svo.s_type == 1}">
+                        <c:if test="${ar[0].svo.s_type == 1}">
                             <select name="su_status" class="form-select" aria-label="Default select example" id="su_status">
                                 <option value="0">주문 대기 중</option>
                                 <option value="1">주문 접수</option>
@@ -249,7 +249,8 @@ pageEncoding="UTF-8"%>
         </div>
 
         <form method="post" name="frm">
-            <input type="hidden" name="su_idx" value="${vo.su_idx}" id="su_idx">
+            <input type="hidden" name="su_status">
+            <input type="hidden" name="su_idx" value="${ar[0].su_idx}" id="su_idx">
             <input type="hidden" name="cPage" value="${param.cPage}">
             <input type="hidden" name="searchType" value="${param.searchType}">
             <input type="hidden" name="searchValue" value="${param.searchValue}">
@@ -269,21 +270,9 @@ pageEncoding="UTF-8"%>
         }
         
         function car_status(){
-
-            let su_idx = $("#su_idx").val();    
-            let su_status = $("#su_status").val();    
-            let st = $("#st").val();
-
-            $.ajax({
-                url: "/admin/car_status",
-                type: "post",
-                data: {"su_idx":su_idx, "su_status":su_status},
-                dataType:"json"
-            }).done(function(data){
-                if(data.res == 1){ //성공한 경우에만 수행
-                    location.reload();
-                }
-            });
+            document.frm.action = "/admin/car_status";
+            document.frm.su_status.value = $("#su_status").val();
+            document.frm.submit();
         }
     </script>
 </html>

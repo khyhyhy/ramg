@@ -78,11 +78,15 @@ public interface AdminMapper {
 
     List<SuseVO> car_view(String su_val5);
 
-    int car_status(String su_idx, String su_status);
-
     int review_change(String b_idx, String b_val1);
 
     List<BbsVO> member_review(String m_idx);
 
     SuseVO car_vo(String su_idx);
+
+    int car_status1(String su_val5);
+
+    int car_status2(SuseVO vo);
+
+    int car_status3(String s_idx);
 }

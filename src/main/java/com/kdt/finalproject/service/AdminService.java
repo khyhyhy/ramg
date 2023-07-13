@@ -242,10 +242,6 @@ public class AdminService {
         return ar;
     }
 
-    public int car_status(String su_idx, String su_status) {
-        return mapper.car_status(su_idx, su_status);
-    }
-
     public int review_change(String b_idx, String b_val1) {
         return mapper.review_change(b_idx, b_val1);
     }
@@ -263,5 +259,17 @@ public class AdminService {
 
     public SuseVO car_vo(String su_idx) {
         return mapper.car_vo(su_idx);
+    }
+
+    public int car_status1(String su_val5) {
+        return mapper.car_status1(su_val5);
+    }
+
+    public int car_status2(SuseVO vo) {
+        return mapper.car_status2(vo);
+    }
+
+    public int car_status3(String s_idx) {
+        return mapper.car_status3(s_idx);
     }
 }

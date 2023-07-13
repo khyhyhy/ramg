@@ -668,14 +668,29 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/car_status")
-    @ResponseBody
-    public Map<String, Integer> car_status(String su_idx, String su_status) {
-        Map<String, Integer> map = new HashMap<>();
+    public ModelAndView car_status(String su_idx, String su_status) {
+        ModelAndView mv = new ModelAndView();
 
-        int cnt = service.car_status(su_idx, su_status);
-        map.put("res", cnt);
+        MemVO mvo = null;
+        if (session.getAttribute("mvo") != null) {
+            mvo = (MemVO) session.getAttribute("mvo");
+        }
 
-        return map;
+        SuseVO vo = service.car_vo(su_idx); // val5 가져오기
+        service.car_status1(vo.getSu_val5()); // su_val2 바꾸기
+        vo.setSu_status(su_status); // 변경할 상태값 넣기
+        vo.setSu_val1(mvo.getM_idx()); // 누가 수정했는지
+        service.car_status2(vo);
+        service.car_status3(vo.getS_idx());
+
+        SuseVO[] ar = service.car_view(vo.getSu_val5()); // 다음 페이지에서 표시할 정보
+
+        String now = ar[ar.length - 1].getSu_status();
+
+        mv.addObject("now", now);
+        mv.addObject("ar", ar);
+        mv.setViewName("/admin/car_view");
+        return mv;
     }
 
     @RequestMapping("/admin/review_change")
