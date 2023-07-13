@@ -9,20 +9,11 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
-        h2{
-            text-align: center;
-            font-family: 'GoryeongStrawberry';
-        }
         table{
             text-align: center;
             margin: auto;
-        }
-        th{
-            font-family: 'GoryeongStrawberry';
-        }
-        #btn, #btn2{
-            font-family: 'GoryeongStrawberry';
         }
         .container{
             margin-top: 2cm;
@@ -44,20 +35,8 @@
    <table class="table table-striped table-hover">
     <tbody>
         <tr>
-            <th><label for="b_idx">번호</label></th>
-            <td><input type="text" id="b_idx"  name="b_idx" value="${bvo.b_idx}" disabled/></td>
-        </tr>
-        <tr>
-            <th><label for="b_title">제목</label></th>
-            <td><input type="text" id="b_title" name="b_title" value="${bvo.b_title}"/></td>
-        </tr>
-        <tr>
             <th><label for="bl_date">내용</label></th>
-            <td><textarea id="b_content"   name="b_content">${bvo.b_content}</textarea></td>
-        </tr>
-        <tr>
-            <th><label for="b_hit">조회수</label></th>
-            <td><input type="text" id="b_hit" name="b_hit" value="${bvo.b_hit}" disabled/></td>
+            <td><textarea id="b_content" class="form-control" name="b_content" style="height: 300px;">${bvo.b_content}</textarea></td>
         </tr>
         <tr>
             <th><label for="b_score">별점</label></th>

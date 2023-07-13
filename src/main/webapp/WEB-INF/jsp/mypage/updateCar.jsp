@@ -9,18 +9,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>차량 관리</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
-    h2{
-      text-align: center;
-      font-family: 'GoryeongStrawberry';
-    }
-    table{
-      text-align: center;
-      margin: auto;
-    }
-    th{
-      font-family: 'GoryeongStrawberry';
-    }
     .container{
       margin-top: 2cm;
       margin-bottom: 2cm;
@@ -41,9 +31,15 @@
     <!-- 차량 추가 -->
     <div class="container-sm">
 <header>
-  <h2>차량 정보 수정</h2>
+  <div style="margin: 50px 0 0 0;">
+    <h1 style="text-align: center; font-weight: bold;">차량 정보 수정</h1>
+</div>
 </header>
   <table class="table table-striped table-hover">
+    <colgroup>
+      <col width="200px">
+      <col width="*">
+    </colgroup>
     <tbody>
         <tr>
             <th><label for="c_num" >차량번호</label></th>
@@ -59,55 +55,22 @@
             </select></td>
         </tr>
         <tr>
-            <th><label for="c_state">광역자치단체</label></th>
-            <td><input type="text" id="c_state" name="c_state" value="${cvo.c_state}" onclick="sample6_execDaumPostcode()"/></td>
+            <th><label for="c_state">주소</label></th>
+            <td><input type="text" id="c_state" name="c_state" value="${cvo.c_state}" onclick="sample6_execDaumPostcode()"/>
+            <input type="text" id="c_city" name="c_city" value="${cvo.c_city}" disabled/>
+            <input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" disabled/></td>
         </tr>
         <tr>
-            <th><label for="c_city">기초자치단체</label></th>
-            <td><input type="text" id="c_city" name="c_city" value="${cvo.c_city}" /></td>
-        </tr>
-        <tr>
-            <th><label for="c_addr1">행정구역</label></th>
-            <td><input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" /></td>
-        </tr>
-        <tr>
-            <th><label for="c_val3">배터리용량</label></th>
-            <td><select id="c_val3" name="c_val3">
-              <option disabled selected value="">배터리용량 선택</option>
+            <th><label for="c_val3">모델명</label></th>
+            <td><select id="mo_idx" name="mo_idx">
+              <option disabled selected value="">차량 선택</option>
               <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_bet}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_bet}</option>
+               <option value="${model.mo_idx}">${model.mo_name}</option>
               </c:forEach>
-            </select></td>
+             </select></td>
         </tr>
+        
         <tr>
-            <th><label for="c_type">차종 제조사</label></th>
-            <td><select id="c_type" name="c_type">
-              <option disabled selected value="">차종 제조사 선택</option>
-              <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_type}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_type}</option>
-              </c:forEach>
-            </select></td>
-        </tr>
-        <tr>
-            <th><label for="c_chargetype_ac">완속 충전잭 타입</label></th>
-            <td><select id="c_chargetype_ac" name="c_chargetype_ac">
-              <option disabled selected value="">완속 충전잭 타입 선택</option>
-              <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_chargetype_ac}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_chargetype_ac}</option>
-              </c:forEach>
-            </select></td>
-        </tr>
-        <tr>
-            <th><label for="c_chargetype_dc">급속 충전잭 타입</label></th>
-            <td><select id="c_chargetype_dc" name="c_chargetype_dc">
-              <option disabled selected value="">급속 충전잭 타입 선택</option>
-              <c:forEach items="${modelList}" var="model">
-                <option value="${model.mo_chargetype_dc}" <c:if test="${cvo.mo_idx eq model.mo_idx}">selected</c:if>>${model.mo_name}/${model.mo_chargetype_dc}</option>
-              </c:forEach>
-            </select></td>
-        </tr>
-        <tr>
-            
             <td colspan="2">
               <button type="button" id="btn" class="btn btn-success">변경하기</button>&nbsp;
                 <button type="button" class="btn btn-success" onclick="javascript:location.href='car_list'">돌아가기</button>

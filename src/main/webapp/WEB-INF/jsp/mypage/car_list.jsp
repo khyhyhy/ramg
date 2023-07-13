@@ -9,6 +9,7 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>차량 관리</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
         table{
             margin: 0 auto;
@@ -18,16 +19,7 @@
             text-align: center;
             /* background-color: aqua; */
         }
-        table th, table td{
-           /* border: 1px solid black; */
-            font-family: 'GoryeongStrawberry';
-        }
 
-        
-        h2{
-            text-align: center;
-            font-family: 'GoryeongStrawberry';
-        }
 
         .container{
             margin-top: 2cm;
@@ -47,17 +39,17 @@
    
   <div class="align-items-center">
     <header>
-        <h2> 차량목록</h2>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">차량 목록</h1>
+        </div>
     </header>
    <div class="container-sm">
     <table id="car_list" class="table table-striped table-hover">
         <colgroup>
-            <col width="90px"/>
-            <col width="150px"/>
-            <col width="120px"/>
-            <col width="150px"/>
             <col width="150px"/>
             <col width="100px"/>
+            <col width="*"/>
+            <col width="150px"/>
             <col width="150px"/>
             <col width="150px"/>
             <col width="150px"/>
@@ -66,23 +58,20 @@
         </colgroup>
         <thead>
             <tr>
-                <td colspan="11">
+                <td colspan="9">
                     <button type="button" class="btn btn-danger" onclick="javascript:location.href='/addCar'">차량 추가</button>
                 </td>
             </tr>
             <tr>
                 <th>차량번호</th>
                 <th>모델명</th>
-                <th>광역자치단체</th>
-                <th>기초자치단체</th>
-                <th>행정구역</th>
+                <th>주소</th>
                 <th>배터리 용량</th>
                 <th>차종 제조사</th>
                 <th>완속 충전잭 타입</th>
                 <th>급속 충전잭 타입</th>
                 <th>수정</th>
                 <th>삭제</th>
-                
             </tr>
         </thead>
         <tbody>
@@ -90,9 +79,7 @@
                 <tr onmouseover="regRowNum(this)">
                     <td>${cwvo.cvo.c_num}</td>
                     <td>${cwvo.cvo.c_name}</td>
-                    <td>${cwvo.cvo.c_state}</td>
-                    <td>${cwvo.cvo.c_city}</td>
-                    <td>${cwvo.cvo.c_addr1}</td>
+                    <td>${cwvo.cvo.c_state} ${cwvo.cvo.c_city} ${cwvo.cvo.c_addr1}</td>
                     <td>${cwvo.cvo.c_val3}</td>
                     <td>${cwvo.cvo.c_type}</td>
                     <td>${cwvo.cvo.c_chargetype_ac}</td>

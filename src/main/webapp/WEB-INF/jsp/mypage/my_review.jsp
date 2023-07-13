@@ -3,12 +3,12 @@
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
   <!DOCTYPE html>
   <html>
-
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
       table{
           margin: 0 auto;
@@ -16,13 +16,7 @@
           border-collapse: collapse;
           text-align: center;
       }
-      table th, table td{
-          font-family: 'GoryeongStrawberry';
-      }
-      h1{
-            text-align: center;
-            font-family: 'GoryeongStrawberry';
-        }
+
       div{
         text-align: center;
       }
@@ -42,24 +36,20 @@
   <jsp:include page="../main/mainH.jsp"></jsp:include>
   <div id="content" class="container text-center">
        <article>
-        <h1>나의 리뷰</h1>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">나의 리뷰</h1>
+        </div>
        </article>
       <table id="bl_list" class="table table-striped table-hover">
          <colgroup>
-             <col width="50px"/>
-             <col width="300px"/>
-             <col width="100px"/>
-             <col width="50px"/>
-             <col width="100px"/>
-             <col width="100px"/>
+            <col width="*">
+            <col width="150px">
+            <col width="100px">
+            <col width="100px">
          </colgroup>
          <thead>
-             
              <tr>
-                 <th>번호</th>
-                 <th>제목</th>
-                 <th>내용</th>
-                 <th>조회수</th>
+                 <th>리뷰</th>
                  <th>별점</th>
                  <th>수정</th>
                  <th>삭제</th>
@@ -69,11 +59,27 @@
          <tbody>
              <c:forEach var="bvo" items="${mr}">
                  <tr onmouseover="regRowNum(this)">
-                     <td>${bvo.b_idx}</td>
-                     <td>${bvo.b_title}</td>
-                     <td>${bvo.b_content}</td>
-                     <td>${bvo.b_hit}</td>
-                     <td>${bvo.b_score}</td>
+                    <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">${bvo.b_content}</td>
+                     <td>
+                        <c:if test="${bvo.b_score == 0}">
+                            ☆☆☆☆☆
+                        </c:if>
+                        <c:if test="${bvo.b_score == 1}">
+                            ★☆☆☆☆
+                        </c:if>
+                        <c:if test="${bvo.b_score == 2}">
+                            ★★☆☆☆
+                        </c:if>
+                        <c:if test="${bvo.b_score == 3}">
+                            ★★★☆☆
+                        </c:if>
+                        <c:if test="${bvo.b_score == 4}">
+                            ★★★★☆
+                        </c:if>
+                        <c:if test="${bvo.b_score == 5}">
+                            ★★★★★
+                        </c:if>
+                    </td>
                      <td><button type="button" class="btn btn-danger" onclick="javascript:location.href='/updateReview?b_idx=${bvo.b_idx}'">수정</button></td>
                     <td><button type="button" class="btn btn-danger" onclick="javascript:sub('${bvo.b_idx}')">삭제</button></td>
                  </tr>

@@ -9,22 +9,10 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
       header{
         text-align: center;
-      }
-
-      h2{
-        text-align: center;
-        font-family: 'GoryeongStrawberry';
-      }
-      p{
-        text-align: center;
-        font-family: 'GoryeongStrawberry';
-      }
-      .btn{
-        text-align: center;
-        font-family: 'GoryeongStrawberry';
       }
       .container{
         margin-top: 2cm;
@@ -40,7 +28,9 @@
   <jsp:include page="../main/mainH.jsp"></jsp:include>
   <div class="row align-items-center">
     <header>
-      <h2>회원 정보</h2>
+      <div style="margin: 50px 0 0 0;">
+        <h1 style="text-align: center; font-weight: bold;">나의 정보</h1>
+    </div>
     </header>
     <div class="card" style="width: 18rem; margin: auto;">
       <div class="card-body">
@@ -52,14 +42,6 @@
         </div>
         <div class="mb-3">
           <p>연락처: ${mvo.m_phone}</p>
-        </div>
-        <div class="mb-3">
-          <p>주소: ${mvo.m_address}</p>
-        </div>
-        <div class="mb-3">
-          <c:if test="${mvo.m_class == 0}">
-          <p>결제수단: ${mvo.m_payment}</p>
-          </c:if>
         </div>
         </div>
         <button type="button" class="btn btn-success" onclick="javascript:location.href='updateMember'" style="margin: auto;">Edit</button>

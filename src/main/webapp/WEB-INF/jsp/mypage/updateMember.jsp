@@ -9,24 +9,14 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
-    h1{
-        text-align: center;
-        font-family: 'GoryeongStrawberry';
-    }
-
-    h2{
-        text-align: center;
-        font-family: 'GoryeongStrawberry';
-    }
-
+   
     table{
         text-align: center;
         margin: auto;
     }
-    th{
-        font-family: 'GoryeongStrawberry';
-    }
+
     .container{
         margin-top: 2cm;
         margin-bottom: 2cm;
@@ -44,7 +34,9 @@
     <div class="container text-center">
 
     <article>
-   <h2>회원 정보</h2>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">나의 정보 수정</h1>
+        </div>
    </article>
    <table class="table table-striped table-hover">
     <tbody>
@@ -61,15 +53,6 @@
             <td><input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}"/></td>
         </tr>
         <tr>
-            <th><label for="m_address">주소</label></th>
-            <td><input type="text" id="m_address" name="m_address" value="${mvo.m_address}"/></td>
-        </tr>
-        <tr>
-            <th><label for="m_payment">결제수단</label></th>
-            <td><input type="text" id="m_payment" name="m_payment" value="${mvo.m_payment}"/></td>
-        </tr>
-        <tr>
-            
             <td colspan="2">
                 <button type="button" id="btn" class="btn btn-success">변경하기</button>
                 <button type="button" class="btn btn-success" onclick="javascript:location.href='mypage'">돌아가기</button>

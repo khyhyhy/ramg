@@ -3,31 +3,14 @@
   <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
    <!DOCTYPE html>
    <html>
-
-
    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>차량 관리</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     <link href="../../../css/ramg.css" rel="stylesheet">
     <style>
-     h2 {
-      text-align: center;
-      color: skyblue;
-      font-family: 'GoryeongStrawberry';
-     }
-
-     #addCar {
-      text-align: center;
-      margin: auto;
-     }
-
-     label {
-      color: skyblue;
-      font-family: 'GoryeongStrawberry';
-     }
-
      .container {
       margin-top: 2cm;
       margin-bottom: 2cm;
@@ -55,7 +38,9 @@
     <div class="row align-items-center">
      <!-- 차량 추가 -->
      <header>
-      <h2>차량 추가</h2>
+      <div style="margin: 50px 0 0 0;">
+        <h1 style="text-align: center; font-weight: bold;">차량 추가</h1>
+    </div>
      </header>
      <form action="addCar" method="post" id="addCar">
       <!-- <input type="hidden" name="c_name" id="c_name" /> -->
@@ -75,7 +60,7 @@
 
         <div class="mb-3">
          <label for="mo_idx" class="form-label">모델명</label>
-         <select id="mo_idx" name="mo_idx" class="form-control">
+         <select id="mo_idx" name="mo_idx" class="form-select">
           <option disabled selected value="">차량 선택</option>
           <c:forEach items="${modelList}" var="model">
            <option value="${model.mo_idx}">${model.mo_name}</option>
@@ -84,67 +69,62 @@
         </div>
 
         <div class="mb-3">
-         <label for="c_state" class="form-label">광역자치단체</label>
+         <label for="c_state" class="form-label">주소</label>
          <input type="text" class="form-control" id="c_state" name="c_state" value="${car.c_state}"
-          onclick="sample6_execDaumPostcode()" />
+          onclick="sample6_execDaumPostcode()" placeholder="주소 입력"/>
 
-        </div>
+         <label for="c_city" class="form-label"></label>
+         <input type="text" class="form-control" id="c_city" name="c_city" value="${car.c_city}" disabled/>
 
-        <div class="mb-3">
-         <label for="c_city" class="form-label">기초자치단체</label>
-         <input type="text" class="form-control" id="c_city" name="c_city" value="${car.c_city}" />
-        </div>
-
-        <div class="mb-3">
-         <label for="c_addr1" class="form-label">행정구역</label>
-         <input type="text" class="form-control" id="c_addr1" name="c_addr1" value="${car.c_addr1}" />
+         <label for="c_addr1" class="form-label"></label>
+         <input type="text" class="form-control" id="c_addr1" name="c_addr1" value="${car.c_addr1}" disabled/>
         </div>
 
         <!-- <div class="mb-3">
-                        <label for="c_val3" class="form-label" >배터리용량</label>
-                        <select id="c_val3" name="c_val3" class="form-control" >
-                          <option disabled selected value="">배터리용량 선택</option>
-                            <c:forEach items="${modelList}" var="model">
-                              <option value="${model.mo_bet}">${model.mo_name}/${model.mo_bet}</option>
-                            </c:forEach>
-                         </select>
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="c_type" class="form-label" >차종 제조사</label>
-                        <select id="c_type" name="c_type" class="form-control" >
-                          <option disabled selected value="">차종 제조사 선택</option>
-                            <c:forEach items="${modelList}" var="model">
-                              <option value="${model.mo_type}">${model.mo_name}/${model.mo_type}</option>
-                            </c:forEach>
-                         </select>
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="c_chargetype_ac" class="form-label" >완속 충전잭 타입</label>
-                        <select id="c_chargetype_ac" name="c_chargetype_ac" class="form-control" >
-                          <option disabled selected value="">완속 충전잭 타입 선택</option>
-                          <c:forEach items="${modelList}" var="model">
-                            <option value="${model.mo_chargetype_ac}">${model.mo_name}/${model.mo_chargetype_ac}</option>
-                          </c:forEach>
-                         </select>
-                      </div>
-
-                      <div class="mb-3">
-                        <label for="c_chargetype_dc" class="form-label" >급속 충전잭 타입</label>
-                        <select id="c_chargetype_dc" name="c_chargetype_dc" class="form-control" >
-                          <option disabled selected value="">급속 충전잭 타입 선택</option>
-                          <c:forEach items="${modelList}" var="model">
-                            <option value="${model.mo_chargetype_dc}">${model.mo_name}/${model.mo_chargetype_dc}</option>
-                          </c:forEach>
-                         </select>
-                      </div> -->
-
-
-
-       </div>
+        <label for="c_val3" class="form-label" >배터리용량</label>
+        <select id="c_val3" name="c_val3" class="form-control" >
+          <option disabled selected value="">배터리용량 선택</option>
+            <c:forEach items="${modelList}" var="model">
+              <option value="${model.mo_bet}">${model.mo_name}/${model.mo_bet}</option>
+            </c:forEach>
+        </select>
       </div>
-      <button type="button" class="btn btn-primary" onclick="send(this.form)">추가하기</button>
+
+      <div class="mb-3">
+        <label for="c_type" class="form-label" >차종 제조사</label>
+        <select id="c_type" name="c_type" class="form-control" >
+          <option disabled selected value="">차종 제조사 선택</option>
+            <c:forEach items="${modelList}" var="model">
+              <option value="${model.mo_type}">${model.mo_name}/${model.mo_type}</option>
+            </c:forEach>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="c_chargetype_ac" class="form-label" >완속 충전잭 타입</label>
+        <select id="c_chargetype_ac" name="c_chargetype_ac" class="form-control" >
+          <option disabled selected value="">완속 충전잭 타입 선택</option>
+          <c:forEach items="${modelList}" var="model">
+            <option value="${model.mo_chargetype_ac}">${model.mo_name}/${model.mo_chargetype_ac}</option>
+          </c:forEach>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label for="c_chargetype_dc" class="form-label" >급속 충전잭 타입</label>
+        <select id="c_chargetype_dc" name="c_chargetype_dc" class="form-control" >
+          <option disabled selected value="">급속 충전잭 타입 선택</option>
+          <c:forEach items="${modelList}" var="model">
+            <option value="${model.mo_chargetype_dc}">${model.mo_name}/${model.mo_chargetype_dc}</option>
+          </c:forEach>
+        </select>
+      </div> -->
+
+
+                      
+          <button type="button" class="btn btn-primary" onclick="send(this.form)" style="margin: auto; display: block;" >추가하기</button>
+        </div>
+      </div>
 
      </form>
     </div>

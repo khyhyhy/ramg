@@ -9,24 +9,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  
+   <link href="../../../css/ramg.css" rel="stylesheet">
    <style>
-    table{
-        margin: 0 auto;
-        width: 80%;
-        border-collapse: collapse;
-        text-align: center;
-    }
-    table th, table td{
-        font-family: 'GoryeongStrawberry';
-    }
-    h1{
-            text-align: center;
-            font-family: 'GoryeongStrawberry';
-        }
-    div{
-        text-align: center;
-      }
       .container{
         margin-top: 2cm;
         margin-bottom: 2cm;
@@ -44,38 +28,29 @@
   
   <div id="content" class="container text-center">
        <article>
-        <h1>나의 문의</h1>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">나의 문의</h1>
+        </div>
        </article>
     <table id="bl_list" class="table table-striped table-hover">
         <colgroup>
-            <col width="50px"/>
-            <col width="150px"/>
-            <col width="100px"/>
-            <col width="150px"/>
-            <col width="150px"/>
-            <col width="*"/>
+            <col width="*">
+            <col width="210px">
+            <col width="150px">
         </colgroup>
-        <thead>
-            
+        <thead style="font-weight: bold;">
             <tr>
-                <th>번호</th>
                 <th>제목</th>
                 <th>날짜</th>
                 <th>조회수</th>
-                <th>문의글 대상</th>
-                <th>비고</th>
-                
             </tr>
         </thead>
         <tbody>
             <c:forEach var="lvo" items="${mq}">
                 <tr>
-                    <td>${lvo.bvo.b_idx}</td>
                     <td>${lvo.bvo.b_title}</td>
                     <td>${lvo.bl_date}</td>
                     <td>${lvo.bvo.b_hit}</td>
-                    <td>${lvo.bvo.b_target}</td>
-                    <td></td>
                 </tr>
             </c:forEach>
         </tbody>
