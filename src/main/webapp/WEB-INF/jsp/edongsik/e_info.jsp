@@ -54,7 +54,7 @@
            <fieldset onclick="carinfo(this)">
             <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-             for="car${status.index}">${mvo.m_idx}/${c_ar.c_name}/${c_ar.c_type}</label>
+             for="car${status.index}">${mvo.m_idx}/${c_ar.c_name}/${c_ar.movo.mo_name}</label>
             <input type="hidden" name="c_idx" value=${c_ar.c_idx} />
             <input type="hidden" id="tank" name="c_val3" value=${c_ar.movo.mo_bet} />
            </fieldset>

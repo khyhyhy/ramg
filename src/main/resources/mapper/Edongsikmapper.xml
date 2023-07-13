@@ -111,6 +111,13 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
     WHERE b_val2 = #{su_idx} AND b_type = 1 AND b_status = 0
   </select>
 
+  <select id="getModel" resultType="com.kdt.finalproject.vo.ModelVO" parameterType="String">
+  	SELECT * FROM charging.model_t
+    WHERE mo_idx = #{mo_idx}
+  </select>
+
+
+
 <!-- insert -->
   <insert id="addReview" parameterType="Map">
     INSERT INTO charging.bbs_t(b_content, b_score, b_type, b_status, b_val2, b_val1)

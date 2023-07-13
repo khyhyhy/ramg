@@ -31,6 +31,7 @@ import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
@@ -85,6 +86,11 @@ public class EdongsikController {
         CarVO c_vo = service.carList3(c_idx);
         List<CarVO> c_ar = new ArrayList<CarVO>();
         c_ar.add(c_vo);
+
+        String mo_idx = c_vo.getMo_idx();
+        ModelVO movo = service.getModel(mo_idx);
+        c_vo.setMovo(movo);
+
         mv.addObject("c_ar", c_ar);
 
         String state = c_vo.getC_state();
@@ -381,6 +387,15 @@ public class EdongsikController {
 
         for (CwriteVO ccvo : cw_ar) {
             c_ar.add(ccvo.getCvo());
+
+            for (CarVO cvo : c_ar) {
+                String mo_idx = cvo.getMo_idx();
+
+                ModelVO movo = service.getModel(mo_idx);
+                cvo.setMovo(movo);
+
+            }
+
         }
         // System.out.println(cvo.getC_idx());
         mv.addObject("c_ar", c_ar);
