@@ -30,8 +30,10 @@
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
      <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 50px;">
-      <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info" style="margin-right: 50px; border-width: 2px;">현재상황</button>
-      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
+      <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info"
+       style="margin-right: 50px; border-width: 2px;">현재상황</button>
+      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info"
+       style="border-width: 2px;">이용내역</button>
      </div>
 
 
@@ -40,26 +42,26 @@
      <div class="text-center">
       <div class="row">
        <div class="col">
-        
+
        </div>
       </div>
       <form action="/taksong/serviceok" method="post">
        <div class="row">
         <div class="col">
-         
-          <div class="list-group">
-            <c:forEach items="${c_ar}" var="c_ar" varStatus="status">
-            <fieldset onclick="carinfo(this)">
-             <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
-             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-              for="car${status.index}">${mvo.m_idx}/${c_ar.c_name}/${c_ar.c_type}</label>
-             <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
-             <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.c_val3} />
-            </fieldset>
-            <br />
-           </c:forEach>
-          </div>
-         
+
+         <div class="list-group">
+          <c:forEach items="${c_ar}" var="c_ar" varStatus="status">
+           <fieldset onclick="carinfo(this)">
+            <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
+            <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+             for="car${status.index}">${mvo.m_idx}/${c_ar.c_name}/${c_ar.c_type}</label>
+            <input type="hidden" name="c_idx" value=${c_ar.c_idx} />
+            <input type="hidden" id="tank" name="c_val3" value=${c_ar.movo.mo_bet} />
+           </fieldset>
+           <br />
+          </c:forEach>
+         </div>
+
         </div>
         <div class="col">
          <ul class="list-group">

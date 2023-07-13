@@ -154,6 +154,10 @@ public class TaksongController {
    }
   }
   MemVO mem = service.selectmem(m_idx);
+  List<CwriteVO> cwvoar = mem.getCw_list();
+  for(CwriteVO vo : cwvoar){
+   System.out.println("탁송 차량이름"+vo.getCvo().getMovo().mo_name);
+  }
   mv.addObject("mvo", mem);
 
   mv.addObject("servicear", swar);
