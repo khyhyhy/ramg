@@ -127,39 +127,32 @@
                       </div>
                   </div>
                   <div class="col-8">
-                      <div class="container mt-5">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h1 class="mr-auto">공지사항</h1>
-                                <label for="notice" class="ml-auto"><a href="/support/notice">최근 공지>> </a></label>
-                            </div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">번호</th>
-                                        <th scope="col">제목</th>
-                                        <th scope="col">작성자</th>
-                                        <th scope="col">날짜</th>
-                                    </tr>
-                                </thead
-                                <tbody>
-                                    <c:forEach var="bvo" items="${b_ar}" varStatus="status">
-                                    <tr>
-                                        <th scope="row">${status.index + 1}</th>
-                                        <td><c:if test="${bvo.b_val1 == 1}">
-                                            <img src="../images/lock.png" style="width: 15px;">
-                                        </c:if>
-                                        <a href="/support/notice_view?b_idx=${bvo.b_idx}&cPage=1">
-                                            <c:if test="${bvo.b_to == 1}">
-                                            <span style="font-size: small; color: rgb(179, 179, 179);">[사업자]</span>
-                                            </c:if>${bvo.b_title}</a>
-                                        </td>
-                                        <td>관리자</td>
-                                        <td></td>
-                                    </tr>
-                                </c:forEach>
-                                </tbody>
-                            </table>
-                        </div>
+                        <label for="notice" class="ml-auto"><a href="/support/notice">최근 공지>> </a></label>
+                    <table class="table table-striped" style="table-layout:fixed;">
+                        <colgroup>
+                            <col width="*">
+                            <col width="200px">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>제목</th>
+                                <th>날짜</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="bvo" items="${b_ar}" varStatus="status">
+                            <tr>
+                                <td style="text-overflow:ellipsis; 
+                                overflow:hidden; 
+                                white-space:nowrap;">
+                                    <a href="/support/notice_view?b_idx=${bvo.b_idx}&cPage=1">
+                                    ${bvo.b_title}</a>
+                                </td>
+                                <td>${bvo.bbslog.bl_date}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
                   </div>                                                       
                 </div>
               </div>
