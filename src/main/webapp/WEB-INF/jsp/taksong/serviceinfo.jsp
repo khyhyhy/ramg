@@ -144,6 +144,9 @@
      <input type="hidden" id="s_sprice" name="s_sprice" />
      <input type="hidden" id="s_cprice" name="s_cprice" />
      <input type="hidden" id="s_cprice" name="s_type" value="0" />
+     <input type="hidden" id="nowlat" name="nowlat" value="${nowlat2}" />
+     <input type="hidden" id="nowlng" name="nowlng" value="${nowlng2}" />
+     <input type="hidden" id="m_idx" name="m_idx" value="${mvo.m_idx}" />
      </form>
     </main>
    </div>

@@ -31,6 +31,10 @@ public interface TaksongMapper {
 
  ModelVO movo(String mo_idx);
 
+ SuseVO suvo(String s_idx);
+
+ SuseVO suvoselect(String su_idx);
+
  List<CwriteVO> cwselect(String m_idx);
 
  CarVO carList(String c_idx);
@@ -49,5 +53,9 @@ public interface TaksongMapper {
 
  int swriteupdate(String sw_idx);
 
-    List<SuseVO> getSuse(String m_idx);
+ int serviceinyong(String s_idx);
+
+ int serviceexit(String s_idx);
+
+ List<SuseVO> getSuse(String m_idx);
 }

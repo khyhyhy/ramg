@@ -95,8 +95,10 @@
           </td>
           <td scope="col">
            <c:choose>
-            <c:when test="${vo.sw_status eq 0}">영업중</c:when>
-            <c:when test="${vo.sw_status eq 1}">영업중단</c:when>
+            <c:when test="${vo.svo.s_status eq 0}">영업중</c:when>
+            <c:when test="${vo.svo.s_status eq 1}">영업중단</c:when>
+            <c:when test="${vo.svo.s_status eq 2}"><button type="button" class="btn btn-primary"
+              onclick='location.href="suupdate?su_idx=${vo.svo.suvo.su_idx}"'>주문진행중</button></c:when>
            </c:choose>
           </td>
           <td>

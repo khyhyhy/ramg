@@ -88,6 +88,8 @@ public class TaksongController {
  public ModelAndView select(@Param("nowlat") String nowlat, @Param("nowlng") String nowlng,
    @Param("nowstate") String nowstate, @Param("nowcity") String nowcity, @Param("m_idx") String m_idx) {
   ModelAndView mv = new ModelAndView();
+  mv.addObject("nowlat2", nowlat);
+  mv.addObject("nowlng2", nowlng);
   List<SwriteVO> swar = new ArrayList<SwriteVO>();
   // double lat = 37.48489405082669;
   // double lng = 126.90278513630275;
@@ -318,7 +320,7 @@ public class TaksongController {
 
  @RequestMapping("/taksong/serviceok")
  public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment,
-   String s_payinfo, String s_sprice, String s_cprice, String s_type) {
+   String s_payinfo, String s_sprice, String s_cprice, String s_type, String m_idx, String nowlat, String nowlng) {
   ModelAndView mv = new ModelAndView();
   System.out.println("s_idx = " + s_s_idx);
   System.out.println("c_idx = " + s_c_idx);
@@ -327,6 +329,9 @@ public class TaksongController {
   System.out.println("s_payinfo = " + s_payinfo);
   System.out.println("s_sprice = " + s_sprice);
   System.out.println("s_cprice = " + s_cprice);
+  System.out.println("su_m_idx = " + m_idx);
+  System.out.println("su_mapx = " + nowlng);
+  System.out.println("s_mapy = " + nowlat);
   SuseVO suvo = new SuseVO();
   suvo.setS_idx(s_s_idx);
   ServiceVO svo = service.svosel(s_s_idx);
@@ -338,7 +343,12 @@ public class TaksongController {
   suvo.setSu_payinfo(s_payinfo);
   suvo.setSu_sprice(s_sprice);
   suvo.setSu_cprice(s_cprice);
+  suvo.setSu_val1(m_idx);
+  suvo.setSu_val2("0");
+  suvo.setSu_val3(nowlng);
+  suvo.setSu_val4(nowlat);
   boolean chk = service.suseVOin(suvo);
+  service.serviceinyong(s_s_idx);
   System.out.println(chk);
 
   mv.setViewName("redirect:/e_orderList/");
