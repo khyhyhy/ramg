@@ -80,10 +80,10 @@
                     <td>${cwvo.cvo.c_num}</td>
                     <td>${cwvo.cvo.c_name}</td>
                     <td>${cwvo.cvo.c_state} ${cwvo.cvo.c_city} ${cwvo.cvo.c_addr1}</td>
-                    <td>${cwvo.cvo.c_val3}</td>
-                    <td>${cwvo.cvo.c_type}</td>
-                    <td>${cwvo.cvo.c_chargetype_ac}</td>
-                    <td>${cwvo.cvo.c_chargetype_dc}</td>
+                    <td>${cwvo.cvo.movo.mo_bet}</td>
+                    <td>${cwvo.cvo.movo.mo_type}</td>
+                    <td>${cwvo.cvo.movo.mo_chargetype_ac}</td>
+                    <td>${cwvo.cvo.movo.mo_chargetype_dc}</td>
                     <td><button type="button" class="btn btn-danger" onclick="javascript:location.href='/updateCar?c_idx=${cwvo.cvo.c_idx}'">수정</button></td>
                     <td><button type="button" class="btn btn-danger" onclick="javascript:sub('${cwvo.cvo.c_idx}','${cwvo.m_idx}')">삭제</button></td>
                 </tr>

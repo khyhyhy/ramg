@@ -45,6 +45,11 @@
             <th><label for="c_num" >차량번호</label></th>
             <td><input type="text" id="c_num" name="c_num" value="${cvo.c_num}" /></td>
         </tr>
+        
+        <tr>
+          <th><label for="c_name" >별칭</label></th>
+          <td><input type="text" id="c_name" name="c_name" value="${cvo.c_name}" /></td>
+        </tr>
         <tr>
             <th><label for="mo_idx">모델명</label></th>
             <td><select id="mo_idx" name="mo_idx">
@@ -57,10 +62,10 @@
         <tr>
             <th><label for="c_state">주소</label></th>
             <td><input type="text" id="c_state" name="c_state" value="${cvo.c_state}" onclick="sample6_execDaumPostcode()"/>
-            <input type="text" id="c_city" name="c_city" value="${cvo.c_city}" disabled/>
-            <input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" disabled/></td>
+            <input type="text" id="c_city" name="c_city" value="${cvo.c_city}" readonly/>
+            <input type="text" id="c_addr1" name="c_addr1" value="${cvo.c_addr1}" readonly/></td>
         </tr>
-        <tr>
+        <!--<tr>
             <th><label for="c_val3">모델명</label></th>
             <td><select id="mo_idx" name="mo_idx">
               <option disabled selected value="">차량 선택</option>
@@ -68,7 +73,7 @@
                <option value="${model.mo_idx}">${model.mo_name}</option>
               </c:forEach>
              </select></td>
-        </tr>
+        </tr>-->
         
         <tr>
             <td colspan="2">
@@ -95,14 +100,14 @@ $("#btn").bind("click", function(){
       let c_idx = '${cvo.c_idx}';
       let c_num = $("#c_num").val();
       let mo_idx = $("#mo_idx").val();
-      let c_name = $("#mo_idx option:selected").text();
+      let c_name = $("#c_name").val();
       let c_state = $("#c_state").val();
       let c_city = $("#c_city").val();
       let c_addr1 = $("#c_addr1").val();
-      let c_val3 = $("#c_val3").val();
-      let c_type = $("#c_type").val();
+      //let c_val3 = $("#c_val3").val();
+      /*let c_type = $("#c_type").val();
       let c_chargetype_ac = $("#c_chargetype_ac").val();
-      let c_chargetype_dc = $("#c_chargetype_dc").val();
+      let c_chargetype_dc = $("#c_chargetype_dc").val();*/
 
       let param = "";
 
@@ -143,15 +148,15 @@ $("#btn").bind("click", function(){
       }else
             param += "&c_addr1="+encodeURIComponent(c_addr1);
 
-      if(c_val3.trim().length == 0){
+      /*if(c_val3.trim().length == 0){
         alert("배터리용량을 입력하세요");
         $("#c_val3").focus();
         return;
       }else
-      param += "&c_val3="+encodeURIComponent(c_val3);
+      param += "&c_val3="+encodeURIComponent(c_val3);*/
 
 
-      if(c_type.trim().length == 0){
+      /*if(c_type.trim().length == 0){
         alert("차종 차량 제조사를 입력하세요");
         $("#c_type").focus();
         return;
@@ -172,7 +177,7 @@ $("#btn").bind("click", function(){
         $("#c_chargetype_dc").focus();
         return;
       }else
-      param += "&c_chargetype_dc="+encodeURIComponent(c_chargetype_dc);
+      param += "&c_chargetype_dc="+encodeURIComponent(c_chargetype_dc);*/
       
       param += "&c_idx="+encodeURIComponent(c_idx);
 

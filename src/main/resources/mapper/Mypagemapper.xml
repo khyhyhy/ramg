@@ -8,7 +8,7 @@
   <resultMap id="map" type="com.kdt.finalproject.vo.CwriteVO">
     <id property="cw_idx" column="cw_idx"/>
     <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO"
-      select="get_car" column="c_idx"/>
+      select="get_car" column="c_idx"/> 
   </resultMap>
 
   <resultMap id="map2" type="com.kdt.finalproject.vo.BbslogVO">
@@ -32,6 +32,13 @@
       select="search_s" column="s_idx"/>
     <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO"
       select="get_car" column="c_idx"/>
+  </resultMap>
+
+  <resultMap id="map6" type="com.kdt.finalproject.vo.CarVO">
+    <id property="c_idx" column="c_idx"/>
+    <result property="mo_idx" column="mo_idx"/>
+    <association property="movo" javaType="com.kdt.finalproject.vo.ModelVO"
+      select="getModel" column="mo_idx"/> 
   </resultMap>
   
 
@@ -61,7 +68,7 @@
     WHERE c_idx = #{c_idx}
   </select>
 
-  <select id="get_car" resultType="com.kdt.finalproject.vo.CarVO" parameterType="String">
+  <select id="get_car" resultMap="map6" parameterType="String">
     SELECT * FROM car_t
     WHERE c_idx = #{c_idx}
   </select>
@@ -99,12 +106,17 @@
       SELECT * FROM charging.model_t
   </select>
 
+  <select id="getModel" parameterType="String" resultType="com.kdt.finalproject.vo.ModelVO">
+      SELECT * FROM charging.model_t
+      WHERE mo_idx = #{mo_idx}
+  </select>
+
 
 
   <!-- insert -->
   <insert id="addCar" parameterType="com.kdt.finalproject.vo.CarVO" useGeneratedKeys="true" keyProperty="c_idx">
-      insert into car_t (c_num, c_name, c_state, c_city, c_addr1, c_val3, c_type, c_chargetype_ac, c_chargetype_dc, mo_idx) 
-      values (#{c_num}, #{c_name}, #{c_state}, #{c_city}, #{c_addr1}, #{c_val3}, #{c_type}, #{c_chargetype_ac}, #{c_chargetype_dc}, #{mo_idx}) 
+      insert into car_t (c_num, c_name, c_state, c_city, c_addr1, <!--c_val3, c_type, c_chargetype_ac, c_chargetype_dc--> mo_idx) 
+      values (#{c_num}, #{c_name}, #{c_state}, #{c_city}, #{c_addr1}, <!--#{c_val3}, #{c_type}, #{c_chargetype_ac}, #{c_chargetype_dc}--> #{mo_idx}) 
   </insert>
 
   <insert id="addCarWrite" parameterType="com.kdt.finalproject.vo.CwriteVO">
@@ -120,10 +132,10 @@
         c_state = #{c_state}, 
         c_city = #{c_city}, 
         c_addr1 = #{c_addr1},
-        c_val3 = #{c_val3},
+        <!-- c_val3 = #{c_val3},
         c_type = #{c_type},
         c_chargetype_ac = #{c_chargetype_ac},
-        c_chargetype_dc = #{c_chargetype_dc},
+        c_chargetype_dc = #{c_chargetype_dc},-->
         mo_idx = #{mo_idx}
       WHERE c_idx = #{c_idx}
     </update>
@@ -136,7 +148,6 @@
   <update id="updateReview" parameterType="com.kdt.finalproject.vo.BbsVO" useGeneratedKeys="true" keyProperty="b_idx">
       UPDATE bbs_t
       SET     
-        b_title = #{b_title},
         b_content = #{b_content},
         b_score = #{b_score}
       WHERE b_idx = #{b_idx}
@@ -159,18 +170,18 @@
             <if test="m_phone != null">
               m_phone = #{m_phone},
             </if>
-            <if test="m_address != null">
+            <!--<if test="m_address != null">
               m_address = #{m_address},
-            </if>
+            </if>-->
             <if test="m_atoken != null">
               m_atoken = #{m_atoken},
             </if>
             <if test="m_rtoken != null">
               m_rtoken = #{m_rtoken}, 
             </if>
-            <if test="m_payment != null">
+            <!--<if test="m_payment != null">
               m_payment = #{m_payment},
-            </if>
+            </if>-->
           </trim>
         
         WHERE m_idx = #{m_idx}

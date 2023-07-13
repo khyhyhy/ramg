@@ -142,7 +142,7 @@
 
             // 사용자가 입력한 값들 모두 가져오기
             let b_idx = '${bvo.b_idx}';
-            let b_title = $("#b_title").val();
+            //let b_title = $("#b_title").val();
             
             let b_content = $("#b_content").val();
             let param = "";
@@ -151,19 +151,19 @@
             alert("b_score: "+b_score);
             
             //유효성검사(name,phone)
-            if(b_title.trim().length == 0){
+            /*if(b_title.trim().length == 0){
                 alert("제목을 입력하세요");
                 $("#b_title").focus();
                 return;
             }else
-                param += "b_title="+encodeURIComponent(b_title);
+                param += "b_title="+encodeURIComponent(b_title);*/
 
             if(b_score.trim().length == 0){
                 alert("별점을 입력하세요");
                 //$("#b_score").focus();
                 return;
             }else
-                param += "&b_score="+encodeURIComponent(b_score);
+                param += "b_score="+encodeURIComponent(b_score);
 
             if(b_content.trim().length == 0){
                 alert("내용을 입력하세요");
@@ -183,10 +183,14 @@
                 dataType: "json"
             }).done(function(data){
                 //수정완료시를 검증해야 함! (res:1이면 "변경완료", res:0이면 "변경실패")
-                if(data.res == 1)
+                if(data.res == 1){
                     alert("변경완료 되었습니다.");
-                else
+                    console.log(data.res);
+                }
+                else{
                     alert("변경실패 했습니다.");
+                    console.log(data.res);
+                }
             });
 
         });

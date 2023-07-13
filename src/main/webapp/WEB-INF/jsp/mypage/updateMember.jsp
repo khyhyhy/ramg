@@ -80,8 +80,8 @@
             // 사용자가 입력한 값들 모두 가져오기
             let name = $("#m_name").val();
             let phone = $("#m_phone").val();
-            let address = $("#m_address").val();
-            let payment = $("#m_payment").val();
+            //let address = $("#m_address").val();
+            //let payment = $("#m_payment").val();
 
             let param = "";
 
@@ -100,13 +100,13 @@
             }else
                 param += "&m_phone="+encodeURIComponent(phone);
 
-            if(address.trim().length > 0){
+            /*if(address.trim().length > 0){
                 param += "&m_address="+encodeURIComponent(address);
-            }
+            }*/
 
-            if(payment.trim().length > 0){
+            /*if(payment.trim().length > 0){
                 param += "&m_payment="+encodeURIComponent(payment);
-            }
+            }*/
 
             // 비동기식 통신으로 회원 정보 수정~~~~~~~~~~~~~~~~~~~~~~~~~
             $.ajax({

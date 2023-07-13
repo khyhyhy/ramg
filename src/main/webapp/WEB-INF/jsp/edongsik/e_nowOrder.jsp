@@ -154,6 +154,7 @@
                 </c:choose>
                 <div class="col"></div>
                 </div>
+            </div>
             </c:if>
             </c:if>
 
@@ -238,7 +239,7 @@
          <!-- 탁송 그림-->
         <c:if test="${suar.svo.s_type == 0}">
             <c:if test="${suar.su_status ne 7}">
-                <div>
+                <div class="text-center">
                 <div class="row" style="margin-top: 60px;">
                     <c:if test="${suar.su_status == 8}">
                         <div class="col">

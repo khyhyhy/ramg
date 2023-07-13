@@ -80,7 +80,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
 
 <select id="getOrderList2" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="String">
 	SELECT * FROM charging.service_use
-  WHERE c_idx = #{c_idx}
+  WHERE c_idx = #{c_idx} and su_val2 = 0
 </select>
 
 <!-- 페이징이 들어간 주문내역-->
@@ -89,7 +89,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
   SELECT @RN:=@RN+1 as r_num,a.* FROM(  
 	SELECT * FROM charging.service_use
 	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
-	  WHERE m_idx = #{m_idx} and cw_type = 0)
+	  WHERE m_idx = #{m_idx} and cw_type = 0 and su_val2 = 0 )
       ORDER BY su_idx DESC
 	) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
