@@ -31,7 +31,7 @@ import com.kdt.finalproject.vo.SuseVO;
 public class MainController {
 
     @Autowired
-    AdminService service;
+    SupportService service;
 
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
 
@@ -130,11 +130,8 @@ public class MainController {
             }
         }
         // 공지사항
-        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        BbsVO[] b_ar = service.notice_user(1, 7, null, null);
 
-        BbsVO[] b_ar = service.notice_all(1, 5, null, null, null);
-
-        mv.addObject("today", today);
         mv.addObject("b_ar", b_ar);
         mv.addObject("ar", ar);
         mv.addObject("len", ar.length);

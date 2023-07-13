@@ -7,39 +7,42 @@ import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.CarVO;
 import com.kdt.finalproject.vo.CwriteVO;
 import com.kdt.finalproject.vo.MemVO;
+import com.kdt.finalproject.vo.ModelVO;
 import com.kdt.finalproject.vo.ServiceVO;
 import com.kdt.finalproject.vo.SuseVO;
 import com.kdt.finalproject.vo.SwriteVO;
 
 public interface EdongsikMapper {
-    List<CwriteVO> carList(String m_idx);
+ List<CwriteVO> carList(String m_idx);
 
-    ServiceVO[] getEdongsik(String state);
+ ServiceVO[] getEdongsik(String state);
 
-    SwriteVO radiusInfo(String s_idx);
+ SwriteVO radiusInfo(String s_idx);
 
-    MemVO mvo(String m_idx);
+ MemVO mvo(String m_idx);
 
-    ServiceVO svo(String s_idx);
+ ServiceVO svo(String s_idx);
 
-    CarVO cvo(String c_idx);
+ CarVO cvo(String c_idx);
 
-    CarVO carList3(String c_idx);
+ ModelVO movo(String mo_idx);
 
-    SuseVO getOrder(String su_idx);
+ CarVO carList3(String c_idx);
 
-    List<CwriteVO> getOrderList(String m_idx);
+ SuseVO getOrder(String su_idx);
 
-    List<SuseVO> getMyOderList(Map<String, Object> map);
+ List<CwriteVO> getOrderList(String m_idx);
 
-    int totalCount();
+ List<SuseVO> getMyOderList(Map<String, Object> map);
 
-    int totalCountByM_idx(String m_idx);
+ int totalCount();
 
-    int addReview(Map<String, Object> map);
+ int totalCountByM_idx(String m_idx);
 
-    int addReviewLog(Map<String, Object> map);
+ int addReview(Map<String, Object> map);
 
-    BbsVO getBidx(String su_idx);
+ int addReviewLog(Map<String, Object> map);
+
+ BbsVO getBidx(String su_idx);
 
 }
