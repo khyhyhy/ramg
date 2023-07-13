@@ -132,19 +132,14 @@ WHERE s_idx = #{s_idx}
 </select> -->
 
 <select id="getSuse" resultType="com.kdt.finalproject.vo.SuseVO" parameterType="String">
-    SELECT * FROM charging.service_use 
-    WHERE s_idx IN(SELECT s_idx FROM charging.service_t
-    WHERE s_idx IN (
-      SELECT s_idx
-      FROM charging.service_write
-      WHERE m_idx = #{param} AND sw_val4 = 0
-    ));
-</select>
-
-<select id="sType" resultType="com.kdt.finalproject.vo.ServiceVO" parameterType="String">
-  select s_type from service_t
-  where s_idx in(
-  SELECT s_idx FROM charging.service_write WHERE m_idx = #{param} AND sw_val4 = 0);
+    SELECT su.*, st.s_type
+    FROM charging.service_use su
+    INNER JOIN charging.service_t st ON su.s_idx = st.s_idx
+    WHERE su.s_idx IN (
+      SELECT sw.s_idx
+      FROM charging.service_write sw
+      WHERE sw.m_idx = #{param} AND sw.sw_val4 = 0
+    );
 </select>
 
 </mapper>

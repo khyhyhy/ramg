@@ -148,13 +148,4 @@ public class TaksongService {
         return suar;
     }
 
-    public ServiceVO[] sType(String m_idx) {
-        ServiceVO[] sar = null;
-        List<ServiceVO> list = mapper.sType(m_idx);
-        if (list != null && list.size() > 0) {
-            sar = new ServiceVO[list.size()];
-            list.toArray(sar);
-        }
-        return sar;
-    }
 }

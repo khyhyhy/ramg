@@ -164,12 +164,9 @@ public class ServiceController {
   @RequestMapping("/mypage/service/")
   public ModelAndView serviceUse() {
     ModelAndView mv = new ModelAndView();
-
     MemVO mvo = (MemVO) session.getAttribute("mvo");
     SuseVO[] suar = service.getSuse(mvo.getM_idx());
-    ServiceVO[] sar = service.sType(mvo.getM_idx());
     mv.addObject("suar", suar);
-    mv.addObject("sar", sar);
     mv.setViewName("service/service");
     return mv;
   }

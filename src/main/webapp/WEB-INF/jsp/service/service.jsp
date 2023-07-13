@@ -30,7 +30,7 @@
    <!--////////// Main start //////////////-->
    <div class="container">
     <main>
-      
+      <h1>서비스</h1>
       <table class="table table-dark table-striped">
         <thead>
           <tr>
@@ -48,25 +48,24 @@
         </thead>
         <tbody class="table-group-divider">          
           <c:forEach items="${suar}" var="vo" varStatus="status">
-            <c:forEach items="${sar}" var="vo2" varStatus="status">
             <tr>
-                <th scope="row">${status.index + 1}목록</th>
-                <td>
-                  <c:choose>
-                    <c:when test="${vo2.s_type eq 0}">탁송 서비스</c:when>
-                    <c:when test="${vo2.s_type eq 1}">이동식 서비스</c:when>
+              <th scope="row">${status.index + 1}목록</th>
+              <td>
+                <c:choose>
+                    <c:when test="${vo.s_type eq 0}">탁송 서비스</c:when>
+                    <c:when test="${vo.s_type eq 1}">이동식 서비스</c:when>
                   </c:choose>
-                </td>
-                <td></td>
-                <td>${vo.su_percent}</td>
-                <td>${vo.su_payment}</td>
-                <td>${vo.su_payinfo}</td>
-                <td>${vo.su_date}</td>
-                <td>${vo.su_sprice}</td>
-                <td>${vo.su_cprice}</td>
-                <td>${vo.su_status}</td>
+              </td>
+              <td>
+              </td>
+              <td>${vo.su_percent}</td>
+              <td>${vo.su_payment}</td>
+              <td>${vo.su_payinfo}</td>
+              <td>${vo.su_date}</td>
+              <td>${vo.su_sprice}</td>
+              <td>${vo.su_cprice}</td>
+              <td>${vo.su_status}</td>
               </tr>
-            </c:forEach>
             </c:forEach>
           </tbody>
         </table>
