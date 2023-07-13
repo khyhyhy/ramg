@@ -531,7 +531,7 @@ SELECT COUNT(*) FROM charging.bbs_t
 SELECT * FROM (
   SELECT @RN:=@RN+1 as r_num,a.* FROM(
     SELECT * FROM charging.service_use
-    WHERE su_type = 0 
+    WHERE su_val2 = 0
       <if test="search_date != null">
         AND su_date LIKE CONCAT (#{search_date},'%')
       </if>
@@ -612,11 +612,78 @@ SELECT COUNT(*) FROM charging.service_use
 </select>
 <!--서비스 리스트-->
 
+
+
 <!--서비스 상세보기-->
-<select id="car_view" parameterType="String" resultMap="review_map3">
+<select id="car_vo" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
   SELECT * FROM charging.service_use
-  WHERE su_type = 0 AND su_idx = #{su_idx}
+  WHERE su_idx = #{su_idx}
 </select>
+
+<select id="car_view" parameterType="String" resultMap="car_view_map">
+  SELECT * FROM charging.service_use
+  WHERE su_val5 = #{su_val5}
+</select>
+
+<resultMap id="car_view_map" type="com.kdt.finalproject.vo.SuseVO">
+  <id property="su_idx" column="su_idx"/>
+  <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="car_view2" column="s_idx"/>
+  <association property="cvo" javaType="com.kdt.finalproject.vo.CarVO" select="car_view5" column="c_idx"/>
+</resultMap>
+
+<select id="car_view2" parameterType="String" resultMap="car_view_map2">
+  SELECT * FROM service_t
+  WHERE s_idx = #{s_idx}
+</select>
+
+<resultMap id="car_view_map2" type="com.kdt.finalproject.vo.ServiceVO">
+  <id property="s_idx" column="s_idx"/>
+  <association property="swvo" javaType="com.kdt.finalproject.vo.SwriteVO" select="car_view3" column="s_idx"/>
+</resultMap>
+
+<select id="car_view3" parameterType="String" resultMap="car_view_map3">
+  SELECT * FROM service_write
+  WHERE s_idx = #{s_idx}
+</select>
+
+<resultMap id="car_view_map3" type="com.kdt.finalproject.vo.SwriteVO">
+  <id property="sw_idx" column="sw_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="car_view4" column="m_idx"/>
+</resultMap>
+
+<select id="car_view4" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+  SELECT * FROM member_t
+  WHERE m_idx = #{m_idx}
+</select>
+
+<select id="car_view5" parameterType="String" resultMap="car_view_map4">
+  SELECT * FROM car_t
+  WHERE c_idx = #{c_idx}
+</select>
+
+<resultMap id="car_view_map4" type="com.kdt.finalproject.vo.CarVO">
+  <id property="c_idx" column="c_idx"/>
+  <association property="cwvo" javaType="com.kdt.finalproject.vo.CwriteVO" select="car_view6" column="c_idx"/>
+</resultMap>
+
+<select id="car_view6" parameterType="String" resultMap="car_view_map5">
+  SELECT * FROM car_write
+  WHERE c_idx = #{c_idx}
+</select>
+
+<resultMap id="car_view_map5" type="com.kdt.finalproject.vo.CwriteVO">
+  <id property="cw_idx" column="cw_idx"/>
+  <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO" select="car_view7" column="m_idx"/>
+</resultMap>
+
+<select id="car_view7" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+  SELECT * FROM member_t
+  WHERE m_idx = #{m_idx}
+</select>
+
+
+
+
 <!--서비스 상세보기-->
 
 

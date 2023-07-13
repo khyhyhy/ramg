@@ -554,9 +554,11 @@ public class AdminController {
     public ModelAndView car_view(String su_idx, String cPage, String searchType, String searhValue) {
         ModelAndView mv = new ModelAndView();
 
-        SuseVO vo = service.car_view(su_idx);
+        SuseVO suvo = service.car_vo(su_idx);
 
-        mv.addObject("vo", vo);
+        SuseVO[] ar = service.car_view(suvo.getSu_val5());
+
+        mv.addObject("ar", ar);
         mv.setViewName("/admin/car_view");
 
         return mv;

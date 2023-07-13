@@ -80,14 +80,14 @@
       <div class="col-md-3 text-end">
        <button id="loginButton" style="font-family: 'GoryeongStrawberry';" type="button"
         class="btn btn-primary bg-gradient"><a href="/login"
-         style="color: white; text-decoration: none;">Login</a></button>
+         style="color: white !important; text-decoration: none !important;">Login</a></button>
       </div>
      </c:if>
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
        <button id="logoutButton" style="font-family: 'GoryeongStrawberry';" type="button"
         class="btn btn-primary bg-gradient"><a href="/logout"
-         style="color: white; text-decoration: none;">Logout</a></button>
+         style="color: white !important; text-decoration: none !important;">Logout</a></button>
       </div>
      </c:if>
 

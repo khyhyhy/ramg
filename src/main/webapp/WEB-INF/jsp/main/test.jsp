@@ -108,7 +108,7 @@
                         </p>
                       </div>
                       <form id="introduceForm">
-                        <button class="btn btn-outline-secondary" type="button" onclick="redirectToIntroduce()">더보기</button>
+                        <button style="float: right;" class="btn btn-outline-secondary" type="button" onclick="redirectToIntroduce()">더보기</button>
                       </form>
                     </div>
                   </div>
