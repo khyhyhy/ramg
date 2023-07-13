@@ -6,7 +6,7 @@
   <head>
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <title>Insert title here</title>
-   <link href="../../css/edongsik.css" rel="stylesheet">
+   <link href="../../css/ramg.css" rel="stylesheet">
    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
@@ -31,7 +31,7 @@
   <main>
     <div style="display: flex; justify-content: center; margin-top: 40px;">
       <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info" style="border-width: 2px; margin-right: 50px;">현재상황</button>
-      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info" style="border-width: 2px;">이용내역</button>
+      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0; color: black;">이용내역</button>
      </div>
     
     <div style="margin-top: 50px;">
@@ -97,8 +97,6 @@
 	};
   
  </script>
-
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 
   </body>
   </html>
