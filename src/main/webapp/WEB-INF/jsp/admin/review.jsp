@@ -18,7 +18,9 @@ pageEncoding="UTF-8"%>
 <main>
     <div class="container" style="margin-top: 100px;">
 
-        <h2>리뷰관리</h2>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">리뷰 관리</h1>
+        </div>
         <form action="/admin/review" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">

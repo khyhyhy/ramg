@@ -15,6 +15,9 @@ pageEncoding="UTF-8"%>
 <body>
 <main>
     <div class="container" style="margin-top: 100px;">
+    <div style="margin: 100px 0;">
+        <h1 style="text-align: center; font-weight: bold;">람쥐썬더 관리자 로그인</h1>
+    </div>
     <form action="/admin/login" method="post">
         <div style="margin: 0 auto; width: 300px;">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>

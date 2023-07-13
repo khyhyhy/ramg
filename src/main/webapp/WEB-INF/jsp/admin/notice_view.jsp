@@ -17,6 +17,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
+        <div style="margin: 50px 0;">
+            <h1 style="text-align: center; font-weight: bold;">공지</h1>
+        </div>
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">

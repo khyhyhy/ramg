@@ -17,9 +17,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-
-        <h1>리뷰</h1>
-
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">리뷰 게시판</h1>
+        </div>
         <form action="/support/review" method="post">
             <div style="height: 60px; float: right;">
                 <select name="searchType" class="form-select" aria-label="Default select example" style="width: 130px; display: inline-block;">

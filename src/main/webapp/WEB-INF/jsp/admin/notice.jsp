@@ -18,7 +18,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
 <div class="container" style="margin-top: 100px;">
-    <h1>공지관리</h1>
+    <div style="margin: 50px 0 0 0;">
+        <h1 style="text-align: center; font-weight: bold;">공지 관리</h1>
+    </div>
     <form action="/admin/notice" method="post">
         <div style="height: 60px; float: right;">
             <span style="float: left; margin-right: 5px;">

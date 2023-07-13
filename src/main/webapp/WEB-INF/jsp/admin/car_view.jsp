@@ -19,7 +19,9 @@ pageEncoding="UTF-8"%>
 <main>
     <div class="container" style="margin-top: 100px;">
 
-        <h2>서비스 상세보기</h2>
+        <div style="margin: 50px 0;">
+            <h1 style="text-align: center; font-weight: bold;">서비스 상세보기</h1>
+        </div>
 
         <table class="table table-hover">
             <colgroup>

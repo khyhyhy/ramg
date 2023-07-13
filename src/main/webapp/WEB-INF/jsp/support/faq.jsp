@@ -17,7 +17,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-      <h1>자주하는 질문</h1>
+      <div style="margin: 50px 0 0 0;">
+        <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">자주 하는 질문</h1>
+    </div>
       <div class="accordion" id="accordionExample">
         <br>
         <br>

@@ -20,6 +20,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
+        <div style="margin: 50px 0;">
+            <h1 style="text-align: center; font-weight: bold;">공지 수정</h1>
+        </div>
         <form action="/admin/notice_edit_ok" method="post" enctype="multipart/form-data">
         <table class="table table-bordered">
             <colgroup>

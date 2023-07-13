@@ -17,7 +17,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <h1>공지사항</h1>
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">공지사항</h1>
+        </div>
         <form action="">
             <div style="height: 60px; float: right;">
                 <c:if test="${sessionScope.mvo.m_class == 1 || sessionScope.mvo.m_class == 2}">

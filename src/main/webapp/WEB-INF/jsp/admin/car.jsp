@@ -21,9 +21,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-       <h1>서비스 내역</h1>
-       <br>
-
+        <div style="margin: 50px 0 0 0;">
+            <h1 style="text-align: center; font-weight: bold;">서비스 관리</h1>
+        </div>
 
        <form action="/admin/car" method="post">
             <div style="height: 60px; float: left;">
