@@ -203,6 +203,9 @@ public class ServiceController {
   newsuvo.setSu_val4(oldsuvo.getSu_val4());
   newsuvo.setSu_val5(oldsuvo.getSu_val5());
   service.suseupdatein(newsuvo, su_idx);
+  if (newsuvo.getSu_status().equals("7")) {
+   int cnt = service.serviceexit(newsuvo.getS_idx());
+  }
   mv.setViewName("redirect:/mypage/serviceadd/");
   return mv;
  }

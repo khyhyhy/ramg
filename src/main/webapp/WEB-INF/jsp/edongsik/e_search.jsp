@@ -25,12 +25,12 @@
    <main>
 
 
-   <div>
-    <h1 style="margin-bottom: 50px;">  </h1>
-   </div>
-
-<div class="container-xxl mt-4">
+     
+     <div class="container-xxl mt-4">
   <div class="row">
+   <h1 style="margin-bottom: 15px;"> 현재 위치 검색</h1>
+  </div>
+  <div class="row" style="margin-bottom: 25px;">
     <!-- row 1 (total : 12) -->
     <div class="col-12" >
       
@@ -41,35 +41,30 @@
 
     <div class="row">
       <div class="col-4" >
-        <div class="p-2 mb-4 bg-body-tertiary rounded-3" style="background-color: rgb(158, 157, 152);">
+        
           <form method="post" action="/e_search/" class="">
              <input type="text" id="addr" name="addr" class="form-control" style="width: 325px; display: inline-block;" placeholder="주소 입력" />
-             <button type="submit" style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary">검색</button>
+             <button type="submit" style="color: white;" class="btn btn-info">검색</button>
             </form>
-        </div>
+        
     </div>
     <div class="col-8" >
 
       <div style="text-align: right;">
         <p id="result" style="display: none;"></p>
 
-        <button type="submit" class="btn btn-outline-info" style="border-width: 2px;" onclick="location.href='/edongsik/'">돌아가기</button>
         <form action="/select/" style="display: inline;">
-          <button type="submit" class="btn btn-outline-info" style="border-width: 2px;">다음 화면</button>
+          <button type="submit" class="btn btn-info" style="color: white; margin-right: 10px;">다음 화면</button>
           <input type="hidden" id="lat1" name="nowlat" />
           <input type="hidden" id="lng1" name="nowlng" />
           <input type="hidden" id="state" name="nowstate" />
           <input type="hidden" id="city" name="nowcity" />
         </form>
-        
+        <button type="submit" class="btn btn-outline-info" style="border-width: 2px;" onclick="location.href='/edongsik/'">돌아가기</button>
       </div>
-
-    </div>
-
     </div>
     
-    
-    
+    </div>
   </div>
   </div>
 
