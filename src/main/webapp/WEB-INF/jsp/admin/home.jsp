@@ -108,7 +108,7 @@ pageEncoding="UTF-8"%>
                         </tr>
                     </thead>
                         <c:if test="${b_ar == null}">
-                            등록된 공지가 없습니다.
+                            <td>등록된 회원이 없습니다.</td>
                         </c:if>
                         <c:if test="${b_ar != null}">
                         <c:forEach var="bvo" items="${b_ar}">
@@ -145,7 +145,7 @@ pageEncoding="UTF-8"%>
                     </tr>
                     </thead>
                     <c:if test="${q_ar == null}">
-                        등록된 문의가 없습니다.
+                        <td colspan="2">등록된 회원이 없습니다.</td>
                     </c:if>
                     <c:if test="${q_ar != null}">
                         <c:forEach var="qvo" items="${q_ar}">
@@ -187,7 +187,7 @@ pageEncoding="UTF-8"%>
                     </tr>
                     </thead>
                     <c:if test="${r_ar == null}">
-                        등록된 리뷰가 없습니다.
+                        <td colspan="2">등록된 회원이 없습니다.</td>
                     </c:if>
                     <c:if test="${r_ar != null}">
                     <c:forEach items="${r_ar}" var="rvo">
@@ -249,7 +249,7 @@ pageEncoding="UTF-8"%>
                     </tr>
                     </thead>
                     <c:if test="${su_ar == null}">
-                        등록된 서비스가 없습니다
+                        <td colspan="3">등록된 회원이 없습니다.</td>
                     </c:if>
                     <c:if test="${su_ar != null}">
                     <c:forEach items="${su_ar}" var="suvo">
