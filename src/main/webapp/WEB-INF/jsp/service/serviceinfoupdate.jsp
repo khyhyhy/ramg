@@ -77,50 +77,83 @@
         <span class="input-group-text" id="su_status">주문 상태</span>
         <select class="form-select form-select-sm" id="su_status" name="su_status" onchange="susebutton()">
          <option selected value="${suvo.su_status}" disabled> 현재 상태:
-          <c:choose>
-           <c:when test="${suvo.su_status == 0}">
-            주문 대기 중
-           </c:when>
-           <c:when test="${suvo.su_status == 1}">
-            주문 접수
-           </c:when>
-           <c:when test="${suvo.su_status == 2}">
-            탁송기사 이동 중
-           </c:when>
-           <c:when test="${suvo.su_status == 3}">
-            차량 픽업
-           </c:when>
-           <c:when test="${suvo.su_status == 4}">
-            충전소 이동 중
-           </c:when>
-           <c:when test="${suvo.su_status == 5}">
-            충전 중
-           </c:when>
-           <c:when test="${suvo.su_status == 6}">
-            도착지 이동 중
-           </c:when>
-           <c:when test="${suvo.su_status == 7}">
-            도착 완료
-           </c:when>
-          </c:choose>
+          <c:if test="${suvo.svo.s_type eq 0}">
+           <c:choose>
+            <c:when test="${suvo.su_status == 0}">
+             주문 대기 중
+            </c:when>
+            <c:when test="${suvo.su_status == 1}">
+             주문 접수
+            </c:when>
+            <c:when test="${suvo.su_status == 2}">
+             탁송기사 이동 중
+            </c:when>
+            <c:when test="${suvo.su_status == 3}">
+             차량 픽업
+            </c:when>
+            <c:when test="${suvo.su_status == 4}">
+             충전소 이동 중
+            </c:when>
+            <c:when test="${suvo.su_status == 5}">
+             충전 중
+            </c:when>
+            <c:when test="${suvo.su_status == 6}">
+             도착지 이동 중
+            </c:when>
+            <c:when test="${suvo.su_status == 7}">
+             도착 완료
+            </c:when>
+           </c:choose>
+          </c:if>
+          <c:if test="${suvo.svo.s_type eq 1}">
+           <c:choose>
+            <c:when test="${suvo.su_status == 0}">
+             주문 대기 중
+            </c:when>
+            <c:when test="${suvo.su_status == 1}">
+             주문 접수
+            </c:when>
+            <c:when test="${suvo.su_status == 2}">
+             충전지 이동중
+            </c:when>
+            <c:when test="${suvo.su_status == 3}">
+             충전지 도착
+            </c:when>
+            <c:when test="${suvo.su_status == 4}">
+             충전중
+            </c:when>
+            <c:when test="${suvo.su_status == 7}">
+             충전 완료
+            </c:when>
+           </c:choose>
+          </c:if>
          </option>
-         <option value="0">주문 대기중</option>
-         <option value="1">주문 접수</option>
-         <option value="2">탁송기사 이동 중</option>
-         <option value="3">차량 픽업</option>
-         <option value="4">충전소 이동 중</option>
-         <option value="5">충전 중</option>
-         <option value="6">도착지 이동 중</option>
-         <option value="7">도착 완료</option>
+         <c:if test="${suvo.svo.s_type eq 0}">
+          <option value="0">주문 대기중</option>
+          <option value="1">주문 접수</option>
+          <option value="2">탁송기사 이동 중</option>
+          <option value="3">차량 픽업</option>
+          <option value="4">충전소 이동 중</option>
+          <option value="5">충전 중</option>
+          <option value="6">도착지 이동 중</option>
+          <option value="7">도착 완료</option>
+         </c:if>
+         <c:if test="${suvo.svo.s_type eq 1}">
+          <option value="0">주문 대기중</option>
+          <option value="1">주문 접수</option>
+          <option value="2">충전지 이동 중</option>
+          <option value="3">충전지 도착</option>
+          <option value="4">충전중</option>
+          <option value="7">충전 완료</option>
+         </c:if>
+
         </select>
-        <button type="submit" id="susubmit" class="btn btn-primary" disabled>(으)로 변경</button>
+        <button type="submit" id="susubmit" class="btn btn-primary" disabled onclick="servicewan(this.form)">(으)로
+         변경</button>
        </div>
        <div>
         <c:if test="${suvo.su_status ne 7}">
          <button type="button" id="allclear" class="btn btn-primary" disabled>서비스 진행중</button>
-        </c:if>
-        <c:if test="${suvo.su_status eq 7}">
-         <button type="button" id="allclear" class="btn btn-primary" onclick="servicewan(this.form)">서비스 완료</button>
         </c:if>
         <button type="button" id="allclear" class="btn btn-secondary">뒤로가기</button>
        </div>
@@ -291,8 +324,17 @@
    let geocoder2;
 
    function servicewan(form) {
-    form.action = "/mypage/serviceadd/servicewan"
-    form.submit();
+    let status = form.su_status.value;;
+    if (status == "7") {
+     if (confirm("주문완료로 변경하게되면 돌리실 수 없습니다. 변경하시겠습니까?")) {
+      form.submit();
+     } else {
+      alert("변경을 취소하셨습니다.")
+      location.reload();
+     }
+    } else {
+     form.submit();
+    }
    }
 
 
