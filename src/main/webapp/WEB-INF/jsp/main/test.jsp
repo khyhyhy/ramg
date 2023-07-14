@@ -79,6 +79,7 @@
                     <div class="col">
                       <div class="row mb-4 fff">
                         <div class="col">
+                          <h2 class="fff" style="color: #ffffff;">여기도 글씨가 itzy</h2>
                           <div class="h-100 p-5 text-bg-dark rounded-3" style="background-color: #222; color: #fff;">
                             <h2 style="font-size: 24px; font-weight: bold;">람쥐썬더 충전소 서비스 소개</h2>
                             <p style="font-size: 16px;">
@@ -120,6 +121,7 @@
                   <div class="row row-cols-1 row-cols-md-2">
                     <div class="col">
                       <div class="row">
+                        <p style="color: #fff">여기도 글씨가 itzy</p>
                         <div class="col">
                           <div class="h-100 p-5 text-bg-dark rounded-3">
                             <h2>Change the background</h2>

@@ -581,16 +581,18 @@ public class AdminController {
         int ad = 0;
         int tod = 0;
 
-        for (int i = 0; i < mem_count.length; i++) {
-            if (mem_count[i].getM_class().equals("0")) {
-                pr++;
-            } else if (mem_count[i].getM_class().equals("1")) {
-                bz++;
-            } else if (mem_count[i].getM_class().equals("2")) {
-                ad++;
-            }
-            if (mem_count[i].getM_date().substring(0, 10).equals(today)) {
-                tod++;
+        if (mem_count != null) {
+            for (int i = 0; i < mem_count.length; i++) {
+                if (mem_count[i].getM_class().equals("0")) {
+                    pr++;
+                } else if (mem_count[i].getM_class().equals("1")) {
+                    bz++;
+                } else if (mem_count[i].getM_class().equals("2")) {
+                    ad++;
+                }
+                if (mem_count[i].getM_date().substring(0, 10).equals(today)) {
+                    tod++;
+                }
             }
         }
 
