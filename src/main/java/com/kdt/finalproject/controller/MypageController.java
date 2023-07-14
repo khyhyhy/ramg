@@ -87,6 +87,8 @@ public class MypageController {
             if (obj != null) {
                 MemVO mvo = (MemVO) obj;
                 m_idx = mvo.getM_idx();
+                List<BbsVO> ar = service.biz_review_list(m_idx);
+                mv.addObject("ar", ar);
             }
         }
         mv.addObject("mr", service.search_r(m_idx));

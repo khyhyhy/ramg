@@ -43,49 +43,84 @@
       <table id="bl_list" class="table table-striped table-hover">
          <colgroup>
             <col width="*">
-            <col width="150px">
-            <col width="100px">
-            <col width="100px">
+            <col width="200px">
+            <col width="200px">
+            <col width="200px">
+            <col width="200px">
          </colgroup>
          <thead>
              <tr>
-                 <th>리뷰</th>
-                 <th>별점</th>
-                 <th>수정</th>
-                 <th>삭제</th>
+                <th>리뷰</th>
+                <th>별점</th>
+                <th>서비스유형</th>
+                <th>글쓴이</th>
+                <th>등록일</th> 
                  
              </tr>
          </thead>
          <tbody>
-             <c:forEach var="bvo" items="${mr}">
-                 <tr onmouseover="regRowNum(this)">
-                    <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">${bvo.b_content}</td>
-                     <td>
-                        <c:if test="${bvo.b_score == 0}">
+            <c:if test="${ar == null}">
+                <tr>
+                    <td colspan="6">검색 결과가 없습니다.</td>
+                </tr>
+            </c:if>
+            <c:forEach var="vo" items="${ar}" varStatus="st">
+                <tr>
+                    <!-- <td>${totalRecord - ((nowPage-1)*blockList+st.index)}</td> -->
+                    <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="flush-heading${vo.b_idx}">
+                                <button class="accordion-button collapsed" style="overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse${vo.b_idx}" aria-expanded="false" aria-controls="flush-collapse${vo.b_idx}">
+                                    ${vo.b_content}
+                                </button>
+                            </h2>
+                            <div id="flush-collapse${vo.b_idx}" class="accordion-collapse collapse" aria-labelledby="flush-heading${vo.b_idx}" data-bs-parent="#accordionFlushExample">
+                              <div class="accordion-body"><br>${vo.b_content}</div>
+                            </div>
+                          </div>
+                    </td>
+                    <td>
+                        <c:if test="${vo.b_score == 0}">
                             ☆☆☆☆☆
                         </c:if>
-                        <c:if test="${bvo.b_score == 1}">
+                        <c:if test="${vo.b_score == 1}">
                             ★☆☆☆☆
                         </c:if>
-                        <c:if test="${bvo.b_score == 2}">
+                        <c:if test="${vo.b_score == 2}">
                             ★★☆☆☆
                         </c:if>
-                        <c:if test="${bvo.b_score == 3}">
+                        <c:if test="${vo.b_score == 3}">
                             ★★★☆☆
                         </c:if>
-                        <c:if test="${bvo.b_score == 4}">
+                        <c:if test="${vo.b_score == 4}">
                             ★★★★☆
                         </c:if>
-                        <c:if test="${bvo.b_score == 5}">
+                        <c:if test="${vo.b_score == 5}">
                             ★★★★★
                         </c:if>
                     </td>
-                     <td><button type="button" class="btn btn-danger" onclick="javascript:location.href='/updateReview?b_idx=${bvo.b_idx}'">수정</button></td>
-                    <td><button type="button" class="btn btn-danger" onclick="javascript:sub('${bvo.b_idx}')">삭제</button></td>
-                 </tr>
-             </c:forEach>
-         </tbody>
-        </table>
+                    <td>
+                        <c:choose>
+                            <c:when test="${vo.s_type eq 0}"> 탁송 충전 서비스 </c:when>
+                            <c:when test="${vo.s_type eq 1}"> 이동식 충전 서비스 </c:when>
+                        </c:choose>
+                    </td>
+                    <td>
+                        ${vo.mvo.m_name}
+                    </td>
+                    <td>
+                        ${vo.bbslog.bl_date}
+                    </td>
+                </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    
+    <div style="height: 80px;" >
+        ${pageCode}
+    </div>
       </div>
       <jsp:include page="../main/mainF.jsp"></jsp:include>
       

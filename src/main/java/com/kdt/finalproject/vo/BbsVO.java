@@ -24,4 +24,8 @@ public class BbsVO {
     private List<BbsVO> c_list;
 
     private SuseVO suvo;
+
+    // 사업자계정의 리뷰에서 필요한 정보들
+    private String s_type;
+    private MemVO mvo;
 }

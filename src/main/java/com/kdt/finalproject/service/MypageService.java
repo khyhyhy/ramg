@@ -91,4 +91,8 @@ public class MypageService {
     public List<ModelVO> getModelList() {
         return mapper.getModelList();
     }
+
+    public List<BbsVO> biz_review_list(String m_idx) {
+        return mapper.biz_review_list(m_idx);
+    }
 }

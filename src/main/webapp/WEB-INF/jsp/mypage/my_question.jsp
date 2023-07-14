@@ -48,7 +48,7 @@
         <tbody>
             <c:forEach var="lvo" items="${mq}">
                 <tr>
-                    <td>${lvo.bvo.b_title}</td>
+                    <td><a href="/support/qna_view?b_idx=${lvo.bvo.b_idx}">${lvo.bvo.b_title}</a></td>
                     <td>${lvo.bl_date}</td>
                     <td>${lvo.bvo.b_hit}</td>
                 </tr>

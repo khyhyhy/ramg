@@ -47,4 +47,6 @@ public interface MypageMapper {
 
     List<ModelVO> getModelList();
 
+    List<BbsVO> biz_review_list(String m_idx);
+
 }

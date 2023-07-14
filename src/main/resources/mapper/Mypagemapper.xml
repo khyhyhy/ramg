@@ -40,6 +40,13 @@
     <association property="movo" javaType="com.kdt.finalproject.vo.ModelVO"
       select="getModel" column="mo_idx"/> 
   </resultMap>
+
+  <resultMap id="map7" type="com.kdt.finalproject.vo.BbsVO">
+    <association property="bbslog" javaType="com.kdt.finalproject.vo.BbslogVO"
+      select="get_bbslog" column="bl_idx"/> 
+    <association property="mvo" javaType="com.kdt.finalproject.vo.MemVO"
+      select="get_mem" column="m_idx"/> 
+  </resultMap>
   
 
   <!-- select -->
@@ -110,6 +117,24 @@
       SELECT * FROM charging.model_t
       WHERE mo_idx = #{mo_idx}
   </select>
+
+  <select id="biz_review_list" parameterType="String" resultMap="map7">
+    SELECT bbs.*,bbs2.s_type FROM (SELECT tt1.*,tt2.m_idx, tt2.bl_idx FROM bbs_t tt1, bbslog tt2 WHERE tt1.b_idx = tt2.b_idx) bbs, (SELECT a.*, b.s_type FROM 
+      (SELECT s1.* FROM service_use s1
+        WHERE s1.s_idx IN (SELECT s_idx FROM service_write WHERE m_idx = #{m_idx})) a, service_t b
+      WHERE a.s_idx = b.s_idx) bbs2
+    WHERE bbs.b_val2 = bbs2.su_idx AND b_type = 1
+  </select>
+
+  <select id="get_mem" parameterType="String" resultType="com.kdt.finalproject.vo.MemVO">
+		SELECT * FROM member_t 
+		WHERE m_idx = #{m_idx}
+	</select>
+
+  <select id="get_bbslog" parameterType="String" resultType="com.kdt.finalproject.vo.BbslogVO">
+		SELECT * FROM bbslog 
+		WHERE bl_idx = #{bl_idx}
+	</select>
 
 
 
@@ -198,6 +223,8 @@
     SET b_status = 1
     WHERE b_idx = #{b_idx}
   </update>
+
+  
 
 
 </mapper>
