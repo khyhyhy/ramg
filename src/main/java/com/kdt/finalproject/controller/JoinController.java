@@ -39,7 +39,7 @@ public class JoinController {
 
         Map<String, Object> response = new HashMap<>();
 
-        System.out.println(mvo.getM_email() + "M_EMAIL");
+        // System.out.println(mvo.getM_email() + "M_EMAIL");
         // mvo.setM_phone(mPhone); // 추가
 
         int cnt = ls.add_mem(mvo);
@@ -136,12 +136,9 @@ public class JoinController {
 
         if (mvo == null)
             map.put("str", "<span class='success'>사용 가능한 번호입니다</span>");
-
         else
             map.put("str", "<span class='fail'>이미 등록된 번호입니다</span>");
 
         return map;
-
     }
-
 }

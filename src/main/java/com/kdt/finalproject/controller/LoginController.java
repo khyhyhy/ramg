@@ -54,16 +54,13 @@ public class LoginController {
     @ResponseBody
 
     public Map<String, Object> login(MemVO vo) {
-        // System.out.println("아무거나");
-        // System.out.println("EMAIL" + vo.getM_email() + "8484848484");
-        // System.out.println("pw0" + vo.getM_pw() + "8484848484");
-        // System.out.println("mclass" + vo.getM_class() + "8484848484");
+
         Map<String, Object> response = new HashMap<>();
 
         // // 사용자가 입력한 id를 가지고 DB로부터 MemVO 객체를 검색한다.
         MemVO mvo = ls.login(vo);
 
-        System.out.println(mvo + "MVO");
+        // System.out.println(mvo + "MVO");
 
         if (mvo != null) {
             session.setAttribute("mvo", mvo);

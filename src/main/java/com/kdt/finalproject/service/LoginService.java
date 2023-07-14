@@ -55,14 +55,10 @@ public class LoginService {
     public int add_mem(MemVO mvo) {
 
         StringBuffer sb = new StringBuffer();
-        // 잠깐 수정
-        // sb.append(mvo.getS_phone()[0]);
-        // sb.append(mvo.getS_phone()[1]);
-        // sb.append(mvo.getS_phone()[2]);
 
-        sb.append(mvo.getM_phone_part1()); // 수정된 필드 이름으로 변경
-        sb.append(mvo.getM_phone_part2()); // 수정된 필드 이름으로 변경
-        sb.append(mvo.getM_phone_part3()); // 수정된 필드 이름으로 변경
+        sb.append(mvo.getM_phone_part1()); // 010
+        sb.append(mvo.getM_phone_part2()); // 1234
+        sb.append(mvo.getM_phone_part3()); // 5678
 
         MemVO vo = new MemVO();
         vo.setM_email(mvo.getM_email());
