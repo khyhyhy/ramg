@@ -74,10 +74,10 @@ pageEncoding="UTF-8"%>
                         </tr>
                         </thead>
                         <tr>
-                            <c:if test="${pr == 0 || bz == 0 || zd == 0}">
+                            <c:if test="${pr == 0 && bz == 0 && zd == 0}">
                                 <td colspan="4">등록된 회원이 없습니다.</td>
                             </c:if>
-                            <c:if test="${pr != 0 && bz != 0 && zd != 0}">
+                            <c:if test="${pr != 0 || bz != 0 || zd != 0}">
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=0">${pr} 명</a></td>
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=1">${bz} 명</a></td>
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=2">${ad} 명</a></td>
