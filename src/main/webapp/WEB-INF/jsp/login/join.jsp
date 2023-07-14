@@ -438,20 +438,14 @@
                                "m_phone": phoneNumberPart1 + phoneNumberPart2 + phoneNumberPart3
                               }, //전송할 데이터
 
-                      // data: {
-                      //   "m_phone_part1": phoneNumberPart1,
-                      //   "m_phone_part2": phoneNumberPart2,
-                      //   "m_phone_part3": phoneNumberPart3
-                      // },
                       success: function(response){
                         //요청 성공시
                             if (response.str.includes("사용 가능한 번호입니다")) {
                               alert("사용 가능한 번호입니다.");
 
                               // 중복체크 버튼 색상 변경(연한 회색)
-                              $('#phoneCheckBtn').css('background-color', '#B1B1B1');
-
-
+                              $('#phoneCheckBtn').css('background-color', '#B1B1B1')
+                              
                             } else {
                               alert("이미 등록된 번호입니다.");
                               $('#phoneCheckBtn').css('background-color', ''); //원래대로 버튼색깔 돌리기
@@ -468,8 +462,7 @@
 
                     var str = $(this).val();
                     //console.log(str);
-                   
-
+              
                     if(str.trim().length > 0){
                         // 입력된 아이디가 4자 이상 입력했을 경우
                         // 서버에 비동기식으로 보낸다.

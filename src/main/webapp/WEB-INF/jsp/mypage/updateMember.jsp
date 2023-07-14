@@ -49,8 +49,15 @@
             <td><input type="text" id="m_name" name="m_name" value="${mvo.m_name}"/></td>
         </tr>
         <tr>
-            <th><label for="m_phone">연락처</label></th>
-            <td><input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}"/></td>
+            <th><label for="m_phone_part1">연락처</label></th>
+            <td>     
+                <input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}" disabled/>
+            </td>
+
+                    
+
+
+
         </tr>
         <tr>
             <td colspan="2">
@@ -70,6 +77,17 @@
    <script>
 
     $(function(){
+
+        //중복체크 버튼 눌렀을때 수행
+        $('#updatePhone').click(function(){
+
+            //연락처 값 가져오기
+            var phoneNumber = $('#m_phone').val();
+
+            //유효성 검사 - 숫자만 입력되었는지
+            //유효성 검사 - 숫자 11개 입력되었는지
+
+        }); //중복체크 부분 끝
 
 
         // 아이디가 btn인 버튼에게 클릭 이벤트를 부여하자!

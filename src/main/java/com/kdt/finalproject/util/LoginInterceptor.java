@@ -14,7 +14,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         Object obj = session.getAttribute("mvo");
         if (obj == null) {
-            System.out.println("인터셉터 obj가 널임");
+            // System.out.println("인터셉터 obj가 널임");
             response.sendRedirect("/login");
             return false;
         }
