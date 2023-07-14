@@ -130,7 +130,7 @@ public class MainController {
             }
         }
         // 공지사항
-        BbsVO[] b_ar = service.notice_user(1, 7, null, null);
+        BbsVO[] b_ar = service.notice_user(1, 5, null, null);
 
         mv.addObject("b_ar", b_ar);
         mv.addObject("ar", ar);

@@ -2,7 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +24,6 @@
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-
 <body>
     <!--////////// Header Start ////////////-->
     <div class="container-fluid bg-info">
@@ -72,10 +70,10 @@
                             <c:if test="${sessionScope.mvo.m_class eq 1}">
                                 <li><a class="dropdown-item" href="/mypage/serviceadd/">서비스 등록</a></li>
                                 <li><a class="dropdown-item" href="/mypage/service/">고객 서비스 신청 현황</a></li>
+                                <li><a class="dropdown-item" href="/my_review">이용자의 리뷰</a></li>
                             </c:if>
                             <c:if test="${sessionScope.mvo.m_class eq 0}">
                                 <li><a class="dropdown-item" href="/e_orderList/">서비스 이용내역</a></li>
-                                <li><a class="dropdown-item" href="/my_review">나의 리뷰</a></li>
                             </c:if>
                         </ul>
                     </li>
