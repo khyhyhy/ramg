@@ -23,6 +23,8 @@ public interface TaksongMapper {
 
  List<SwriteVO> selectSWVOar(String m_idx);
 
+ List<SwriteVO> selectSWVOar2(String m_idx);
+
  MemVO mvo(String m_idx);
 
  ServiceVO svo(String s_idx);
@@ -34,6 +36,8 @@ public interface TaksongMapper {
  SuseVO suvo(String s_idx);
 
  SuseVO suvo2(String su_idx);
+
+ List<SuseVO> suvo3(String s_idx);
 
  SuseVO suvoselect(String su_idx);
 

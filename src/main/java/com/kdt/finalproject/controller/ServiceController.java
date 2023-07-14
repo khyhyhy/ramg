@@ -34,8 +34,7 @@ public class ServiceController {
  public ModelAndView serviceadd() {
   ModelAndView mv = new ModelAndView();
   MemVO mvo = (MemVO) session.getAttribute("mvo");
-  SwriteVO[] swar = service.selectSWVOar(mvo.getM_idx());
-  System.out.println("1121212");
+  SwriteVO[] swar = service.selectSWVOar2(mvo.getM_idx());
   CwriteVO[] cwar = service.cwselect(mvo.getM_idx());
   mv.addObject("swar", swar);
   mv.addObject("cwar", cwar);

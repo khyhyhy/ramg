@@ -13,6 +13,16 @@
 <association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
 </resultMap>
 
+
+<resultMap id="2rm1" type="com.kdt.finalproject.vo.SwriteVO">
+<result column="m_idx" property="m_idx"/>
+<result column="s_idx" property="s_idx"/>
+<result column="c_idx" property="c_idx"/>
+<association property="mvo" column="m_idx" javaType="com.kdt.finalproject.vo.MemVO" select="mvo"></association>
+<association property="svo" column="s_idx" javaType="com.kdt.finalproject.vo.ServiceVO" select="svo2"></association>
+<association property="cvo" column="c_idx" javaType="com.kdt.finalproject.vo.CarVO" select="cvo"></association>
+</resultMap>
+
 <resultMap id="rm2" type="com.kdt.finalproject.vo.MemVO">
 <result column="m_idx" property="m_idx"/>
 <collection property="cw_list" column="m_idx" ofType="com.kdt.finalproject.vo.CwriteVO" select="cwselect"></collection>
@@ -31,7 +41,12 @@
 
 <resultMap id="rm5" type="com.kdt.finalproject.vo.ServiceVO">
 <result column="s_idx" property="s_idx"/>
-<association property="suvo" column="s_idx" javaType="com.kdt.finalproject.vo.SuseVO" select="suvo"></association>
+<collection property="suvo2" column="s_idx" ofType="com.kdt.finalproject.vo.SuseVO" select="suvo3"></collection>
+</resultMap>
+
+<resultMap id="2rm5" type="com.kdt.finalproject.vo.ServiceVO">
+<result column="s_idx" property="s_idx"/>
+<association property="suvo" column="s_idx" javaType="com.kdt.finalproject.vo.SuseVO" select="2suvo3"></association>
 </resultMap>
 
 <resultMap id="rm6" type="com.kdt.finalproject.vo.SuseVO">
@@ -47,11 +62,11 @@ SELECT * FROM charging.member_t WHERE m_idx = #{param}
 </select>
 
 <select id="guservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_city = #{gu} AND s_type = 0 AND s_status = 0
+SELECT * FROM charging.service_t WHERE s_city = #{gu} AND s_type = 0
 </select>
 
 <select id="siservice" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
-SELECT * FROM charging.service_t WHERE s_state = #{si} AND s_type = 0 AND s_status = 0
+SELECT * FROM charging.service_t WHERE s_state = #{si} AND s_type = 0
 </select>
 
 <select id="selectSWVO" parameterType="String" resultMap="rm1">
@@ -59,6 +74,10 @@ SELECT * FROM charging.service_write WHERE s_idx = #{param} AND sw_val4 = 0
 </select>
 
 <select id="selectSWVOar" parameterType="String" resultMap="rm1">
+SELECT * FROM charging.service_write WHERE m_idx = #{param} AND sw_val4 = 0
+</select>
+
+<select id="selectSWVOar2" parameterType="String" resultMap="2rm1">
 SELECT * FROM charging.service_write WHERE m_idx = #{param} AND sw_val4 = 0
 </select>
 
@@ -74,13 +93,24 @@ SELECT * FROM charging.member_t WHERE m_idx = #{param}
 <select id="svo" parameterType="String" resultMap="rm5">
 SELECT * FROM charging.service_t WHERE s_idx = #{param}
 </select>
+<select id="svo2" parameterType="String" resultMap="2rm5">
+SELECT * FROM charging.service_t WHERE s_idx = #{param}
+</select>
 
 <select id="suvo" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
 SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_val2=0
 </select>
 
 <select id="suvo2" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
-SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8
+SELECT * FROM charging.service_use WHERE su_idx = #{param} AND su_status != 8 
+</select>
+
+<select id="suvo3" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_val2 = 0
+</select>
+
+<select id="2suvo3" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+SELECT * FROM charging.service_use WHERE s_idx = #{param} AND su_val2 = 0 AND su_status !=7 AND su_status !=8
 </select>
 
 
@@ -100,6 +130,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
 <select id="cwselect" parameterType="String" resultMap="rm3">
 SELECT * FROM charging.car_write WHERE m_idx = #{param} AND cw_state = 0
 </select>
+
 <select id="carList" resultMap="rm4" parameterType="String">
 	SELECT * FROM charging.car_t
   WHERE c_idx = #{c_idx}

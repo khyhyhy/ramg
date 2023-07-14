@@ -92,6 +92,16 @@ public class TaksongService {
   return swar;
  }
 
+ public SwriteVO[] selectSWVOar2(String m_idx) {
+  SwriteVO[] swar = null;
+  List<SwriteVO> list = mapper.selectSWVOar2(m_idx);
+  if (list != null && list.size() > 0) {
+   swar = new SwriteVO[list.size()];
+   list.toArray(swar);
+  }
+  return swar;
+ }
+
  public SwriteVO seSwriteVO(String sw_idx) {
   SwriteVO swvo = null;
   swvo = mapper.seSwriteVO(sw_idx);

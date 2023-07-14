@@ -48,7 +48,7 @@
        <div class="row">
         <div class="col">
          <div class="list-group" onclick="carinfo(this)">
-          <input type="radio" class="btn-check" name="car" id='car' autocomplete="off" />
+          <input type="radio" class="btn-check" name="car" id='car' autocomplete="off" required />
           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
            for="car">${sessionScope.mvo.m_idx}/${cvo.movo.mo_name}/${cvo.movo.mo_name}</label>
           <input type="hidden" name="c_idx" value=${cvo.c_idx} />
@@ -57,17 +57,35 @@
         </div>
         <div class="col">
          <ul class="list-group">
-
-          <c:forEach items="${servicear}" var="vo" varStatus="status">
+          <c:if test="${fn:length(servicear) eq 0}">
            <fieldset onclick="serviceinfo(this)">
-            <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
-            <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-             for="service${status.index}">${vo.svo.s_city}${vo.svo.s_radius}/${vo.mvo.m_name}/${vo.cvo.c_name}</label>
-            <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
-            <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
+            <input type="radio" class="btn-check" name="service" id='service' autocomplete="off">
+            <label class="btn btn-outline-secondary list-group-item list-group-item-action" for="service">현재 신청 가능한
+             서비스가 없습니다.</label>
            </fieldset>
-          </c:forEach>
-         </ul>
+          </c:if>
+          <c:if test="${servicear ne null}">
+           <c:forEach items="${servicear}" var="vo" varStatus="status">
+            <fieldset onclick="serviceinfo(this)">
+             <c:if test="${vo.svo.s_status eq 0}">
+              <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
+              <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+               for="service${status.index}">${vo.svo.s_city}&nbsp;/&nbsp;${vo.svo.s_radius}&nbsp;M&nbsp;/&nbsp;
+               ${vo.svo.s_val1} 원</label>
+              <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
+              <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
+             </c:if>
+             <c:if test="${vo.svo.s_status eq 2}">
+              <input type="radio" class="btn-check " name="service" id='service${status.index}' autocomplete="off"
+               disabled>
+              <label class="btn btn-secondary list-group-item list-group-item-action"
+               for="service${status.index}">${vo.svo.s_city}&nbsp;/&nbsp;${vo.svo.s_radius}&nbsp;M&nbsp;/&nbsp;
+               ${vo.svo.s_val1} 원<br />서비스 진행중</label>
+             </c:if>
+            </fieldset>
+            <br />
+           </c:forEach>
+          </c:if>
         </div>
         <div class="col">
          <label for="chargebar">충전량</label>

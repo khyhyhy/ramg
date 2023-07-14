@@ -111,13 +111,8 @@ public class TaksongController {
    System.out.println("현재 위치는 특별 혹은 광역 혹은 자치 시입니다.");
 
    // 탁송서비스 거르기
-   List<ServiceVO> sar = new ArrayList<ServiceVO>();
-   ServiceVO[] ar = service.siar(nowstate);
-   for (ServiceVO svo : ar) {
-    if (svo.getS_type().equals("0")) {
-     sar.add(svo);
-    }
-   }
+
+   ServiceVO[] sar = service.siar(nowstate);
    int idx = 1;
 
    for (ServiceVO vo : sar) {
@@ -140,14 +135,7 @@ public class TaksongController {
    }
 
   } else {
-   List<ServiceVO> sar = new ArrayList<ServiceVO>();
-
-   ServiceVO[] ar = service.guar(nowcity);
-   for (ServiceVO svo : ar) {
-    if (svo.getS_type().equals("0")) {
-     sar.add(svo);
-    }
-   }
+   ServiceVO[] sar = service.guar(nowcity);
 
    int idx = 1;
 
@@ -169,13 +157,14 @@ public class TaksongController {
     ++idx;
    }
   }
+
   MemVO mem = service.selectmem(m_idx);
   List<CwriteVO> cwvoar = mem.getCw_list();
   for (CwriteVO vo : cwvoar) {
    System.out.println("탁송 차량이름" + vo.getCvo().getMovo().mo_name);
   }
   mv.addObject("mvo", mem);
-
+  System.out.println("서비스 가능 갯수:" + swar.size());
   mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
   return mv;
