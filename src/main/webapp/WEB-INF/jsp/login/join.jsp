@@ -159,12 +159,20 @@
               <input type="hidden" id="m_class_hidden" name="m_class_hidden" value="" />
             
             <!--추가-->
-            <div class="form-outline custom-shadow form-control" style="width:300px; border-radius: 13px;">
-              <div class="radio-btn" >
+            <!-- <div class="form-outline custom-shadow form-control" style="width:300px; border-radius: 13px;"> -->
+              <!-- <div class="radio-btn" >
                   <input type="radio" name="m_class" value="0" checked > 개인 &nbsp;&nbsp;&nbsp;&nbsp;              
                   <input type="radio" name="m_class" value="1"> 사업자
+              </div> -->
+              <div class="btn-group" data-toggle="buttons" style="width:300px;">
+                  <label class="btn btn-primary active">
+                      <input type="radio" name="m_class" value="0" checked> 개인
+                  </label> 
+                  <label class="btn btn-primary">
+                      <input type="radio" name="m_class" value="1"> 사업자
+                  </label>
               </div>
-            </div>
+            <!-- </div> -->
             <!--추가 끝-->
 
               <!-- <hr class="divider"> -->
@@ -445,7 +453,7 @@
 
                               // 중복체크 버튼 색상 변경(연한 회색)
                               $('#phoneCheckBtn').css('background-color', '#B1B1B1')
-                              
+
                             } else {
                               alert("이미 등록된 번호입니다.");
                               $('#phoneCheckBtn').css('background-color', ''); //원래대로 버튼색깔 돌리기
