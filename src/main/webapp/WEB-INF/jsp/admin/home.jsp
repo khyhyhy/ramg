@@ -29,9 +29,14 @@ pageEncoding="UTF-8"%>
                         <thead>
                             <tr class="table-warning">
                                 <th>오늘</th>
-                                <th>이번달</tr>
-                        </thead>
+                                <th>이번달</th>
                         <tbody>
+                            <c:if test="${today_sales == null && month_sales == null}">
+                                <tr>
+                                    <td colspan="2">매출 정보가 없습니다.</td>
+                                </tr>
+                            </c:if>
+                            <c:if test="${today_sales != null || month_sales != null}">
                             <tr>
                                 <c:set var="today_total" value="0" />
                                 <c:forEach items="${today_sales}" var="today">
@@ -46,6 +51,7 @@ pageEncoding="UTF-8"%>
                                 <td>
                                     ${fn:length(month_sales) } 건 / <fmt:formatNumber pattern="#,###" value="${month_total}"/>원</td>
                             </tr>
+                            </c:if>
                         </tbody>
                     </table>
                 </div>
@@ -68,6 +74,10 @@ pageEncoding="UTF-8"%>
                         </tr>
                         </thead>
                         <tr>
+                            <c:if test="${pr == 0 || bz == 0 || zd == 0}">
+                                <td colspan="4">등록된 회원이 없습니다.</td>
+                            </c:if>
+                            <c:if test="${pr != 0 && bz != 0 && zd != 0}">
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=0">${pr} 명</a></td>
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=1">${bz} 명</a></td>
                             <td><a href="/admin/member?searchType=0&searchValue=&m_class=2">${ad} 명</a></td>
@@ -81,6 +91,7 @@ pageEncoding="UTF-8"%>
                                 </c:if>
                                 </a>
                             </td>
+                        </c:if>
                         </tr>
                     </table>
                 </div>
@@ -96,6 +107,10 @@ pageEncoding="UTF-8"%>
                             <th>제목</th>
                         </tr>
                     </thead>
+                        <c:if test="${b_ar == null}">
+                            등록된 공지가 없습니다.
+                        </c:if>
+                        <c:if test="${b_ar != null}">
                         <c:forEach var="bvo" items="${b_ar}">
                         <tr>
                             <td>
@@ -112,6 +127,7 @@ pageEncoding="UTF-8"%>
                             </td>
                         </tr>
                     </c:forEach>
+                    </c:if>
                 </table>
               </div>
 
@@ -128,7 +144,11 @@ pageEncoding="UTF-8"%>
                         <th>작성자</th>
                     </tr>
                     </thead>
-                    <c:forEach var="qvo" items="${q_ar}">
+                    <c:if test="${q_ar == null}">
+                        등록된 문의가 없습니다.
+                    </c:if>
+                    <c:if test="${q_ar != null}">
+                        <c:forEach var="qvo" items="${q_ar}">
                     <tr>
                         <td>
                             <c:if test="${qvo.b_val1 == 1}">
@@ -145,6 +165,7 @@ pageEncoding="UTF-8"%>
                         <td><a href="/admin/member_view?m_idx=${qvo.bbslog.m_idx}&cPage=1">${qvo.bbslog.mvo.m_name}</a></td>
                     </tr>
                     </c:forEach>
+                    </c:if>
                 </table>
               </div>
               
@@ -165,6 +186,10 @@ pageEncoding="UTF-8"%>
                         <th>별점</th>
                     </tr>
                     </thead>
+                    <c:if test="${r_ar == null}">
+                        등록된 리뷰가 없습니다.
+                    </c:if>
+                    <c:if test="${r_ar != null}">
                     <c:forEach items="${r_ar}" var="rvo">
                     <tr>
                         <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">
@@ -205,6 +230,7 @@ pageEncoding="UTF-8"%>
                         </td>
                     </tr>
                     </c:forEach>
+                    </c:if>
                 </table>
               </div>
               <div class="col">
@@ -222,6 +248,10 @@ pageEncoding="UTF-8"%>
                         <th>진행상황</th>
                     </tr>
                     </thead>
+                    <c:if test="${su_ar == null}">
+                        등록된 서비스가 없습니다
+                    </c:if>
+                    <c:if test="${su_ar != null}">
                     <c:forEach items="${su_ar}" var="suvo">
                         <tr>
                             <td><a href="/admin/member_view?m_idx=${suvo.cwvo.mvo.m_idx}&cPage=1">${suvo.cwvo.mvo.m_name}</a></td>
@@ -265,6 +295,7 @@ pageEncoding="UTF-8"%>
                             </td>
                         </tr>
                     </c:forEach>
+                    </c:if>
                 </table>
               </div>
             </div>
