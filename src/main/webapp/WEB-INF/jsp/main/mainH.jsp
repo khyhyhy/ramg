@@ -29,7 +29,7 @@
     <header style="margin-bottom: 0.0rem!important;"
      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
-      <svg class="bi me-2" width="50" height="35"><img src="../images/ramgi_logo.png" /></svg>
+      <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png" /></svg>
       <span class="fs-4 text-white" style="font-family: 'GoryeongStrawberry';">람쥐썬더 전기차 충전소</span>
      </a>
      <div class="dropdown">

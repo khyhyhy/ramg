@@ -18,7 +18,7 @@
                 <p class="col-md-4 mb-0 text-white" style="font-family: 'GoryeongStrawberry';" >© 2023 RAM쥐Company, 그의 천둥을 조심해!</p>
             
                 <a href="/main/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <svg class="bi me-2" width="50" height="35"><img src="../images/thunder.png"/></use></svg>
+                <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png"/></use></svg>
                 </a>
 
                 <!--
