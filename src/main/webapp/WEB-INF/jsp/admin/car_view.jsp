@@ -39,7 +39,7 @@ pageEncoding="UTF-8"%>
                     <th>목표충전량</th>
                     <th>충전비용</th>
                     <th>결제수단</th>
-                    <th>결제정보</th>
+                    <th>충전비용</th>
                     <th>배달팁</th>
                     <th>결제금액</th>
                 </tr>

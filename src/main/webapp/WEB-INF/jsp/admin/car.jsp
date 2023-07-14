@@ -54,7 +54,7 @@ pageEncoding="UTF-8"%>
         </colgroup>
         <thead>
             <tr class="table-warning">
-                <th>신청일</th>
+                <th>최근수정일</th>
                 <th>서비스</th>
                 <th>사용자</th>
                 <th>상태</th>

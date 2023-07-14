@@ -615,10 +615,24 @@ SELECT COUNT(*) FROM charging.service_use
 
 
 <!--서비스 상세보기-->
-<select id="car_vo" parameterType="String" resultType="com.kdt.finalproject.vo.SuseVO">
+<select id="car_vo" parameterType="String" resultMap="car_vo_map">
   SELECT * FROM charging.service_use
   WHERE su_idx = #{su_idx}
 </select>
+
+<resultMap id="car_vo_map" type="com.kdt.finalproject.vo.SuseVO">
+  <id property="su_idx" column="su_idx"/>
+  <result column="s_idx" property="s_idx"/>
+  <association property="svo" javaType="com.kdt.finalproject.vo.ServiceVO" select="car_vo2" column="s_idx"/>
+</resultMap>
+
+<select id="car_vo2" parameterType="String" resultType="com.kdt.finalproject.vo.ServiceVO">
+  SELECT * FROM service_t
+  WHERE s_idx = #{s_idx}
+</select>
+<!--서비스 상세보기-->
+
+
 
 <select id="car_view" parameterType="String" resultMap="car_view_map">
   SELECT * FROM charging.service_use
@@ -690,7 +704,7 @@ SELECT COUNT(*) FROM charging.service_use
 <!--매출-->
 <select id="service_sales" parameterType="String" resultMap="sales_map">
 SELECT * FROM charging.service_use
-WHERE su_date LIKE CONCAT (#{search_date},'%')
+WHERE su_date LIKE CONCAT (#{search_date},'%') AND su_type = 0
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.SuseVO" id="sales_map">
@@ -856,11 +870,9 @@ WHERE b_idx = #{b_idx}
 </insert>
 
 <update id="car_status3" parameterType="String">
-UPDATE service_t
-SET
-  s_status = 0
-WHERE s_idx IN (SELECT a.s_idx FROM service_use su, (SELECT s_idx FROM service_t where s_idx = #{s_idx} and s_type = 0) a 
-		          WHERE su.s_idx = a.s_idx and su_status = 7)
+  UPDATE service_t
+  SET s_status = 0
+  WHERE s_idx  = #{s_idx}
 </update>
 <!--서비스 상태 변경-->
 

@@ -677,11 +677,15 @@ public class AdminController {
         }
 
         SuseVO vo = service.car_vo(su_idx); // val5 가져오기
+
         service.car_status1(vo.getSu_val5()); // su_val2 바꾸기
         vo.setSu_status(su_status); // 변경할 상태값 넣기
         vo.setSu_val1(mvo.getM_idx()); // 누가 수정했는지
-        service.car_status2(vo);
-        service.car_status3(vo.getS_idx());
+
+        service.car_status2(vo); // 추가
+        if ((vo.getSvo().getS_type().equals("0") && vo.getSu_status().equals("7"))
+                || (vo.getSvo().getS_type().equals("1") && vo.getSu_status().equals("5"))) // 완료면 s_status 0으로 변경
+            service.car_status3(vo.getS_idx());
 
         SuseVO[] ar = service.car_view(vo.getSu_val5()); // 다음 페이지에서 표시할 정보
 

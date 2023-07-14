@@ -1,6 +1,7 @@
 package com.kdt.finalproject.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
