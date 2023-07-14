@@ -13,6 +13,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
     <link href="../../../css/ramg.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
     #wrap {border-radius: 5px; position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; line-height: 1.5; background: #888;}
     #title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
@@ -110,6 +111,26 @@
     width: 100%;
   }
   
+
+  /***************/
+   /*사진 삭제 버튼*/
+   .box {
+    position: absolute;
+    top: 38px;
+    left : 1220px;
+    border-radius: 15px;
+    border: none;
+    z-index: 3;
+   
+
+}
+.kmap{
+    z-index: 2;     
+}
+.in{
+    z-index: 4;
+}
+
 </style>
 </head>
 <body>
@@ -118,66 +139,69 @@
         <!--////////// Header end ////////////-->
 
         <!--////////// Main start //////////////-->
-        <main>
             <div class="container-fluid text-center">
-                <div class="row">
-                    <div class="col-2" style="padding-right: 0;">
-                        <ul class="list-group">
-                            <li class="list-group-item">내 주변 가까운 충전소</li>
-                        </ul>
-                        <div class="container max-width">
-                            <button class="custom-btn btn-3 fff" ><span>1km</span></button>
-                            <button class="custom-btn btn-3 fff" ><span>2km</span></button>
-                            <button class="custom-btn btn-3 fff" ><span>3km</span></button>
-                            <button class="custom-btn btn-3 fff" ><span>4km</span></button>
-                            <button class="custom-btn btn-3 fff" ><span>5km</span></button>
-                        </div>   
-                    </div>
-                    <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
-                         
-                    </div>
-                    <div class="col-4" style="padding-left: 0; background-color: #81F7F3;">    
+                <div class="row d-flex">
+                    <div class="col-md-2" style="background-color: #8b8b8b; height:900px;" >
                         
-                            <div style="background-color: #81F7F3;">
-                                <div class="box">
-                                    
-                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/greenicon.png"/><br/>충전가능</p>
-                                    
-                                </div>
-                                <div class="box" style="border-left: none;">
-                                    
-                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/redicon.png"/><br/>불가능</p>
-                                    
-                                </div>
-                                <div class="box" style="border-left: none;">
-                                    
-                                        <p class="fff"><img style="width: 25px; height: 25px;" src="../images/chargeicon.png/"><br/>충전중</p> 
-                                    
-                                </div>
+                            <div class="list-group-item py-5" style="color: #fff; font-size: x-large;">내 주변 가까운 충전소</div>
+                        
+                        <div class="rounded p-2 mb-2" style="background-color: #eee;">
+                            <div class="container max-width mt-3 mb-4">
+                                <button class="custom-btn btn-3 fff" ><span>1km</span></button>
+                                <button class="custom-btn btn-3 fff" ><span>2km</span></button>
+                                <button class="custom-btn btn-3 fff" ><span>3km</span></button>
+                                <button class="custom-btn btn-3 fff" ><span>4km</span></button>
+                                <button class="custom-btn btn-3 fff" ><span>5km</span></button>
                             </div>
-                        
-                    </div>
-                    
-                    <!-- <div class="col-10" style="padding-left: 0;">
-                        <div id="map" style="width: 100%; height: 800px;"></div>
-                    </div> -->
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <div class="row">
                             <div class="col-2" style="padding-right: 0;">
-                                <ul class="list-group" id="list1" style="border: 3px solid black;height: 800px; overflow-y: scroll;">
+                                <ul class="list-group ms-3" id="list1" style="width:300px; height: 680px; overflow-y: scroll;">
                                     <!-- ajax로 받아온 html문서 적용 -->
                                 </ul>
+                            </div> 
+                        </div>  
+
+                    </div>
+                    <div class ="col-md-10">
+                        <div  style="padding-left: 0; position: relative;">
+                            <div style="background-color: #72c0ff; width: 500px; height: 200px; " class="box">
+
+                                <div style="background-color: #81F7F3;" class="in">
+                                    <div class="box">
+                                        
+                                            <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #37e181";></i><br/>충전가능</p>
+                                        
+                                    </div>
+                                    <div class="box" style="border-left: none;">
+                                        
+                                            <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #ff2727";></i><br/>불가능</p>
+                                        
+                                    </div>
+                                    <div class="box" style="border-left: none;">
+                                        
+                                            <p class="fff"><i class="fa fa-bolt fa-2x" aria-hidden="true" style="color:#f6fa0d";></i><br/>충전중</p> 
+                                        
+                                    </div>
+                                </div>
+                                <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
+                     
+                                </div>
+
                             </div>
-                            <div class="col-10" style="padding-left: 0;">
-                                <div id="map" style="width: 100%; height: 800px;"></div>
-                            </div>
+                            <div id="map" class="kmap" style="width: 100%; height: 900px;"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </main>
+
+
+
+
+
+
+
+
+
+
+
         <!--////////// Main end //////////////-->
 
         <!--////////// Foter start //////////////-->
