@@ -26,30 +26,55 @@
 
 
    <div>
-    <h1>현재위치</h1>
-   </div>
-   <div id="map" style="height:350px; width: 100%;"></div>
-   <div style="margin-top: 30px;">
-    <form method="post" action="/e_search/" class="row">
-        <div class="col-md-2" style="margin-left: 20px;">
-          <input type="text" id="addr" name="addr" class="form-control" style="width: 300px;" />
-        </div>
-        <div class="col-md-3">
-          <button type="submit" style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary">주소 검색</button>
-        </div>
-        <div class="col-md-7"></div>
-      </form>
+    <h1 style="margin-bottom: 50px;">  </h1>
    </div>
 
-   <p id="result"></p>
-   <form action="/select/">
-    <button type="submit" class="btn btn-outline-info" style="border-width: 2px; margin-left: 20px;">다음 화면</button>
+<div class="container-xxl mt-4">
+  <div class="row">
+    <!-- row 1 (total : 12) -->
+    <div class="col-12" >
+      
+      <div class="p-2 mb-4 bg-body-tertiary rounded-3" style="background-color: rgb(158, 157, 152);">
+        <div id="map" style="height:600px; width: 100%;"></div>
+     </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4" >
+        <div class="p-2 mb-4 bg-body-tertiary rounded-3" style="background-color: rgb(158, 157, 152);">
+          <form method="post" action="/e_search/" class="">
+             <input type="text" id="addr" name="addr" class="form-control" style="width: 325px; display: inline-block;" placeholder="주소 입력" />
+             <button type="submit" style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary">검색</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-8" >
+
+      <div style="text-align: right;">
+        <p id="result" style="display: none;"></p>
+
+        <button type="submit" class="btn btn-outline-info" style="border-width: 2px;" onclick="location.href='/edongsik/'">돌아가기</button>
+        <form action="/select/" style="display: inline;">
+          <button type="submit" class="btn btn-outline-info" style="border-width: 2px;">다음 화면</button>
+          <input type="hidden" id="lat1" name="nowlat" />
+          <input type="hidden" id="lng1" name="nowlng" />
+          <input type="hidden" id="state" name="nowstate" />
+          <input type="hidden" id="city" name="nowcity" />
+        </form>
+        
+      </div>
+
+    </div>
+
+    </div>
     
-    <input type="hidden" id="lat1" name="nowlat" />
-    <input type="hidden" id="lng1" name="nowlng" />
-    <input type="hidden" id="state" name="nowstate" />
-    <input type="hidden" id="city" name="nowcity" />
-   </form>
+    
+    
+  </div>
+  </div>
+
+
+    
 
     </main>
     <!--////////// Main end //////////////-->

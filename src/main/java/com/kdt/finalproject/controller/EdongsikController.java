@@ -471,15 +471,20 @@ public class EdongsikController {
             MemVO mvo1 = (MemVO) obj;
             String m_idx = mvo1.getM_idx();
 
-            service.addReview(su_idx, reviewContent, selectedValue);
+            // System.out.println("su_idx :" + su_idx);
+            // System.out.println("reviewContent :" + reviewContent);
+            // System.out.println("selectedValue :" + selectedValue);
 
+            service.addReview(su_idx, reviewContent, selectedValue);
             BbsVO bvo = service.getBidx(su_idx);
             String b_idx = bvo.getB_idx();
 
+            // System.out.println("m_idx :" + m_idx);
+            // System.out.println("b_idx :" + b_idx);
             service.addReviewLog(m_idx, b_idx);
 
         }
-        mv.setViewName("redirect:/edongsik/");
+        mv.setViewName("redirect:/support/review");
         return mv;
     }
 

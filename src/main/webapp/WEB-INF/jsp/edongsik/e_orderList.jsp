@@ -274,7 +274,7 @@
 
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="addReviewContent(this.form)">선택 확인</button>
+              <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;" onclick="addReviewContent()">선택 확인</button>
             </div>
           </div>
         </div>
@@ -292,7 +292,7 @@
    <!--////////// Foter end //////////////-->
    <script>
 
-    function addReviewContent(form){
+    function addReviewContent(){
         // 폼 요소를 가져옵니다.
         var form = document.getElementById("myform");
         
@@ -315,9 +315,9 @@
 
         // 선택된 값을 출력합니다.
        
-        <!-- alert("su_idx :"+su_idx);
-        alert("reviewContent :"+reviewContent);
-        alert("selectedValue :"+selectedValue); -->
+        //alert("su_idx :"+su_idx);
+        //alert("reviewContent :"+reviewContent);
+        //alert("selectedValue :"+selectedValue);
 		
     
     if (selectedValue === "") {
