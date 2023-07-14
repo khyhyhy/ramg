@@ -134,7 +134,10 @@
       <input type="hidden" id="s_s_idx" name="s_s_idx" />
       <input type="hidden" id="s_sprice" name="s_sprice" />
       <input type="hidden" id="s_cprice" name="s_cprice" />
-      <input type="hidden" id="s_cprice" name="s_type" value="0" />
+      <input type="hidden" id="s_cprice" name="s_type" value="1" />
+      <input type="hidden" id="nowlat" name="nowlat" value="${nowlat2}" />
+      <input type="hidden" id="nowlng" name="nowlng" value="${nowlng2}" />
+      <input type="hidden" id="m_idx" name="m_idx" value="${mvo.m_idx}" />
       </form>
      </main>
     </div>
@@ -144,88 +147,88 @@
     <!--////////// Foter end //////////////-->
     <script>
  
-     var btank;
-     var khw = 34.72;
-     let serviceprice;
-     let chargeprice;
-     var f_price;
- 
-     function sinyoung() {
-      var sinyongSelect = document.getElementById("sinyong");
-      var tongjangSelect = document.getElementById("tongjang");
-      var tongtextInput = document.getElementById("tongtext");
- 
-      sinyongSelect.style.display = "inline";
-      tongjangSelect.style.display = "none";
-      tongtextInput.style.display = "none";
-      sinyongSelect.disabled = false;
-      tongjangSelect.disabled = true;
-      tongtextInput.disabled = true;
- 
- 
-     }
- 
-     function tong() {
-      var sinyongSelect = document.getElementById("sinyong");
-      var tongjangSelect = document.getElementById("tongjang");
-      var tongtextInput = document.getElementById("tongtext");
-      sinyongSelect.style.display = "none";
-      tongjangSelect.style.display = "inline";
-      tongtextInput.style.display = "inline";
-      sinyongSelect.disabled = true;
-      tongjangSelect.disabled = false;
-      tongtextInput.disabled = false;
-     }
- 
-     function carinfo(f) {
-      console.log("c_idx==/" + f.querySelector('input[name="c_idx"]').value);
-      console.log("c_val3==" + f.querySelector('input[name="c_val3"]').value);
-      btank = f.querySelector('input[name="c_val3"]').value
-      document.getElementById("battery").innerText = btank + "kWh";
-      document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
-      if (chargeprice != null) {
-       chargeprice = null;
+      var btank;
+      var khw = 34.72;
+      let serviceprice;
+      let chargeprice;
+      var f_price;
+  
+      function sinyoung() {
+       var sinyongSelect = document.getElementById("sinyong");
+       var tongjangSelect = document.getElementById("tongjang");
+       var tongtextInput = document.getElementById("tongtext");
+  
+       sinyongSelect.style.display = "inline";
+       tongjangSelect.style.display = "none";
+       tongtextInput.style.display = "none";
+       sinyongSelect.disabled = false;
+       tongjangSelect.disabled = true;
+       tongtextInput.disabled = true;
+  
+  
       }
-      l_price();
-     }
- 
-     function serviceinfo(f) {
-      serviceprice = f.querySelector('input[name="s_price"]').value;
-      console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
-      document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
-      document.getElementById("s_sprice").value = serviceprice;
-      var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-      document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
- 
-      l_price()
-     }
- 
-     function muckpho(e) {
- 
-      document.getElementById("muckpho").innerText = e.value + "%"
-      chargeprice = (btank / 100 * e.value) * khw;
-      console.log(chargeprice);
-      console.log(btank);
-      chargeprice = Math.floor(chargeprice).toString();
-      document.getElementById("s_cprice").value = chargeprice;
-      var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
- 
-      document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
-      l_price()
-     }
- 
-     function l_price() {
-      if (chargeprice != null && serviceprice != null) {
-       f_price = Number(chargeprice) + Number(serviceprice);
- 
-       f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-       document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
+  
+      function tong() {
+       var sinyongSelect = document.getElementById("sinyong");
+       var tongjangSelect = document.getElementById("tongjang");
+       var tongtextInput = document.getElementById("tongtext");
+       sinyongSelect.style.display = "none";
+       tongjangSelect.style.display = "inline";
+       tongtextInput.style.display = "inline";
+       sinyongSelect.disabled = true;
+       tongjangSelect.disabled = false;
+       tongtextInput.disabled = false;
       }
-      else {
-       document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
+  
+      function carinfo(f) {
+       console.log("c_idx==/" + f.querySelector('input[name="c_idx"]').value);
+       console.log("c_val3==" + f.querySelector('input[name="c_val3"]').value);
+       btank = f.querySelector('input[name="c_val3"]').value
+       document.getElementById("battery").innerText = btank + "kWh";
+       document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
+       if (chargeprice != null) {
+        chargeprice = null;
+       }
+       l_price();
       }
-     }
-    </script>
-   </body>
- 
-   </html>
+  
+      function serviceinfo(f) {
+       serviceprice = f.querySelector('input[name="s_price"]').value;
+       console.log("s_idx==" + f.querySelector('input[name="s_idx"]').value);
+       document.getElementById("s_s_idx").value = f.querySelector('input[name="s_idx"]').value;
+       document.getElementById("s_sprice").value = serviceprice;
+       var serviceprice2 = serviceprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+       document.getElementById("sprice").innerHTML = "서비스&nbsp;비용&nbsp;:&nbsp;" + serviceprice2 + "원";
+  
+       l_price()
+      }
+  
+      function muckpho(e) {
+  
+       document.getElementById("muckpho").innerText = e.value + "%"
+       chargeprice = (btank / 100 * e.value) * khw;
+       console.log(chargeprice);
+       console.log(btank);
+       chargeprice = Math.floor(chargeprice).toString();
+       document.getElementById("s_cprice").value = chargeprice;
+       var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  
+       document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
+       l_price()
+      }
+  
+      function l_price() {
+       if (chargeprice != null && serviceprice != null) {
+        f_price = Number(chargeprice) + Number(serviceprice);
+  
+        f_price = f_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;" + f_price + "원";
+       }
+       else {
+        document.getElementById("fprice").innerHTML = "총&nbsp;비용&nbsp;:&nbsp;원"
+       }
+      }
+     </script>
+    </body>
+  
+    </html>
