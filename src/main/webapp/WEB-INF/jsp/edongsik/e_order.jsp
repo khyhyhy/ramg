@@ -299,7 +299,7 @@
                <col width="130px">
                
                <col width="120px">
-               <col width="120px">
+               <col width="140px">
            </colgroup>
            
                <thead>

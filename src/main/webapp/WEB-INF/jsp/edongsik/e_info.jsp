@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+ 
   <!DOCTYPE html>
   <html>
 
@@ -65,8 +67,36 @@
         </div>
         <div class="col">
          <ul class="list-group">
-
-          <c:forEach items="${swar}" var="swar" varStatus="status">
+          <c:if test="${fn:length(swar) eq 0}">
+            <fieldset onclick="serviceinfo(this)">
+             <input type="radio" class="btn-check" name="service" id='service' autocomplete="off">
+             <label class="btn btn-outline-secondary list-group-item list-group-item-action" for="service">현재 신청 가능한
+              서비스가 없습니다.</label>
+            </fieldset>
+           </c:if>
+           <c:if test="${swar ne null}">
+            <c:forEach items="${swar}" var="vo" varStatus="status">
+             <fieldset onclick="serviceinfo(this)">
+              <c:if test="${vo.svo.s_status eq 0}">
+               <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
+               <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+                for="service${status.index}">${vo.svo.s_city}&nbsp;/&nbsp;${vo.svo.s_radius}&nbsp;M&nbsp;/&nbsp;
+                ${vo.svo.s_val1} 원</label>
+               <input type="hidden" name="s_idx" value=${vo.svo.s_idx} />
+               <input type="hidden" name="s_price" value="${vo.svo.s_val1}">
+              </c:if>
+              <c:if test="${vo.svo.s_status eq 2}">
+               <input type="radio" class="btn-check " name="service" id='service${status.index}' autocomplete="off"
+                disabled>
+               <label class="btn btn-secondary list-group-item list-group-item-action"
+                for="service${status.index}">${vo.svo.s_city}&nbsp;/&nbsp;${vo.svo.s_radius}&nbsp;M&nbsp;/&nbsp;
+                ${vo.svo.s_val1} 원<br />서비스 진행중</label>
+              </c:if>
+             </fieldset>
+             <br />
+            </c:forEach>
+           </c:if>
+          <!-- <c:forEach items="${swar}" var="swar" varStatus="status">
            <fieldset onclick="serviceinfo(this)">
             <input type="radio" class="btn-check" name="service" id='service${status.index}' autocomplete="off">
             <label class="btn btn-outline-secondary list-group-item list-group-item-action"
@@ -75,7 +105,7 @@
             <input type="hidden" name="s_price" value="${swar.svo.s_val1}">
            </fieldset>
            <br />
-          </c:forEach>
+          </c:forEach> -->
          </ul>
         </div>
         <div class="col">
