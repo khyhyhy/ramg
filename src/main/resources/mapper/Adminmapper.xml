@@ -454,7 +454,7 @@ WHERE m_idx = #{m_idx}
 
 <select id="review_log3" parameterType="String" resultMap="review_map3">
 SELECT * FROM charging.service_use
-WHERE su_idx = #{b_val2};
+WHERE su_idx = #{b_val2} AND su_val2 = 0
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.SuseVO" id="review_map3">
@@ -587,7 +587,7 @@ WHERE m_idx = #{m_idx}
 
 <select id="car_count" resultType="int" parameterType="Map">
 SELECT COUNT(*) FROM charging.service_use
-  WHERE su_type = 0 
+  WHERE su_val2 = 0
     <if test="search_date != null">
         AND su_date LIKE CONCAT (#{search_date},'%')
       </if>
@@ -704,7 +704,7 @@ SELECT COUNT(*) FROM charging.service_use
 <!--매출-->
 <select id="service_sales" parameterType="String" resultMap="sales_map">
 SELECT * FROM charging.service_use
-WHERE su_date LIKE CONCAT (#{search_date},'%') AND su_type = 0
+WHERE su_date LIKE CONCAT (#{search_date},'%') AND su_status = 7
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.SuseVO" id="sales_map">

@@ -360,7 +360,7 @@ WHERE m_idx = #{m_idx}
 
 <select id="review_log3" parameterType="String" resultMap="review_map3">
 SELECT * FROM charging.service_use
-WHERE su_idx = #{b_val2};
+WHERE su_idx = #{b_val2} AND su_val2 = 0;
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.SuseVO" id="review_map3">
