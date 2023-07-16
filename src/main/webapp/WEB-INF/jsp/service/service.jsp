@@ -76,7 +76,7 @@
                     <c:when test="${vo.su_status eq 3}">충전소 이동</c:when>
                     <c:when test="${vo.su_status eq 4}">충전중</c:when>
                     <c:when test="${vo.su_status eq 5}">반납지 이동</c:when>
-                    <c:when test="${vo.su_status eq 6}">서비스 완료</c:when>
+                    <c:when test="${vo.su_status eq 7}">서비스 완료</c:when>
                   </c:choose>
               </td>
               </tr>

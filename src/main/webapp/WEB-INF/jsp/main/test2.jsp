@@ -17,21 +17,34 @@
             font-style: normal;
         }
 
-        #header3 {
-            font-size: 30px !important;
+        .header{
+            font-size:30px !important; 
             margin: 20px !important;
+        }
+
+        /* 헤더 스타일 수정 */
+        header {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            z-index: 9999;
-            padding: 10px;
+            width: 100%;
+            z-index: 100;
         }
+
+        /* 푸터 스타일 수정 */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        /* 페이지의 내용에 여백 추가 */
         body {
-            padding-top: 75px;
-            /* 생략 */
-            padding-bottom: 75px;    
-          }
+            padding-top: 100px; /* 헤더의 높이에 맞게 조정해주세요 */
+            padding-bottom: 50px; /* 푸터의 높이에 맞게 조정해주세요 */
+        }
     </style>
 </head>
 <script
@@ -43,10 +56,9 @@
     crossorigin="anonymous"></script>
 <body>
     <!--////////// Header Start ////////////-->
-
-    <div class="container-fluid">
-        <header id="header3" style="margin: 0.0rem!important;"
-            class="bg-info d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
+    <div class="container-fluid bg-info">
+        <header style="margin-bottom: 0.0rem!important;"
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
             <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
                 <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png" /></svg>
                 <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; ">람쥐썬더 전기차 충전소</span>
@@ -54,8 +66,8 @@
             <div class="dropdown">
                 <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
                     <li>
-                        <a href="#"
-                            class="header nav-link px-2 link-secondary text-white" onclick="conf()">충전소 찾기</a>
+                        <a href="/fmap2/"
+                            class="header nav-link px-2 link-secondary text-white">충전소 찾기</a>
                     </li>
                     <c:if test="${sessionScope.mvo.m_class eq 0 || sessionScope.mvo.m_class eq null}">
                         <li>
@@ -116,85 +128,25 @@
                             style="color: white !important; text-decoration: none !important;">로그아웃</a></button>
                 </div>
             </c:if>
+
         </header>
     </div>
     <!--////////// Header end ////////////-->
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
-    <script>
-        function conf() {
-            if (confirm("위치 기반 서비스를 이용하여 현재위치를 조회하시겠습니까?")) {
-             johoe();
-            } else {
-             alert("현재위치를 조회해주세요.");
-            }
-           }
-           function johoe() {
 
-                var geocoder = new kakao.maps.services.Geocoder();
-                // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
-                if (navigator.geolocation) {
-            
-                // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    //위도경도를 불러온다.
-                    var lati = position.coords.latitude, // 위도
-                        lon = position.coords.longitude; // 경도 -->
-                    getAddr(lati, lon);
-                        //주소를 불러오는 함수
-                    function getAddr(lati,lon){
-                        let geocoder2 = new kakao.maps.services.Geocoder();
-                        
-                        let coord = new kakao.maps.LatLng(lati, lon);
+    <!-- 페이지의 내용 -->
+    <!-- 여기에 원하는 내용을 추가하시면 됩니다 -->
+
+    <!--////////// Footer start //////////////-->
+    <div class="container-fluid text-bg-info">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top">
+            <p class="col-md-4 mb-0 text-white" style="font-family: 'GoryeongStrawberry';" >© 2023 RAM쥐Company, 그의 천둥을 조심해!</p>
         
-                        let callback = function(result, status) {
-        
-                            if (status === kakao.maps.services.Status.OK) {
-        
-                                //console.log(result);
-                                var city = result[0].address.address_name;
-                                //console.log(result[0].road_address.address_name);
-                                //console.log(city+"/1번");
-                                geocoder.addressSearch(result[0].address.address_name, function(result, status) {
-                                        
-                                    //console.log(city+"/2번");
-                                    //정상적으로 검색이 완료됐다면.....
-                                    if (status === kakao.maps.services.Status.OK) {
-                                        // 강제 전송 코드
-                                        var form = document.createElement('form');
-                                        form.setAttribute('method', 'post');
-                                        form.setAttribute('action', '/fmap/');
-                                        form.style.display = 'none';
-        
-                                        var cityInput3 = document.createElement('input');
-                                        cityInput3.setAttribute('type', 'hidden');
-                                        cityInput3.setAttribute('name', 'city');
-                                        cityInput3.setAttribute('value', city);
-        
-                                        form.appendChild(cityInput3);
-        
-                                        document.body.appendChild(form);
-                                        form.submit();
-                                    }
-                                });
-                                
-                            }
-                        }
-                            geocoder2.coord2Address(coord.getLng(), coord.getLat(), callback);
-                        } 
-                    });
-            } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-                
-                var locPosition = new kakao.maps.LatLng(33.450701, 126.570667), 
-        
-                    message = 'geolocation을 사용할수 없어요..'
-                    
-                displayMarker(locPosition, message);
-            } 
-            
-           }
-             
-    </script>
+            <a href="/main/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png"/></svg>
+            </a>
+        </footer>
+    </div>
+    <!--////////// Footer end //////////////-->
+
 </body>
-
 </html>

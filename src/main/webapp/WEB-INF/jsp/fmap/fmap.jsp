@@ -9,11 +9,14 @@
     <title>Insert title here</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-JyB+g0gmjSY68DpznWWC1u/NQLVzIm1POyQ7JM7jyekvBssmQhBemz73NFcf7RrG" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&display=swap" rel="stylesheet">
     <link href="../../../css/ramg.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <style>
     #wrap {border-radius: 5px; position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px; line-height: 1.5; background: #888;}
     #title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
@@ -24,8 +27,8 @@
     #ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap; color: azure;}
     #jibun {font-size: 11px;color: #888;margin-top: -2px;}
     #img {border: 0px; position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 0px solid #ddd;color: #888;overflow: hidden;}
-.box {
-    width: 120px;
+.box1 {
+    width: 85px;
     height: 80px;
     padding: 10px;
     display: inline-block;
@@ -116,8 +119,8 @@
    /*사진 삭제 버튼*/
    .box {
     position: absolute;
-    top: 38px;
-    left : 1220px;
+    top: 18px;
+    left : 1264px;
     border-radius: 15px;
     border: none;
     z-index: 3;
@@ -132,76 +135,52 @@
 }
 
 </style>
-</head>
 <body>
         <!--////////// Header Start ////////////-->
         <jsp:include page="../main/mainH.jsp"></jsp:include>
         <!--////////// Header end ////////////-->
 
         <!--////////// Main start //////////////-->
-            <div class="container-fluid text-center">
-                <div class="row d-flex">
-                    <div class="col-md-2" style="background-color: #8b8b8b; height:900px;" >
-                        
-                            <div class="list-group-item py-5" style="color: #fff; font-size: x-large;">내 주변 가까운 충전소</div>
-                        
-                        <div class="rounded p-2 mb-2" style="background-color: #eee;">
-                            <div class="container max-width mt-3 mb-4">
-                                <button class="custom-btn btn-3 fff" ><span>1km</span></button>
-                                <button class="custom-btn btn-3 fff" ><span>2km</span></button>
-                                <button class="custom-btn btn-3 fff" ><span>3km</span></button>
-                                <button class="custom-btn btn-3 fff" ><span>4km</span></button>
-                                <button class="custom-btn btn-3 fff" ><span>5km</span></button>
-                            </div>
-                            <div class="col-2" style="padding-right: 0;">
-                                <ul class="list-group ms-3" id="list1" style="width:300px; height: 680px; overflow-y: scroll;">
-                                    <!-- ajax로 받아온 html문서 적용 -->
-                                </ul>
-                            </div> 
-                        </div>  
-
-                    </div>
-                    <div class ="col-md-10">
-                        <div  style="padding-left: 0; position: relative;">
-                            <div style="background-color: #72c0ff; width: 500px; height: 200px; " class="box">
-
-                                <div style="background-color: #81F7F3;" class="in">
-                                    <div class="box">
-                                        
-                                            <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #37e181";></i><br/>충전가능</p>
-                                        
-                                    </div>
-                                    <div class="box" style="border-left: none;">
-                                        
-                                            <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #ff2727";></i><br/>불가능</p>
-                                        
-                                    </div>
-                                    <div class="box" style="border-left: none;">
-                                        
-                                            <p class="fff"><i class="fa fa-bolt fa-2x" aria-hidden="true" style="color:#f6fa0d";></i><br/>충전중</p> 
-                                        
-                                    </div>
-                                </div>
-                                <div id="myposition" class="col-6 fff" style="padding-left: 0; padding-top: 30px; background-color: #81F7F3;">
-                     
-                                </div>
-
-                            </div>
-                            <div id="map" class="kmap" style="width: 100%; height: 900px;"></div>
+        <div class="container-fluid text-center">
+            <div class="row d-flex">
+                <div class="col-md-2" style="background-color: #8b8b8b; height:900px;" >
+                    <div class="list-group-item py-5" style="color: #fff; font-size: x-large;">내 주변 가까운 충전소</div>
+                    <div class="rounded p-2 mb-2" style="background-color: #eee;">
+                        <div class="container max-width mt-3 mb-4">
+                            <button class="custom-btn btn-3 fff" ><span>1km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>2km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>3km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>4km</span></button>
+                            <button class="custom-btn btn-3 fff" ><span>5km</span></button>
                         </div>
+                        <div class="col-2" style="">
+                            <ul class="list-group" id="list1" style="width:280px; height: 680px; overflow-y: scroll;">
+                                <!-- ajax로 받아온 html문서 적용 -->
+                            </ul>
+                        </div> 
+                    </div>  
+                </div>
+                <div class ="col-md-10" style="padding-right: 0; padding-left: 0;">
+                    <div  style="padding-left: 0; position: relative;">
+                        <div style="background-color:transparent; width: 300px; height: 300px; " class="box">
+                            <div id="myposition" class="col-6 fff" style="padding-left: 0; width:100%; padding-top: 30px; background-color: #81F7F3;"></div>
+                            <div style="background-color: #81F7F3;" class="in">
+                                <div class="box1">
+                                    <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #37e181";></i><br/>충전가능</p>
+                                </div>
+                                <div class="box1" style="border-left: none;">
+                                    <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #ff2727";></i><br/>불가능</p>
+                                </div>
+                                <div class="box1" style="border-left: none;">
+                                    <p class="fff"><i class="fa fa-bolt fa-2x" aria-hidden="true" style="color:#f6fa0d";></i><br/>충전중</p> 
+                                </div>
+                            </div>
+                        </div>
+                        <div id="map" class="kmap" style="width: 100%; height: 900px;"></div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-
-
-
-
+            </div>
+        </div>
         <!--////////// Main end //////////////-->
 
         <!--////////// Foter start //////////////-->
@@ -210,15 +189,17 @@
         <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
         <script>
-                            
+            
             var markers =[];//마커 배열
             var markers2 =[];//내 주변 마커 배열
             var overlays = [];//커스텀오버레이 배열
             var overlays2 = [];//내 주변 커스텀오버레이 배열
             var container = document.getElementById('map');
-            var imageSrc_ok = "../images/greenicon.png";//충전가능 상태
-            var imageSrc_redicon = "../images/redicon.png";//고장 및 점검 상태
-            var imageSrc_chargeicon = "../images/chargeicon.png";//충전중 상태
+            
+            var imageSrc_ok = "../images/map_marker_green.svg";//충전가능 상태
+            var imageSrc_redicon = "../images/map_marker_red.svg";//고장 및 점검 상태
+            var imageSrc_chargeicon = "../images/bolt-solid.svg";//충전중 상태 
+            
 
             var options = {
                 center: new kakao.maps.LatLng(37.483782, 126.9003409),
@@ -353,31 +334,12 @@
                                             overlays.push(overlay);
                                             </c:forEach>
 
-                                            //화면상단에 자신의 위치 표시
+                                            //화면에 자신의 위치 표시
                                             let str2 ="";
                                             str2 += city;
                                             $("#myposition").html(str2);
                                             
-                                            //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
-                                        overlays2.sort(function(a, b) {
-                                            var c1 = locPosition;
-                                            var c2a = a.getPosition();
-                                            var c2b = b.getPosition();
-    
-                                            var polyA = new daum.maps.Polyline({
-                                                path: [c1, c2a]
-                                            });
-                                            var polyB = new daum.maps.Polyline({
-                                                path: [c1, c2b]
-                                            });
-    
-                                            var distA = polyA.getLength();
-                                            var distB = polyB.getLength();
-    
-                                            return distA - distB;
-    
-                                            });
-                                         
+                                            
                                             function displayList() {
                                                 var str = "";
                                                 var d = 1;
@@ -399,22 +361,79 @@
                                                 
                                                 $("#list1").html(str);
                                             }
+                                            
                                             // 목록 초기화 함수
                                             function clearList() {
                                                 overlays2 = [];
                                                 markers2 = [];
                                                 displayList();
                                             }
-
+                                            //경로 초기화 함수
                                             function clearPath() {
                                                 polyline.setMap(null);
                                             }
+
+                                            if(radius == 5000){
+                                                for (var i = 0; i < markers.length; i++) {
+                                                    var c1 = locPosition;
+                                                    var c2 = markers[i].getPosition();
+                                                    //console.log(c2);
+                                                    var poly = new daum.maps.Polyline({
+                                                        // map: map, 을 하지 않아도 거리는 구할 수 있다.
+                                                        path: [c1, c2]
+                                                    });
+                                                    var dist = poly.getLength();
+                                              
+                                                  if (dist <= radius) { // 반경 범위 내에 있는 마커인지 확인 (반경 범위를 미터 단위로 계산하기 위해 1000을 곱함)
+                                                    console.log(radius);
+                                                    overlays2.push(overlays[i]);
+                                                    markers2.push(markers[i]);
+                                                    markers[i].setMap(map); // 반경 범위 내에 있는 마커는 지도에 표시
+                                                  } else {
+                                                    markers[i].setMap(null); // 반경 범위를 벗어나는 마커는 지도에서 숨김
+                                                  }
+                                                }
+                                                //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
+                                            overlays2.sort(function(a, b) {
+                                                var c1 = locPosition;
+                                                var c2a = a.getPosition();
+                                                var c2b = b.getPosition();
+        
+                                                var polyA = new daum.maps.Polyline({
+                                                    path: [c1, c2a]
+                                                });
+                                                var polyB = new daum.maps.Polyline({
+                                                    path: [c1, c2b]
+                                                });
+        
+                                                var distA = polyA.getLength();
+                                                var distB = polyB.getLength();
+        
+                                                return distA - distB;
+        
+                                                });
+                                                displayList();
+                                            }
                                             $('.custom-btn').click(function() {
                                                 var buttonText = $(this).text(); // 버튼의 텍스트 가져오기
-                                                var radius = parseInt(buttonText.replace(/[^0-9]/g, '')); // 버튼 텍스트에서 숫자 부분 추출하여 반경 범위로 설정
+                                                radius = parseInt(buttonText.replace(/[^0-9]/g, '')); // 버튼 텍스트에서 숫자 부분 추출하여 반경 범위로 설정
                                                 clearList(); // 목록 초기화
-                                                // 버튼 텍스트에 따라서 처리 로직 작성
-                                                
+                                                if(radius == 5){
+                                                    map.setCenter(locPosition);
+                                                    map.setLevel(7);   
+                                                }else if(radius == 4){
+                                                    map.setCenter(locPosition);
+                                                    map.setLevel(6); 
+                                                }else if(radius == 3){
+                                                    map.setCenter(locPosition);
+                                                    map.setLevel(6); 
+                                                }else if(radius == 2){
+                                                    map.setCenter(locPosition);
+                                                    map.setLevel(6); 
+                                                }else if(radius == 1){
+                                                    map.setCenter(locPosition);
+                                                    map.setLevel(4);
+                                                }
                                                 for (var i = 0; i < markers.length; i++) {
                                                     var c1 = locPosition;
                                                     var c2 = markers[i].getPosition();
@@ -434,6 +453,25 @@
                                                     markers[i].setMap(null); // 반경 범위를 벗어나는 마커는 지도에서 숨김
                                                   }
                                                 }
+                                                //오베레이즈2배열을 소트 함수를 이용해서 오름차순시킴
+                                            overlays2.sort(function(a, b) {
+                                                var c1 = locPosition;
+                                                var c2a = a.getPosition();
+                                                var c2b = b.getPosition();
+        
+                                                var polyA = new daum.maps.Polyline({
+                                                    path: [c1, c2a]
+                                                });
+                                                var polyB = new daum.maps.Polyline({
+                                                    path: [c1, c2b]
+                                                });
+        
+                                                var distA = polyA.getLength();
+                                                var distB = polyB.getLength();
+        
+                                                return distA - distB;
+        
+                                                });
                                                 displayList();
                                                 clearPath();
                                               });
@@ -502,7 +540,7 @@
                                             console.log(err + " Failed222222222222222222");
                                             });
                                         });
-                                    }
+                                    }//IF끝
                                 });
                                 
                             }

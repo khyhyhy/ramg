@@ -56,6 +56,13 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
   }
+
+  @media (max-width: 768px) {
+    .box {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  }
   
 </style>
   </head>
@@ -80,13 +87,13 @@
                 </div>
                 <div class="carousel-inner" >
                   <div class="carousel-item active"  >
-                    <img style="object-fit: cover; width: 1000px; height: 700px" src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: cover; width: 100%; height: auto;" src="../images/cafe.png" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img style="object-fit: cover; width: 1000px; height: 700px" src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: cover; width: 100%; height: auto;" src="../images/cafe.png" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img style="object-fit: cover; width: 1000px; height: 700px"src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: cover; width: 100%; height: auto;"src="../images/cafe.png" class="d-block w-100" alt="...">
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -141,18 +148,11 @@
                   </tbody>
                 </table>
               </div>
-
-
-              
-
             </div>
-
-
-
           </div><!--10-->
         </div>
       </div>
-
+   
 
 
 
@@ -160,9 +160,7 @@
         <!--////////// Main end //////////////-->
         <!--////////// Foter start //////////////-->
         <jsp:include page="mainF.jsp"></jsp:include>
-        <!--////////// Foter end //////////////-->
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
-   
+        <!--////////// Foter end //////////////-->        
+     
 </body>
 </html>

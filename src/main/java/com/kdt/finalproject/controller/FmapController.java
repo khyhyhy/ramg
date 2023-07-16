@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.print.DocFlavor.STRING;
 
+import org.apache.ibatis.annotations.Param;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -34,14 +35,7 @@ public class FmapController {
 
     private String key = "bJ6oLO1YEYJbMWFVcv7pnkobUWW2bUmlGcVWx51o2%2FlRzzNbNqBpgrnzy0DR2yBMEwybwKRo1LYNbEUZJGHF6A%3D%3D";
 
-    // 위치 설정할 jsp로 이동시킴
-    @RequestMapping("/fmap2/")
-    public String login() {
-
-        return "/fmap/loading";
-    }
-
-    // 위치를 받아와서 맵에 뿌려줄 충전소api
+    // 메인에서 위치를 받은 경우 맵에 뿌려줄 충전소api
     @RequestMapping("/fmap/")
     public ModelAndView searchCharger2(String city) throws Exception {
         System.out.println("////////////////////////////111");
