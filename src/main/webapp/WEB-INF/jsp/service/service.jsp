@@ -27,7 +27,7 @@
    <div class="container">
     <main>
       <div>
-        <h2>고객 서비스 신청 현황</h2>
+        <h2 style="margin-top: 5rem!important;">고객 서비스 신청 현황</h2>
        </div>
        <br />
        <br />
