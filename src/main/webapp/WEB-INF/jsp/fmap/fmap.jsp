@@ -35,7 +35,7 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    background-color: #81F7F3;
+    background-color: #81f7f300;
 }
 
 .custom-btn {
@@ -165,8 +165,8 @@
                 <div class ="col-md-10" style="padding-right: 0; padding-left: 0;">
                     <div  style="padding-left: 0; position: relative;">
                         <div style="background-color:transparent; width: 300px; height: 300px; " class="box">
-                            <div id="myposition" class="col-6 fff" style="padding-left: 0; width:100%; padding-top: 30px; background-color: #81F7F3;"></div>
-                            <div style="background-color: #81F7F3;" class="in">
+                            <div id="myposition" class="col-6 fff" style="padding-left: 0; width:100%; padding-top: 30px; background-color: #81f7f3b9;"></div>
+                            <div style="background-color: #81f7f3b9;" class="in">
                                 <div class="box1">
                                     <p class="fff"><img src="../../../images/map_marker_green.svg" width="20px"></i>
                                         <br/>충전가능</p>
