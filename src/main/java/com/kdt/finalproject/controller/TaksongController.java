@@ -6,7 +6,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -336,6 +338,8 @@ public class TaksongController {
   suvo.setSu_val2("0");
   suvo.setSu_val3(nowlng);
   suvo.setSu_val4(nowlat);
+  Date today = new Date();
+  suvo.setSu_val5(new SimpleDateFormat("yyyyMMddHHmmss").format(today));
   boolean chk = service.suseVOin(suvo);
   service.serviceinyong(s_s_idx);
   System.out.println(chk);
