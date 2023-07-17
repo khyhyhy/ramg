@@ -50,8 +50,7 @@
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
       <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png" />
        <img src="/images/ramgelogo.png" /></svg>
-      <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; ">전기차
-       충전소</span>
+      <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
      </a>
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
