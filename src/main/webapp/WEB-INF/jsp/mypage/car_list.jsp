@@ -39,7 +39,7 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
    
-  <div class="align-items-center" style="margin-top: 100px;">
+  <div class="align-items-center" style="margin-top: 150px;">
     <header>
         <div style="margin: 50px 0 0 0;">
             <h1 style="text-align: center; font-weight: bold;">차량 목록</h1>

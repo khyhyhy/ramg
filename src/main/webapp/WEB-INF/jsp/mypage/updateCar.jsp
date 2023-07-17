@@ -27,7 +27,7 @@
 <body>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 
-<div class="text-center" style="margin-top: 100px;">
+<div class="text-center" style="margin-top: 150px;">
     <!-- 차량 추가 -->
     <div class="container-sm">
 <header>

@@ -35,7 +35,7 @@
    <body>
     <jsp:include page="../main/mainH.jsp"></jsp:include>
 
-    <div class="row align-items-center" style="margin-top: 100px;">
+    <div class="row align-items-center" style="margin-top: 150px;">
      <!-- 차량 추가 -->
      <header>
       <div style="margin: 50px 0 0 0;">
