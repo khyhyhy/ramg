@@ -558,6 +558,10 @@ public class AdminController {
 
         SuseVO[] ar = service.car_view(suvo.getSu_val5());
 
+        String now = ar[ar.length - 1].getSu_status();
+
+        System.out.println(now);
+        mv.addObject("now", now);
         mv.addObject("ar", ar);
         mv.setViewName("/admin/car_view");
 
@@ -691,9 +695,6 @@ public class AdminController {
 
         SuseVO[] ar = service.car_view(vo.getSu_val5()); // 다음 페이지에서 표시할 정보
 
-        String now = ar[ar.length - 1].getSu_status();
-
-        mv.addObject("now", now);
         mv.addObject("ar", ar);
         mv.setViewName("/admin/car_view");
         return mv;

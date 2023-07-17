@@ -266,32 +266,62 @@ pageEncoding="UTF-8"%>
                             </c:choose>
                             </a></td>
                             <td>
-                            <c:choose>
-                                <c:when test="${suvo.su_status == 0}">
-                                    주문 대기 중
-                                </c:when>
-                                <c:when test="${suvo.su_status == 1}">
-                                    주문 접수
-                                </c:when>
-                                <c:when test="${suvo.su_status == 2}">
-                                    탁송기사 이동 중
-                                </c:when>
-                                <c:when test="${suvo.su_status == 3}">
-                                    차량 픽업
-                                </c:when>
-                                <c:when test="${suvo.su_status == 4}">
-                                    충전소 이동 중
-                                </c:when>
-                                <c:when test="${suvo.su_status == 5}">
-                                    충전 중
-                                </c:when>
-                                <c:when test="${suvo.su_status == 6}">
-                                    도착지 이동 중
-                                </c:when>
-                                <c:when test="${suvo.su_status == 7}">
-                                    도착 완료
-                                </c:when>
-                            </c:choose>
+                                <c:if test="${suvo.svo.s_type == 0}">
+                                    <c:choose>
+                                        <c:when test="${suvo.su_status == 0}">
+                                            주문 대기 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 1}">
+                                            주문 접수
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 2}">
+                                            탁송기사 이동 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 3}">
+                                            차량 픽업
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 4}">
+                                            충전소 이동 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 5}">
+                                            충전 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 6}">
+                                            도착지 이동 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 7}">
+                                            도착 완료
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 8}">
+                                            이슈 발생
+                                        </c:when>
+                                    </c:choose>
+                                </c:if>
+                                <c:if test="${suvo.svo.s_type == 1}">
+                                    <c:choose>
+                                        <c:when test="${suvo.su_status == 0}">
+                                            주문 대기 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 1}">
+                                            주문 접수
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 2}">
+                                            충전지 이동 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 3}">
+                                            충전지 도착
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 4}">
+                                            충전 중
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 7}">
+                                            충전 완료
+                                        </c:when>
+                                        <c:when test="${suvo.su_status == 8}">
+                                            이슈 발생
+                                        </c:when>
+                                    </c:choose>
+                                </c:if>
                             </td>
                         </tr>
                     </c:forEach>

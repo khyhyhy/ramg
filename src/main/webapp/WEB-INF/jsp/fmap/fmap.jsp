@@ -168,13 +168,14 @@
                             <div id="myposition" class="col-6 fff" style="padding-left: 0; width:100%; padding-top: 30px; background-color: #81F7F3;"></div>
                             <div style="background-color: #81F7F3;" class="in">
                                 <div class="box1">
-                                    <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #37e181";></i><br/>충전가능</p>
+                                    <p class="fff"><img src="../../../images/map_marker_green.svg" width="20px"></i>
+                                        <br/>충전가능</p>
                                 </div>
                                 <div class="box1" style="border-left: none;">
-                                    <p class="fff"><i class="fa fa-map-marker fa-2x" aria-hidden="true" style="color: #ff2727";></i><br/>불가능</p>
+                                    <p class="fff"><img src="../../../images/map_marker_red.svg" width="20px"><br/>불가능</p>
                                 </div>
                                 <div class="box1" style="border-left: none;">
-                                    <p class="fff"><i class="fa fa-bolt fa-2x" aria-hidden="true" style="color:#f6fa0d";></i><br/>충전중</p> 
+                                    <p class="fff"><img src="../../../images/bolt-solid.svg" width="25px"><br/>충전중</p> 
                                 </div>
                             </div>
                         </div>

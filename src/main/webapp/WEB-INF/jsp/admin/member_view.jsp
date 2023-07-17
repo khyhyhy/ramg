@@ -91,7 +91,7 @@
                     <th>주소</th>
                     <th>서비스 금액</th>
                     <th>평점</th>
-                    <th>누적 매출</th>
+                    <th>매출</th>
                 </tr>
             </thead>
             <c:forEach items="${vo.sw_list}" var="sw">
@@ -141,7 +141,8 @@
                         <a href="javascript:review()">작성한 리뷰 [${fn:length(r_ar)}]</a>&nbsp;&nbsp;
                     </c:if>
                     <c:if test="${vo.m_class != 0}">
-                        <a href="javascript:car_bz()">판매한 서비스 목록 [${fn:length(bz_su_ar)}]</a>&nbsp;&nbsp;
+                        <a href="javascript:car_bz()">판매한 서비스 목록 [${fn:length(bz_su_ar)}]</a>&nbsp;&nbsp; /
+                        <a href="javascript:review_bz()">받은 리뷰 [${fn:length(bz_r_ar)}]</a>&nbsp;&nbsp;
                     </c:if>
                 </th>
             </tr>

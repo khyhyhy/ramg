@@ -73,7 +73,7 @@ pageEncoding="UTF-8"%>
                     </c:when>    
                     </c:choose>
                 </th>
-                <th>${ar[0].svo.s_city} ${ar[0].svo.s_addr1}</th>
+                <th>${ar[0].svo.s_state} ${ar[0].svo.s_city} ${ar[0].svo.s_addr1}</th>
             </tr>
             </thead>
             <c:forEach items="${ar}" var="vo">
