@@ -11,6 +11,19 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 
     <style>
+
+
+        /* 선택된 탭의 글씨 색상 */
+        .nav-link.active#tab-personal {
+            color: #ffffff !important;
+        }
+
+        /* 선택된 탭의 글씨 색상 */
+        .nav-link.active#tab-business {
+            color: #ffffff !important;
+        }
+
+
         .register-link {
           font-size: 14px; /* 원하는 글씨 크기로 설정 */
           font-family: "Arial", sans-serif; /* 원하는 글꼴로 설정 */
@@ -62,11 +75,10 @@
         border-top: 1.7px solid #757571;
         margin: 10px;
         width: 300px;
-
-
-  
-  
     }
+
+
+
       </style>
 
 </head>
@@ -87,22 +99,22 @@
                             
 
                                 <!--부트스트랩 추가-->
-                                <div class="d-flex justify-content-center"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
+                                <div class="d-flex justify-content-center align-items-center mt-5"> <!-- 가운데 정렬을 위한 d-flex와 justify-content-center 클래스 추가 -->
                                 <div class="card shadow p-4 mb-3 mt-3 bg-body rounded" style="width: 25rem;" >
                                     <div class="card-body">
 
 
 
                                     <!-- 개인 로그인과 사업자 로그인 탭 -->
-                                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                                    <ul class="nav nav-pills nav-justified mb-4" id="ex1" role="tablist">
                                         
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link active" id="tab-personal" data-mdb-toggle="pill" href="#pills-personal" role="tab"
-                                            aria-controls="pills-personal" aria-selected="true">개인 로그인</a>
+                                            aria-controls="pills-personal" aria-selected="true" >개인 로그인</a>
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <a class="nav-link" id="tab-business" data-mdb-toggle="pill" href="#pills-business" role="tab"
-                                            aria-controls="pills-business" aria-selected="false">사업자 로그인</a>
+                                            aria-controls="pills-business" aria-selected="false" >사업자 로그인</a>
                                         </li>
                                     </ul>
 
@@ -115,7 +127,7 @@
                                     
                                     <!-- Email input -->
 
-                                    <div class="form-outline  mb-3 form-floating mb-3">
+                                    <div class="form-outline  mb-4 form-floating mb-3">
                                         <!-- <label class="form-label" for="m_email">Email</label> -->
                                         <input type="text" id="m_email" name="m_email" class="form-control form-outline" placeholder="Email"/>
                                         <label for="m_email" class="form-label text-secondary fs-6">Email</label>
@@ -130,7 +142,7 @@
 
                                     <!-- Login button -->
                                     <div class="text-center">
-                                        <button type="button" class="btn btn-primary btn-block mb-4 " id="login-button" onclick="exe(this.form)"> 로그인</button>
+                                        <button type="button" class="btn btn-primary btn-block mb-4 text-center" id="login-button" onclick="exe(this.form)"> 로그인</button>
                                     </div>
 
                                         <!--회원가입-->
