@@ -6,7 +6,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -311,6 +313,79 @@ public class TaksongController {
  public ModelAndView serviceok(String s_c_idx, String s_s_idx, String chargepersent, String s_payment,
    String s_payinfo, String s_sprice, String s_cprice, String s_type, String m_idx, String nowlat, String nowlng) {
   ModelAndView mv = new ModelAndView();
+
+  if (nowlat.equals("") && nowlng.equals("")) {
+   String x, y;
+   CarVO c_vo = service.carList(s_c_idx);
+   String state = c_vo.getC_state();
+   if (c_vo.getC_state().startsWith("서울"))
+    state = "서울특별시";
+   else if (c_vo.getC_state().startsWith("부산") || c_vo.getC_state().startsWith("인천") ||
+     c_vo.getC_state().startsWith("대구") || c_vo.getC_state().startsWith("광주") || c_vo.getC_state().startsWith("대전")
+     || c_vo.getC_state().startsWith("울산"))
+    state = c_vo.getC_state() + "광역시";
+   else if (c_vo.getC_state().startsWith("세종"))
+    state = c_vo.getC_state() + "특별자치시";
+   else if (c_vo.getC_state().startsWith("제주") || c_vo.getC_state().startsWith("강원"))
+    state = c_vo.getC_state() + "특별자치도 ";
+   String city = c_vo.getC_city();
+   String addr1 = c_vo.getC_addr1();
+
+   System.out.println(state);
+   String url = "https://dapi.kakao.com/v2/local/search/address.json?query=";
+   String restapikey = "KakaoAK 2cb999b6cc6710c90da5322517fd9e95";
+
+   StringBuffer sb = new StringBuffer();
+   sb.append(state);
+   sb.append(" ");
+   sb.append(city);
+   sb.append(" ");
+   sb.append(addr1);
+
+   String addr = sb.toString();
+
+   URL obj;
+
+   int lo;
+
+   try {
+    String address = URLEncoder.encode(addr, "UTF-8");
+    // System.out.println(address);
+    obj = new URL(url + address);
+
+    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+    con.setRequestMethod("GET");
+    con.setRequestProperty("Authorization", restapikey);
+    con.setRequestProperty("content-type", "application/json");
+    con.setDoOutput(true);
+    con.setUseCaches(false);
+    con.setDefaultUseCaches(false);
+
+    Charset charset = Charset.forName("UTF-8");
+    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), charset));
+
+    String inputLine = null;
+    StringBuffer response = new StringBuffer();
+
+    while ((inputLine = in.readLine()) != null) {
+     response.append(inputLine);
+    }
+
+    // response 객체를 출력해보자
+    // System.out.println("RES :" + response.toString());
+
+    JSONParser jsonParser = new JSONParser();
+    JSONObject json_data = (JSONObject) jsonParser.parse(response.toString());
+    JSONArray documents = (JSONArray) json_data.get("documents");
+    JSONObject data = (JSONObject) documents.get(0);
+
+    nowlng = (String) data.get("x");
+    nowlat = (String) data.get("y");
+   } catch (Exception e) {
+    e.printStackTrace();
+   }
+  }
   System.out.println("s_idx = " + s_s_idx);
   System.out.println("c_idx = " + s_c_idx);
   System.out.println("chargepersent = " + chargepersent);
@@ -320,7 +395,7 @@ public class TaksongController {
   System.out.println("s_cprice = " + s_cprice);
   System.out.println("su_m_idx = " + m_idx);
   System.out.println("su_mapx = " + nowlng);
-  System.out.println("s_mapy = " + nowlat);
+  System.out.println("su_mapy = " + nowlat);
   SuseVO suvo = new SuseVO();
   suvo.setS_idx(s_s_idx);
   ServiceVO svo = service.svosel(s_s_idx);
@@ -336,6 +411,8 @@ public class TaksongController {
   suvo.setSu_val2("0");
   suvo.setSu_val3(nowlng);
   suvo.setSu_val4(nowlat);
+  Date today = new Date();
+  suvo.setSu_val5(new SimpleDateFormat("yyyyMMddHHmmss").format(today));
   boolean chk = service.suseVOin(suvo);
   service.serviceinyong(s_s_idx);
   System.out.println(chk);

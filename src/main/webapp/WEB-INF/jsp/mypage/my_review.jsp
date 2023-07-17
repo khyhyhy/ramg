@@ -40,7 +40,7 @@
             <h1 style="text-align: center; font-weight: bold;">나의 리뷰</h1>
         </div>
        </article>
-      <table id="bl_list" class="table table-striped table-hover">
+      <table id="bl_list" class="table table-striped table-hover" style="margin-top: 150px;">
          <colgroup>
             <col width="*">
             <col width="200px">
