@@ -26,7 +26,7 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
   
-  <div id="content" class="container text-center">
+  <div id="content" class="container text-center" style="margin-top: 100px;">
        <article>
         <div style="margin: 50px 0 0 0;">
             <h1 style="text-align: center; font-weight: bold;">나의 문의</h1>

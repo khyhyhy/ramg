@@ -31,7 +31,7 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
 
-    <div class="container text-center">
+    <div class="container text-center" style="margin-top: 100px;">
 
     <article>
         <div style="margin: 50px 0 0 0;">
