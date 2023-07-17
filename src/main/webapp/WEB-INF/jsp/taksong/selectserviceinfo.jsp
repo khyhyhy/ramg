@@ -29,10 +29,11 @@
      <p>"${mvo.m_idx}"</p>
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
-     <div style="display: flex; justify-content: center; margin-top: 50px;">
-      <button type="button" onclick="location.href='??'">충전하기</button>
-      <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-      <button type="button" onclick="location.href='map'">이용내역</button>
+     <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 50px;">
+      <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info"
+       style="margin-right: 50px; border-width: 2px;">현재상황</button>
+      <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info"
+       style="border-width: 2px;">이용내역</button>
      </div>
 
 
@@ -136,7 +137,13 @@
        <div class="row"><br />
        </div>
        <div class="row">
-        <div class="col"><button type="submit" class="btn btn-primary btn-lg">서비스 신청하기</button></div>
+        <div class="col">
+         <c:if test="${fn:length(servicear) ne 0}">
+          <button type="button" class="btn btn-primary btn-lg" onclick="taksubmit(this.form)">서비스
+           신청하기</button>
+         </c:if>
+         <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/taksong/'">돌아가기</button>
+        </div>
        </div>
      </div>
      <input type="hidden" id="s_c_idx" name="s_c_idx" />

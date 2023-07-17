@@ -115,6 +115,9 @@ public class TaksongController {
    // 탁송서비스 거르기
 
    ServiceVO[] sar = service.siar(nowstate);
+   if (sar == null)
+    sar = new ServiceVO[0];
+
    int idx = 1;
 
    for (ServiceVO vo : sar) {
@@ -138,6 +141,8 @@ public class TaksongController {
 
   } else {
    ServiceVO[] sar = service.guar(nowcity);
+   if (sar == null)
+    sar = new ServiceVO[0];
 
    int idx = 1;
 
@@ -169,6 +174,15 @@ public class TaksongController {
   System.out.println("서비스 가능 갯수:" + swar.size());
   mv.addObject("servicear", swar);
   mv.setViewName("taksong/serviceinfo");
+  return mv;
+ }
+
+ @RequestMapping("/t_search/")
+ public ModelAndView init(@Param("addr") String addr) {
+  ModelAndView mv = new ModelAndView();
+  System.out.println(addr);
+  mv.addObject("addr", addr);
+  mv.setViewName("taksong/taksong");
   return mv;
  }
 
