@@ -51,7 +51,7 @@
           <input type="radio" class="btn-check" name="car" id='car' autocomplete="off" required />
           <label class="btn btn-outline-secondary list-group-item list-group-item-action"
            for="car">${sessionScope.mvo.m_idx}/${cvo.movo.mo_name}/${cvo.movo.mo_name}</label>
-          <input type="hidden" name="c_idx" value=${cvo.c_idx} />
+          <input type="hidden" id="c_idx" name="c_idx" value=${cvo.c_idx} />
           <input type="hidden" id="tank" name="c_val3" value=${cvo.movo.mo_bet} />
          </div>
         </div>
@@ -156,6 +156,25 @@
     let chargeprice;
     var f_price;
 
+    function taksubmit(form) {
+     let c_info = $("#c_idx").val().trim();
+     let s_info = $("#s_s_idx").val().trim();
+     let accontnum = $("#tongtext").val().trim();
+     if (c_info.length < 1) {
+      alert("서비스 받으실 차량을 선택해주세요.");
+      return;
+     }
+     if (s_info.length < 1) {
+      alert("서비스를 선택해주세요.");
+      return;
+     }
+     if (chargeprice < 1 || chargeprice == null) {
+      alert("충전량을 선택해주세요.");
+      return;
+     }
+     form.submit();
+    }
+
     function sinyoung() {
      var sinyongSelect = document.getElementById("sinyong");
      var tongjangSelect = document.getElementById("tongjang");
@@ -191,6 +210,9 @@
      document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
      if (chargeprice != null) {
       chargeprice = null;
+      document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + "" + "원";
+      document.getElementById("chargebar").value = 0;
+      document.getElementById("muckpho").innerHTML = "";
      }
      l_price();
     }
