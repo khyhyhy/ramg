@@ -89,7 +89,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
   SELECT @RN:=@RN+1 as r_num,a.* FROM(  
 	SELECT * FROM charging.service_use
 	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
-	  WHERE m_idx = #{m_idx} and cw_type = 0 and su_val2 = 0 )
+	  WHERE m_idx = #{m_idx} and cw_type = 0) AND su_val2 = 0 
       ORDER BY su_idx DESC
 	) a, (SELECT @RN:=0) as r
 ) a WHERE a.r_num BETWEEN #{begin} AND #{end}
@@ -103,7 +103,7 @@ SELECT * FROM charging.model_t WHERE mo_idx = #{mo_idx}
   <select id="totalCountByM_idx" resultType="int" parameterType="String">
   	SELECT COUNT(*) FROM charging.service_use
 	  WHERE c_idx IN (SELECT c_idx FROM charging.car_write
-	  WHERE m_idx = #{m_idx} and cw_type = 0)
+	  WHERE m_idx = #{m_idx} and cw_type = 0 ) AND su_val2 = 0
   </select>
 
   <select id="getBidx" resultType="com.kdt.finalproject.vo.BbsVO" parameterType="String">

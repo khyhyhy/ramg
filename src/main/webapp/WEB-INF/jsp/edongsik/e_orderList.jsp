@@ -139,8 +139,9 @@
                                     <td style="text-align: center; vertical-align: middle;">충전완료</td>
                                         <c:if test="${suar.bvo.b_content == null}">
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal(this)">후기 작성
-                                                    <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
+                                                
+                                                <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal('${suar.su_idx}')">후기 작성
+                                                    
                                                 </button>
                                             </td>
                                         </c:if>
@@ -182,8 +183,8 @@
                                         <td style="text-align: center; vertical-align: middle;">도착완료</td>
                                         <c:if test="${suar.bvo.b_content == null}">
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal(this)">후기 작성
-                                                <input type="hidden" id="su_idx" name="su_idx" value="${suar.su_idx}"/>
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal('${suar.su_idx}')">후기 작성
+                                                
                                             </button>
                                         </td>
                                         </c:if>
@@ -255,10 +256,10 @@
 
                         <input type="hidden" id="modalSuIdx">
                             <script>
-                                function openModal(button) {
-                                    var su_idx  = document.getElementById("su_idx").value;
+                                function openModal(su_idx) {
                                     var modalSuIdx = document.getElementById("modalSuIdx");
                                     modalSuIdx.value = su_idx;
+                                    alert("su_idx :"+su_idx);
                                 }
                             </script>
                         
@@ -315,7 +316,7 @@
 
         // 선택된 값을 출력합니다.
        
-        //alert("su_idx :"+su_idx);
+        alert("su_idx :"+su_idx);
         //alert("reviewContent :"+reviewContent);
         //alert("selectedValue :"+selectedValue);
 		

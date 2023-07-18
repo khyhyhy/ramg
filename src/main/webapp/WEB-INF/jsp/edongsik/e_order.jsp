@@ -309,8 +309,8 @@
       <table summary="게시판 목록" class="table table-hover">
 
        <colgroup>
-        <col width="250px">
-        <col width="130px">
+        <col width="230px">
+        <col width="150px">
         <col width="180px">
         <col width="130px">
         <col width="130px">
@@ -369,9 +369,8 @@
             <td style="text-align: center; vertical-align: middle;">충전완료</td>
             <c:if test="${bvo.b_content == null}">
              <td style="text-align: center; vertical-align: middle;">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark"
-               onclick="openModal(this)">후기 작성
-               <input type="hidden" id="su_idx" name="su_idx" value="${suvo.su_idx}" />
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal('${suvo.su_idx}')">후기 작성
+               
               </button>
              </td>
             </c:if>
@@ -430,9 +429,8 @@
             <td style="text-align: center; vertical-align: middle;">도착완료</td>
             <c:if test="${bvo.b_content == null}">
              <td style="text-align: center; vertical-align: middle;">
-              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark"
-               onclick="openModal(this)">후기 작성
-               <input type="hidden" id="su_idx" name="su_idx" value="${suvo.su_idx}" />
+              <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-dark" onclick="openModal('${suvo.su_idx}')">후기 작성
+
               </button>
              </td>
             </c:if>
@@ -476,11 +474,12 @@
 
             <input type="hidden" id="modalSuIdx">
             <script>
-             function openModal(button) {
-              var su_idx = document.getElementById("su_idx").value;
-              var modalSuIdx = document.getElementById("modalSuIdx");
-              modalSuIdx.value = su_idx;
-             }
+              function openModal(su_idx) {
+                var modalSuIdx = document.getElementById("modalSuIdx");
+                modalSuIdx.value = su_idx;
+                
+            }
+             
             </script>
 
            </fieldset>

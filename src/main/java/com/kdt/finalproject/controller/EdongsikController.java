@@ -409,7 +409,7 @@ public class EdongsikController {
             }
 
         }
-        // System.out.println(cvo.getC_idx());
+
         mv.addObject("c_ar", c_ar);
 
         int lo;
