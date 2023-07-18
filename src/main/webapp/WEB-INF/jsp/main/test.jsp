@@ -215,7 +215,7 @@
 
       </div>
       <div class="d-flex my-5 justify-content-center">
-       <div class="col-md-5 p-5 px-3 rounded-3 ms-3 me-5" style="border:5px solid #59b9d1; color: #464646;">
+       <div class="col-md-5 p-5 px-3 rounded-3 ms-3 me-5" style="border:5px solid #acd2dd; color: #464646;">
         <table class="table">
          <colgroup>
           <col width="*">
@@ -223,8 +223,7 @@
          </colgroup>
          <thead>
           <tr>
-           <th colspan="2" style="color: #4d4d4d; font-size: x-large;">공지사항 <a href="/support/notice"
-             style="float: right;">공지 더보기<i class="fa fa-arrow-circle-right ms-2" aria-hidden="true"></i></a></th>
+           <th colspan="2" style="color: #4d4d4d; font-size: x-large;">공지사항</th>
           </tr>
          </thead>
          <tbody>
@@ -239,8 +238,10 @@
           </c:forEach>
          </tbody>
         </table>
+        <a href="/support/notice"
+            style="float: right; font-size: large;">공지 더보기<i class="fa fa-arrow-circle-right ms-2" aria-hidden="true"></i></a>
        </div>
-       <div class="col-md-5 p-5 px-3 rounded-3" style="border:5px solid #59b9d1; color: #464646;">
+       <div class="col-md-5 p-5 px-3 rounded-3" style="border:5px solid #acd2dd; color: #464646;">
         <table class="table">
          <thead>
           <tr>
@@ -261,7 +262,7 @@
          <tr>
           <th>연료비</th>
           <td>200원/kWh</td>
-          <td>292.9d원/kWh</td>
+          <td>292.9원/kWh</td>
          </tr>
          <tr>
           <th>100km당 연료비</th>
