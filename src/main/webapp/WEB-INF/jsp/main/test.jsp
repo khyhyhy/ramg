@@ -85,8 +85,8 @@
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="carousel-inner" >
-                  <div class="carousel-item active"  >
+                <div class="carousel-inner justify-content-center d-grid" >
+                  <div class="carousel-item active" >
                     <img style="object-fit: cover; width: 100%; height: auto;" src="../images/cafe.png" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
