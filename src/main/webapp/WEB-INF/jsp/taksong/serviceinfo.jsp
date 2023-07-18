@@ -31,10 +31,11 @@
       <p>"${mvo.m_idx}"</p>
       <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
-      <div style="display: flex; justify-content: center; margin-top: 50px;">
-       <button type="button" onclick="location.href='??'">충전하기</button>
-       <button type="button" onclick="location.href='??'" style="margin-left: 50px; margin-right: 50px;">현재상황</button>
-       <button type="button" onclick="location.href='map'">이용내역</button>
+      <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 50px;">
+       <button type="button" onclick="location.href='/e_nowOrder/'" class="btn btn-outline-info"
+        style="margin-right: 50px; border-width: 2px;">현재상황</button>
+       <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info"
+        style="border-width: 2px;">이용내역</button>
       </div>
 
 
@@ -156,14 +157,20 @@
         <div class="row"><br />
         </div>
         <div class="row">
-         <div class="col"><button type="submit" class="btn btn-primary btn-lg">서비스 신청하기</button></div>
+         <div class="col">
+          <c:if test="${fn:length(servicear) ne 0}">
+           <button type="button" class="btn btn-primary btn-lg" onclick="taksubmit(this.form)">서비스
+            신청하기</button>
+          </c:if>
+          <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/taksong/'">돌아가기</button>
+         </div>
         </div>
       </div>
       <input type="hidden" id="s_c_idx" name="s_c_idx" />
       <input type="hidden" id="s_s_idx" name="s_s_idx" />
       <input type="hidden" id="s_sprice" name="s_sprice" />
       <input type="hidden" id="s_cprice" name="s_cprice" />
-      <input type="hidden" id="s_cprice" name="s_type" value="0" />
+      <input type="hidden" id="s_ctype" name="s_type" value="0" />
       <input type="hidden" id="nowlat" name="nowlat" value="${nowlat2}" />
       <input type="hidden" id="nowlng" name="nowlng" value="${nowlng2}" />
       <input type="hidden" id="m_idx" name="m_idx" value="${mvo.m_idx}" />
@@ -181,6 +188,26 @@
      let serviceprice;
      let chargeprice;
      var f_price;
+
+     function taksubmit(form) {
+      let c_info = $("#s_c_idx").val().trim();
+      let s_info = $("#s_s_idx").val().trim();
+      let accontnum = $("#tongtext").val().trim();
+      if (c_info.length < 1) {
+       alert("서비스 받으실 차량을 선택해주세요.");
+       return;
+      }
+      if (s_info.length < 1) {
+       alert("서비스를 선택해주세요.");
+       return;
+      }
+      if (chargeprice < 1 || chargeprice == null) {
+       alert("충전량을 선택해주세요.");
+       return;
+      }
+      form.submit();
+     }
+
 
      function sinyoung() {
       var sinyongSelect = document.getElementById("sinyong");
@@ -217,6 +244,9 @@
       document.getElementById("s_c_idx").value = f.querySelector('input[name="c_idx"]').value;
       if (chargeprice != null) {
        chargeprice = null;
+       document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + "" + "원";
+       document.getElementById("chargebar").value = 0;
+       document.getElementById("muckpho").innerHTML = "";
       }
       l_price();
      }
@@ -233,17 +263,18 @@
      }
 
      function muckpho(e) {
+      if (btank != null && btank != "") {
+       document.getElementById("muckpho").innerText = e.value + "%"
+       chargeprice = (btank / 100 * e.value) * khw;
+       console.log(chargeprice);
+       console.log(btank);
+       chargeprice = Math.floor(chargeprice).toString();
+       document.getElementById("s_cprice").value = chargeprice;
+       var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-      document.getElementById("muckpho").innerText = e.value + "%"
-      chargeprice = (btank / 100 * e.value) * khw;
-      console.log(chargeprice);
-      console.log(btank);
-      chargeprice = Math.floor(chargeprice).toString();
-      document.getElementById("s_cprice").value = chargeprice;
-      var chargeprice2 = chargeprice.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-      document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
-      l_price()
+       document.getElementById("cprice").innerHTML = "예상&nbsp;충전&nbsp;비용&nbsp;:&nbsp" + chargeprice2 + "원";
+       l_price()
+      }
      }
 
      function l_price() {

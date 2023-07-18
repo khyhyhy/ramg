@@ -147,7 +147,6 @@
      if (value === "") {
       alert("차량을 선택해주세요.");
      } else {
-      alert("c_idx = " + value);
       location.href = "/taksong/carAddr?c_idx=" + value;
      }
     };

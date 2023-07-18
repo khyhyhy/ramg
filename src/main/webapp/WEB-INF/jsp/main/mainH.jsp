@@ -86,7 +86,7 @@
           <li><a class="dropdown-item" href="/car_list">차량 관리</a></li>
           <li><a class="dropdown-item" href="/my_question">나의 문의</a></li>
           <c:if test="${sessionScope.mvo.m_class eq 1}">
-           <li><a class="dropdown-item" href="/mypage/serviceadd/">서비스 등록</a></li>
+           <li><a class="dropdown-item" href="/mypage/serviceadd/">서비스 관리</a></li>
            <li><a class="dropdown-item" href="/mypage/service/">고객 서비스 신청 현황</a></li>
            <li><a class="dropdown-item" href="/my_review">이용자의 리뷰</a></li>
           </c:if>

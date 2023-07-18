@@ -24,20 +24,50 @@
    <main>
 
 
-    <div>
-     <h1>현재위치끼얏호우</h1>
-    </div>
-    <div id="map" style="width:100%;height:350px;"></div>
+    <div class="container-xxl mt-4">
+     <div class="row">
+      <h1 style="margin-bottom: 15px;"> 현재 위치 검색</h1>
+     </div>
+     <div class="row" style="margin-bottom: 25px;">
+      <!-- row 1 (total : 12) -->
+      <div class="col-12">
 
-    <p id="result"></p>
-    <form action="/taksong/select/">
-     <button type="submit">다음 화면</button>
-     <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" />
-     <input type="hidden" id="lat1" name="nowlat" />
-     <input type="hidden" id="lng1" name="nowlng" />
-     <input type="hidden" id="state" name="nowstate" />
-     <input type="hidden" id="city" name="nowcity" />
-    </form>
+       <div class="p-2 mb-4 bg-body-tertiary rounded-3" style="background-color: rgb(158, 157, 152);">
+        <div id="map" style="height:600px; width: 100%;"></div>
+       </div>
+      </div>
+
+      <div class="row">
+       <div class="col-4">
+
+        <form method="post" action="/t_search/">
+         <input type="text" id="addr" name="addr" class="form-control" style="width: 325px; display: inline-block;"
+          placeholder="주소 입력" />
+         <button type="submit" style="color: white;" class="btn btn-info">검색</button>
+        </form>
+
+       </div>
+       <div class="col-8">
+
+        <div style="text-align: right;">
+         <p id="result" style="display: none;"></p>
+         <form action="/taksong/select/" style="display:inline;">
+
+          <button type="submit" class="btn btn-info" style="color: white; margin-right: 10px;">다음 화면</button>
+          <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" />
+          <input type="hidden" id="lat1" name="nowlat" />
+          <input type="hidden" id="lng1" name="nowlng" />
+          <input type="hidden" id="state" name="nowstate" />
+          <input type="hidden" id="city" name="nowcity" />
+         </form>
+         <button type="submit" class="btn btn-outline-info" style="border-width: 2px;"
+          onclick="location.href='/edongsik/'">돌아가기</button>
+        </div>
+       </div>
+
+      </div>
+     </div>
+    </div>
    </main>
    <!--////////// Main end //////////////-->
    <!--////////// Foter start //////////////-->
@@ -142,6 +172,77 @@
      geocoder.coord2RegionCode(latlng.getLng(), latlng.getLat(), callback);
 
     });
+
+
+    geocoder.addressSearch("'${addr}'", function (result, status) {
+
+
+
+     // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+
+
+      markerPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+
+      // 결과값으로 받은 위치를 마커로 표시합니다
+      marker
+
+
+
+      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+      map.setCenter(markerPosition);
+
+
+     }
+    });
+
+    // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+
+    kakao.maps.event.addListener(map, 'click', function (mouseEvent) {
+
+     // 클릭한 위도, 경도 정보를 가져옵니다 
+     var latlng = mouseEvent.latLng;
+
+     var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+     message += '경도는 ' + latlng.getLng() + ' 입니다';
+
+     var resultDiv = document.getElementById('result');
+     resultDiv.innerHTML = message;
+
+     markerPosition = new kakao.maps.LatLng(latlng.getLat(), latlng.getLng());
+
+     marker
+
+
+     map.setCenter(markerPosition);
+
+
+    });
+    // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+    var callback = function (result, status) {
+     if (status === kakao.maps.services.Status.OK) {
+
+      console.log(kakao.maps.services.Status.OK)
+      console.log(result);
+      console.log('전체 지역 명은' + result[0].address_name + '입니다');
+      console.log('도 명은 ' + result[0].region_1depth_name + ' 입니다');
+      console.log('구 명은 ' + result[0].region_2depth_name + ' 입니다');
+      document.getElementById("state").value = result[0].region_1depth_name;
+      console.log('행정구역 코드 : ' + result[0].code);
+
+
+
+      const regex = /(\S+[시군])/;
+      const resultt = regex.exec(result[0].address_name);
+
+      const city = result[0].region_2depth_name;
+      document.getElementById("city").value = city
+     }
+
+    };
+
 
    </script>
 

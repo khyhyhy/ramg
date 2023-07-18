@@ -145,8 +145,6 @@
             <div class="row d-flex">
                 <div class="col-md-2" style="background-color: #8b8b8b; height:900px;" >
                     <div class="list-group-item py-5" style="color: #fff; font-size: x-large;">내 주변 가까운 충전소</div>
-                    <input type="button" onclick="test1()" value="test1"/>
-                    <input type="button" onclick="test2()" value="test2"/>
                     <div class="rounded p-2 mb-2" style="background-color: #eee;">
                         <div class="container max-width mt-3 mb-4">
                             <button class="custom-btn btn-3 fff" ><span>1km</span></button>

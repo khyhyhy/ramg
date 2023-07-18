@@ -230,7 +230,8 @@
        <div>
         <button type="button" id="sujung1" class="btn btn-primary" onclick="sujung()">수정하기</button>
         <button type="submit" id="sujung2" style="display: none;" class="btn btn-primary">수정완료</button>
-        <button type="button" id="cancel1" class="btn btn-secondary">뒤로가기</button>
+        <button type="button" id="cancel1" class="btn btn-secondary"
+         onclick="location.href='/mypage/serviceadd/'">뒤로가기</button>
         <button type="button" id="cancel2" style="display: none;" class="btn btn-secondary"
          onclick="sujungcan()">취소</button>
        </div>
@@ -299,7 +300,8 @@
        <div>
         <button type="button" id="esujung1" class="btn btn-primary" onclick="esujung()">수정하기</button>
         <button type="submit" id="esujung2" style="display: none;" class="btn btn-primary">수정완료</button>
-        <button type="button" id="ecancel1" class="btn btn-secondary">뒤로가기</button>
+        <button type="button" id="ecancel1" class="btn btn-secondary"
+         onclick="location.href='/mypage/serviceadd/'">뒤로가기</button>
         <button type="button" id="ecancel2" style="display: none;" class="btn btn-secondary"
          onclick="esujungcan()">취소</button>
        </div>
@@ -323,6 +325,9 @@
    let geocoder;
    let geocoder2;
 
+   $("#e_car").ready(function () {
+    exe();
+   });
    function servicewan(form) {
     let status = form.su_status.value;;
     if (status == "7") {

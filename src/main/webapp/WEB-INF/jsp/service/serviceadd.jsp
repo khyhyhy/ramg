@@ -158,7 +158,7 @@
            <br />
            <div class="input-group mb-3">
             <span class="input-group-text" id="t_radius">서비스 가능 범위</span>
-            <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
+            <input type="text" id="t_radius2" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
            </div>
            <div class="input-group mb-3">
             <span class="input-group-text" id="t_price">서비스 비용 설정</span>
@@ -176,7 +176,7 @@
          </div>
          <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-          <button type="submit" class="btn btn-primary">등록</button>
+          <button type="button" class="btn btn-primary" onclick="javascript:taksubmit(this.form)">등록</button>
          </div>
         </div>
        </div>
@@ -228,7 +228,7 @@
             onclick="esearch(this)">
            <div class="input-group mb-3">
             <span class="input-group-text" id="e_radius">서비스 가능 범위</span>
-            <input type="text" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
+            <input type="text" id="e_radius2" name="s_radius" class="form-control" placeholder="m단위 ex)1000m">
            </div>
            <div class="input-group mb-3">
             <span class="input-group-text">서비스 비용 설정</span>
@@ -251,7 +251,7 @@
         </div>
         <div class="modal-footer">
          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-         <button type="submit" class="btn btn-primary">등록</button>
+         <button type="button" class="btn btn-primary" onclick="edongsubmit(form)">등록</button>
         </div>
        </div>
       </div>
@@ -280,6 +280,39 @@
     let map1;
     let geocoder;
     let geocoder2;
+
+    function taksubmit(form) {
+     let ts = $("#t_state").val().trim();
+     let tc = $("#t_city").val().trim();
+     if (ts.length < 1 || tc.length < 1) {
+      alert("위치를 선택해주세요.");
+      return;
+     }
+     let tr = $("#t_radius2").val().trim();
+     if (tr.length < 1) {
+      alert("서비스 범위를 지정해주세요.");
+      document.getElementById("t_radius2").focus();
+      return;
+     }
+     form.submit();
+    }
+
+    function edongsubmit(form) {
+     let ea = $("#e_addr").val().trim();
+     if (ea.length < 1) {
+      alert("차량을 선택해주세요.");
+      return;
+     }
+     let er = $("#e_radius2").val().trim();
+     if (er.length < 1) {
+      alert("서비스 범위를 지정해주세요.");
+      document.getElementById("e_radius2").focus();
+      return;
+     }
+     form.submit();
+    }
+
+
 
     function exe() {
      let addr = $("#e_car").find("option:selected").data('addr');
