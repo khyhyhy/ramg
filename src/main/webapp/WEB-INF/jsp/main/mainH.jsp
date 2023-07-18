@@ -19,14 +19,15 @@
     }
 
     #header3 {
-     font-size: 30px !important;
-     margin: 20px !important;
+     font-size: 20px !important;
+     padding: 15px 0px 0px 0px !important;
      position: fixed;
      top: 0;
      left: 0;
      right: 0;
      z-index: 9999;
      padding: 10px;
+     background-color: aliceblue;
     }
 
     body {
@@ -46,20 +47,20 @@
 
    <div class="container-fluid">
     <header id="header3" style="margin: 0.0rem!important;"
-     class="bg-info d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
-     <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
-      <svg class="bi me-2" width="50" height="35"><img style="width: 70px;" src="/images/logo3.png" />
-       <img src="/images/ramgelogo.png" /></svg>
+     class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
+     <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none" style="margin-right: 150px;">
+      <svg class="bi me-2" width="50" height="35"><img style="width: 50px;" src="/images/logo3.png" />
+       <img src="/images/ramgelogo.png" style="width: 200px;"/></svg>
       <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
      </a>
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-       <li>
-        <a href="#" class="header nav-link px-2 link-secondary text-white" onclick="conf()">충전소 찾기</a>
+       <li class="mx-5">
+        <a href="#" class="header nav-link px-4 link-secondary" onclick="conf()">충전소 찾기</a>
        </li>
        <c:if test="${sessionScope.mvo.m_class eq 0 || sessionScope.mvo.m_class eq null}">
-        <li>
-         <a href="#" class="header nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">충전
+        <li class="mx-5">
+         <a href="#" class="header nav-link px-4 link-secondary" data-bs-toggle="dropdown">충전
           서비스</a>
          <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/infoma/">서비스 소개</a></li>
@@ -69,8 +70,8 @@
          </ul>
         </li>
        </c:if>
-       <li>
-        <a href="#" class="header nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">고객센터</a>
+       <li class="mx-5">
+        <a href="#" class="header nav-link px-4 link-secondary" data-bs-toggle="dropdown">고객센터</a>
         <ul class="dropdown-menu">
          <li><a class="dropdown-item" href="/support/notice">공지사항</a></li>
          <li><a class="dropdown-item" href="/support/faq">자주하는 질문</a></li>
@@ -78,8 +79,8 @@
         </ul>
        </li>
        <c:if test="${sessionScope.mvo != null}">
-        <li>
-         <a href="#" class="header nav-link px-2 link-secondary text-white" data-bs-toggle="dropdown">마이
+        <li class="mx-5">
+         <a href="#" class="header nav-link px-4 link-secondary" data-bs-toggle="dropdown">마이
           페이지</a>
          <ul class="dropdown-menu">
           <li><a class="dropdown-item" href="/mypage">정보 관리</a></li>
@@ -100,15 +101,15 @@
      </div>
      <c:if test="${sessionScope.mvo eq null}">
       <div class="col-md-3 text-end">
-       <button id="loginButton" type="button" class="btn btn-primary bg-gradient"><a href="/login"
-         style="color: white !important; text-decoration: none !important;">Login</a></button>
+       <button id="loginButton" type="button" class="btn btn-light"><a href="/login"
+         style="color: rgb(37, 37, 37) !important; text-decoration: none !important;">로그인</a></button>
       </div>
      </c:if>
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
        ${sessionScope.mvo.m_name}님 환영합니다.<br>
-       <button id="logoutButton" type="button" class="btn"><a href="/logout"
-         style="color: white !important; text-decoration: none !important;">로그아웃</a></button>
+       <button id="logoutButton" type="button" class="btn btn-light"><a href="/logout"
+         style="color: rgb(37, 37, 37) !important; text-decoration: none !important;">로그아웃</a></button>
       </div>
      </c:if>
     </header>

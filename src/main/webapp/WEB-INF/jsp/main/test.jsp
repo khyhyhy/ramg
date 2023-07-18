@@ -85,15 +85,15 @@
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
                 </div>
-                <div class="carousel-inner justify-content-center d-grid" >
+                <div class="carousel-inner" >
                   <div class="carousel-item active" >
-                    <img style="object-fit: cover; width: 100%; height: auto;" src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/redicon.png" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img style="object-fit: cover; width: 100%; height: auto;" src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/redicon.png" class="d-block w-100" alt="...">
                   </div>
                   <div class="carousel-item">
-                    <img style="object-fit: cover; width: 100%; height: auto;"src="../images/cafe.png" class="d-block w-100" alt="...">
+                    <img style="object-fit: contain; width: 500px; height: 500px;"src="../images/redicon.png" class="d-block w-100" alt="...">
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -108,46 +108,71 @@
 
             </div>
             <div class="d-flex my-5 justify-content-center">
-              <div class="col-md-3 p-5 text-bg-dark rounded-3 " style="background-color: #222; color: #fff;">
-                <h2 style="font-size: 24px; font-weight: bold;">람쥐썬더 충전소 서비스 소개</h2>
-                <form id="introduceForm">
-                  <button style="float: right;" class="btn btn-outline-secondary" type="button" onclick="redirectToIntroduce()">더보기</button>
-                </form>
-              </div>
-              <div class="col-md-3 p-5 text-bg-dark rounded-3 ms-3 me-5" style="background-color: #222; color: #fff;">
-                <h2 style="font-size: 24px; font-weight: bold;">람쥐썬더 충전소 서비스 소개</h2>
-                <form id="introduceForm">
-                  <button style="float: right;" class="btn btn-outline-secondary" type="button" onclick="redirectToIntroduce()">더보기</button>
-                </form>
-              </div>
-              <div class="col-md-5 pb-3 px-3 text-bg-dark rounded-3" style="background-color: #222; color: #fff;">
-                <label for="notice" class="ml-auto btn btn-sm" style="float: right;"></label>
-                <table class="table" style="table-layout:fixed;">
+              <div class="col-md-5 p-5 px-3 rounded-3 ms-3 me-5" style="border:5px solid #59b9d1; color: #464646;">
+                <table class="table">
                   <colgroup>
                     <col width="*">
                     <col width="210px">
                   </colgroup>
                   <thead>
                     <tr >
-                      <th colspan="2" style="color: #eaeaea; font-size: x-large;">공지사항 <a href="/support/notice" style="float: right;">공지 더보기<i class="fa fa-arrow-circle-right ms-2" aria-hidden="true"></i></a></th>
-                      
+                      <th colspan="2" style="color: #4d4d4d; font-size: x-large;">공지사항 <a href="/support/notice" style="float: right;">공지 더보기<i class="fa fa-arrow-circle-right ms-2" aria-hidden="true"></i></a></th>
                     </tr>
                   </thead>
                   <tbody>
                     <c:forEach var="bvo" items="${b_ar}" varStatus="status">
                       <tr>
-                        <td  style="color:#eaeaea; text-overflow:ellipsis; 
-                          overflow:hidden; 
-                          white-space:nowrap;">
-                          <a style="color:#eaeaea!important;" href="/support/notice_view?b_idx=${bvo.b_idx}&cPage=1">
+                        <td>
+                          <a style="color:#4d4d4d!important;" href="/support/notice_view?b_idx=${bvo.b_idx}&cPage=1">
                             ${bvo.b_title}</a>
                         </td>
-                        <td style="text-align: right; color: #757575;">${bvo.bbslog.bl_date}</td>
+                        <td style="text-align: right; color: #4d4d4d;">${bvo.bbslog.bl_date}</td>
                       </tr>
                     </c:forEach>
                   </tbody>
                 </table>
               </div>
+              <div class="col-md-5 p-5 px-3 rounded-3" style="border:5px solid #59b9d1; color: #464646;">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th colspan="3" style="color: #4d4d4d; font-size: x-large;">전기차 충전요금</h2></td>
+                      </tr>
+                    </thead>
+                    <tr>
+                      <th>구분</th>
+                      <th>완속</th>
+                      <th>급속</th>
+                    </tr>
+                    <tr>
+                      <th>연비</th>
+                      <td>6.3km/kWh</td>
+                      <td>6.3km/kWh</td>
+                    </tr>
+                    <tr>
+                      <th>연료비</th>
+                      <td>200원/kWh</td>
+                      <td>292.9d원/kWh</td>
+                    </tr>
+                    <tr>
+                      <th>100km당 연료비</th>
+                      <td>3,175원</td>
+                      <td>4,650원</td>
+                    </tr>
+                    <tr>
+                      <th>연간 연료비</th>
+                      <td>44만원</td>
+                      <td>63.8만원</td>
+                    </tr>
+                  </table>
+              </div>
+              <!-- <div class="col-md-3 p-5 rounded-3 ms-3 me-5" style="border:5px solid #0DCAF0; color: #464646;">
+                <h2 style="font-size: 24px; font-weight: bold;">람쥐썬더 충전소 서비스 소개</h2>
+                <form id="introduceForm">
+                  <button style="float: right;" class="btn btn-outline-info" type="button" onclick="redirectToIntroduce()">더보기</button>
+                </form>
+              </div> -->
+              
             </div>
           </div><!--10-->
         </div>
