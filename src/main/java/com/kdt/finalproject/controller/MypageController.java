@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kdt.finalproject.service.LoginService;
 import com.kdt.finalproject.service.MypageService;
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
@@ -36,6 +37,9 @@ public class MypageController {
 
     @Autowired
     MypageService service;
+
+    @Autowired
+    private LoginService ls;
 
     @Autowired
     HttpSession session;
@@ -420,6 +424,41 @@ public class MypageController {
         map.put("res", cnt);
 
         return map;
+    }
+
+    @PostMapping("changePw")
+    public ModelAndView changePw(String pwd) {
+        ModelAndView mv = new ModelAndView();
+        System.out.println("DDDDDDD" + pwd);
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO vo = (MemVO) obj;
+            if (ls.check_current_pwd(vo, pwd)) {
+                mv.setViewName("mypage/editPw");
+                return mv;
+            }
+        }
+
+        mv.setViewName("mypage/updateMember");
+        return mv;
+    }
+
+    @PostMapping("changePWD")
+    @ResponseBody
+    public Map<String, Integer> changePWD(String pwd) {
+        ModelAndView mv = new ModelAndView();
+        int cnt = 0;
+        Object obj = session.getAttribute("mvo");
+        if (obj != null) {
+            MemVO vo = (MemVO) obj;
+
+            cnt = service.changePwd(vo.getM_idx(), pwd);
+        }
+
+        Map<String, Integer> map2 = new HashMap<>();
+        map2.put("res", cnt);
+
+        return map2;
     }
 
 }

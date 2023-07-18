@@ -97,4 +97,17 @@ public class LoginService {
         return l_Mapper.check_phone(m_phone);
     }
 
+    // 비밀번호 변경 전, 현재비밀번호 검증
+    public boolean check_current_pwd(MemVO vo, String pwd) { // 객체 안에 m_email, m_name, m_pw있음.
+        boolean value = false;
+
+        if (vo != null) {
+            if (passwordEncoder.matches(pwd, vo.getM_pw())) {
+                value = true;
+            }
+        }
+
+        return value;
+    }
+
 }

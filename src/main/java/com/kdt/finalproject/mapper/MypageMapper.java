@@ -1,6 +1,7 @@
 package com.kdt.finalproject.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.kdt.finalproject.vo.BbsVO;
 import com.kdt.finalproject.vo.BbslogVO;
@@ -48,5 +49,7 @@ public interface MypageMapper {
     List<ModelVO> getModelList();
 
     List<BbsVO> biz_review_list(String m_idx);
+
+    int changePwd(Map<String, String> map);
 
 }
