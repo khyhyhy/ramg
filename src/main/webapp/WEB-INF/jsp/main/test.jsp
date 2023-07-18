@@ -193,12 +193,12 @@
            alt="...">
          </div>
          <div class="carousel-item">
-          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/redicon.png"
-           class="d-block w-100" alt="...">
+          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card2.png" class="d-block w-100"
+           alt="...">
          </div>
          <div class="carousel-item">
-          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/redicon.png"
-           class="d-block w-100" alt="...">
+          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card3.png" class="d-block w-100"
+           alt="...">
          </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -238,8 +238,8 @@
           </c:forEach>
          </tbody>
         </table>
-        <a href="/support/notice"
-            style="float: right; font-size: large;">공지 더보기<i class="fa fa-arrow-circle-right ms-2" aria-hidden="true"></i></a>
+        <a href="/support/notice" style="float: right; font-size: large;">공지 더보기<i class="fa fa-arrow-circle-right ms-2"
+          aria-hidden="true"></i></a>
        </div>
        <div class="col-md-5 p-5 px-3 rounded-3" style="border:5px solid #acd2dd; color: #464646;">
         <table class="table">

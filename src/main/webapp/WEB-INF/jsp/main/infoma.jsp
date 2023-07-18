@@ -44,7 +44,7 @@
      <div class="container text-center">
       <div class="row row-cols-2">
        <div class="col" style="padding: 0;">
-        <img src="../images/car_tak2.png" alt="충전소 이미지" class="img-fluid">
+        <img src="../images/car_tak.png" alt="충전소 이미지" class="img-fluid">
        </div>
        <div class="col" style="background-color: #848CB5;">
         <h3 class="mt-5" style="text-align: left;">탁송 서비스</h3>
