@@ -38,11 +38,11 @@
     <tbody>
         <tr>
             <th><label for="pwd">변경할 비밀번호</label></th>
-            <td><input type="password" id="pwd" name="pwd" /></td>
+            <td><input type="password" id="pwd" name="pwd" placeholder="최소 8자이상, 영문자 1글자, 숫자1개를 입력해주세요."/></td>
         </tr>
         <tr>
             <th><label for="pwd2">재입력 비밀번호</label></th>
-            <td><input type="password" id="pwd2" name="pwd2" /></td>
+            <td><input type="password" id="pwd2" name="pwd2" placeholder="변경할 비밀번호를 입력해주세요."/></td>
         </tr>
         <tr>
             <td colspan="2">

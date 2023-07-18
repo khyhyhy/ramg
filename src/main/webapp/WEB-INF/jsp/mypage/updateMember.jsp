@@ -73,7 +73,7 @@
     <form method="post" action="changePw">
         <p>현재 비밀번호</p>
         <input type="password" name="pwd"/><br/>
-        <button type="button" class="btn btn-success" onclick="changePwd(this.form)">비밀번호 변경</button>
+        <button type="button" class="btn btn-success" placeholder="현재 비밀번호를 입력하세요" onclick="changePwd(this.form)">비밀번호 변경</button>
     </form>
     </div>
    <jsp:include page="../main/mainF.jsp"></jsp:include>
