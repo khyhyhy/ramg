@@ -1,9 +1,11 @@
 package com.kdt.finalproject.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.kdt.finalproject.mapper.MypageMapper;
@@ -19,6 +21,9 @@ import com.kdt.finalproject.vo.SuseVO;
 public class MypageService {
     @Autowired
     MypageMapper mapper;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public List<CwriteVO> search_cw_list(String m_idx) {
         return mapper.search_cw_list(m_idx);
@@ -94,5 +99,12 @@ public class MypageService {
 
     public List<BbsVO> biz_review_list(String m_idx) {
         return mapper.biz_review_list(m_idx);
+    }
+
+    public int changePwd(String m_idx, String pwd) {
+        Map<String, String> map = new HashMap<>();
+        map.put("m_idx", m_idx);
+        map.put("pwd", passwordEncoder.encode(pwd));
+        return mapper.changePwd(map);
     }
 }

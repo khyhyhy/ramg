@@ -10,6 +10,7 @@
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <link href="../../../css/ramg.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
    <style>
    
     table{
@@ -23,6 +24,9 @@
     }
     article{
         margin-bottom: 1cm;
+    }
+    #dialog{
+        display: none;
     }
    </style>
   </head>
@@ -53,30 +57,42 @@
             <td>     
                 <input type="text" id="m_phone"  name="m_phone" value="${mvo.m_phone}" disabled/>
             </td>
-
-                    
-
-
-
         </tr>
         <tr>
             <td colspan="2">
                 <button type="button" id="btn" class="btn btn-success">변경하기</button>
                 <button type="button" class="btn btn-success" onclick="javascript:location.href='mypage'">돌아가기</button>
+                <button type="button" class="btn btn-success" id="changePw">비밀번호 변경</button>
             </td>
         </tr>
     </tbody>
    </table>
 
    </div>
-
+   <div id="dialog" title="비밀번호 변경">
+    <form method="post" action="changePw">
+        <p>현재 비밀번호</p>
+        <input type="password" name="pwd"/><br/>
+        <button type="button" class="btn btn-success" onclick="changePwd(this.form)">비밀번호 변경</button>
+    </form>
+    </div>
    <jsp:include page="../main/mainF.jsp"></jsp:include>
     
 
    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+   
    <script>
-
     $(function(){
+
+        $('#changePw').click(function(){
+
+            
+            $( "#dialog" ).dialog();
+
+
+        });
+        
 
         //중복체크 버튼 눌렀을때 수행
         $('#updatePhone').click(function(){
@@ -97,7 +113,8 @@
 
             // 사용자가 입력한 값들 모두 가져오기
             let name = $("#m_name").val();
-            let phone = $("#m_phone").val();
+            //let phone = $("#m_phone").val();
+            let pw = $("#m_pw").val();
             //let address = $("#m_address").val();
             //let payment = $("#m_payment").val();
 
@@ -110,7 +127,6 @@
                 return;
             }else
                 param += "m_name="+encodeURIComponent(name);
-
             if(phone.trim().length == 0){
                 alert("연락처를 입력하세요");
                 $("#m_phone").focus();
@@ -142,6 +158,16 @@
 
         });
     });
+
+    function changePwd(frm){
+        let pw = frm.pwd.value;
+        if(pw.trim().length < 1){
+            alert("현재 비밀번호를 입력하세요");
+            frm.pwd.focus();
+            return;
+        }
+        frm.submit();// 서버로 현재 비밀번호 보내기
+    }
    </script>
 
   </body>

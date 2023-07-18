@@ -180,6 +180,15 @@
       WHERE b_idx = #{b_idx}
     </update>
 
+    <update id="changePwd" parameterType="Map">
+      UPDATE member_t
+      SET     
+        m_pw = #{pwd}
+      WHERE m_idx = #{m_idx}
+    </update>
+
+  
+
   
 
   <insert id="updateReviewlog" parameterType="com.kdt.finalproject.vo.BbslogVO">
@@ -197,9 +206,6 @@
             <if test="m_phone != null">
               m_phone = #{m_phone},
             </if>
-            <!--<if test="m_address != null">
-              m_address = #{m_address},
-            </if>-->
             <if test="m_atoken != null">
               m_atoken = #{m_atoken},
             </if>
