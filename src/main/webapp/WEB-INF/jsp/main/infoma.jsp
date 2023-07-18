@@ -33,8 +33,8 @@
    <!--////////// Header end ////////////-->
    <!--////////// Main start //////////////-->
    <main>
-    <div class="container mt-1">
-     <h2 class="font-weight-bold text-center mb-4">람쥐썬더 충전소 서비스 소개</h2>
+    <div class="container ">
+     <h2 class="font-weight-bold text-center mt-5 mb-4">람쥐썬더 충전소 서비스 소개</h2>
      <div class="text-container">
       <p class="font-size-16" style="text-align: center;">
        람쥐썬더 충전소는 고객의 편의성을 높이기 위해 탁송 서비스와 이동식 서비스를 제공합니다. 이를 통해 고객은 원하는 위치에서 충전할 수 있으며, 이동이 필요한 경우에도 편리하게 충전 서비스를 이용할 수
