@@ -216,7 +216,7 @@
            <!-- 지도 -->
            <div>
             <button id="map2col" style="display: none;" class="btn btn-primary" type="button" data-bs-toggle="collapse"
-             data-bs-target="#mapcol" onclick="map2reload()">
+             data-bs-target="#mapcol" onclick="map2reload()" readonly>
             </button>
            </div>
            <div class="collapse collapse-horizontal" id="mapcol">

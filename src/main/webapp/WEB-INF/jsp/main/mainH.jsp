@@ -48,7 +48,7 @@
     <header id="header3" style="margin: 0.0rem!important;"
      class="bg-info d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none">
-      <svg class="bi me-2" width="50" height="35"><img src="/images/ramgi_logo.png" />
+      <svg class="bi me-2" width="50" height="35"><img style="width: 70px;" src="/images/logo3.png" />
        <img src="/images/ramgelogo.png" /></svg>
       <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
      </a>

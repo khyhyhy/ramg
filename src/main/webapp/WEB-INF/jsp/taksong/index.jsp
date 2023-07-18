@@ -7,8 +7,16 @@
    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Insert title here</title>
+   <!-- <link href="../../../css/common.css" rel="stylesheet"> -->
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+   <style>
+    .bg-image {
+     background-image: url("/images/background.png");
+     background-repeat: no-repeat;
+     background-size: cover;
+    }
+   </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -24,108 +32,110 @@
 
    <!--////////// Main start //////////////-->
    <main>
-    <p>"${sessionScope.mvo.m_idx}"</p>
-    <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
-    <div class="row">
-     <!-- row 1 (total : 12) -->
-     <div class="col-3">
+    <div class="container">
+     <p>"${sessionScope.mvo.m_idx}"</p>
+     <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
+     <div class="row">
+      <!-- row 1 (total : 12) -->
+      <div class="col-3">
 
-     </div>
-     <div class="col-6">
-      <div style="text-align: center; margin-top: 70px; font-size: 35px;">
-       탁송 충전 서비스
-       <c:if test="${sessionScope.mvo ne null}">
-        <button type="button" onclick="location.href='/e_nowOrder/'"
-         style="margin-left: 20px; margin-right: 10px; border-width: 2px;" class="btn btn-outline-info">현재상황</button>
-       </c:if>
-
-       <c:if test="${sessionScope.mvo eq null}">
-        <button type="button " style="margin-left: 20px; margin-right: 10px; border-width: 2px;"
-         data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="로그인이 필요합니다"
-         class="btn btn-outline-info">현재상황</button>
-       </c:if>
-
-       <c:if test="${sessionScope.mvo ne null}">
-        <c:if test="${sessionScope.mvo ne null}">
-         <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info"
-          style="border-width: 2px;">이용내역</button>
-        </c:if>
-       </c:if>
-
-       <c:if test="${sessionScope.mvo eq null}">
-        <button type="button " data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
-         data-bs-content="로그인이 필요합니다" class="btn btn-outline-info" style="border-width: 2px;">이용내역
-        </button>
-       </c:if>
       </div>
+      <div class="col-6">
+       <div style="text-align: center; margin-top: 70px; font-size: 35px;">
+        탁송 충전 서비스
+        <c:if test="${sessionScope.mvo ne null}">
+         <button type="button" onclick="location.href='/e_nowOrder/'"
+          style="margin-left: 20px; margin-right: 10px; border-width: 2px;" class="btn btn-outline-info">현재상황</button>
+        </c:if>
 
+        <c:if test="${sessionScope.mvo eq null}">
+         <button type="button " style="margin-left: 20px; margin-right: 10px; border-width: 2px;"
+          data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom" data-bs-content="로그인이 필요합니다"
+          class="btn btn-outline-info">현재상황</button>
+        </c:if>
 
-      <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
-
-       <div class="card" style="width: 18rem; ">
-        <img src="/images/map_icon.png" class="card-img-top" alt="...">
-        <div class="card-body">
-         <h5 class="card-title">현재 위치 검색</h5>
-         <p class="card-text"></p>
+        <c:if test="${sessionScope.mvo ne null}">
          <c:if test="${sessionScope.mvo ne null}">
-          <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
-           onclick="conf()">검색</button>
+          <button type="button" onclick="location.href='/e_orderList/'" class="btn btn-outline-info"
+           style="border-width: 2px;">이용내역</button>
          </c:if>
-         <c:if test="${sessionScope.mvo eq null}">
-          <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
-           data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
-           data-bs-content="로그인이 필요합니다">검색</button>
-         </c:if>
-        </div>
+        </c:if>
+
+        <c:if test="${sessionScope.mvo eq null}">
+         <button type="button " data-bs-container="body" data-bs-toggle="popover" data-bs-placement="bottom"
+          data-bs-content="로그인이 필요합니다" class="btn btn-outline-info" style="border-width: 2px;">이용내역
+         </button>
+        </c:if>
        </div>
 
 
-       <div class="card" style="width: 18rem; margin-left: 150px;">
-        <img src="/images/car_icon.png" class="card-img-top" alt="...">
-        <div class="card-body">
-         <h5 class="card-title">차량 등록 주소</h5>
-         <p class="card-text"></p>
-         <c:if test="${sessionScope.mvo ne null}">
-          <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-           style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
-         </c:if>
-         <c:if test="${sessionScope.mvo eq null}">
-          <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
-           data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
-           data-bs-content="로그인이 필요합니다">검색</button>
-         </c:if>
+       <div style="display: flex; justify-content: center; align-items: center; min-height: 70vh;">
+
+        <div class="card" style="width: 18rem; ">
+         <img src="/images/locationcard.png" class="card-img-top" alt="...">
+         <div class="card-body">
+          <h5 class="card-title">현재 위치 검색</h5>
+          <p class="card-text"></p>
+          <c:if test="${sessionScope.mvo ne null}">
+           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+            onclick="conf()">검색</button>
+          </c:if>
+          <c:if test="${sessionScope.mvo eq null}">
+           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+            data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+            data-bs-content="로그인이 필요합니다">검색</button>
+          </c:if>
+         </div>
         </div>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-           <div class="modal-header" style="background-color: #0DCAF0;">
-            <h5 class="modal-title" id="exampleModalLabel" style="color: white;">차량 선택</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-           </div>
 
-           <div class="modal-body">
-            <select id="selectCar" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-             <option disabled selected value="">차량 선택</option>
-             <c:forEach items="${mvo.cw_list}" var="cwVO">
-              <option value="${cwVO.cvo.c_idx}">${cwVO.cvo.c_name}</option>
-             </c:forEach>
-            </select>
-           </div>
 
-           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-            <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;"
-             onclick="selectC()">선택 확인</button>
+        <div class="card" style="width: 18rem; margin-left: 150px;">
+         <img src="/images/car_icon.png" class="card-img-top" alt="...">
+         <div class="card-body">
+          <h5 class="card-title">차량 등록 주소</h5>
+          <p class="card-text"></p>
+          <c:if test="${sessionScope.mvo ne null}">
+           <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
+          </c:if>
+          <c:if test="${sessionScope.mvo eq null}">
+           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
+            data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+            data-bs-content="로그인이 필요합니다">검색</button>
+          </c:if>
+         </div>
+         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+           <div class="modal-content">
+            <div class="modal-header" style="background-color: #0DCAF0;">
+             <h5 class="modal-title" id="exampleModalLabel" style="color: white;">차량 선택</h5>
+             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+             <select id="selectCar" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+              <option disabled selected value="">차량 선택</option>
+              <c:forEach items="${mvo.cw_list}" var="cwVO">
+               <option value="${cwVO.cvo.c_idx}">${cwVO.cvo.c_name}</option>
+              </c:forEach>
+             </select>
+            </div>
+
+            <div class="modal-footer">
+             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+             <button type="button" class="btn btn-primary" style="background-color: #0DCAF0; border-color: #0DCAF0;"
+              onclick="selectC()">선택 확인</button>
+            </div>
            </div>
           </div>
          </div>
         </div>
        </div>
+       <form action="/taksong/local" method="get">
+        <input type="hidden" id="lat1" name="lat" />
+        <input type="hidden" id="lng1" name="lng" />
+       </form>
       </div>
-      <form action="/taksong/local" method="get">
-       <input type="hidden" id="lat1" name="lat" />
-       <input type="hidden" id="lng1" name="lng" />
-      </form>
    </main>
    <!--////////// Main end //////////////-->
    <!--////////// Foter start //////////////-->
