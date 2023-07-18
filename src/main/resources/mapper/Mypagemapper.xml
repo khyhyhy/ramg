@@ -67,7 +67,7 @@
   <select id="search_bl_list" resultMap="map2" parameterType="String">
     SELECT * FROM bbslog
         WHERE m_idx = #{m_idx} and b_idx IN (select b_idx from bbs_t
-  where b_type = 2)
+  where b_type = 2 and b_status = 0)
   ORDER BY bl_date DESC;
   </select>
 
