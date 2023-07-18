@@ -23,7 +23,7 @@ SELECT * FROM (
                 m_class = 2
               </when>
               <when test="m_class == 3">
-                m_class = 0 OR m_class = 1 OR m_class = 2
+                (m_class = 0 OR m_class = 1 OR m_class = 2)
               </when>
             </choose>
           </if>
@@ -61,7 +61,7 @@ SELECT COUNT(*) FROM charging.member_t
         m_class = 2
       </when>
       <when test="m_class == 3">
-        m_class = 0 OR m_class = 1 OR m_class = 2
+        (m_class = 0 OR m_class = 1 OR m_class = 2)
       </when>
     </choose>
   </if>
