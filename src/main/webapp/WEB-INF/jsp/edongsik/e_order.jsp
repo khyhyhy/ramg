@@ -116,13 +116,13 @@
         <c:choose>
          <c:when test="${suvo.su_status == 2}">
           <div class="col">
-           <img src="/images/su_status22.png" />
+           <img src="/images/icon9.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전지 이동중</label>
           </div>
          </c:when>
          <c:otherwise>
           <div class="col">
-           <img src="/images/su_status2.png" />
+           <img src="/images/icon9_none.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전지 이동중</label>
           </div>
          </c:otherwise>
@@ -130,13 +130,13 @@
         <c:choose>
          <c:when test="${suvo.su_status == 3}">
           <div class="col">
-           <img src="/images/su_status33.png" />
+           <img src="/images/icon10.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전지 도착</label>
           </div>
          </c:when>
          <c:otherwise>
           <div class="col">
-           <img src="/images/su_status3.png" />
+           <img src="/images/icon10_none.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전지 도착</label>
           </div>
          </c:otherwise>
@@ -144,13 +144,13 @@
         <c:choose>
          <c:when test="${suvo.su_status == 4}">
           <div class="col">
-           <img src="/images/su_status44.png" />
+           <img src="/images/icon11.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전중</label>
           </div>
          </c:when>
          <c:otherwise>
           <div class="col">
-           <img src="/images/su_status4.png" />
+           <img src="/images/icon11_none.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전중</label>
           </div>
          </c:otherwise>
@@ -158,13 +158,13 @@
         <c:choose>
          <c:when test="${suvo.su_status == 7}">
           <div class="col">
-           <img src="/images/su_status55.png" />
+           <img src="/images/icon8.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전완료</label>
           </div>
          </c:when>
          <c:otherwise>
           <div class="col">
-           <img src="/images/su_status5.png" />
+           <img src="/images/icon8_none.png" style="width: 140px; height: 140px;" />
            <label style="display: flex; justify-content: center;">충전완료</label>
           </div>
          </c:otherwise>
@@ -260,13 +260,13 @@
          <c:choose>
           <c:when test="${suvo.su_status == 5}">
            <div class="col">
-            <img src="/images/su_status55.png" />
+            <img src="/images/icon6.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">충전중</label>
            </div>
           </c:when>
           <c:otherwise>
            <div class="col">
-            <img src="/images/su_status5.png" />
+            <img src="/images/icon6_none.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">충전중</label>
            </div>
           </c:otherwise>
@@ -274,13 +274,13 @@
          <c:choose>
           <c:when test="${suvo.su_status == 6}">
            <div class="col">
-            <img src="/images/su_status55.png" />
+            <img src="/images/icon7.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">도착지 이동중</label>
            </div>
           </c:when>
           <c:otherwise>
            <div class="col">
-            <img src="/images/su_status5.png" />
+            <img src="/images/icon7_none.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">도착지 이동중</label>
            </div>
           </c:otherwise>
@@ -288,13 +288,13 @@
          <c:choose>
           <c:when test="${suvo.su_status == 7}">
            <div class="col">
-            <img src="/images/su_status55.png" />
+            <img src="/images/icon8.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">도착완료</label>
            </div>
           </c:when>
           <c:otherwise>
            <div class="col">
-            <img src="/images/su_status5.png" />
+            <img src="/images/icon8_none.png" style="width: 140px; height: 140px;" />
             <label style="display: flex; justify-content: center;">도착완료</label>
            </div>
           </c:otherwise>
