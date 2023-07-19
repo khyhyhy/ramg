@@ -138,10 +138,10 @@
        </div>
        <div class="row">
         <div class="col">
-         <c:if test="${fn:length(servicear) ne 0}">
-          <button type="button" class="btn btn-primary btn-lg" onclick="taksubmit(this.form)">서비스
-           신청하기</button>
-         </c:if>
+         <!-- <c:if test="${fn:length(servicear) ne 0}"> -->
+         <button type="button" class="btn btn-primary btn-lg" onclick="taksubmit(this.form)">서비스
+          신청하기</button>
+         <!-- </c:if> -->
          <button type="button" class="btn btn-secondary btn-lg" onclick="location.href='/taksong/'">돌아가기</button>
         </div>
        </div>
@@ -164,21 +164,7 @@
     var f_price;
 
     function taksubmit(form) {
-     let c_info = $("#c_idx").val().trim();
-     let s_info = $("#s_s_idx").val().trim();
-     let accontnum = $("#tongtext").val().trim();
-     if (c_info.length < 1) {
-      alert("서비스 받으실 차량을 선택해주세요.");
-      return;
-     }
-     if (s_info.length < 1) {
-      alert("서비스를 선택해주세요.");
-      return;
-     }
-     if (chargeprice < 1 || chargeprice == null) {
-      alert("충전량을 선택해주세요.");
-      return;
-     }
+
      form.submit();
     }
 

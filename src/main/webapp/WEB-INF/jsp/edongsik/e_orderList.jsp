@@ -316,7 +316,7 @@
 
         // 선택된 값을 출력합니다.
        
-        alert("su_idx :"+su_idx);
+        //alert("su_idx :"+su_idx);
         //alert("reviewContent :"+reviewContent);
         //alert("selectedValue :"+selectedValue);
 		

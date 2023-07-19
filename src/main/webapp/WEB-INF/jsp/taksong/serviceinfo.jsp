@@ -28,7 +28,6 @@
     <!--////////// Main start //////////////-->
     <div class="container">
      <main>
-      <p>"${mvo.m_idx}"</p>
       <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
 
       <div style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 50px;">
@@ -53,14 +52,16 @@
           <c:if test="${cvo eq null}">
            <div class="list-group">
             <c:forEach items="${mvo.cw_list}" var="vo" varStatus="status">
-             <fieldset onclick="carinfo(this)">
-              <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
-              <label class="btn btn-outline-secondary list-group-item list-group-item-action"
-               for="car${status.index}">${vo.cvo.c_name}&nbsp;/&nbsp;${vo.cvo.movo.mo_name}</label>
-              <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
-              <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.movo.mo_bet} />
-             </fieldset>
-             <br />
+             <c:if test="${vo.cw_state ne 1}">
+              <fieldset onclick="carinfo(this)">
+               <input type="radio" class="btn-check" name="car" id='car${status.index}' autocomplete="off" />
+               <label class="btn btn-outline-secondary list-group-item list-group-item-action"
+                for="car${status.index}">${vo.cvo.c_name}&nbsp;/&nbsp;${vo.cvo.movo.mo_name}</label>
+               <input type="hidden" name="c_idx" value=${vo.cvo.c_idx} />
+               <input type="hidden" id="tank" name="c_val3" value=${vo.cvo.movo.mo_bet} />
+              </fieldset>
+              <br />
+             </c:if>
             </c:forEach>
            </div>
           </c:if>
@@ -190,21 +191,7 @@
      var f_price;
 
      function taksubmit(form) {
-      let c_info = $("#s_c_idx").val().trim();
-      let s_info = $("#s_s_idx").val().trim();
-      let accontnum = $("#tongtext").val().trim();
-      if (c_info.length < 1) {
-       alert("서비스 받으실 차량을 선택해주세요.");
-       return;
-      }
-      if (s_info.length < 1) {
-       alert("서비스를 선택해주세요.");
-       return;
-      }
-      if (chargeprice < 1 || chargeprice == null) {
-       alert("충전량을 선택해주세요.");
-       return;
-      }
+
       form.submit();
      }
 

@@ -77,8 +77,8 @@
           <h5 class="card-title">현재 위치 검색</h5>
           <p class="card-text"></p>
           <c:if test="${sessionScope.mvo ne null}">
-           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
-            onclick="conf()">검색</button>
+           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0; color:white;"
+            class="btn btn-primary" onclick="conf()">검색</button>
           </c:if>
           <c:if test="${sessionScope.mvo eq null}">
            <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
@@ -95,12 +95,12 @@
           <h5 class="card-title">차량 등록 주소</h5>
           <p class="card-text"></p>
           <c:if test="${sessionScope.mvo ne null}">
-           <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-            style="background-color: #0DCAF0; border-color: #0DCAF0;">검색</a>
+           <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            style="color: white;">검색</button>
           </c:if>
           <c:if test="${sessionScope.mvo eq null}">
-           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0;" class="btn btn-primary"
-            data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
+           <button type="button " style="background-color: #0DCAF0; border-color: #0DCAF0; color:white;"
+            class="btn btn-primary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right"
             data-bs-content="로그인이 필요합니다">검색</button>
           </c:if>
          </div>
