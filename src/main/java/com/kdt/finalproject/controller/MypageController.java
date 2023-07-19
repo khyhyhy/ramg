@@ -82,7 +82,7 @@ public class MypageController {
     }
 
     @GetMapping("my_review")
-    public ModelAndView search_r(String m_idx) {
+    public ModelAndView search_r(String m_idx, String s_idx) {
         ModelAndView mv = new ModelAndView();
         if (m_idx == null) {
             // 로그인한 회원의 m_idx를 얻어내자
@@ -91,7 +91,12 @@ public class MypageController {
             if (obj != null) {
                 MemVO mvo = (MemVO) obj;
                 m_idx = mvo.getM_idx();
-                List<BbsVO> ar = service.biz_review_list(m_idx);
+                List<BbsVO> ar = null;
+                if (s_idx == null)
+                    ar = service.biz_review_list(m_idx);
+                else
+                    ar = service.member_review_list(m_idx, s_idx);
+
                 mv.addObject("ar", ar);
             }
         }

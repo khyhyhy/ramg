@@ -107,4 +107,11 @@ public class MypageService {
         map.put("pwd", passwordEncoder.encode(pwd));
         return mapper.changePwd(map);
     }
+
+    public List<BbsVO> member_review_list(String m_idx, String s_idx) {
+        Map<String, String> map = new HashMap<>();
+        map.put("m_idx", m_idx);
+        map.put("s_idx", s_idx);
+        return mapper.member_review_list(map);
+    }
 }

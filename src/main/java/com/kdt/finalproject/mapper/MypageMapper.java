@@ -52,4 +52,6 @@ public interface MypageMapper {
 
     int changePwd(Map<String, String> map);
 
+    List<BbsVO> member_review_list(Map<String, String> map);
+
 }
