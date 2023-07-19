@@ -147,7 +147,7 @@
                                         </c:if>
                                         <c:if test="${suar.bvo.b_content != null}">
                                             <td style="text-align: center; vertical-align: middle;">
-                                                <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review?s_idx=${suar.s_idx}'">작성후기 확인
+                                                <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review?s_idx=${suar.s_idx}&s_type=${suar.svo.s_type}'">작성후기 확인
                                                     
                                                 </button>
                                             </td>
@@ -190,7 +190,7 @@
                                         </c:if>
                                         <c:if test="${suar.bvo.b_content != null}">
                                         <td style="text-align: center; vertical-align: middle;">
-                                            <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review?s_idx=${suar.s_idx}'">작성후기 확인
+                                            <button type="button" class="btn btn-outline-dark" onclick="location.href='/my_review?s_idx=${suar.s_idx}&s_type=${suar.svo.s_type}'">작성후기 확인
                                                 
                                             </button>
                                         </td>

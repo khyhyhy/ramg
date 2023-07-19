@@ -139,7 +139,7 @@
 	</select>
 
   <select id="member_review_list" parameterType="Map" resultMap="map7">
-    SELECT a.bl_idx, a.bl_date, b.* FROM bbslog a, (SELECT * FROM bbs_t 
+    SELECT a.bl_idx, a.bl_date, a.m_idx, b.* FROM bbslog a, (SELECT * FROM bbs_t 
                                                     WHERE b_val2 IN (
                                                     SELECT su_idx FROM service_use WHERE s_idx = #{s_idx}) ) b
     WHERE a.b_idx = b.b_idx AND a.m_idx = #{m_idx}

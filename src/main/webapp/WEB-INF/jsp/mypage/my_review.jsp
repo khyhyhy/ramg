@@ -16,7 +16,12 @@
   <jsp:include page="../main/mainH.jsp"></jsp:include>
   <div id="content" class="container text-center">
         <div class="m-5">
-            <h1 style="text-align: center; font-weight: bold;">이용자의 리뷰</h1>
+            <c:if test="${s_type eq null}">
+                <h1 style="text-align: center; font-weight: bold;">이용자의 리뷰</h1>
+            </c:if>
+            <c:if test="${s_type ne null}">
+                <h1 style="text-align: center; font-weight: bold;">나의 리뷰</h1>
+            </c:if>
         </div>
       <table id="bl_list" class="table table-striped table-hover">
          <colgroup>
@@ -80,10 +85,18 @@
                         </c:if>
                     </td>
                     <td>
-                        <c:choose>
-                            <c:when test="${vo.s_type eq 0}"> 탁송 충전 서비스 </c:when>
-                            <c:when test="${vo.s_type eq 1}"> 이동식 충전 서비스 </c:when>
-                        </c:choose>
+                        <c:if test="${s_type eq null && vo.s_type ne null}">
+                            <c:choose>
+                                <c:when test="${vo.s_type eq 0}"> 탁송 충전 서비스 </c:when>
+                                <c:when test="${vo.s_type eq 1}"> 이동식 충전 서비스 </c:when>
+                            </c:choose>
+                        </c:if>
+                        <c:if test="${vo.s_type eq null && s_type ne null}">
+                            <c:choose>
+                                <c:when test="${s_type eq 0}"> 탁송 충전 서비스 </c:when>
+                                <c:when test="${s_type eq 1}"> 이동식 충전 서비스 </c:when>
+                            </c:choose>
+                        </c:if>
                     </td>
                     <td>
                         ${vo.mvo.m_name}

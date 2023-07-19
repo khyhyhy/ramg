@@ -82,7 +82,7 @@ public class MypageController {
     }
 
     @GetMapping("my_review")
-    public ModelAndView search_r(String m_idx, String s_idx) {
+    public ModelAndView search_r(String m_idx, String s_idx, String s_type) {
         ModelAndView mv = new ModelAndView();
         if (m_idx == null) {
             // 로그인한 회원의 m_idx를 얻어내자
@@ -101,6 +101,7 @@ public class MypageController {
             }
         }
         mv.addObject("mr", service.search_r(m_idx));
+        mv.addObject("s_type", s_type);
         mv.setViewName("mypage/my_review");
         return mv;
     }
