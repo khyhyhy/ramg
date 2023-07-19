@@ -65,7 +65,7 @@
             <c:forEach var="cwvo" items="${car}">
                 <tr onmouseover="regRowNum(this)">
                     <td>${cwvo.cvo.c_num}</td>
-                    <td>${cwvo.cvo.c_name}</td>
+                    <td style="word-break: break-all; text-overflow:unset; overflow:unset; white-space:unset;">${cwvo.cvo.c_name}</td>
                     <td>${cwvo.cvo.c_state} ${cwvo.cvo.c_city} ${cwvo.cvo.c_addr1}</td>
                     <td>${cwvo.cvo.movo.mo_bet}</td>
                     <td>${cwvo.cvo.movo.mo_type}</td>
