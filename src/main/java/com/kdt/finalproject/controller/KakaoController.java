@@ -62,7 +62,7 @@ public class KakaoController {
             StringBuffer sb = new StringBuffer();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=45360f73f863670b5f6cfb33bf1fa775");
-            sb.append("&redirect_uri=http://43.202.47.160/kakao/login");
+            sb.append("&redirect_uri=https://final-100.p-e.kr/kakao/login");
             sb.append("&code=" + code);
 
             // 전달하고자하는 파라미터들을 보낼 outputstream을 준비
