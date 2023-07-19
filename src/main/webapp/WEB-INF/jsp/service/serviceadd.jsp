@@ -28,7 +28,6 @@
    <!--////////// Main start //////////////-->
    <div class="container">
     <main>
-     <p>"${mvo.m_idx}"</p>
      <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
      <!-- Button trigger modal -->
      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taksongadd"

@@ -38,7 +38,6 @@
   <!--////////// Main start //////////////-->
   <div class="container">
    <main>
-    <p>"${mvo.m_idx}"</p>
     <!-- <c:if test="${sessionScope.evo == null}"></c:if> -->
     <!-- Button trigger modal -->
     <c:if test="${swvo eq null && suvo ne null}">
