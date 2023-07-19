@@ -113,7 +113,7 @@
 
             // 사용자가 입력한 값들 모두 가져오기
             let name = $("#m_name").val();
-            //let phone = $("#m_phone").val();
+            let phone = $("#m_phone").val();
             let pw = $("#m_pw").val();
             //let address = $("#m_address").val();
             //let payment = $("#m_payment").val();
