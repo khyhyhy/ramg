@@ -44,7 +44,7 @@
      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none" style="margin-right: 150px;">
       <svg class="bi me-2" width="50" height="35"><img style="width: 50px;" src="/images/logo3.png" />
-       <img src="/images/ramgelogo.png" style="width: 200px;"/></svg>
+       <img src="/images/logo.png" style="width: 200px;"/></svg>
       <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
      </a>
      <div class="dropdown">
