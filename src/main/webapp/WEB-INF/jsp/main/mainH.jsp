@@ -19,7 +19,7 @@
      top: 0;
      left: 0;
      right: 0;
-     z-index: 9999;
+     z-index: 999;
      padding: 10px;
      background-color: rgb(255, 255, 255)
     }
@@ -45,7 +45,6 @@
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none" style="margin-right: 150px;">
       <svg class="bi me-2" width="50" height="35"><img style="width: 50px;" src="/images/logo3.png" />
        <img src="/images/logo.png" style="width: 200px;"/></svg>
-      <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
      </a>
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">

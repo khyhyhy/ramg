@@ -121,7 +121,7 @@
          <h1 class="modal-title fs-5" id="staticBackdropLabel">탁송 서비스 등록</h1>
          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="z-index: 9999;">
          <!-- 지도영역 -->
          <div class="accordion accordion-flush" id="accordionFlushExample">
           <div class="accordion-item">
