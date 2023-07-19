@@ -112,6 +112,7 @@
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
    <script>
     function conf() {
+     
      if (confirm("위치 기반 서비스를 이용하여 현재위치를 조회하시겠습니까?")) {
       johoe();
      } else {
@@ -159,10 +160,11 @@
             cityInput3.setAttribute('type', 'hidden');
             cityInput3.setAttribute('name', 'city');
             cityInput3.setAttribute('value', city);
-
+            
             form.appendChild(cityInput3);
 
             document.body.appendChild(form);
+            
             form.submit();
            }
           });
