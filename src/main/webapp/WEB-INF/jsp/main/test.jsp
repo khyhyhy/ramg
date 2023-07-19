@@ -188,17 +188,17 @@
           aria-label="Slide 3"></button>
         </div>
         <div class="carousel-inner">
-         <div class="carousel-item active">
-          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card1.png" class="d-block w-100"
-           alt="...">
+          <div class="carousel-item active">
+           <a href="#" onclick="conf()"><img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card3.png" class="d-block w-100"
+            alt="..."></a>
+          </div>
+         <div class="carousel-item">
+          <a href="/taksong/"><img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card1.png" class="d-block w-100"
+           alt="..."></a>
          </div>
          <div class="carousel-item">
-          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card2.png" class="d-block w-100"
-           alt="...">
-         </div>
-         <div class="carousel-item">
-          <img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card3.png" class="d-block w-100"
-           alt="...">
+          <a href="/edongsik/"><img style="object-fit: contain; width: 500px; height: 500px;" src="../images/card2.png" class="d-block w-100"
+           alt="..."></a>
          </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -298,5 +298,81 @@
    <!--////////// Foter end //////////////-->
 
   </body>
+  <script type="text/javascript"
+    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
+   <script>
+    function conf() {
+     if (confirm("위치 기반 서비스를 이용하여 현재위치를 조회하시겠습니까?")) {
+      johoe();
+     } else {
+      alert("현재위치를 조회해주세요.");
+     }
+    }
+    function johoe() {
+
+     var geocoder = new kakao.maps.services.Geocoder();
+     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+     if (navigator.geolocation) {
+
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+      navigator.geolocation.getCurrentPosition(function (position) {
+       //위도경도를 불러온다.
+       var lati = position.coords.latitude, // 위도
+        lon = position.coords.longitude; // 경도 -->
+       getAddr(lati, lon);
+       //주소를 불러오는 함수
+       function getAddr(lati, lon) {
+        let geocoder2 = new kakao.maps.services.Geocoder();
+
+        let coord = new kakao.maps.LatLng(lati, lon);
+
+        let callback = function (result, status) {
+
+         if (status === kakao.maps.services.Status.OK) {
+
+          //console.log(result);
+          var city = result[0].address.address_name;
+          //console.log(result[0].road_address.address_name);
+          //console.log(city+"/1번");
+          geocoder.addressSearch(result[0].address.address_name, function (result, status) {
+
+           //console.log(city+"/2번");
+           //정상적으로 검색이 완료됐다면.....
+           if (status === kakao.maps.services.Status.OK) {
+            // 강제 전송 코드
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/fmap/');
+            form.style.display = 'none';
+
+            var cityInput3 = document.createElement('input');
+            cityInput3.setAttribute('type', 'hidden');
+            cityInput3.setAttribute('name', 'city');
+            cityInput3.setAttribute('value', city);
+
+            form.appendChild(cityInput3);
+
+            document.body.appendChild(form);
+            form.submit();
+           }
+          });
+
+         }
+        }
+        geocoder2.coord2Address(coord.getLng(), coord.getLat(), callback);
+       }
+      });
+     } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+      var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
+
+       message = 'geolocation을 사용할수 없어요..'
+
+      displayMarker(locPosition, message);
+     }
+
+    }
+
+   </script>
 
   </html>

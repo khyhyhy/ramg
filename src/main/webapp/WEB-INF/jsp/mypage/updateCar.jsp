@@ -27,15 +27,14 @@
 <body>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 
-<div class="text-center" style="margin-top: 150px;">
-    <!-- 차량 추가 -->
+<div class="text-center">
     <div class="container-sm">
 <header>
-  <div style="margin: 50px 0 0 0;">
+  <div class="m-5">
     <h1 style="text-align: center; font-weight: bold;">차량 정보 수정</h1>
 </div>
 </header>
-  <table class="table table-striped table-hover">
+  <table class="table">
     <colgroup>
       <col width="200px">
       <col width="*">

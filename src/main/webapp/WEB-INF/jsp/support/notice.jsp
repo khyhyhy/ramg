@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>고객센터 공지사항 리스트</title>
+<title>공지사항</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 <link href="../../../css/page.css" rel="stylesheet">
 <link href="../../../css/ramg.css" rel="stylesheet">
@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <div style="margin: 50px 0 0 0;">
+        <div class="m-5">
             <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">공지사항</h1>
         </div>
         <form action="">

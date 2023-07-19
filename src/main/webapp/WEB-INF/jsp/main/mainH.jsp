@@ -19,7 +19,7 @@
      top: 0;
      left: 0;
      right: 0;
-     z-index: 9999;
+     z-index: 999;
      padding: 10px;
      background-color: rgb(255, 255, 255)
     }
@@ -44,8 +44,7 @@
      class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between mb-4 border-bottom">
      <a href="/main/" class="d-flex align-items-center mb-3 mb-md-0 me-md-20 text-dark text-decoration-none" style="margin-right: 150px;">
       <svg class="bi me-2" width="50" height="35"><img style="width: 50px;" src="/images/logo3.png" />
-       <img src="/images/ramgelogo.png" style="width: 200px;"/></svg>
-      <span class="fs-4 text-white" style="font-size: xx-large !important; font-family: 'GoryeongStrawberry'; "> </span>
+       <img src="/images/logo.png" style="width: 200px;"/></svg>
      </a>
      <div class="dropdown">
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -101,16 +100,14 @@
      </c:if>
      <c:if test="${sessionScope.mvo ne null}">
       <div class="col-md-3 text-end">
-       ${sessionScope.mvo.m_name}님 환영합니다.<br>
-       <button id="logoutButton" type="button" class="btn btn-light"><a href="/logout"
+       <p class="me-3 mb-0"><a href="/mypage">${sessionScope.mvo.m_name}</a>님 환영합니다.</p>
+       <button id="logoutButton" type="button" class="btn btn-light me-3 pt-0"><a href="/logout"
          style="color: rgb(37, 37, 37) !important; text-decoration: none !important;">로그아웃<i class="fa fa-sign-out ms-2" aria-hidden="true"></i></a></button>
       </div>
      </c:if>
     </header>
    </div>
    <!--////////// Header end ////////////-->
-   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
-    integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
    <script type="text/javascript"
     src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eedecff808e53f9bd6b2000c4b6da49a&libraries=services"></script>
    <script>

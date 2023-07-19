@@ -17,7 +17,7 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <div style="margin: 50px 0 0 0;">
+        <div class="m-5">
             <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">리뷰 게시판</h1>
         </div>
         <form action="/support/review" method="post">

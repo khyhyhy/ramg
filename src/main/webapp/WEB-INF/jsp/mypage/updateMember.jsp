@@ -35,14 +35,14 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
 
-    <div class="container text-center" style="margin-top: 150px;">
+    <div class="container text-center">
 
     <article>
-        <div style="margin: 50px 0 0 0;">
+        <div class="m-5">
             <h1 style="text-align: center; font-weight: bold;">나의 정보 수정</h1>
         </div>
    </article>
-   <table class="table table-striped table-hover">
+   <table class="table">
     <tbody>
         <tr>
             <th><label for="m_email">이메일</label></th>
