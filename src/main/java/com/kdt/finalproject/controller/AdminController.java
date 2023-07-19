@@ -503,9 +503,9 @@ public class AdminController {
 
         String path;
 
-        MemVO mvo = service.admin_login(vo);
-        if (mvo != null) {
-            session.setAttribute("mvo", mvo);
+        MemVO amvo = service.admin_login(vo);
+        if (amvo != null) {
+            session.setAttribute("amvo", amvo);
             path = "redirect:/admin/home";
         } else {
             path = "/admin/login";

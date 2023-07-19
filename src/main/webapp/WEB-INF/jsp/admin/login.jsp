@@ -21,9 +21,9 @@ pageEncoding="UTF-8"%>
     <form action="/admin/login" method="post">
         <div style="margin: 0 auto; width: 300px;">
             <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-            <input type="email" name="m_email" class="form-control" value="admin@ramg.com">
+            <input type="email" name="m_email" class="form-control">
             <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-            <input type="password" name="m_pw"class="form-control" value="1111">
+            <input type="password" name="m_pw"class="form-control">
             <button type="submit" class="btn btn-outline-warning" style="margin-top: 30px; width: 300px;">로그인</button>
         </div>
     </form>

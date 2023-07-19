@@ -26,11 +26,11 @@
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
           <div class="offcanvas-header">
             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
-            <c:if test="${sessionScope.mvo != null}">
-              <b>${sessionScope.mvo.m_name}</b>님 환영합니다.<br>
+            <c:if test="${sessionScope.amvo != null}">
+              <b>${sessionScope.amvo.m_name}</b>님 환영합니다.<br>
               <a href="/admin/logout">로그아웃</a>
             </c:if>
-            <c:if test="${sessionScope.mvo == null}">
+            <c:if test="${sessionScope.amvo == null}">
               <a href="/admin/login">로그인</a>
             </c:if>
           </h5>

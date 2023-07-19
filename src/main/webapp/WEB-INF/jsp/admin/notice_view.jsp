@@ -69,7 +69,7 @@ pageEncoding="UTF-8"%>
             
             <form name="frm" method="post">
                 <input type="hidden" name="fname"/>
-                <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
+                <input type="hidden" name="m_idx" value="${sessionScope.amvo.m_idx}" id="m_idx">
                 <input type="hidden" name="b_idx" value="${vo.b_idx}" id="b_idx"/>
                 <input type="hidden" name="b_val1" value="${vo.b_val1}" id="b_val1"/>
                 <input type="hidden" name="cPage" value="${param.cPage}"/>
@@ -156,7 +156,7 @@ pageEncoding="UTF-8"%>
     }
 
     function edit(){
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }
@@ -165,7 +165,7 @@ pageEncoding="UTF-8"%>
     }
 
     function notice_del(){
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }

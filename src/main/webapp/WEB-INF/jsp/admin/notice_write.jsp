@@ -62,7 +62,7 @@ pageEncoding="UTF-8"%>
                 <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
             </div>
                 
-            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}"> 
+            <input type="hidden" name="m_idx" value="${sessionScope.amvo.m_idx}"> 
             <input type="hidden" name="b_type" id="b_type">
         </form>
     </div>
@@ -121,7 +121,7 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData() {
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }

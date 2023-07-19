@@ -18,7 +18,7 @@ public class Admin_LoginInterceptor implements HandlerInterceptor {
         // false : 삭제된 상태라면 session이 null값
 
         // 로그인 시 저장했던 객체(mvo)를 얻어낸다. 새롭게 생성되었다면 mvo null
-        Object obj = session.getAttribute("mvo");
+        Object obj = session.getAttribute("amvo");
         if (obj == null) { // 로그인 하지않은 경우 - 현재 URL이 /sub/bravo 였고
             response.sendRedirect("/admin/login"); // 이때 login앞에 / 붙여야 한다.
             return false;

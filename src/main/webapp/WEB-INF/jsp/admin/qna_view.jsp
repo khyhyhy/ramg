@@ -99,8 +99,8 @@ pageEncoding="UTF-8"%>
             
         <form name="frm" method="post">
             <input type="hidden" name="b_idx" value="${vo.b_idx}">
-            <input type="hidden" name="m_idx" value="${sessionScope.mvo.m_idx}" id="m_idx">
-            <input type="hidden" name="m_name" value="${sessionScope.mvo.m_name}" id="m_name">
+            <input type="hidden" name="m_idx" value="${sessionScope.amvo.m_idx}" id="m_idx">
+            <input type="hidden" name="m_name" value="${sessionScope.amvo.m_name}" id="m_name">
             <input type="hidden" name="target" value="${vo.b_idx}" id="target">
             <input type="hidden" name="fname">
             <input type="hidden" name="cPage" value="${param.cPage}">
@@ -169,7 +169,7 @@ pageEncoding="UTF-8"%>
     }
 
     function sendData(){
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }
@@ -201,7 +201,7 @@ pageEncoding="UTF-8"%>
     }
 
     function qna_comm_del(b_idx){
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }
@@ -259,7 +259,7 @@ pageEncoding="UTF-8"%>
 
     }
     function qna_del(){
-        if('${sessionScope.mvo}' == ""){
+        if('${sessionScope.amvo}' == ""){
             alert("로그인을 먼저 해주세요");
             return;
         }
