@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>관리자페이지 문의 보기</title>
+<title>관리자페이지 문의 관리</title>
 <link href="../../../css/admin.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../css/summernote-lite.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -20,8 +21,8 @@ pageEncoding="UTF-8"%>
 <jsp:include page="mainH.jsp"></jsp:include>
 <main>
     <div class="container" style="margin-top: 100px;">
-        <div style="margin: 50px 0 ;">
-            <h1 style="text-align: center; font-weight: bold;">문의</h1>
+        <div class="m-5">
+            <h1 style="text-align: center; font-weight: bold;">문의 관리</h1>
         </div>
         <table class="table table-bordered">
             <colgroup>
@@ -71,7 +72,8 @@ pageEncoding="UTF-8"%>
             </button>
             <span style="float: right;"><button type="button" class="btn btn-outline-warning" onclick="javascript:qna_del()">삭제</button></span>
         </div>
-
+        <hr>   
+        <p style="font-size: large; font-weight: bold;">댓글 [ ${fn:length(car)} ]</p>
         <table class="table table-bordered">
             <c:forEach items="${car}" var="vo">
             <tr>
@@ -88,7 +90,7 @@ pageEncoding="UTF-8"%>
             </c:forEach>
         </table>
             
-        <textarea name="b_content" id="b_content"></textarea>
+        <textarea class="mt-0" name="b_content" id="b_content"></textarea>
         <div style="height: 80px; margin-top: 10px;">
             <button type="button" class="btn btn-outline-warning"  onclick="javascript:back();">목록</button>
             <button type="button" class="btn btn-outline-warning" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>

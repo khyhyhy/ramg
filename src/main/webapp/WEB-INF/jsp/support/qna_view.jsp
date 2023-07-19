@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +21,9 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <br>
-        <br>
+        <div class="m-5">
+            <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">문의 게시판</h1>
+        </div>
         <table class="table table-bordered">
             <colgroup>
                 <col width="150px">
@@ -70,7 +72,8 @@ pageEncoding="UTF-8"%>
                 </span>
             </c:if>
         </div>
-            
+        <hr>   
+        <p style="font-size: large; font-weight: bold;">댓글 [ ${fn:length(ar)} ]</p>
         <table class="table table-bordered" id="comm_table">
             <c:forEach items="${ar}" var="vo">
                 <tr>
@@ -88,10 +91,8 @@ pageEncoding="UTF-8"%>
                 </tr>
             </c:forEach>
         </table>
-
-            
-            <textarea name="b_content" id="b_content"></textarea>
-            <div style="height: 80px; margin-top: 10px;">
+            <textarea class="mt-0" name="b_content" id="b_content"></textarea>
+            <div class="mt-5" style="height: 80px;">
                 <button type="button" class="btn btn-outline-info"  onclick="javascript:back();">목록</button>
                 <c:if test="${sessionScope.mvo != null}">
                     <button type="button" class="btn btn-outline-info" onclick="javascript:sendData()" style="float: right;">댓글 등록</button>

@@ -16,48 +16,50 @@ pageEncoding="UTF-8"%>
 <jsp:include page="../main/mainH.jsp"></jsp:include>
 <main>
     <div class="container">
-        <br>
-        <br>
-        <table class="table table-bordered">
-            <colgroup>
-                <col width="150px">
-                <col width="*">
-            </colgroup>
-            <tbody>
-                <tr>
-                    <th>작성일</th>
-                    <td>${vo.bbslog.bl_date}</td>
-                </tr>
-                <tr>
-                    <th>제목</th>
-                    <td>${vo.b_title}</td>
-                </tr>
-                <tr>
-                    <th style="height: 400px;">내용</th>
-                    <td>${vo.b_content}</td>
-                </tr>
-                <tr>
-                    <th>첨부파일</th>
-                    <td>
-                        <c:if test="${vo.b_filename != null }">
-                            <a href="javascript:down('${vo.b_filename}')">${vo.b_oriname}</a>
-                        </c:if>
-                        <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
-                    </td>
-                </tr>
-            </table>
-            <div style="height: 80px;" >
-                <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button></th>
+        <div class="mt-5 mb-5">
+            <div class="m-5">
+                <h1 style="text-align: center; font-weight: bold; color: rgb(35, 55, 109);">공지사항</h1>
             </div>
+            <table class="table table-bordered">
+                <colgroup>
+                    <col width="150px">
+                    <col width="*">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <th>작성일</th>
+                        <td>${vo.bbslog.bl_date}</td>
+                    </tr>
+                    <tr>
+                        <th>제목</th>
+                        <td>${vo.b_title}</td>
+                    </tr>
+                    <tr>
+                        <th style="height: 400px;">내용</th>
+                        <td>${vo.b_content}</td>
+                    </tr>
+                    <tr>
+                        <th>첨부파일</th>
+                        <td>
+                            <c:if test="${vo.b_filename != null }">
+                                <a href="javascript:down('${vo.b_filename}')">${vo.b_oriname}</a>
+                            </c:if>
+                            <c:if test="${vo.b_filename == null }"><span style="font-size: small; color: rgb(179, 179, 179);">첨부파일이 없습니다</span></c:if>
+                        </td>
+                    </tr>
+                </table>
+                <div style="height: 80px;" >
+                    <button type="button" class="btn btn-outline-info" onclick="javascript:sub()">목록</button></th>
+                </div>
 
-        <form name="frm" method="post">
-            <input type="hidden" name="fname"/>
-            <input type="hidden" name="b_idx" value="${vo.b_idx}"/>
-            <input type="hidden" name="cPage" value="${param.cPage}"/>
-            <input type="hidden" name="searchType" value="${param.searchType}">
-            <input type="hidden" name="searchValue" value="${param.searchValue}">
-        </form>
-
+            <form name="frm" method="post">
+                <input type="hidden" name="fname"/>
+                <input type="hidden" name="b_idx" value="${vo.b_idx}"/>
+                <input type="hidden" name="cPage" value="${param.cPage}"/>
+                <input type="hidden" name="searchType" value="${param.searchType}">
+                <input type="hidden" name="searchValue" value="${param.searchValue}">
+            </form>
+        </div>
     </div>
 </main>
 <jsp:include page="../main/mainF.jsp"></jsp:include>
