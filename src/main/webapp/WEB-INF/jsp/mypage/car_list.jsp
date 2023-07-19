@@ -13,25 +13,10 @@
    <style>
         table{
             margin: 0 auto;
-            width: 80%;
             border: 1px solid black;
             border-collapse: collapse;
             text-align: center;
-            /* background-color: aqua; */
-
         }
-
-
-
-        .container{
-            margin-top: 2cm;
-            margin-bottom: 2cm;
-        }
-
-        article{
-            margin-bottom: 1cm;
-        }
-        
    </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -39,13 +24,13 @@
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
    
-  <div class="align-items-center" style="margin-top: 150px;">
+  <div class="container align-items-center">
     <header>
-        <div style="margin: 50px 0 0 0;">
+        <div class="m-5">
             <h1 style="text-align: center; font-weight: bold;">차량 목록</h1>
         </div>
     </header>
-   <div class="container-sm">
+   <div class="container-sm mb-5">
     <table id="car_list" class="table table-striped table-hover">
         <colgroup>
             <col width="150px"/>
@@ -93,7 +78,7 @@
         </tbody>
     </table>
     </div>
-   </div>
+</div>
    <jsp:include page="../main/mainF.jsp"></jsp:include>
     
 

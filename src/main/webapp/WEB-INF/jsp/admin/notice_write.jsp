@@ -5,7 +5,7 @@ pageEncoding="UTF-8"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">about:blank#blockede
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관리자페이지 공지쓰기</title>
 <link href="../../../css/admin.css" rel="stylesheet">
 <link rel="stylesheet" href="../../../css/summernote-lite.css">

@@ -9,38 +9,16 @@
    <title>Insert title here</title>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
    <link href="../../../css/ramg.css" rel="stylesheet">
-   <style>
-      table{
-          margin: 0 auto;
-          width: 80%;
-          border-collapse: collapse;
-          text-align: center;
-      }
-
-      div{
-        text-align: center;
-      }
-      .container{
-        margin-top: 2cm;
-        margin-bottom: 2cm;
-    }
-    article{
-        margin-bottom: 1cm;
-    }
-      
-  </style>
   </head>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <body>
   <jsp:include page="../main/mainH.jsp"></jsp:include>
   <div id="content" class="container text-center">
-       <article>
-        <div style="margin: 50px 0 0 0;">
-            <h1 style="text-align: center; font-weight: bold;">나의 리뷰</h1>
+        <div class="m-5">
+            <h1 style="text-align: center; font-weight: bold;">이용자의 리뷰</h1>
         </div>
-       </article>
-      <table id="bl_list" class="table table-striped table-hover" style="margin-top: 150px;">
+      <table id="bl_list" class="table table-striped table-hover">
          <colgroup>
             <col width="*">
             <col width="200px">
