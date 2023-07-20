@@ -571,7 +571,7 @@ WHERE s_idx = #{s_idx}
 
 <select id="car_log2" parameterType="String" resultMap="car_map3">
 SELECT * FROM charging.car_write
-WHERE c_idx = #{c_idx}
+WHERE c_idx = #{c_idx} AND cw_type=0
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="car_map3">
@@ -682,7 +682,7 @@ SELECT COUNT(*) FROM charging.service_use
 
 <select id="car_view6" parameterType="String" resultMap="car_view_map5">
   SELECT * FROM car_write
-  WHERE c_idx = #{c_idx}
+  WHERE c_idx = #{c_idx} AND cw_type = 0
 </select>
 
 <resultMap id="car_view_map5" type="com.kdt.finalproject.vo.CwriteVO">

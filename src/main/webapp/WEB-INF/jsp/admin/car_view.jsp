@@ -58,6 +58,17 @@ pageEncoding="UTF-8"%>
                 </tr>
             </tbody>
         </table>
+        <table class="table table-hover">
+            <tr class="table-warning">
+                <th>사업자 정보</th>
+                <th>사업자 전화번호</th>
+            </tr>
+            <tr>
+                <td><a href="/admin/member_view?m_idx=${ar[0].svo.swvo.mvo.m_idx}&cPage=1">${ar[0].svo.swvo.mvo.m_name}</a></td>
+                <td>
+                    ${ar[0].svo.swvo.mvo.m_phone.substring(0,3) }-${ar[0].svo.swvo.mvo.m_phone.substring(3,7) }-${ar[0].svo.swvo.mvo.m_phone.substring(7,11) }</td>
+            </tr>
+        </table>
 
 
         <table class="table table-hover">

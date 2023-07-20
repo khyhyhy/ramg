@@ -77,15 +77,40 @@
             </tbody>
         </table>
 
+
         <c:if test="${vo.m_class != 0 && vo.sw_list.size() != 0}">
         <table class="table table-bordered">
+            <tr class="table-warning">
+                <th>평점</th>
+                <th>매출</th>
+            </tr>
+            <tr>
+                <td>
+                    <c:if test="${bz_r_ar != null}">
+                        <c:set var="avg" value="0"/>
+                        <c:forEach items="${bz_r_ar}" var="vo">
+                            <c:set var="avg" value="${avg+vo.b_score}"/>
+                        </c:forEach>
+                        <c:set var="avg" value="${avg/fn:length(bz_r_ar)}"/>
+                        <a href="javascript:review_bz()">${avg} [${fn:length(bz_r_ar)}]</a>
+                    </c:if>
+                    <c:if test="${bz_r_ar == null}">
+                        등록된 리뷰가 없습니다.
+                    </c:if>
+                </td>
+                <td>
+                    <fmt:formatNumber pattern="#,###" value="${service_price + charge_price}"/>원
+                </td>
+            </tr>
+        </table>
+
+        
+        <table class="table table-bordered">
             <colgroup>
-                <col width="200px">
-                <col width="200px">
+                <col width="300px">
+                <col width="300px">
                 <col width="*">
-                <col width="200px">
-                <col width="200px">
-                <col width="200px">
+                <col width="300px">
             </colgroup>
             <thead>
                 <tr class="table-warning">
@@ -93,14 +118,12 @@
                     <th>범위</th>
                     <th>주소</th>
                     <th>서비스 금액</th>
-                    <th>평점</th>
-                    <th>매출</th>
                 </tr>
             </thead>
             <c:forEach items="${vo.sw_list}" var="sw">
             <tbody>
                 <tr>
-                    <td>
+                    <td><a href="#"></a>
                         <c:if test="${sw.svo.s_type == 0}">
                            탁송
                         </c:if>
@@ -111,22 +134,6 @@
                     <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_radius}"/>m</td>
                     <td>${sw.svo.s_state} ${sw.svo.s_city} ${sw.svo.s_addr1}</td>
                     <td><fmt:formatNumber pattern="#,###" value="${sw.svo.s_val1}"/>원</td>
-                    <td>
-                        <c:if test="${bz_r_ar != null}">
-                            <c:set var="avg" value="0"/>
-                            <c:forEach items="${bz_r_ar}" var="vo">
-                                <c:set var="avg" value="${avg+vo.b_score}"/>
-                            </c:forEach>
-                            <c:set var="avg" value="${avg/fn:length(bz_r_ar)}"/>
-                            <a href="javascript:review_bz()">${avg} [${fn:length(bz_r_ar)}]</a>
-                        </c:if>
-                        <c:if test="${bz_r_ar == null}">
-                            등록된 리뷰가 없습니다.
-                        </c:if>
-                    </td>
-                    <td>
-                        <fmt:formatNumber pattern="#,###" value="${service_price + charge_price}"/>원
-                    </td>
                 </tr>
             </tbody>
             </c:forEach>

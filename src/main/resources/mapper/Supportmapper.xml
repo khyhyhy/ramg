@@ -371,7 +371,7 @@ WHERE su_idx = #{b_val2} AND su_val2 = 0;
 
 <select id="car_log2" parameterType="String" resultMap="car_map3">
 SELECT * FROM charging.car_write
-WHERE c_idx = #{c_idx}
+WHERE c_idx = #{c_idx} AND cw_type = 0
 </select>
 
 <resultMap type="com.kdt.finalproject.vo.CwriteVO" id="car_map3">
