@@ -194,7 +194,7 @@
     var longitude = pos.coords.longitude;
     document.getElementById("lat1").value = latitude;
     document.getElementById("lng1").value = longitude;
-    alert("현재 위치는 : " + latitude + ", " + longitude);
+    //alert("현재 위치는 : " + latitude + ", " + longitude);
     document.forms[0].submit();
    });
   }

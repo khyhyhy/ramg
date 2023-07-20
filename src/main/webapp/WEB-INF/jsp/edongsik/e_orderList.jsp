@@ -259,7 +259,7 @@
                                 function openModal(su_idx) {
                                     var modalSuIdx = document.getElementById("modalSuIdx");
                                     modalSuIdx.value = su_idx;
-                                    alert("su_idx :"+su_idx);
+                                    //alert("su_idx :"+su_idx);
                                 }
                             </script>
                         
