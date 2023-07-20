@@ -65,7 +65,7 @@
         <div style="display: flex; justify-content: center; align-items: center; min-height: 60vh;">
 
           <div class="card" style="width: 19rem; ">
-            <img src="/images/map_icon.png" class="card-img-top" alt="...">
+            <img src="/images/locationcard.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">현재 위치 검색</h5>
               <p class="card-text"></p>
@@ -92,7 +92,7 @@
         
     
           <div class="card" style="width: 19rem; margin-left: 150px;">
-            <img src="/images/car_icon.png" class="card-img-top" alt="...">
+            <img src="/images/parking.png" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">차량 등록 주소</h5>
               <p class="card-text"></p>
